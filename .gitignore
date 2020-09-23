@@ -1,0 +1,10 @@
+Documentation/DocBook/media/dvb/dvbstb.pdf
+Documentation/DocBook/media/v4l/crop.pdf
+Documentation/DocBook/media/v4l/fieldseq_bt.pdf
+Documentation/DocBook/media/v4l/fieldseq_tb.pdf
+Documentation/DocBook/media/v4l/pipeline.pdf
+Documentation/DocBook/media/v4l/vbi_525.pdf
+Documentation/DocBook/media/v4l/vbi_625.pdf
+Documentation/DocBook/media/v4l/vbi_hsync.pdf
+arch/sh/boot/compressed/vmlinux.scr
+arch/sh/boot/romimage/vmlinux.scr
