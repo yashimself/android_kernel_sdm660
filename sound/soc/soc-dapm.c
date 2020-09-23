@@ -386,7 +386,11 @@ static int dapm_kcontrol_data_alloc(struct snd_soc_dapm_widget *widget,
 
 			memset(&template, 0, sizeof(template));
 			template.reg = e->reg;
+<<<<<<< HEAD
 			template.mask = e->mask;
+=======
+			template.mask = e->mask << e->shift_l;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			template.shift = e->shift_l;
 			template.off_val = snd_soc_enum_item_to_val(e, 0);
 			template.on_val = template.off_val;
@@ -513,6 +517,7 @@ static bool dapm_kcontrol_set_value(const struct snd_kcontrol *kcontrol,
 	if (data->value == value)
 		return false;
 
+<<<<<<< HEAD
 	if (data->widget) {
 		switch (dapm_kcontrol_get_wlist(kcontrol)->widgets[0]->id) {
 		case snd_soc_dapm_switch:
@@ -529,6 +534,10 @@ static bool dapm_kcontrol_set_value(const struct snd_kcontrol *kcontrol,
 			break;
 		}
 	}
+=======
+	if (data->widget)
+		data->widget->on_val = value;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	data->value = value;
 
@@ -768,6 +777,7 @@ static void dapm_set_mixer_path_status(struct snd_soc_dapm_path *p, int i)
 			val = max - val;
 		p->connect = !!val;
 	} else {
+<<<<<<< HEAD
 		/* since a virtual mixer has no backing registers to
 		 * decide which path to connect, it will try to match
 		 * with initial state.  This is to ensure
@@ -775,6 +785,9 @@ static void dapm_set_mixer_path_status(struct snd_soc_dapm_path *p, int i)
 		 * correctly powered up during initialization.
 		 */
 		p->connect = invert;
+=======
+		p->connect = 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 }
 
@@ -4355,7 +4368,11 @@ static void soc_dapm_shutdown_dapm(struct snd_soc_dapm_context *dapm)
 			continue;
 		if (w->power) {
 			dapm_seq_insert(w, &down_list, false);
+<<<<<<< HEAD
 			w->new_power = 0;
+=======
+			w->power = 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			powerdown = 1;
 		}
 	}

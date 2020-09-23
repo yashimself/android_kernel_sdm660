@@ -44,6 +44,14 @@ static const char *default_compressor = "lzo";
 
 /* Module params (documentation at end) */
 static unsigned int num_devices = 1;
+<<<<<<< HEAD
+=======
+/*
+ * Pages that compress to sizes equals or greater than this are stored
+ * uncompressed in memory.
+ */
+static size_t huge_class_size;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 static void zram_free_page(struct zram *zram, size_t index);
 
@@ -931,6 +939,11 @@ static bool zram_meta_alloc(struct zram *zram, u64 disksize)
 		return false;
 	}
 
+<<<<<<< HEAD
+=======
+	if (!huge_class_size)
+		huge_class_size = zs_huge_class_size(zram->mem_pool);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return true;
 }
 
@@ -1117,7 +1130,11 @@ compress_again:
 		return ret;
 	}
 
+<<<<<<< HEAD
 	if (unlikely(comp_len > max_zpage_size)) {
+=======
+	if (unlikely(comp_len >= huge_class_size)) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		comp_len = PAGE_SIZE;
 		if (zram_wb_enabled(zram) && allow_wb) {
 			zcomp_stream_put(zram->comp);

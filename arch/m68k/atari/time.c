@@ -24,6 +24,7 @@
 DEFINE_SPINLOCK(rtc_lock);
 EXPORT_SYMBOL_GPL(rtc_lock);
 
+<<<<<<< HEAD
 static irqreturn_t mfp_timer_c_handler(int irq, void *dev_id)
 {
 	irq_handler_t timer_routine = dev_id;
@@ -36,6 +37,8 @@ static irqreturn_t mfp_timer_c_handler(int irq, void *dev_id)
 	return IRQ_HANDLED;
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 void __init
 atari_sched_init(irq_handler_t timer_routine)
 {
@@ -44,8 +47,12 @@ atari_sched_init(irq_handler_t timer_routine)
     /* start timer C, div = 1:100 */
     st_mfp.tim_ct_cd = (st_mfp.tim_ct_cd & 15) | 0x60;
     /* install interrupt service routine for MFP Timer C */
+<<<<<<< HEAD
     if (request_irq(IRQ_MFP_TIMC, mfp_timer_c_handler, 0, "timer",
                     timer_routine))
+=======
+    if (request_irq(IRQ_MFP_TIMC, timer_routine, 0, "timer", timer_routine))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	pr_err("Couldn't register timer interrupt\n");
 }
 

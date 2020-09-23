@@ -1,6 +1,9 @@
+<<<<<<< HEAD
 
 header-y += ../arch/
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 generic-y += bug.h
 generic-y += bugs.h
 generic-y += clkdev.h

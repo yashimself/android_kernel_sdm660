@@ -185,7 +185,11 @@ static int realloc_sampling_buffer(struct sf_buffer *sfb,
 				   unsigned long num_sdb, gfp_t gfp_flags)
 {
 	int i, rc;
+<<<<<<< HEAD
 	unsigned long *new, *tail, *tail_prev = NULL;
+=======
+	unsigned long *new, *tail;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (!sfb->sdbt || !sfb->tail)
 		return -EINVAL;
@@ -224,7 +228,10 @@ static int realloc_sampling_buffer(struct sf_buffer *sfb,
 			sfb->num_sdbt++;
 			/* Link current page to tail of chain */
 			*tail = (unsigned long)(void *) new + 1;
+<<<<<<< HEAD
 			tail_prev = tail;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			tail = new;
 		}
 
@@ -234,6 +241,7 @@ static int realloc_sampling_buffer(struct sf_buffer *sfb,
 		 * issue, a new realloc call (if required) might succeed.
 		 */
 		rc = alloc_sample_data_block(tail, gfp_flags);
+<<<<<<< HEAD
 		if (rc) {
 			/* Undo last SDBT. An SDBT with no SDB at its first
 			 * entry but with an SDBT entry instead can not be
@@ -250,6 +258,12 @@ static int realloc_sampling_buffer(struct sf_buffer *sfb,
 		sfb->num_sdb++;
 		tail++;
 		tail_prev = new = NULL;	/* Allocated at least one SBD */
+=======
+		if (rc)
+			break;
+		sfb->num_sdb++;
+		tail++;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	/* Link sampling buffer to its origin */
@@ -1294,12 +1308,22 @@ static void hw_perf_event_update(struct perf_event *event, int flush_all)
 		 */
 		if (flush_all && done)
 			break;
+<<<<<<< HEAD
+=======
+
+		/* If an event overflow happened, discard samples by
+		 * processing any remaining sample-data-blocks.
+		 */
+		if (event_overflow)
+			flush_all = 1;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	/* Account sample overflows in the event hardware structure */
 	if (sampl_overflow)
 		OVERFLOW_REG(hwc) = DIV_ROUND_UP(OVERFLOW_REG(hwc) +
 						 sampl_overflow, 1 + num_sdb);
+<<<<<<< HEAD
 
 	/* Perf_event_overflow() and perf_event_account_interrupt() limit
 	 * the interrupt rate to an upper limit. Roughly 1000 samples per
@@ -1316,6 +1340,8 @@ static void hw_perf_event_update(struct perf_event *event, int flush_all)
 				    DIV_ROUND_UP(SAMPL_RATE(hwc), 10));
 	}
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (sampl_overflow || event_overflow)
 		debug_sprintf_event(sfdbg, 4, "hw_perf_event_update: "
 				    "overflow stats: sample=%llu event=%llu\n",

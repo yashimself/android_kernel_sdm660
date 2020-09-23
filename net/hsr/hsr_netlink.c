@@ -132,7 +132,10 @@ static struct genl_family hsr_genl_family = {
 	.name = "HSR",
 	.version = 1,
 	.maxattr = HSR_A_MAX,
+<<<<<<< HEAD
 	.netnsok = true,
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 static const struct genl_multicast_group hsr_mcgrps[] = {
@@ -260,6 +263,7 @@ static int hsr_get_node_status(struct sk_buff *skb_in, struct genl_info *info)
 	if (!na)
 		goto invalid;
 
+<<<<<<< HEAD
 	rcu_read_lock();
 	hsr_dev = dev_get_by_index_rcu(genl_info_net(info),
 				       nla_get_u32(info->attrs[HSR_A_IFINDEX]));
@@ -270,6 +274,19 @@ static int hsr_get_node_status(struct sk_buff *skb_in, struct genl_info *info)
 
 	/* Send reply */
 	skb_out = genlmsg_new(NLMSG_GOODSIZE, GFP_ATOMIC);
+=======
+	hsr_dev = __dev_get_by_index(genl_info_net(info),
+					nla_get_u32(info->attrs[HSR_A_IFINDEX]));
+	if (!hsr_dev)
+		goto invalid;
+	if (!is_hsr_master(hsr_dev))
+		goto invalid;
+
+
+	/* Send reply */
+
+	skb_out = genlmsg_new(NLMSG_GOODSIZE, GFP_KERNEL);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!skb_out) {
 		res = -ENOMEM;
 		goto fail;
@@ -321,10 +338,18 @@ static int hsr_get_node_status(struct sk_buff *skb_in, struct genl_info *info)
 	res = nla_put_u16(skb_out, HSR_A_IF1_SEQ, hsr_node_if1_seq);
 	if (res < 0)
 		goto nla_put_failure;
+<<<<<<< HEAD
+=======
+	rcu_read_lock();
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	port = hsr_port_get_hsr(hsr, HSR_PT_SLAVE_A);
 	if (port)
 		res = nla_put_u32(skb_out, HSR_A_IF1_IFINDEX,
 				  port->dev->ifindex);
+<<<<<<< HEAD
+=======
+	rcu_read_unlock();
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (res < 0)
 		goto nla_put_failure;
 
@@ -334,22 +359,36 @@ static int hsr_get_node_status(struct sk_buff *skb_in, struct genl_info *info)
 	res = nla_put_u16(skb_out, HSR_A_IF2_SEQ, hsr_node_if2_seq);
 	if (res < 0)
 		goto nla_put_failure;
+<<<<<<< HEAD
+=======
+	rcu_read_lock();
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	port = hsr_port_get_hsr(hsr, HSR_PT_SLAVE_B);
 	if (port)
 		res = nla_put_u32(skb_out, HSR_A_IF2_IFINDEX,
 				  port->dev->ifindex);
+<<<<<<< HEAD
 	if (res < 0)
 		goto nla_put_failure;
 
 	rcu_read_unlock();
 
+=======
+	rcu_read_unlock();
+	if (res < 0)
+		goto nla_put_failure;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	genlmsg_end(skb_out, msg_head);
 	genlmsg_unicast(genl_info_net(info), skb_out, info->snd_portid);
 
 	return 0;
 
+<<<<<<< HEAD
 rcu_unlock:
 	rcu_read_unlock();
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 invalid:
 	netlink_ack(skb_in, nlmsg_hdr(skb_in), -EINVAL);
 	return 0;
@@ -359,7 +398,10 @@ nla_put_failure:
 	/* Fall through */
 
 fail:
+<<<<<<< HEAD
 	rcu_read_unlock();
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return res;
 }
 
@@ -367,6 +409,7 @@ fail:
  */
 static int hsr_get_node_list(struct sk_buff *skb_in, struct genl_info *info)
 {
+<<<<<<< HEAD
 	unsigned char addr[ETH_ALEN];
 	struct net_device *hsr_dev;
 	struct sk_buff *skb_out;
@@ -375,6 +418,18 @@ static int hsr_get_node_list(struct sk_buff *skb_in, struct genl_info *info)
 	struct nlattr *na;
 	void *pos = NULL;
 	void *msg_head;
+=======
+	/* For receiving */
+	struct nlattr *na;
+	struct net_device *hsr_dev;
+
+	/* For sending */
+	struct sk_buff *skb_out;
+	void *msg_head;
+	struct hsr_priv *hsr;
+	void *pos;
+	unsigned char addr[ETH_ALEN];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int res;
 
 	if (!info)
@@ -384,6 +439,7 @@ static int hsr_get_node_list(struct sk_buff *skb_in, struct genl_info *info)
 	if (!na)
 		goto invalid;
 
+<<<<<<< HEAD
 	rcu_read_lock();
 	hsr_dev = dev_get_by_index_rcu(genl_info_net(info),
 				       nla_get_u32(info->attrs[HSR_A_IFINDEX]));
@@ -395,6 +451,19 @@ static int hsr_get_node_list(struct sk_buff *skb_in, struct genl_info *info)
 restart:
 	/* Send reply */
 	skb_out = genlmsg_new(GENLMSG_DEFAULT_SIZE, GFP_ATOMIC);
+=======
+	hsr_dev = __dev_get_by_index(genl_info_net(info),
+				     nla_get_u32(info->attrs[HSR_A_IFINDEX]));
+	if (!hsr_dev)
+		goto invalid;
+	if (!is_hsr_master(hsr_dev))
+		goto invalid;
+
+
+	/* Send reply */
+
+	skb_out = genlmsg_new(NLMSG_GOODSIZE, GFP_KERNEL);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!skb_out) {
 		res = -ENOMEM;
 		goto fail;
@@ -408,6 +477,7 @@ restart:
 		goto nla_put_failure;
 	}
 
+<<<<<<< HEAD
 	if (!restart) {
 		res = nla_put_u32(skb_out, HSR_A_IFINDEX, hsr_dev->ifindex);
 		if (res < 0)
@@ -428,6 +498,20 @@ restart:
 				restart = true;
 				goto restart;
 			}
+=======
+	res = nla_put_u32(skb_out, HSR_A_IFINDEX, hsr_dev->ifindex);
+	if (res < 0)
+		goto nla_put_failure;
+
+	hsr = netdev_priv(hsr_dev);
+
+	rcu_read_lock();
+	pos = hsr_get_next_node(hsr, NULL, addr);
+	while (pos) {
+		res = nla_put(skb_out, HSR_A_NODE_ADDR, ETH_ALEN, addr);
+		if (res < 0) {
+			rcu_read_unlock();
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			goto nla_put_failure;
 		}
 		pos = hsr_get_next_node(hsr, pos, addr);
@@ -439,18 +523,28 @@ restart:
 
 	return 0;
 
+<<<<<<< HEAD
 rcu_unlock:
 	rcu_read_unlock();
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 invalid:
 	netlink_ack(skb_in, nlmsg_hdr(skb_in), -EINVAL);
 	return 0;
 
 nla_put_failure:
+<<<<<<< HEAD
 	nlmsg_free(skb_out);
 	/* Fall through */
 
 fail:
 	rcu_read_unlock();
+=======
+	kfree_skb(skb_out);
+	/* Fall through */
+
+fail:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return res;
 }
 

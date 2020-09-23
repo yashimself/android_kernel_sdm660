@@ -4,6 +4,7 @@ config SENSORS_SSC
 	  Add support for sensors SSC driver.
 	  This driver is used for exercising sensors use case,
 	  time syncing with ADSP clock.
+<<<<<<< HEAD
 
 config SENSORS_CLASS
 	bool "Sensors Class Support"
@@ -26,3 +27,5 @@ config INPUT_STK3335
 	select SENSORS_CLASS
 	help
 	  Say Y here to enable the STK3335 ALSPS Sensor.
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

@@ -309,14 +309,22 @@ replay:
 #endif
 		{
 			nfnl_unlock(subsys_id);
+<<<<<<< HEAD
 			netlink_ack(oskb, nlh, -EOPNOTSUPP);
+=======
+			netlink_ack(skb, nlh, -EOPNOTSUPP);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			return kfree_skb(skb);
 		}
 	}
 
 	if (!ss->commit || !ss->abort) {
 		nfnl_unlock(subsys_id);
+<<<<<<< HEAD
 		netlink_ack(oskb, nlh, -EOPNOTSUPP);
+=======
+		netlink_ack(skb, nlh, -EOPNOTSUPP);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return kfree_skb(skb);
 	}
 
@@ -406,7 +414,11 @@ ack:
 				 * pointing to the batch header.
 				 */
 				nfnl_err_reset(&err_list);
+<<<<<<< HEAD
 				netlink_ack(oskb, nlmsg_hdr(oskb), -ENOMEM);
+=======
+				netlink_ack(skb, nlmsg_hdr(oskb), -ENOMEM);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				status |= NFNL_BATCH_FAILURE;
 				goto done;
 			}

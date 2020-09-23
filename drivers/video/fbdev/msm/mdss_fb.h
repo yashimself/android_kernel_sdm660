@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2008-2017,2019 The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2008-2020, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -286,10 +290,13 @@ struct msm_fb_data_type {
 	u32 idle_state;
 	struct msm_fb_fps_info fps_info;
 	struct delayed_work idle_notify_work;
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_X01BD
 	struct delayed_work early_unblank_work;
 	bool early_unblank_work_queued;
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	bool atomic_commit_pending;
 

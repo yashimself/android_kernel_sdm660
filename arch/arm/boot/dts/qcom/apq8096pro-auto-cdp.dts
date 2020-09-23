@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2015-2017, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2015-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -16,11 +20,19 @@
 #include "msm8996-pm8994.dtsi"
 #include "msm8996-auto-cdp.dtsi"
 #include "msm8996pro-auto.dtsi"
+<<<<<<< HEAD
+=======
+#include "msm8996-auto.dtsi"
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 / {
 	model = "Qualcomm Technologies, Inc. APQ 8096 pro AUTO CDP";
 	compatible = "qcom,apq8096-cdp", "qcom,apq8096", "qcom,cdp";
+<<<<<<< HEAD
 	qcom,msm-id = <316 0x10000>;
+=======
+	qcom,msm-id = <316 0x10000>, <387 0x10000>;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	qcom,board-id = <0x03010001 0>;
 };
 

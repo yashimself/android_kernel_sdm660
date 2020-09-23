@@ -484,7 +484,11 @@ int mwifiex_send_domain_info_cmd_fw(struct wiphy *wiphy)
 	u8 no_of_parsed_chan = 0;
 	u8 first_chan = 0, next_chan = 0, max_pwr = 0;
 	u8 i, flag = 0;
+<<<<<<< HEAD
 	enum nl80211_band band;
+=======
+	enum ieee80211_band band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct ieee80211_supported_band *sband;
 	struct ieee80211_channel *ch;
 	struct mwifiex_adapter *adapter = mwifiex_cfg80211_get_adapter(wiphy);
@@ -1418,7 +1422,11 @@ mwifiex_cfg80211_dump_survey(struct wiphy *wiphy, struct net_device *dev,
 {
 	struct mwifiex_private *priv = mwifiex_netdev_get_priv(dev);
 	struct mwifiex_chan_stats *pchan_stats = priv->adapter->chan_stats;
+<<<<<<< HEAD
 	enum nl80211_band band;
+=======
+	enum ieee80211_band band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	mwifiex_dbg(priv->adapter, DUMP, "dump_survey idx=%d\n", idx);
 
@@ -1593,7 +1601,11 @@ static int mwifiex_cfg80211_set_bitrate_mask(struct wiphy *wiphy,
 {
 	struct mwifiex_private *priv = mwifiex_netdev_get_priv(dev);
 	u16 bitmap_rates[MAX_BITMAP_RATES_SIZE];
+<<<<<<< HEAD
 	enum nl80211_band band;
+=======
+	enum ieee80211_band band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct mwifiex_adapter *adapter = priv->adapter;
 
 	if (!priv->media_connected) {
@@ -1607,11 +1619,19 @@ static int mwifiex_cfg80211_set_bitrate_mask(struct wiphy *wiphy,
 	memset(bitmap_rates, 0, sizeof(bitmap_rates));
 
 	/* Fill HR/DSSS rates. */
+<<<<<<< HEAD
 	if (band == NL80211_BAND_2GHZ)
 		bitmap_rates[0] = mask->control[band].legacy & 0x000f;
 
 	/* Fill OFDM rates */
 	if (band == NL80211_BAND_2GHZ)
+=======
+	if (band == IEEE80211_BAND_2GHZ)
+		bitmap_rates[0] = mask->control[band].legacy & 0x000f;
+
+	/* Fill OFDM rates */
+	if (band == IEEE80211_BAND_2GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		bitmap_rates[1] = (mask->control[band].legacy & 0x0ff0) >> 4;
 	else
 		bitmap_rates[1] = mask->control[band].legacy;
@@ -1773,7 +1793,11 @@ mwifiex_cfg80211_set_antenna(struct wiphy *wiphy, u32 tx_ant, u32 rx_ant)
 	} else {
 		struct ieee80211_sta_ht_cap *ht_info;
 		int rx_mcs_supp;
+<<<<<<< HEAD
 		enum nl80211_band band;
+=======
+		enum ieee80211_band band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		if ((tx_ant == 0x1 && rx_ant == 0x1)) {
 			adapter->user_dev_mcs_support = HT_STREAM_1X1;
@@ -1787,7 +1811,11 @@ mwifiex_cfg80211_set_antenna(struct wiphy *wiphy, u32 tx_ant, u32 rx_ant)
 						MWIFIEX_11AC_MCS_MAP_2X2;
 		}
 
+<<<<<<< HEAD
 		for (band = 0; band < NUM_NL80211_BANDS; band++) {
+=======
+		for (band = 0; band < IEEE80211_NUM_BANDS; band++) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			if (!adapter->wiphy->bands[band])
 				continue;
 
@@ -1996,7 +2024,11 @@ static int mwifiex_cfg80211_inform_ibss_bss(struct mwifiex_private *priv)
 	struct cfg80211_bss *bss;
 	int ie_len;
 	u8 ie_buf[IEEE80211_MAX_SSID_LEN + sizeof(struct ieee_types_header)];
+<<<<<<< HEAD
 	enum nl80211_band band;
+=======
+	enum ieee80211_band band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (mwifiex_get_bss_info(priv, &bss_info))
 		return -1;
@@ -2268,7 +2300,11 @@ static int mwifiex_set_ibss_params(struct mwifiex_private *priv,
 	int index = 0, i;
 	u8 config_bands = 0;
 
+<<<<<<< HEAD
 	if (params->chandef.chan->band == NL80211_BAND_2GHZ) {
+=======
+	if (params->chandef.chan->band == IEEE80211_BAND_2GHZ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (!params->basic_rates) {
 			config_bands = BAND_B | BAND_G;
 		} else {
@@ -2734,6 +2770,7 @@ struct wireless_dev *mwifiex_add_virtual_intf(struct wiphy *wiphy,
 	mwifiex_init_priv_params(priv, dev);
 	priv->netdev = dev;
 
+<<<<<<< HEAD
 	mwifiex_setup_ht_caps(&wiphy->bands[NL80211_BAND_2GHZ]->ht_cap, priv);
 	if (adapter->is_hw_11ac_capable)
 		mwifiex_setup_vht_caps(
@@ -2746,6 +2783,20 @@ struct wireless_dev *mwifiex_add_virtual_intf(struct wiphy *wiphy,
 	if ((adapter->config_bands & BAND_A) && adapter->is_hw_11ac_capable)
 		mwifiex_setup_vht_caps(
 			&wiphy->bands[NL80211_BAND_5GHZ]->vht_cap, priv);
+=======
+	mwifiex_setup_ht_caps(&wiphy->bands[IEEE80211_BAND_2GHZ]->ht_cap, priv);
+	if (adapter->is_hw_11ac_capable)
+		mwifiex_setup_vht_caps(
+			&wiphy->bands[IEEE80211_BAND_2GHZ]->vht_cap, priv);
+
+	if (adapter->config_bands & BAND_A)
+		mwifiex_setup_ht_caps(
+			&wiphy->bands[IEEE80211_BAND_5GHZ]->ht_cap, priv);
+
+	if ((adapter->config_bands & BAND_A) && adapter->is_hw_11ac_capable)
+		mwifiex_setup_vht_caps(
+			&wiphy->bands[IEEE80211_BAND_5GHZ]->vht_cap, priv);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	dev_net_set(dev, wiphy_net(wiphy));
 	dev->ieee80211_ptr = &priv->wdev;
@@ -3576,7 +3627,11 @@ static int mwifiex_cfg80211_get_channel(struct wiphy *wiphy,
 	struct ieee80211_channel *chan;
 	u8 second_chan_offset;
 	enum nl80211_channel_type chan_type;
+<<<<<<< HEAD
 	enum nl80211_band band;
+=======
+	enum ieee80211_band band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int freq;
 	int ret = -ENODATA;
 
@@ -3802,11 +3857,19 @@ int mwifiex_register_cfg80211(struct mwifiex_adapter *adapter)
 				 BIT(NL80211_IFTYPE_P2P_GO) |
 				 BIT(NL80211_IFTYPE_AP);
 
+<<<<<<< HEAD
 	wiphy->bands[NL80211_BAND_2GHZ] = &mwifiex_band_2ghz;
 	if (adapter->config_bands & BAND_A)
 		wiphy->bands[NL80211_BAND_5GHZ] = &mwifiex_band_5ghz;
 	else
 		wiphy->bands[NL80211_BAND_5GHZ] = NULL;
+=======
+	wiphy->bands[IEEE80211_BAND_2GHZ] = &mwifiex_band_2ghz;
+	if (adapter->config_bands & BAND_A)
+		wiphy->bands[IEEE80211_BAND_5GHZ] = &mwifiex_band_5ghz;
+	else
+		wiphy->bands[IEEE80211_BAND_5GHZ] = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (adapter->drcs_enabled && ISSUPP_DRCS_ENABLED(adapter->fw_cap_info))
 		wiphy->iface_combinations = &mwifiex_iface_comb_ap_sta_drcs;

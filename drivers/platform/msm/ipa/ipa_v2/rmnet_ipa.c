@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2014-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2014-2020, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -701,7 +705,11 @@ static int wwan_add_ul_flt_rule_to_ipa(void)
 	/* send ipa_fltr_installed_notif_req_msg_v01 to Q6*/
 	req->source_pipe_index =
 		ipa2_get_ep_mapping(IPA_CLIENT_APPS_LAN_WAN_PROD);
+<<<<<<< HEAD
 	req->install_status = QMI_RESULT_SUCCESS_V01;
+=======
+	req->install_status = IPA_QMI_RESULT_SUCCESS_V01;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	req->filter_index_list_len = num_q6_rule;
 	mutex_lock(&ipa_qmi_lock);
 	for (i = 0; i < num_q6_rule; i++) {
@@ -2887,6 +2895,18 @@ int rmnet_ipa_query_tethering_stats_modem(
 	struct ipa_get_data_stats_resp_msg_v01 *resp;
 	int pipe_len, rc;
 
+<<<<<<< HEAD
+=======
+	if (data != NULL) {
+		/* prevent string buffer overflows */
+		data->upstreamIface[IFNAMSIZ-1] = '\0';
+		data->tetherIface[IFNAMSIZ-1] = '\0';
+	} else if (reset != false) {
+		/* Data can be NULL for reset stats, checking reset != False */
+		return -EINVAL;
+	}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	req = kzalloc(sizeof(struct ipa_get_data_stats_req_msg_v01),
 			GFP_KERNEL);
 	if (!req) {
@@ -2910,7 +2930,17 @@ int rmnet_ipa_query_tethering_stats_modem(
 		IPAWANDBG("reset the pipe stats\n");
 	} else {
 		/* print tethered-client enum */
+<<<<<<< HEAD
 		IPAWANDBG("Tethered-client enum(%d)\n", data->ipa_client);
+=======
+		if (data == NULL) {
+			kfree(req);
+			kfree(resp);
+			return -EINVAL;
+		}
+		IPAWANDBG_LOW("Tethered-client enum(%d)\n",
+				data->ipa_client);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	rc = ipa_qmi_get_data_stats(req, resp);

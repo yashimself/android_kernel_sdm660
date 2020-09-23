@@ -2022,10 +2022,15 @@ static int sd_read_protection_type(struct scsi_disk *sdkp, unsigned char *buffer
 	u8 type;
 	int ret = 0;
 
+<<<<<<< HEAD
 	if (scsi_device_protection(sdp) == 0 || (buffer[12] & 1) == 0) {
 		sdkp->protection_type = 0;
 		return ret;
 	}
+=======
+	if (scsi_device_protection(sdp) == 0 || (buffer[12] & 1) == 0)
+		return ret;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	type = ((buffer[12] >> 1) & 7) + 1; /* P_TYPE 0 = Type 1 */
 

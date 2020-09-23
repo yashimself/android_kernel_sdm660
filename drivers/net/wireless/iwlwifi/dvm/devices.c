@@ -420,7 +420,11 @@ static int iwl5000_hw_channel_switch(struct iwl_priv *priv,
 		.data = { &cmd, },
 	};
 
+<<<<<<< HEAD
 	cmd.band = priv->band == NL80211_BAND_2GHZ;
+=======
+	cmd.band = priv->band == IEEE80211_BAND_2GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	ch = ch_switch->chandef.chan->hw_value;
 	IWL_DEBUG_11H(priv, "channel switch from %d to %d\n",
 		      ctx->active.channel, ch);
@@ -588,7 +592,11 @@ static int iwl6000_hw_channel_switch(struct iwl_priv *priv,
 
 	hcmd.data[0] = cmd;
 
+<<<<<<< HEAD
 	cmd->band = priv->band == NL80211_BAND_2GHZ;
+=======
+	cmd->band = priv->band == IEEE80211_BAND_2GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	ch = ch_switch->chandef.chan->hw_value;
 	IWL_DEBUG_11H(priv, "channel switch from %u to %u\n",
 		      ctx->active.channel, ch);

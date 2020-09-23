@@ -188,7 +188,12 @@ static struct nd_opt_hdr *ndisc_next_option(struct nd_opt_hdr *cur,
 static inline int ndisc_is_useropt(struct nd_opt_hdr *opt)
 {
 	return opt->nd_opt_type == ND_OPT_RDNSS ||
+<<<<<<< HEAD
 		opt->nd_opt_type == ND_OPT_DNSSL;
+=======
+		opt->nd_opt_type == ND_OPT_DNSSL ||
+		opt->nd_opt_type == ND_OPT_CAPTIVE_PORTAL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static struct nd_opt_hdr *ndisc_next_useropt(struct nd_opt_hdr *cur,

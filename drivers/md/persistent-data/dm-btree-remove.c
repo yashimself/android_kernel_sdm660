@@ -203,6 +203,7 @@ static void __rebalance2(struct dm_btree_info *info, struct btree_node *parent,
 	struct btree_node *right = r->n;
 	uint32_t nr_left = le32_to_cpu(left->header.nr_entries);
 	uint32_t nr_right = le32_to_cpu(right->header.nr_entries);
+<<<<<<< HEAD
 	/*
 	 * Ensure the number of entries in each child will be greater
 	 * than or equal to (max_entries / 3 + 1), so no matter which
@@ -210,6 +211,9 @@ static void __rebalance2(struct dm_btree_info *info, struct btree_node *parent,
 	 * less than (max_entries / 3).
 	 */
 	unsigned int threshold = 2 * (merge_threshold(left) + 1);
+=======
+	unsigned threshold = 2 * merge_threshold(left) + 1;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (nr_left + nr_right < threshold) {
 		/*

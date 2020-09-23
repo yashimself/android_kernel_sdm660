@@ -611,7 +611,12 @@ static int udf_add_nondir(struct dentry *dentry, struct inode *inode)
 	if (fibh.sbh != fibh.ebh)
 		brelse(fibh.ebh);
 	brelse(fibh.sbh);
+<<<<<<< HEAD
 	d_instantiate_new(dentry, inode);
+=======
+	unlock_new_inode(inode);
+	d_instantiate(dentry, inode);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	return 0;
 }
@@ -721,7 +726,12 @@ static int udf_mkdir(struct inode *dir, struct dentry *dentry, umode_t mode)
 	inc_nlink(dir);
 	dir->i_ctime = dir->i_mtime = current_fs_time(dir->i_sb);
 	mark_inode_dirty(dir);
+<<<<<<< HEAD
 	d_instantiate_new(dentry, inode);
+=======
+	unlock_new_inode(inode);
+	d_instantiate(dentry, inode);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (fibh.sbh != fibh.ebh)
 		brelse(fibh.ebh);
 	brelse(fibh.sbh);

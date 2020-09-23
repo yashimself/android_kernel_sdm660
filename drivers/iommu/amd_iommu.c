@@ -2184,8 +2184,11 @@ static int attach_device(struct device *dev,
 	 */
 	domain_flush_tlb_pde(domain);
 
+<<<<<<< HEAD
 	domain_flush_complete(domain);
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return ret;
 }
 

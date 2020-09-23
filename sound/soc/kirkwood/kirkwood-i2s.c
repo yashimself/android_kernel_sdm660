@@ -570,6 +570,13 @@ static int kirkwood_i2s_dev_probe(struct platform_device *pdev)
 		return PTR_ERR(priv->clk);
 	}
 
+<<<<<<< HEAD
+=======
+	err = clk_prepare_enable(priv->clk);
+	if (err < 0)
+		return err;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	priv->extclk = devm_clk_get(&pdev->dev, "extclk");
 	if (IS_ERR(priv->extclk)) {
 		if (PTR_ERR(priv->extclk) == -EPROBE_DEFER)
@@ -585,10 +592,13 @@ static int kirkwood_i2s_dev_probe(struct platform_device *pdev)
 		}
 	}
 
+<<<<<<< HEAD
 	err = clk_prepare_enable(priv->clk);
 	if (err < 0)
 		return err;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* Some sensible defaults - this reflects the powerup values */
 	priv->ctl_play = KIRKWOOD_PLAYCTL_SIZE_24;
 	priv->ctl_rec = KIRKWOOD_RECCTL_SIZE_24;

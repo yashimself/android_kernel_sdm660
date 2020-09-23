@@ -543,7 +543,11 @@ enum mlx5e_link_mode {
 	MLX5E_100GBASE_KR4	 = 22,
 	MLX5E_100GBASE_LR4	 = 23,
 	MLX5E_100BASE_TX	 = 24,
+<<<<<<< HEAD
 	MLX5E_1000BASE_T	 = 25,
+=======
+	MLX5E_100BASE_T		 = 25,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	MLX5E_10GBASE_T		 = 26,
 	MLX5E_25GBASE_CR	 = 27,
 	MLX5E_25GBASE_KR	 = 28,

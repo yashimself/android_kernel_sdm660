@@ -77,13 +77,19 @@ enum batadv_dhcp_recipient {
  * @ogm_buff: buffer holding the OGM packet
  * @ogm_buff_len: length of the OGM packet buffer
  * @ogm_seqno: OGM sequence number - used to identify each OGM
+<<<<<<< HEAD
  * @ogm_buff_mutex: lock protecting ogm_buff and ogm_buff_len
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  */
 struct batadv_hard_iface_bat_iv {
 	unsigned char *ogm_buff;
 	int ogm_buff_len;
 	atomic_t ogm_seqno;
+<<<<<<< HEAD
 	struct mutex ogm_buff_mutex;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 /**
@@ -105,7 +111,11 @@ struct batadv_hard_iface_bat_iv {
  */
 struct batadv_hard_iface {
 	struct list_head list;
+<<<<<<< HEAD
 	unsigned int if_num;
+=======
+	s16 if_num;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	char if_status;
 	struct net_device *net_dev;
 	u8 num_bcasts;
@@ -289,9 +299,13 @@ struct batadv_orig_node {
 	DECLARE_BITMAP(bcast_bits, BATADV_TQ_LOCAL_WINDOW_SIZE);
 	u32 last_bcast_seqno;
 	struct hlist_head neigh_list;
+<<<<<<< HEAD
 	/* neigh_list_lock protects: neigh_list, ifinfo_list,
 	 * last_bonding_candidate and router
 	 */
+=======
+	/* neigh_list_lock protects: neigh_list and router */
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	spinlock_t neigh_list_lock;
 	struct hlist_node hash_entry;
 	struct batadv_priv *bat_priv;
@@ -810,7 +824,11 @@ struct batadv_priv {
 	atomic_t bcast_seqno;
 	atomic_t bcast_queue_left;
 	atomic_t batman_queue_left;
+<<<<<<< HEAD
 	unsigned int num_ifaces;
+=======
+	char num_ifaces;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct kobject *mesh_obj;
 	struct dentry *debug_dir;
 	struct hlist_head forw_bat_list;
@@ -888,7 +906,10 @@ struct batadv_socket_packet {
  *  backbone gateway - no bcast traffic is formwared until the situation was
  *  resolved
  * @crc: crc16 checksum over all claims
+<<<<<<< HEAD
  * @crc_lock: lock protecting crc
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * @refcount: number of contexts the object is used
  * @rcu: struct used for freeing in an RCU-safe manner
  */
@@ -902,7 +923,10 @@ struct batadv_bla_backbone_gw {
 	atomic_t wait_periods;
 	atomic_t request_sent;
 	u16 crc;
+<<<<<<< HEAD
 	spinlock_t crc_lock; /* protects crc */
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	atomic_t refcount;
 	struct rcu_head rcu;
 };
@@ -921,7 +945,10 @@ struct batadv_bla_claim {
 	u8 addr[ETH_ALEN];
 	unsigned short vid;
 	struct batadv_bla_backbone_gw *backbone_gw;
+<<<<<<< HEAD
 	spinlock_t backbone_lock; /* protects backbone_gw */
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	unsigned long lasttime;
 	struct hlist_node hash_entry;
 	struct rcu_head rcu;
@@ -954,12 +981,18 @@ struct batadv_tt_common_entry {
  * struct batadv_tt_local_entry - translation table local entry data
  * @common: general translation table data
  * @last_seen: timestamp used for purging stale tt local entries
+<<<<<<< HEAD
  * @vlan: soft-interface vlan of the entry
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  */
 struct batadv_tt_local_entry {
 	struct batadv_tt_common_entry common;
 	unsigned long last_seen;
+<<<<<<< HEAD
 	struct batadv_softif_vlan *vlan;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 /**
@@ -982,7 +1015,10 @@ struct batadv_tt_global_entry {
  * struct batadv_tt_orig_list_entry - orig node announcing a non-mesh client
  * @orig_node: pointer to orig node announcing this non-mesh client
  * @ttvn: translation table version number which added the non-mesh client
+<<<<<<< HEAD
  * @flags: per orig entry TT sync flags
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * @list: list node for batadv_tt_global_entry::orig_list
  * @refcount: number of contexts the object is used
  * @rcu: struct used for freeing in an RCU-safe manner
@@ -990,7 +1026,10 @@ struct batadv_tt_global_entry {
 struct batadv_tt_orig_list_entry {
 	struct batadv_orig_node *orig_node;
 	u8 ttvn;
+<<<<<<< HEAD
 	u8 flags;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct hlist_node list;
 	atomic_t refcount;
 	struct rcu_head rcu;
@@ -1010,13 +1049,19 @@ struct batadv_tt_change_node {
  * struct batadv_tt_req_node - data to keep track of the tt requests in flight
  * @addr: mac address address of the originator this request was sent to
  * @issued_at: timestamp used for purging stale tt requests
+<<<<<<< HEAD
  * @refcount: number of contexts the object is used by
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * @list: list node for batadv_priv_tt::req_list
  */
 struct batadv_tt_req_node {
 	u8 addr[ETH_ALEN];
 	unsigned long issued_at;
+<<<<<<< HEAD
 	struct kref refcount;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct hlist_node list;
 };
 
@@ -1181,9 +1226,15 @@ struct batadv_algo_ops {
 			       struct batadv_hard_iface *hard_iface);
 	void (*bat_orig_free)(struct batadv_orig_node *orig_node);
 	int (*bat_orig_add_if)(struct batadv_orig_node *orig_node,
+<<<<<<< HEAD
 			       unsigned int max_if_num);
 	int (*bat_orig_del_if)(struct batadv_orig_node *orig_node,
 			       unsigned int max_if_num, unsigned int del_if_num);
+=======
+			       int max_if_num);
+	int (*bat_orig_del_if)(struct batadv_orig_node *orig_node,
+			       int max_if_num, int del_if_num);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 /**

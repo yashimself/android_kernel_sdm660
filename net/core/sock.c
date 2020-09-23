@@ -484,12 +484,20 @@ int sock_queue_rcv_skb(struct sock *sk, struct sk_buff *skb)
 }
 EXPORT_SYMBOL(sock_queue_rcv_skb);
 
+<<<<<<< HEAD
 int __sk_receive_skb(struct sock *sk, struct sk_buff *skb,
 		     const int nested, unsigned int trim_cap)
 {
 	int rc = NET_RX_SUCCESS;
 
 	if (sk_filter_trim_cap(sk, skb, trim_cap))
+=======
+int sk_receive_skb(struct sock *sk, struct sk_buff *skb, const int nested)
+{
+	int rc = NET_RX_SUCCESS;
+
+	if (sk_filter(sk, skb))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		goto discard_and_relse;
 
 	skb->dev = NULL;
@@ -525,7 +533,11 @@ discard_and_relse:
 	kfree_skb(skb);
 	goto out;
 }
+<<<<<<< HEAD
 EXPORT_SYMBOL(__sk_receive_skb);
+=======
+EXPORT_SYMBOL(sk_receive_skb);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 struct dst_entry *__sk_dst_check(struct sock *sk, u32 cookie)
 {
@@ -2135,7 +2147,11 @@ int __sk_mem_schedule(struct sock *sk, int size, int kind)
 	}
 
 	if (sk_has_memory_pressure(sk)) {
+<<<<<<< HEAD
 		u64 alloc;
+=======
+		int alloc;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		if (!sk_under_memory_pressure(sk))
 			return 1;

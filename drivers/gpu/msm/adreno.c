@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2002,2007-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2002,2007-2020, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -42,6 +46,11 @@
 #include "adreno-gpulist.h"
 #include "adreno_dispatch.h"
 
+<<<<<<< HEAD
+=======
+#include <soc/qcom/boot_stats.h>
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #undef MODULE_PARAM_PREFIX
 #define MODULE_PARAM_PREFIX "adreno."
 
@@ -1035,6 +1044,12 @@ static int adreno_probe(struct platform_device *pdev)
 		}
 	}
 #endif
+<<<<<<< HEAD
+=======
+
+	place_marker("M - DRIVER GPU Ready");
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 out:
 	if (status) {
 		adreno_ringbuffer_close(adreno_dev);
@@ -2822,6 +2837,22 @@ static void adreno_resume_device(struct kgsl_device *device)
 	adreno_dispatcher_unhalt(device);
 }
 
+<<<<<<< HEAD
+=======
+u32 adreno_get_ucode_version(const u32 *data)
+{
+	u32 version;
+
+	version = data[1];
+
+	if ((version & 0xf) != 0xa)
+		return version;
+
+	version &= ~0xfff;
+	return  version | ((data[3] & 0xfff000) >> 12);
+}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static const struct kgsl_functable adreno_functable = {
 	/* Mandatory functions */
 	.regread = adreno_regread,

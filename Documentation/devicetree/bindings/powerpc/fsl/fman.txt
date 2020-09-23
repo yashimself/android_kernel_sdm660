@@ -110,6 +110,7 @@ PROPERTIES
 		Usage: required
 		Definition: See soc/fsl/qman.txt and soc/fsl/bman.txt
 
+<<<<<<< HEAD
 - fsl,erratum-a050385
 		Usage: optional
 		Value type: boolean
@@ -117,6 +118,8 @@ PROPERTIES
 		erratum A050385 which indicates that DMA transactions that are
 		split can result in a FMan lock.
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 =============================================================================
 FMan MURAM Node
 

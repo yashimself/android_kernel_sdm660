@@ -1,4 +1,5 @@
 What:		/config/usb-gadget/gadget/functions/uac1.name
+<<<<<<< HEAD
 Date:		Sep 2014
 KernelVersion:	3.18
 Description:
@@ -10,3 +11,18 @@ Description:
 		fn_play - playback pcm device file name
 		req_buf_size - ISO OUT endpoint request buffer size
 		req_count - ISO OUT endpoint request count
+=======
+Date:		June 2017
+KernelVersion:	4.14
+Description:
+		The attributes:
+
+		c_chmask - capture channel mask
+		c_srate - capture sampling rate
+		c_ssize - capture sample size (bytes)
+		p_chmask - playback channel mask
+		p_srate - playback sampling rate
+		p_ssize - playback sample size (bytes)
+		req_number - the number of pre-allocated request
+			for both capture and playback
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

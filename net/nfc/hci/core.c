@@ -193,10 +193,15 @@ exit:
 void nfc_hci_cmd_received(struct nfc_hci_dev *hdev, u8 pipe, u8 cmd,
 			  struct sk_buff *skb)
 {
+<<<<<<< HEAD
+=======
+	u8 gate = hdev->pipes[pipe].gate;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	u8 status = NFC_HCI_ANY_OK;
 	struct hci_create_pipe_resp *create_info;
 	struct hci_delete_pipe_noti *delete_info;
 	struct hci_all_pipe_cleared_noti *cleared_info;
+<<<<<<< HEAD
 	u8 gate;
 
 	pr_debug("from pipe %x cmd %x\n", pipe, cmd);
@@ -207,6 +212,10 @@ void nfc_hci_cmd_received(struct nfc_hci_dev *hdev, u8 pipe, u8 cmd,
 	}
 
 	gate = hdev->pipes[pipe].gate;
+=======
+
+	pr_debug("from gate %x pipe %x cmd %x\n", gate, pipe, cmd);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	switch (cmd) {
 	case NFC_HCI_ADM_NOTIFY_PIPE_CREATED:
@@ -394,6 +403,7 @@ void nfc_hci_event_received(struct nfc_hci_dev *hdev, u8 pipe, u8 event,
 			    struct sk_buff *skb)
 {
 	int r = 0;
+<<<<<<< HEAD
 	u8 gate;
 
 	if (pipe >= NFC_HCI_MAX_PIPES) {
@@ -402,6 +412,10 @@ void nfc_hci_event_received(struct nfc_hci_dev *hdev, u8 pipe, u8 event,
 	}
 
 	gate = hdev->pipes[pipe].gate;
+=======
+	u8 gate = hdev->pipes[pipe].gate;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (gate == NFC_HCI_INVALID_GATE) {
 		pr_err("Discarded event %x to unopened pipe %x\n", event, pipe);
 		goto exit;

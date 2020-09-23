@@ -5,8 +5,11 @@
 #include <string.h>
 
 #define INT_MAX			((int)(~0U>>1))
+<<<<<<< HEAD
 #define UINT32_MAX		((u32)~0U)
 #define INT32_MAX		((s32)(UINT32_MAX >> 1))
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #include "of.h"
 

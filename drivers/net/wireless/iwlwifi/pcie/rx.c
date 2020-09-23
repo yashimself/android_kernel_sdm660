@@ -708,6 +708,7 @@ int iwl_pcie_rx_init(struct iwl_trans *trans)
 		if (err)
 			return err;
 	}
+<<<<<<< HEAD
 	if (!rba->alloc_wq) {
 		rba->alloc_wq = alloc_workqueue("rb_allocator",
 						WQ_HIGHPRI | WQ_UNBOUND, 1);
@@ -715,6 +716,11 @@ int iwl_pcie_rx_init(struct iwl_trans *trans)
 			return -ENOMEM;
 	}
 
+=======
+	if (!rba->alloc_wq)
+		rba->alloc_wq = alloc_workqueue("rb_allocator",
+						WQ_HIGHPRI | WQ_UNBOUND, 1);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	INIT_WORK(&rba->rx_alloc, iwl_pcie_rx_allocator_work);
 
 	cancel_work_sync(&rba->rx_alloc);

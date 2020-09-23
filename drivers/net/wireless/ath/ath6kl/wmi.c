@@ -2051,7 +2051,11 @@ int ath6kl_wmi_beginscan_cmd(struct wmi *wmi, u8 if_idx,
 	sc->no_cck = cpu_to_le32(no_cck);
 	sc->num_ch = num_chan;
 
+<<<<<<< HEAD
 	for (band = 0; band < NUM_NL80211_BANDS; band++) {
+=======
+	for (band = 0; band < IEEE80211_NUM_BANDS; band++) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		sband = ar->wiphy->bands[band];
 
 		if (!sband)
@@ -2773,10 +2777,17 @@ static int ath6kl_set_bitrate_mask64(struct wmi *wmi, u8 if_idx,
 	memset(&ratemask, 0, sizeof(ratemask));
 
 	/* only check 2.4 and 5 GHz bands, skip the rest */
+<<<<<<< HEAD
 	for (band = 0; band <= NL80211_BAND_5GHZ; band++) {
 		/* copy legacy rate mask */
 		ratemask[band] = mask->control[band].legacy;
 		if (band == NL80211_BAND_5GHZ)
+=======
+	for (band = 0; band <= IEEE80211_BAND_5GHZ; band++) {
+		/* copy legacy rate mask */
+		ratemask[band] = mask->control[band].legacy;
+		if (band == IEEE80211_BAND_5GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			ratemask[band] =
 				mask->control[band].legacy << 4;
 
@@ -2802,9 +2813,15 @@ static int ath6kl_set_bitrate_mask64(struct wmi *wmi, u8 if_idx,
 		if (mode == WMI_RATES_MODE_11A ||
 		    mode == WMI_RATES_MODE_11A_HT20 ||
 		    mode == WMI_RATES_MODE_11A_HT40)
+<<<<<<< HEAD
 			band = NL80211_BAND_5GHZ;
 		else
 			band = NL80211_BAND_2GHZ;
+=======
+			band = IEEE80211_BAND_5GHZ;
+		else
+			band = IEEE80211_BAND_2GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		cmd->ratemask[mode] = cpu_to_le64(ratemask[band]);
 	}
 
@@ -2825,10 +2842,17 @@ static int ath6kl_set_bitrate_mask32(struct wmi *wmi, u8 if_idx,
 	memset(&ratemask, 0, sizeof(ratemask));
 
 	/* only check 2.4 and 5 GHz bands, skip the rest */
+<<<<<<< HEAD
 	for (band = 0; band <= NL80211_BAND_5GHZ; band++) {
 		/* copy legacy rate mask */
 		ratemask[band] = mask->control[band].legacy;
 		if (band == NL80211_BAND_5GHZ)
+=======
+	for (band = 0; band <= IEEE80211_BAND_5GHZ; band++) {
+		/* copy legacy rate mask */
+		ratemask[band] = mask->control[band].legacy;
+		if (band == IEEE80211_BAND_5GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			ratemask[band] =
 				mask->control[band].legacy << 4;
 
@@ -2852,9 +2876,15 @@ static int ath6kl_set_bitrate_mask32(struct wmi *wmi, u8 if_idx,
 		if (mode == WMI_RATES_MODE_11A ||
 		    mode == WMI_RATES_MODE_11A_HT20 ||
 		    mode == WMI_RATES_MODE_11A_HT40)
+<<<<<<< HEAD
 			band = NL80211_BAND_5GHZ;
 		else
 			band = NL80211_BAND_2GHZ;
+=======
+			band = IEEE80211_BAND_5GHZ;
+		else
+			band = IEEE80211_BAND_2GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		cmd->ratemask[mode] = cpu_to_le32(ratemask[band]);
 	}
 
@@ -3177,7 +3207,11 @@ int ath6kl_wmi_set_keepalive_cmd(struct wmi *wmi, u8 if_idx,
 }
 
 int ath6kl_wmi_set_htcap_cmd(struct wmi *wmi, u8 if_idx,
+<<<<<<< HEAD
 			     enum nl80211_band band,
+=======
+			     enum ieee80211_band band,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			     struct ath6kl_htcap *htcap)
 {
 	struct sk_buff *skb;
@@ -3190,7 +3224,11 @@ int ath6kl_wmi_set_htcap_cmd(struct wmi *wmi, u8 if_idx,
 	cmd = (struct wmi_set_htcap_cmd *) skb->data;
 
 	/*
+<<<<<<< HEAD
 	 * NOTE: Band in firmware matches enum nl80211_band, it is unlikely
+=======
+	 * NOTE: Band in firmware matches enum ieee80211_band, it is unlikely
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	 * this will be changed in firmware. If at all there is any change in
 	 * band value, the host needs to be fixed.
 	 */

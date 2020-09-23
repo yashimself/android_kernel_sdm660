@@ -354,6 +354,7 @@ static int xhci_abort_cmd_ring(struct xhci_hcd *xhci, unsigned long flags)
 			&xhci->op_regs->cmd_ring);
 
 	/* Section 4.6.1.2 of xHCI 1.0 spec says software should
+<<<<<<< HEAD
 	 * time the completion od all xHCI commands, including
 	 * the Command Abort operation. If software doesn't see
 	 * CRR negated in a timely manner (e.g. longer than 5
@@ -377,6 +378,22 @@ static int xhci_abort_cmd_ring(struct xhci_hcd *xhci, unsigned long flags)
 			xhci_halt(xhci);
 			return -ESHUTDOWN;
 		}
+=======
+	 * time the completion of all xHCI commands, including
+	 * the Command Abort operation. If software doesn't see
+	 * CRR negated in a timely manner, then it should assume
+	 * that the there are larger problems with the xHC and assert HCRST.
+	 */
+	ret = xhci_handshake_check_state(xhci, &xhci->op_regs->cmd_ring,
+			CMD_RING_RUNNING, 0, 1000 * 1000);
+	if (ret < 0) {
+		xhci_err(xhci,
+			 "Stop command ring failed, maybe the host is dead\n");
+		xhci->xhc_state |= XHCI_STATE_DYING;
+		xhci_quiesce(xhci);
+		xhci_halt(xhci);
+		return -ESHUTDOWN;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 	/*
 	 * Writing the CMD_RING_ABORT bit should cause a cmd completion event,
@@ -1602,6 +1619,12 @@ static void handle_port_status(struct xhci_hcd *xhci,
 		usb_hcd_resume_root_hub(hcd);
 	}
 
+<<<<<<< HEAD
+=======
+	if (hcd->speed >= HCD_USB3 && (temp & PORT_PLS_MASK) == XDEV_INACTIVE)
+		bus_state->port_remote_wakeup &= ~(1 << faked_port_index);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if ((temp & PORT_PLC) && (temp & PORT_PLS_MASK) == XDEV_RESUME) {
 		xhci_dbg(xhci, "port resume event for port %d\n", port_id);
 
@@ -1620,7 +1643,10 @@ static void handle_port_status(struct xhci_hcd *xhci,
 			bus_state->port_remote_wakeup |= 1 << faked_port_index;
 			xhci_test_and_clear_bit(xhci, port_array,
 					faked_port_index, PORT_PLC);
+<<<<<<< HEAD
 			usb_hcd_start_port_resume(&hcd->self, faked_port_index);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			xhci_set_link_state(xhci, port_array, faked_port_index,
 						XDEV_U0);
 			/* Need to wait until the next link state change
@@ -1658,6 +1684,11 @@ static void handle_port_status(struct xhci_hcd *xhci,
 		if (slot_id && xhci->devs[slot_id])
 			xhci_ring_device(xhci, slot_id);
 		if (bus_state->port_remote_wakeup & (1 << faked_port_index)) {
+<<<<<<< HEAD
+=======
+			bus_state->port_remote_wakeup &=
+				~(1 << faked_port_index);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			xhci_test_and_clear_bit(xhci, port_array,
 					faked_port_index, PORT_PLC);
 			usb_wakeup_notification(hcd->self.root_hub,

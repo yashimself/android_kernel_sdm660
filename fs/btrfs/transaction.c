@@ -1814,6 +1814,7 @@ int btrfs_commit_transaction(struct btrfs_trans_handle *trans,
 	struct btrfs_inode *btree_ino = BTRFS_I(root->fs_info->btree_inode);
 	int ret;
 
+<<<<<<< HEAD
 	/*
 	 * Some places just start a transaction to commit it.  We need to make
 	 * sure that if this commit fails that the abort code actually marks the
@@ -1822,6 +1823,8 @@ int btrfs_commit_transaction(struct btrfs_trans_handle *trans,
 	 */
 	trans->dirty = true;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* Stop the commit early if ->aborted is set */
 	if (unlikely(ACCESS_ONCE(cur_trans->aborted))) {
 		ret = cur_trans->aborted;

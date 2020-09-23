@@ -531,7 +531,10 @@ struct be_adapter {
 
 	struct delayed_work be_err_detection_work;
 	u8 err_flags;
+<<<<<<< HEAD
 	bool pcicfg_mapped;	/* pcicfg obtained via pci_iomap() */
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	u32 flags;
 	u32 cmd_privileges;
 	/* Ethtool knobs and info */

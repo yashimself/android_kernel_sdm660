@@ -702,6 +702,7 @@ static struct sclp_core_info *smp_get_core_info(void)
 
 static int smp_add_present_cpu(int cpu);
 
+<<<<<<< HEAD
 static int smp_add_core(struct sclp_core_entry *core, cpumask_t *avail,
 			bool configured, bool early)
 {
@@ -763,6 +764,41 @@ static int __smp_rescan_cpus(struct sclp_core_info *info, bool early)
 		configured = i < info->configured;
 		nr += smp_add_core(&info->core[i], &avail, configured, early);
 	}
+=======
+static int __smp_rescan_cpus(struct sclp_core_info *info, int sysfs_add)
+{
+	struct pcpu *pcpu;
+	cpumask_t avail;
+	int cpu, nr, i, j;
+	u16 address;
+
+	nr = 0;
+	cpumask_xor(&avail, cpu_possible_mask, cpu_present_mask);
+	cpu = cpumask_first(&avail);
+	for (i = 0; (i < info->combined) && (cpu < nr_cpu_ids); i++) {
+		if (sclp.has_core_type && info->core[i].type != boot_core_type)
+			continue;
+		address = info->core[i].core_id << smp_cpu_mt_shift;
+		for (j = 0; j <= smp_cpu_mtid; j++) {
+			if (pcpu_find_address(cpu_present_mask, address + j))
+				continue;
+			pcpu = pcpu_devices + cpu;
+			pcpu->address = address + j;
+			pcpu->state =
+				(cpu >= info->configured*(smp_cpu_mtid + 1)) ?
+				CPU_STATE_STANDBY : CPU_STATE_CONFIGURED;
+			smp_cpu_set_polarization(cpu, POLARIZATION_UNKNOWN);
+			set_cpu_present(cpu, true);
+			if (sysfs_add && smp_add_present_cpu(cpu) != 0)
+				set_cpu_present(cpu, false);
+			else
+				nr++;
+			cpu = cpumask_next(cpu, &avail);
+			if (cpu >= nr_cpu_ids)
+				break;
+		}
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return nr;
 }
 
@@ -810,7 +846,11 @@ static void __init smp_detect_cpus(void)
 
 	/* Add CPUs present at boot */
 	get_online_cpus();
+<<<<<<< HEAD
 	__smp_rescan_cpus(info, true);
+=======
+	__smp_rescan_cpus(info, 0);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	put_online_cpus();
 	kfree(info);
 }
@@ -1168,7 +1208,11 @@ int __ref smp_rescan_cpus(void)
 		return -ENOMEM;
 	get_online_cpus();
 	mutex_lock(&smp_cpu_state_mutex);
+<<<<<<< HEAD
 	nr = __smp_rescan_cpus(info, false);
+=======
+	nr = __smp_rescan_cpus(info, 1);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	mutex_unlock(&smp_cpu_state_mutex);
 	put_online_cpus();
 	kfree(info);

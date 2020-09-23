@@ -1207,7 +1207,11 @@ void bpf_jit_compile(struct bpf_prog *fp)
 
 	memset(&ctx, 0, sizeof(ctx));
 
+<<<<<<< HEAD
 	ctx.offsets = kcalloc(fp->len + 1, sizeof(*ctx.offsets), GFP_KERNEL);
+=======
+	ctx.offsets = kcalloc(fp->len, sizeof(*ctx.offsets), GFP_KERNEL);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (ctx.offsets == NULL)
 		return;
 

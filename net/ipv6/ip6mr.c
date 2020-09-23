@@ -1594,6 +1594,7 @@ static int ip6mr_sk_init(struct mr6_table *mrt, struct sock *sk)
 	if (likely(mrt->mroute6_sk == NULL)) {
 		mrt->mroute6_sk = sk;
 		net->ipv6.devconf_all->mc_forwarding++;
+<<<<<<< HEAD
 	} else {
 		err = -EADDRINUSE;
 	}
@@ -1603,6 +1604,16 @@ static int ip6mr_sk_init(struct mr6_table *mrt, struct sock *sk)
 		inet6_netconf_notify_devconf(net, NETCONFA_MC_FORWARDING,
 					     NETCONFA_IFINDEX_ALL,
 					     net->ipv6.devconf_all);
+=======
+		inet6_netconf_notify_devconf(net, NETCONFA_MC_FORWARDING,
+					     NETCONFA_IFINDEX_ALL,
+					     net->ipv6.devconf_all);
+	}
+	else
+		err = -EADDRINUSE;
+	write_unlock_bh(&mrt_lock);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	rtnl_unlock();
 
 	return err;
@@ -1620,11 +1631,18 @@ int ip6mr_sk_done(struct sock *sk)
 			write_lock_bh(&mrt_lock);
 			mrt->mroute6_sk = NULL;
 			net->ipv6.devconf_all->mc_forwarding--;
+<<<<<<< HEAD
 			write_unlock_bh(&mrt_lock);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			inet6_netconf_notify_devconf(net,
 						     NETCONFA_MC_FORWARDING,
 						     NETCONFA_IFINDEX_ALL,
 						     net->ipv6.devconf_all);
+<<<<<<< HEAD
+=======
+			write_unlock_bh(&mrt_lock);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 			mroute_clean_tables(mrt, false);
 			err = 0;

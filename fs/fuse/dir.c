@@ -240,8 +240,12 @@ static int fuse_dentry_revalidate(struct dentry *entry, unsigned int flags)
 		kfree(forget);
 		if (ret == -ENOMEM)
 			goto out;
+<<<<<<< HEAD
 		if (ret || fuse_invalid_attr(&outarg.attr) ||
 		    (outarg.attr.mode ^ inode->i_mode) & S_IFMT)
+=======
+		if (ret || (outarg.attr.mode ^ inode->i_mode) & S_IFMT)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			goto invalid;
 
 		fuse_change_attributes(inode, &outarg.attr,
@@ -328,12 +332,15 @@ int fuse_valid_type(int m)
 		S_ISBLK(m) || S_ISFIFO(m) || S_ISSOCK(m);
 }
 
+<<<<<<< HEAD
 bool fuse_invalid_attr(struct fuse_attr *attr)
 {
 	return !fuse_valid_type(attr->mode) ||
 		attr->size > LLONG_MAX;
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 int fuse_lookup_name(struct super_block *sb, u64 nodeid, struct qstr *name,
 		     struct fuse_entry_out *outarg, struct inode **inode)
 {
@@ -365,7 +372,11 @@ int fuse_lookup_name(struct super_block *sb, u64 nodeid, struct qstr *name,
 	err = -EIO;
 	if (!outarg->nodeid)
 		goto out_put_forget;
+<<<<<<< HEAD
 	if (fuse_invalid_attr(&outarg->attr))
+=======
+	if (!fuse_valid_type(outarg->attr.mode))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		goto out_put_forget;
 
 	*inode = fuse_iget(sb, outarg->nodeid, outarg->generation,
@@ -486,8 +497,12 @@ static int fuse_create_open(struct inode *dir, struct dentry *entry,
 		goto out_free_ff;
 
 	err = -EIO;
+<<<<<<< HEAD
 	if (!S_ISREG(outentry.attr.mode) || invalid_nodeid(outentry.nodeid) ||
 	    fuse_invalid_attr(&outentry.attr))
+=======
+	if (!S_ISREG(outentry.attr.mode) || invalid_nodeid(outentry.nodeid))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		goto out_free_ff;
 
 	ff->fh = outopen.fh;
@@ -595,7 +610,11 @@ static int create_new_entry(struct fuse_conn *fc, struct fuse_args *args,
 		goto out_put_forget_req;
 
 	err = -EIO;
+<<<<<<< HEAD
 	if (invalid_nodeid(outarg.nodeid) || fuse_invalid_attr(&outarg.attr))
+=======
+	if (invalid_nodeid(outarg.nodeid))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		goto out_put_forget_req;
 
 	if ((outarg.attr.mode ^ mode) & S_IFMT)
@@ -868,8 +887,12 @@ static int fuse_link(struct dentry *entry, struct inode *newdir,
 
 		spin_lock(&fc->lock);
 		fi->attr_version = ++fc->attr_version;
+<<<<<<< HEAD
 		if (likely(inode->i_nlink < UINT_MAX))
 			inc_nlink(inode);
+=======
+		inc_nlink(inode);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		spin_unlock(&fc->lock);
 		fuse_invalidate_attr(inode);
 		fuse_update_ctime(inode);
@@ -949,8 +972,12 @@ static int fuse_do_getattr(struct inode *inode, struct kstat *stat,
 	args.out.args[0].value = &outarg;
 	err = fuse_simple_request(fc, &args);
 	if (!err) {
+<<<<<<< HEAD
 		if (fuse_invalid_attr(&outarg.attr) ||
 		    (inode->i_mode ^ outarg.attr.mode) & S_IFMT) {
+=======
+		if ((inode->i_mode ^ outarg.attr.mode) & S_IFMT) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			make_bad_inode(inode);
 			err = -EIO;
 		} else {
@@ -1255,7 +1282,11 @@ static int fuse_direntplus_link(struct file *file,
 
 	if (invalid_nodeid(o->nodeid))
 		return -EIO;
+<<<<<<< HEAD
 	if (fuse_invalid_attr(&o->attr))
+=======
+	if (!fuse_valid_type(o->attr.mode))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return -EIO;
 
 	fc = get_fuse_conn(dir);
@@ -1727,8 +1758,12 @@ int fuse_do_setattr(struct inode *inode, struct iattr *attr,
 		goto error;
 	}
 
+<<<<<<< HEAD
 	if (fuse_invalid_attr(&outarg.attr) ||
 	    (inode->i_mode ^ outarg.attr.mode) & S_IFMT) {
+=======
+	if ((inode->i_mode ^ outarg.attr.mode) & S_IFMT) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		make_bad_inode(inode);
 		err = -EIO;
 		goto error;

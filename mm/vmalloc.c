@@ -1787,7 +1787,11 @@ void *__vmalloc_node_range(unsigned long size, unsigned long align,
 	 * First make sure the mappings are removed from all page-tables
 	 * before they are freed.
 	 */
+<<<<<<< HEAD
 	vmalloc_sync_unmappings();
+=======
+	vmalloc_sync_all();
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/*
 	 * In this function, newly allocated vm_struct has VM_UNINITIALIZED
@@ -2324,12 +2328,18 @@ int remap_vmalloc_range(struct vm_area_struct *vma, void *addr,
 EXPORT_SYMBOL(remap_vmalloc_range);
 
 /*
+<<<<<<< HEAD
  * Implement stubs for vmalloc_sync_[un]mappings () if the architecture chose
  * not to have one.
+=======
+ * Implement a stub for vmalloc_sync_all() if the architecture chose not to
+ * have one.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * The purpose of this function is to make sure the vmalloc area
  * mappings are identical in all page-tables in the system.
  */
+<<<<<<< HEAD
 void __weak vmalloc_sync_mappings(void)
 {
 }
@@ -2337,6 +2347,12 @@ void __weak vmalloc_sync_mappings(void)
 void __weak vmalloc_sync_unmappings(void)
 {
 }
+=======
+void __weak vmalloc_sync_all(void)
+{
+}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 static int f(pte_t *pte, pgtable_t table, unsigned long addr, void *data)
 {

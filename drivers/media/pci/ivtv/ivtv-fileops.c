@@ -420,7 +420,11 @@ static ssize_t ivtv_read_pos(struct ivtv_stream *s, char __user *ubuf, size_t co
 
 	IVTV_DEBUG_HI_FILE("read %zd from %s, got %zd\n", count, s->name, rc);
 	if (rc > 0)
+<<<<<<< HEAD
 		*pos += rc;
+=======
+		pos += rc;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return rc;
 }
 

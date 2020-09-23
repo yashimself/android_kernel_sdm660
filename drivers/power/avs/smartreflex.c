@@ -1001,7 +1001,12 @@ static int omap_sr_remove(struct platform_device *pdev)
 
 	if (sr_info->autocomp_active)
 		sr_stop_vddautocomp(sr_info);
+<<<<<<< HEAD
 	debugfs_remove_recursive(sr_info->dbg_dir);
+=======
+	if (sr_info->dbg_dir)
+		debugfs_remove_recursive(sr_info->dbg_dir);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	pm_runtime_disable(&pdev->dev);
 	list_del(&sr_info->node);

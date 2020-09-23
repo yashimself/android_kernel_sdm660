@@ -1283,6 +1283,7 @@ config DEBUG_OMAP2PLUS_UART
 	depends on ARCH_OMAP2PLUS
 
 config DEBUG_IMX_UART_PORT
+<<<<<<< HEAD
 	int "i.MX Debug UART Port Selection"
 	depends on DEBUG_IMX1_UART || \
 		   DEBUG_IMX25_UART || \
@@ -1298,6 +1299,23 @@ config DEBUG_IMX_UART_PORT
 		   DEBUG_IMX6UL_UART || \
 		   DEBUG_IMX7D_UART
 	default 1
+=======
+	int "i.MX Debug UART Port Selection" if DEBUG_IMX1_UART || \
+						DEBUG_IMX25_UART || \
+						DEBUG_IMX21_IMX27_UART || \
+						DEBUG_IMX31_UART || \
+						DEBUG_IMX35_UART || \
+						DEBUG_IMX50_UART || \
+						DEBUG_IMX51_UART || \
+						DEBUG_IMX53_UART || \
+						DEBUG_IMX6Q_UART || \
+						DEBUG_IMX6SL_UART || \
+						DEBUG_IMX6SX_UART || \
+						DEBUG_IMX6UL_UART || \
+						DEBUG_IMX7D_UART
+	default 1
+	depends on ARCH_MXC
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	help
 	  Choose UART port on which kernel low-level debug messages
 	  should be output.

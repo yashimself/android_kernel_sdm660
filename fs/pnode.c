@@ -268,6 +268,7 @@ static int propagate_one(struct mount *m)
 	if (IS_ERR(child))
 		return PTR_ERR(child);
 	child->mnt.mnt_flags &= ~MNT_LOCKED;
+<<<<<<< HEAD
 	read_seqlock_excl(&mount_lock);
 	mnt_set_mountpoint(m, mp, child);
 	if (m->mnt_master != dest_master)
@@ -275,6 +276,16 @@ static int propagate_one(struct mount *m)
 	read_sequnlock_excl(&mount_lock);
 	last_dest = m;
 	last_source = child;
+=======
+	mnt_set_mountpoint(m, mp, child);
+	last_dest = m;
+	last_source = child;
+	if (m->mnt_master != dest_master) {
+		read_seqlock_excl(&mount_lock);
+		SET_MNT_MARK(m->mnt_master);
+		read_sequnlock_excl(&mount_lock);
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	hlist_add_head(&child->mnt_hash, list);
 	return count_mounts(m->mnt_ns, child);
 }
@@ -609,6 +620,7 @@ int propagate_umount(struct list_head *list)
 	return 0;
 }
 
+<<<<<<< HEAD
 /*
  *  Iterates over all slaves, and slaves of slaves.
  */
@@ -640,5 +652,20 @@ void propagate_remount(struct mount *mnt)
 			sb->s_op->copy_mnt_data(m->mnt.data, mnt->mnt.data);
 			m = next_descendent(mnt, m);
 		}
+=======
+void propagate_remount(struct mount *mnt)
+{
+	struct mount *parent = mnt->mnt_parent;
+	struct mount *p = mnt, *m;
+	struct super_block *sb = mnt->mnt.mnt_sb;
+
+	if (!sb->s_op->copy_mnt_data)
+		return;
+	for (p = propagation_next(parent, parent); p;
+				p = propagation_next(p, parent)) {
+		m = __lookup_mnt(&p->mnt, mnt->mnt_mountpoint);
+		if (m)
+			sb->s_op->copy_mnt_data(m->mnt.data, mnt->mnt.data);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 }

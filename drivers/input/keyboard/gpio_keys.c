@@ -105,7 +105,11 @@ static void gpio_keys_syscore_resume(void);
  * Return value of this function can be used to allocate bitmap
  * large enough to hold all bits for given type.
  */
+<<<<<<< HEAD
 static int get_n_events_by_type(int type)
+=======
+static inline int get_n_events_by_type(int type)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	BUG_ON(type != EV_SW && type != EV_KEY);
 
@@ -113,6 +117,7 @@ static int get_n_events_by_type(int type)
 }
 
 /**
+<<<<<<< HEAD
  * get_bm_events_by_type() - returns bitmap of supported events per @type
  * @input: input device from which bitmap is retrieved
  * @type: type of button (%EV_KEY, %EV_SW)
@@ -129,6 +134,8 @@ static const unsigned long *get_bm_events_by_type(struct input_dev *dev,
 }
 
 /**
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * gpio_keys_disable_button() - disables given GPIO button
  * @bdata: button data for button to be disabled
  *
@@ -238,7 +245,10 @@ static ssize_t gpio_keys_attr_store_helper(struct gpio_keys_drvdata *ddata,
 					   const char *buf, unsigned int type)
 {
 	int n_events = get_n_events_by_type(type);
+<<<<<<< HEAD
 	const unsigned long *bitmap = get_bm_events_by_type(ddata->input, type);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	unsigned long *bits;
 	ssize_t error;
 	int i;
@@ -252,11 +262,14 @@ static ssize_t gpio_keys_attr_store_helper(struct gpio_keys_drvdata *ddata,
 		goto out;
 
 	/* First validate */
+<<<<<<< HEAD
 	if (!bitmap_subset(bits, bitmap, n_events)) {
 		error = -EINVAL;
 		goto out;
 	}
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	for (i = 0; i < ddata->pdata->nbuttons; i++) {
 		struct gpio_button_data *bdata = &ddata->data[i];
 
@@ -270,6 +283,14 @@ static ssize_t gpio_keys_attr_store_helper(struct gpio_keys_drvdata *ddata,
 		}
 	}
 
+<<<<<<< HEAD
+=======
+	if (i == ddata->pdata->nbuttons) {
+		error = -EINVAL;
+		goto out;
+	}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	mutex_lock(&ddata->disable_lock);
 
 	for (i = 0; i < ddata->pdata->nbuttons; i++) {

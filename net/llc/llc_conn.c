@@ -55,8 +55,11 @@ int sysctl_llc2_busy_timeout = LLC2_BUSY_TIME * HZ;
  *	(executing it's actions and changing state), upper layer will be
  *	indicated or confirmed, if needed. Returns 0 for success, 1 for
  *	failure. The socket lock has to be held before calling this function.
+<<<<<<< HEAD
  *
  *	This function always consumes a reference to the skb.
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  */
 int llc_conn_state_process(struct sock *sk, struct sk_buff *skb)
 {
@@ -64,6 +67,15 @@ int llc_conn_state_process(struct sock *sk, struct sk_buff *skb)
 	struct llc_sock *llc = llc_sk(skb->sk);
 	struct llc_conn_state_ev *ev = llc_conn_ev(skb);
 
+<<<<<<< HEAD
+=======
+	/*
+	 * We have to hold the skb, because llc_conn_service will kfree it in
+	 * the sending path and we need to look at the skb->cb, where we encode
+	 * llc_conn_state_ev.
+	 */
+	skb_get(skb);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	ev->ind_prim = ev->cfm_prim = 0;
 	/*
 	 * Send event to state machine
@@ -71,12 +83,30 @@ int llc_conn_state_process(struct sock *sk, struct sk_buff *skb)
 	rc = llc_conn_service(skb->sk, skb);
 	if (unlikely(rc != 0)) {
 		printk(KERN_ERR "%s: llc_conn_service failed\n", __func__);
+<<<<<<< HEAD
 		goto out_skb_put;
 	}
 
 	switch (ev->ind_prim) {
 	case LLC_DATA_PRIM:
 		skb_get(skb);
+=======
+		goto out_kfree_skb;
+	}
+
+	if (unlikely(!ev->ind_prim && !ev->cfm_prim)) {
+		/* indicate or confirm not required */
+		if (!skb->next)
+			goto out_kfree_skb;
+		goto out_skb_put;
+	}
+
+	if (unlikely(ev->ind_prim && ev->cfm_prim)) /* Paranoia */
+		skb_get(skb);
+
+	switch (ev->ind_prim) {
+	case LLC_DATA_PRIM:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		llc_save_primitive(sk, skb, LLC_DATA_PRIM);
 		if (unlikely(sock_queue_rcv_skb(sk, skb))) {
 			/*
@@ -93,7 +123,10 @@ int llc_conn_state_process(struct sock *sk, struct sk_buff *skb)
 		 * skb->sk pointing to the newly created struct sock in
 		 * llc_conn_handler. -acme
 		 */
+<<<<<<< HEAD
 		skb_get(skb);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		skb_queue_tail(&sk->sk_receive_queue, skb);
 		sk->sk_state_change(sk);
 		break;
@@ -109,6 +142,10 @@ int llc_conn_state_process(struct sock *sk, struct sk_buff *skb)
 				sk->sk_state_change(sk);
 			}
 		}
+<<<<<<< HEAD
+=======
+		kfree_skb(skb);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		sock_put(sk);
 		break;
 	case LLC_RESET_PRIM:
@@ -117,11 +154,22 @@ int llc_conn_state_process(struct sock *sk, struct sk_buff *skb)
 		 * RESET is not being notified to upper layers for now
 		 */
 		printk(KERN_INFO "%s: received a reset ind!\n", __func__);
+<<<<<<< HEAD
 		break;
 	default:
 		if (ev->ind_prim)
 			printk(KERN_INFO "%s: received unknown %d prim!\n",
 				__func__, ev->ind_prim);
+=======
+		kfree_skb(skb);
+		break;
+	default:
+		if (ev->ind_prim) {
+			printk(KERN_INFO "%s: received unknown %d prim!\n",
+				__func__, ev->ind_prim);
+			kfree_skb(skb);
+		}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		/* No indication */
 		break;
 	}
@@ -163,12 +211,24 @@ int llc_conn_state_process(struct sock *sk, struct sk_buff *skb)
 		printk(KERN_INFO "%s: received a reset conf!\n", __func__);
 		break;
 	default:
+<<<<<<< HEAD
 		if (ev->cfm_prim)
 			printk(KERN_INFO "%s: received unknown %d prim!\n",
 					__func__, ev->cfm_prim);
 		/* No confirmation */
 		break;
 	}
+=======
+		if (ev->cfm_prim) {
+			printk(KERN_INFO "%s: received unknown %d prim!\n",
+					__func__, ev->cfm_prim);
+			break;
+		}
+		goto out_skb_put; /* No confirmation */
+	}
+out_kfree_skb:
+	kfree_skb(skb);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 out_skb_put:
 	kfree_skb(skb);
 	return rc;

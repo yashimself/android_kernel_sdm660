@@ -298,7 +298,12 @@ ecryptfs_create(struct inode *directory_inode, struct dentry *ecryptfs_dentry,
 				ecryptfs_inode_to_lower(ecryptfs_inode),
 					crypt_stat);
 
+<<<<<<< HEAD
 	d_instantiate_new(ecryptfs_dentry, ecryptfs_inode);
+=======
+	unlock_new_inode(ecryptfs_inode);
+	d_instantiate(ecryptfs_dentry, ecryptfs_inode);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 out:
 	return rc;
 }

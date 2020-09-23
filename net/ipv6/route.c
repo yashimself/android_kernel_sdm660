@@ -99,6 +99,7 @@ static void		rt6_dst_from_metrics_check(struct rt6_info *rt);
 static int rt6_score_route(struct rt6_info *rt, int oif, int strict);
 
 #ifdef CONFIG_IPV6_ROUTE_INFO
+<<<<<<< HEAD
 static struct rt6_info *rt6_add_route_info(struct net *net,
 					   const struct in6_addr *prefix, int prefixlen,
 					   const struct in6_addr *gwaddr,
@@ -108,6 +109,14 @@ static struct rt6_info *rt6_get_route_info(struct net *net,
 					   const struct in6_addr *prefix, int prefixlen,
 					   const struct in6_addr *gwaddr,
 					   struct net_device *dev);
+=======
+static struct rt6_info *rt6_add_route_info(struct net_device *dev,
+					   const struct in6_addr *prefix, int prefixlen,
+					   const struct in6_addr *gwaddr, unsigned int pref);
+static struct rt6_info *rt6_get_route_info(struct net_device *dev,
+					   const struct in6_addr *prefix, int prefixlen,
+					   const struct in6_addr *gwaddr);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #endif
 
 struct uncached_list {
@@ -339,9 +348,15 @@ static struct rt6_info *__ip6_dst_alloc(struct net *net,
 	return rt;
 }
 
+<<<<<<< HEAD
 struct rt6_info *ip6_dst_alloc(struct net *net,
 			       struct net_device *dev,
 			       int flags)
+=======
+static struct rt6_info *ip6_dst_alloc(struct net *net,
+				      struct net_device *dev,
+				      int flags)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	struct rt6_info *rt = __ip6_dst_alloc(net, dev, flags);
 
@@ -365,7 +380,10 @@ struct rt6_info *ip6_dst_alloc(struct net *net,
 
 	return rt;
 }
+<<<<<<< HEAD
 EXPORT_SYMBOL(ip6_dst_alloc);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 static void ip6_dst_destroy(struct dst_entry *dst)
 {
@@ -755,7 +773,10 @@ static bool rt6_is_gw_or_nonexthop(const struct rt6_info *rt)
 int rt6_route_rcv(struct net_device *dev, u8 *opt, int len,
 		  const struct in6_addr *gwaddr)
 {
+<<<<<<< HEAD
 	struct net *net = dev_net(dev);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct route_info *rinfo = (struct route_info *) opt;
 	struct in6_addr prefix_buf, *prefix;
 	unsigned int pref;
@@ -800,8 +821,12 @@ int rt6_route_rcv(struct net_device *dev, u8 *opt, int len,
 	if (rinfo->prefix_len == 0)
 		rt = rt6_get_dflt_router(gwaddr, dev);
 	else
+<<<<<<< HEAD
 		rt = rt6_get_route_info(net, prefix, rinfo->prefix_len,
 					gwaddr, dev);
+=======
+		rt = rt6_get_route_info(dev, prefix, rinfo->prefix_len,	gwaddr);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (rt && !lifetime) {
 		ip6_del_rt(rt);
@@ -809,8 +834,12 @@ int rt6_route_rcv(struct net_device *dev, u8 *opt, int len,
 	}
 
 	if (!rt && lifetime)
+<<<<<<< HEAD
 		rt = rt6_add_route_info(net, prefix, rinfo->prefix_len, gwaddr,
 					dev, pref);
+=======
+		rt = rt6_add_route_info(dev, prefix, rinfo->prefix_len, gwaddr, pref);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	else if (rt)
 		rt->rt6i_flags = RTF_ROUTEINFO |
 				 (rt->rt6i_flags & ~RTF_PREF_MASK) | RTF_PREF(pref);
@@ -2276,17 +2305,29 @@ static void ip6_rt_copy_init(struct rt6_info *rt, struct rt6_info *ort)
 }
 
 #ifdef CONFIG_IPV6_ROUTE_INFO
+<<<<<<< HEAD
 static struct rt6_info *rt6_get_route_info(struct net *net,
 					   const struct in6_addr *prefix, int prefixlen,
 					   const struct in6_addr *gwaddr,
 					   struct net_device *dev)
 {
 	u32 tb_id = l3mdev_fib_table(dev) ? : addrconf_rt_table(dev, RT6_TABLE_INFO);
+=======
+static struct rt6_info *rt6_get_route_info(struct net_device *dev,
+					   const struct in6_addr *prefix, int prefixlen,
+					   const struct in6_addr *gwaddr)
+{
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct fib6_node *fn;
 	struct rt6_info *rt = NULL;
 	struct fib6_table *table;
 
+<<<<<<< HEAD
 	table = fib6_get_table(net, tb_id);
+=======
+	table = fib6_get_table(dev_net(dev),
+			       addrconf_rt_table(dev, RT6_TABLE_INFO));
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!table)
 		return NULL;
 
@@ -2310,11 +2351,17 @@ out:
 	return rt;
 }
 
+<<<<<<< HEAD
 static struct rt6_info *rt6_add_route_info(struct net *net,
 					   const struct in6_addr *prefix, int prefixlen,
 					   const struct in6_addr *gwaddr,
 					   struct net_device *dev,
 					   unsigned int pref)
+=======
+static struct rt6_info *rt6_add_route_info(struct net_device *dev,
+					   const struct in6_addr *prefix, int prefixlen,
+					   const struct in6_addr *gwaddr, unsigned int pref)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	struct fib6_config cfg = {
 		.fc_metric	= IP6_RT_PRIO_USER,
@@ -2324,10 +2371,17 @@ static struct rt6_info *rt6_add_route_info(struct net *net,
 				  RTF_UP | RTF_PREF(pref),
 		.fc_nlinfo.portid = 0,
 		.fc_nlinfo.nlh = NULL,
+<<<<<<< HEAD
 		.fc_nlinfo.nl_net = net,
 	};
 
 	cfg.fc_table = l3mdev_fib_table(dev) ? : addrconf_rt_table(dev, RT6_TABLE_INFO),
+=======
+		.fc_nlinfo.nl_net = dev_net(dev),
+	};
+
+	cfg.fc_table = l3mdev_fib_table_by_index(dev_net(dev), dev->ifindex) ? : addrconf_rt_table(dev, RT6_TABLE_INFO);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	cfg.fc_dst = *prefix;
 	cfg.fc_gateway = *gwaddr;
 
@@ -2337,17 +2391,29 @@ static struct rt6_info *rt6_add_route_info(struct net *net,
 
 	ip6_route_add(&cfg);
 
+<<<<<<< HEAD
 	return rt6_get_route_info(net, prefix, prefixlen, gwaddr, dev);
+=======
+	return rt6_get_route_info(dev, prefix, prefixlen, gwaddr);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 #endif
 
 struct rt6_info *rt6_get_dflt_router(const struct in6_addr *addr, struct net_device *dev)
 {
+<<<<<<< HEAD
 	u32 tb_id = l3mdev_fib_table(dev) ? : addrconf_rt_table(dev, RT6_TABLE_MAIN);
 	struct rt6_info *rt;
 	struct fib6_table *table;
 
 	table = fib6_get_table(dev_net(dev), tb_id);
+=======
+	struct rt6_info *rt;
+	struct fib6_table *table;
+
+	table = fib6_get_table(dev_net(dev),
+			       addrconf_rt_table(dev, RT6_TABLE_MAIN));
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!table)
 		return NULL;
 
@@ -2381,6 +2447,7 @@ struct rt6_info *rt6_add_dflt_router(const struct in6_addr *gwaddr,
 
 	cfg.fc_gateway = *gwaddr;
 
+<<<<<<< HEAD
 	if (!ip6_route_add(&cfg)) {
 		struct fib6_table *table;
 
@@ -2388,10 +2455,17 @@ struct rt6_info *rt6_add_dflt_router(const struct in6_addr *gwaddr,
 		if (table)
 			table->flags |= RT6_TABLE_HAS_DFLT_ROUTER;
 	}
+=======
+	ip6_route_add(&cfg);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	return rt6_get_dflt_router(gwaddr, dev);
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 int rt6_addrconf_purge(struct rt6_info *rt, void *arg) {
 	if (rt->rt6i_flags & (RTF_DEFAULT | RTF_ADDRCONF) &&
 	    (!rt->rt6i_idev || rt->rt6i_idev->cnf.accept_ra != 2))
@@ -2957,7 +3031,10 @@ static int ip6_route_multipath_add(struct fib6_config *cfg)
 		 */
 		cfg->fc_nlinfo.nlh->nlmsg_flags &= ~(NLM_F_EXCL |
 						     NLM_F_REPLACE);
+<<<<<<< HEAD
 		cfg->fc_nlinfo.nlh->nlmsg_flags |= NLM_F_CREATE;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		nhn++;
 	}
 

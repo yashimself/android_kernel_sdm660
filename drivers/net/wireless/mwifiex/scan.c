@@ -495,13 +495,21 @@ mwifiex_scan_create_channel_list(struct mwifiex_private *priv,
 							*scan_chan_list,
 				 u8 filtered_scan)
 {
+<<<<<<< HEAD
 	enum nl80211_band band;
+=======
+	enum ieee80211_band band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct ieee80211_supported_band *sband;
 	struct ieee80211_channel *ch;
 	struct mwifiex_adapter *adapter = priv->adapter;
 	int chan_idx = 0, i;
 
+<<<<<<< HEAD
 	for (band = 0; (band < NUM_NL80211_BANDS) ; band++) {
+=======
+	for (band = 0; (band < IEEE80211_NUM_BANDS) ; band++) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		if (!priv->wdev.wiphy->bands[band])
 			continue;
@@ -1873,6 +1881,7 @@ mwifiex_parse_single_response_buf(struct mwifiex_private *priv, u8 **bss_info,
 					    ETH_ALEN))
 					mwifiex_update_curr_bss_params(priv,
 								       bss);
+<<<<<<< HEAD
 
 				if ((chan->flags & IEEE80211_CHAN_RADAR) ||
 				    (chan->flags & IEEE80211_CHAN_NO_IR)) {
@@ -1885,6 +1894,18 @@ mwifiex_parse_single_response_buf(struct mwifiex_private *priv, u8 **bss_info,
 
 				cfg80211_put_bss(priv->wdev.wiphy, bss);
 			}
+=======
+				cfg80211_put_bss(priv->wdev.wiphy, bss);
+			}
+
+			if ((chan->flags & IEEE80211_CHAN_RADAR) ||
+			    (chan->flags & IEEE80211_CHAN_NO_IR)) {
+				mwifiex_dbg(adapter, INFO,
+					    "radar or passive channel %d\n",
+					    channel);
+				mwifiex_save_hidden_ssid_channels(priv, bss);
+			}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 	} else {
 		mwifiex_dbg(adapter, WARN, "missing BSS channel IE\n");
@@ -2568,6 +2589,7 @@ mwifiex_cmd_append_vsie_tlv(struct mwifiex_private *priv,
 			vs_param_set->header.len =
 				cpu_to_le16((((u16) priv->vs_ie[id].ie[1])
 				& 0x00FF) + 2);
+<<<<<<< HEAD
 			if (le16_to_cpu(vs_param_set->header.len) >
 				MWIFIEX_MAX_VSIE_LEN) {
 				mwifiex_dbg(priv->adapter, ERROR,
@@ -2575,6 +2597,8 @@ mwifiex_cmd_append_vsie_tlv(struct mwifiex_private *priv,
 				break;
 			}
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			memcpy(vs_param_set->ie, priv->vs_ie[id].ie,
 			       le16_to_cpu(vs_param_set->header.len));
 			*buffer += le16_to_cpu(vs_param_set->header.len) +

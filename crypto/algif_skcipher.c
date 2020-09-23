@@ -538,7 +538,11 @@ static int skcipher_recvmsg_async(struct socket *sock, struct msghdr *msg,
 	lock_sock(sk);
 	tx_nents = skcipher_all_sg_nents(ctx);
 	sreq->tsg = kcalloc(tx_nents, sizeof(*sg), GFP_KERNEL);
+<<<<<<< HEAD
 	if (unlikely(ZERO_OR_NULL_PTR(sreq->tsg)))
+=======
+	if (unlikely(!sreq->tsg))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		goto unlock;
 	sg_init_table(sreq->tsg, tx_nents);
 	memcpy(iv, ctx->iv, ivsize);

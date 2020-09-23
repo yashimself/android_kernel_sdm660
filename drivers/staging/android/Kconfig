@@ -101,8 +101,11 @@ config ANDROID_VSOC
 
 source "drivers/staging/android/ion/Kconfig"
 
+<<<<<<< HEAD
 source "drivers/staging/android/fiq_debugger/Kconfig"
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 endif # if ANDROID
 
 endmenu

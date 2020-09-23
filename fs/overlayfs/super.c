@@ -31,6 +31,10 @@ struct ovl_config {
 	char *lowerdir;
 	char *upperdir;
 	char *workdir;
+<<<<<<< HEAD
+=======
+	bool override_creds;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 /* private information held for overlayfs's superblock */
@@ -252,9 +256,23 @@ const struct cred *ovl_override_creds(struct super_block *sb)
 {
 	struct ovl_fs *ofs = sb->s_fs_info;
 
+<<<<<<< HEAD
 	return override_creds(ofs->creator_cred);
 }
 
+=======
+	if (!ofs->config.override_creds)
+		return NULL;
+	return override_creds(ofs->creator_cred);
+}
+
+void ovl_revert_creds(const struct cred *old_cred)
+{
+	if (old_cred)
+		revert_creds(old_cred);
+}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static bool ovl_is_opaquedir(struct dentry *dentry)
 {
 	int res;
@@ -626,6 +644,14 @@ static int ovl_statfs(struct dentry *dentry, struct kstatfs *buf)
 	return err;
 }
 
+<<<<<<< HEAD
+=======
+static bool __read_mostly ovl_override_creds_def = true;
+module_param_named(override_creds, ovl_override_creds_def, bool, 0644);
+MODULE_PARM_DESC(ovl_override_creds_def,
+		 "Use mounter's credentials for accesses");
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /**
  * ovl_show_options
  *
@@ -642,6 +668,12 @@ static int ovl_show_options(struct seq_file *m, struct dentry *dentry)
 		seq_show_option(m, "upperdir", ufs->config.upperdir);
 		seq_show_option(m, "workdir", ufs->config.workdir);
 	}
+<<<<<<< HEAD
+=======
+	if (ufs->config.override_creds != ovl_override_creds_def)
+		seq_show_option(m, "override_creds",
+				ufs->config.override_creds ? "on" : "off");
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return 0;
 }
 
@@ -666,6 +698,11 @@ enum {
 	OPT_LOWERDIR,
 	OPT_UPPERDIR,
 	OPT_WORKDIR,
+<<<<<<< HEAD
+=======
+	OPT_OVERRIDE_CREDS_ON,
+	OPT_OVERRIDE_CREDS_OFF,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	OPT_ERR,
 };
 
@@ -673,6 +710,11 @@ static const match_table_t ovl_tokens = {
 	{OPT_LOWERDIR,			"lowerdir=%s"},
 	{OPT_UPPERDIR,			"upperdir=%s"},
 	{OPT_WORKDIR,			"workdir=%s"},
+<<<<<<< HEAD
+=======
+	{OPT_OVERRIDE_CREDS_ON,		"override_creds=on"},
+	{OPT_OVERRIDE_CREDS_OFF,	"override_creds=off"},
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	{OPT_ERR,			NULL}
 };
 
@@ -703,6 +745,10 @@ static int ovl_parse_opt(char *opt, struct ovl_config *config)
 {
 	char *p;
 
+<<<<<<< HEAD
+=======
+	config->override_creds = ovl_override_creds_def;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	while ((p = ovl_next_opt(&opt)) != NULL) {
 		int token;
 		substring_t args[MAX_OPT_ARGS];
@@ -733,6 +779,17 @@ static int ovl_parse_opt(char *opt, struct ovl_config *config)
 				return -ENOMEM;
 			break;
 
+<<<<<<< HEAD
+=======
+		case OPT_OVERRIDE_CREDS_ON:
+			config->override_creds = true;
+			break;
+
+		case OPT_OVERRIDE_CREDS_OFF:
+			config->override_creds = false;
+			break;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		default:
 			pr_err("overlayfs: unrecognized mount option \"%s\" or missing value\n", p);
 			return -EINVAL;

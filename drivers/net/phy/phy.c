@@ -699,6 +699,7 @@ void phy_change(struct work_struct *work)
 	struct phy_device *phydev =
 		container_of(work, struct phy_device, phy_queue);
 
+<<<<<<< HEAD
 	if (phy_interrupt_is_valid(phydev)) {
 		if (phydev->drv->did_interrupt &&
 		    !phydev->drv->did_interrupt(phydev))
@@ -707,12 +708,21 @@ void phy_change(struct work_struct *work)
 		if (phy_disable_interrupts(phydev))
 			goto phy_err;
 	}
+=======
+	if (phydev->drv->did_interrupt &&
+	    !phydev->drv->did_interrupt(phydev))
+		goto ignore;
+
+	if (phy_disable_interrupts(phydev))
+		goto phy_err;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	mutex_lock(&phydev->lock);
 	if ((PHY_RUNNING == phydev->state) || (PHY_NOLINK == phydev->state))
 		phydev->state = PHY_CHANGELINK;
 	mutex_unlock(&phydev->lock);
 
+<<<<<<< HEAD
 	if (phy_interrupt_is_valid(phydev)) {
 		atomic_dec(&phydev->irq_disable);
 		enable_irq(phydev->irq);
@@ -722,6 +732,15 @@ void phy_change(struct work_struct *work)
 		    phy_config_interrupt(phydev, PHY_INTERRUPT_ENABLED))
 			goto irq_enable_err;
 	}
+=======
+	atomic_dec(&phydev->irq_disable);
+	enable_irq(phydev->irq);
+
+	/* Reenable interrupts */
+	if (PHY_HALTED != phydev->state &&
+	    phy_config_interrupt(phydev, PHY_INTERRUPT_ENABLED))
+		goto irq_enable_err;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* reschedule state queue work to run as soon as possible */
 	cancel_delayed_work_sync(&phydev->state_queue);
@@ -916,10 +935,17 @@ void phy_state_machine(struct work_struct *work)
 		phydev->adjust_link(phydev->attached_dev);
 		break;
 	case PHY_RUNNING:
+<<<<<<< HEAD
 		/* Only register a CHANGE if we are polling and link changed
 		 * since latest checking.
 		 */
 		if (phydev->irq == PHY_POLL) {
+=======
+		/* Only register a CHANGE if we are polling or ignoring
+		 * interrupts and link changed since latest checking.
+		 */
+		if (!phy_interrupt_is_valid(phydev)) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			old_link = phydev->link;
 			err = phy_read_status(phydev);
 			if (err)
@@ -1019,6 +1045,7 @@ void phy_state_machine(struct work_struct *work)
 	dev_dbg(&phydev->dev, "PHY state change %s -> %s\n",
 		phy_state_to_str(old_state), phy_state_to_str(phydev->state));
 
+<<<<<<< HEAD
 	/* Only re-schedule a PHY state machine change if we are polling the
 	 * PHY, if PHY_IGNORE_INTERRUPT is set, then we will be moving
 	 * between states from phy_mac_interrupt()
@@ -1026,14 +1053,24 @@ void phy_state_machine(struct work_struct *work)
 	if (phydev->irq == PHY_POLL)
 		queue_delayed_work(system_power_efficient_wq, &phydev->state_queue,
 				   PHY_STATE_TIME * HZ);
+=======
+	queue_delayed_work(system_power_efficient_wq, &phydev->state_queue,
+			   PHY_STATE_TIME * HZ);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 void phy_mac_interrupt(struct phy_device *phydev, int new_link)
 {
+<<<<<<< HEAD
 	phydev->link = new_link;
 
 	/* Trigger a state machine change */
 	queue_work(system_power_efficient_wq, &phydev->phy_queue);
+=======
+	cancel_work_sync(&phydev->phy_queue);
+	phydev->link = new_link;
+	schedule_work(&phydev->phy_queue);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 EXPORT_SYMBOL(phy_mac_interrupt);
 

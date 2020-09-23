@@ -1003,7 +1003,11 @@ static int shmem_replace_page(struct page **pagep, gfp_t gfp,
 	copy_highpage(newpage, oldpage);
 	flush_dcache_page(newpage);
 
+<<<<<<< HEAD
 	__set_page_locked(newpage);
+=======
+	__SetPageLocked(newpage);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	SetPageUptodate(newpage);
 	SetPageSwapBacked(newpage);
 	set_page_private(newpage, swap_index);
@@ -1195,7 +1199,11 @@ repeat:
 		}
 
 		__SetPageSwapBacked(page);
+<<<<<<< HEAD
 		__set_page_locked(page);
+=======
+		__SetPageLocked(page);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (sgp == SGP_WRITE)
 			__SetPageReferenced(page);
 
@@ -2092,7 +2100,11 @@ static long shmem_fallocate(struct file *file, int mode, loff_t offset,
 		}
 
 		shmem_falloc.waitq = &shmem_falloc_waitq;
+<<<<<<< HEAD
 		shmem_falloc.start = (u64)unmap_start >> PAGE_SHIFT;
+=======
+		shmem_falloc.start = unmap_start >> PAGE_SHIFT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		shmem_falloc.next = (unmap_end + 1) >> PAGE_SHIFT;
 		spin_lock(&inode->i_lock);
 		inode->i_private = &shmem_falloc;

@@ -353,7 +353,11 @@ static int p54_rx_data(struct p54_common *priv, struct sk_buff *skb)
 	rx_status->signal = p54_rssi_to_dbm(priv, hdr->rssi);
 	if (hdr->rate & 0x10)
 		rx_status->flag |= RX_FLAG_SHORTPRE;
+<<<<<<< HEAD
 	if (priv->hw->conf.chandef.chan->band == NL80211_BAND_5GHZ)
+=======
+	if (priv->hw->conf.chandef.chan->band == IEEE80211_BAND_5GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		rx_status->rate_idx = (rate < 4) ? 0 : rate - 4;
 	else
 		rx_status->rate_idx = rate;
@@ -867,7 +871,11 @@ void p54_tx_80211(struct ieee80211_hw *dev,
 	for (i = 0; i < nrates && ridx < 8; i++) {
 		/* we register the rates in perfect order */
 		rate = info->control.rates[i].idx;
+<<<<<<< HEAD
 		if (info->band == NL80211_BAND_5GHZ)
+=======
+		if (info->band == IEEE80211_BAND_5GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			rate += 4;
 
 		/* store the count we actually calculated for TX status */

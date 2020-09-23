@@ -112,6 +112,7 @@ struct pipe_buf_operations {
 	/*
 	 * Get a reference to the pipe buffer.
 	 */
+<<<<<<< HEAD
 	bool (*get)(struct pipe_inode_info *, struct pipe_buffer *);
 };
 
@@ -128,6 +129,11 @@ static inline __must_check bool pipe_buf_get(struct pipe_inode_info *pipe,
 	return buf->ops->get(pipe, buf);
 }
 
+=======
+	void (*get)(struct pipe_inode_info *, struct pipe_buffer *);
+};
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /* Differs from PIPE_BUF in that PIPE_SIZE is the length of the actual
    memory allocation, whereas PIPE_BUF makes atomicity guarantees.  */
 #define PIPE_SIZE		PAGE_SIZE
@@ -150,7 +156,11 @@ struct pipe_inode_info *alloc_pipe_info(void);
 void free_pipe_info(struct pipe_inode_info *);
 
 /* Generic pipe buffer ops functions */
+<<<<<<< HEAD
 bool generic_pipe_buf_get(struct pipe_inode_info *, struct pipe_buffer *);
+=======
+void generic_pipe_buf_get(struct pipe_inode_info *, struct pipe_buffer *);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 int generic_pipe_buf_confirm(struct pipe_inode_info *, struct pipe_buffer *);
 int generic_pipe_buf_steal(struct pipe_inode_info *, struct pipe_buffer *);
 void generic_pipe_buf_release(struct pipe_inode_info *, struct pipe_buffer *);

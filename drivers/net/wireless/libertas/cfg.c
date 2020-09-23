@@ -23,7 +23,11 @@
 
 
 #define CHAN2G(_channel, _freq, _flags) {        \
+<<<<<<< HEAD
 	.band             = NL80211_BAND_2GHZ, \
+=======
+	.band             = IEEE80211_BAND_2GHZ, \
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.center_freq      = (_freq),             \
 	.hw_value         = (_channel),          \
 	.flags            = (_flags),            \
@@ -272,10 +276,13 @@ add_ie_rates(u8 *tlv, const u8 *ie, int *nrates)
 	int hw, ap, ap_max = ie[1];
 	u8 hw_rate;
 
+<<<<<<< HEAD
 	if (ap_max > MAX_RATES) {
 		lbs_deb_assoc("invalid rates\n");
 		return tlv;
 	}
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* Advance past IE header */
 	ie += 2;
 
@@ -643,7 +650,11 @@ static int lbs_ret_scan(struct lbs_private *priv, unsigned long dummy,
 		if (chan_no != -1) {
 			struct wiphy *wiphy = priv->wdev->wiphy;
 			int freq = ieee80211_channel_to_frequency(chan_no,
+<<<<<<< HEAD
 							NL80211_BAND_2GHZ);
+=======
+							IEEE80211_BAND_2GHZ);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			struct ieee80211_channel *channel =
 				ieee80211_get_channel(wiphy, freq);
 
@@ -1269,7 +1280,11 @@ _new_connect_scan_req(struct wiphy *wiphy, struct cfg80211_connect_params *sme)
 {
 	struct cfg80211_scan_request *creq = NULL;
 	int i, n_channels = ieee80211_get_num_supported_channels(wiphy);
+<<<<<<< HEAD
 	enum nl80211_band band;
+=======
+	enum ieee80211_band band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	creq = kzalloc(sizeof(*creq) + sizeof(struct cfg80211_ssid) +
 		       n_channels * sizeof(void *),
@@ -1284,7 +1299,11 @@ _new_connect_scan_req(struct wiphy *wiphy, struct cfg80211_connect_params *sme)
 
 	/* Scan all available channels */
 	i = 0;
+<<<<<<< HEAD
 	for (band = 0; band < NUM_NL80211_BANDS; band++) {
+=======
+	for (band = 0; band < IEEE80211_NUM_BANDS; band++) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		int j;
 
 		if (!wiphy->bands[band])
@@ -1787,9 +1806,12 @@ static int lbs_ibss_join_existing(struct lbs_private *priv,
 	struct cmd_ds_802_11_ad_hoc_join cmd;
 	u8 preamble = RADIO_PREAMBLE_SHORT;
 	int ret = 0;
+<<<<<<< HEAD
 	int hw, i;
 	u8 rates_max;
 	u8 *rates;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	lbs_deb_enter(LBS_DEB_CFG80211);
 
@@ -1850,6 +1872,7 @@ static int lbs_ibss_join_existing(struct lbs_private *priv,
 	if (!rates_eid) {
 		lbs_add_rates(cmd.bss.rates);
 	} else {
+<<<<<<< HEAD
 		rates_max = rates_eid[1];
 		if (rates_max > MAX_RATES) {
 			lbs_deb_join("invalid rates");
@@ -1858,6 +1881,11 @@ static int lbs_ibss_join_existing(struct lbs_private *priv,
 			goto out;
 		}
 		rates = cmd.bss.rates;
+=======
+		int hw, i;
+		u8 rates_max = rates_eid[1];
+		u8 *rates = cmd.bss.rates;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		for (hw = 0; hw < ARRAY_SIZE(lbs_rates); hw++) {
 			u8 hw_rate = lbs_rates[hw].bitrate / 5;
 			for (i = 0; i < rates_max; i++) {
@@ -2173,7 +2201,11 @@ int lbs_cfg_register(struct lbs_private *priv)
 	if (lbs_mesh_activated(priv))
 		wdev->wiphy->interface_modes |= BIT(NL80211_IFTYPE_MESH_POINT);
 
+<<<<<<< HEAD
 	wdev->wiphy->bands[NL80211_BAND_2GHZ] = &lbs_band_2ghz;
+=======
+	wdev->wiphy->bands[IEEE80211_BAND_2GHZ] = &lbs_band_2ghz;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/*
 	 * We could check priv->fwcapinfo && FW_CAPINFO_WPA, but I have

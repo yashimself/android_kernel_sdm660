@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2013-2019, Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2013-2020, Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -226,7 +230,11 @@ static void q6lsm_session_free(struct lsm_client *client)
 	unsigned long flags;
 	pr_debug("%s: Freeing session ID %d\n", __func__, client->session);
 	spin_lock_irqsave(&lsm_session_lock, flags);
+<<<<<<< HEAD
 	lsm_session[client->session] = LSM_INVALID_SESSION_ID;
+=======
+	lsm_session[client->session] = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	spin_unlock_irqrestore(&lsm_session_lock, flags);
 	client->session = LSM_INVALID_SESSION_ID;
 }

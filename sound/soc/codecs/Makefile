@@ -425,6 +425,7 @@ obj-$(CONFIG_SND_SOC_MSM_STUB)  += snd-soc-msm-stub.o
 # Amp
 obj-$(CONFIG_SND_SOC_MAX9877)	+= snd-soc-max9877.o
 obj-$(CONFIG_SND_SOC_TPA6130A2)	+= snd-soc-tpa6130a2.o
+<<<<<<< HEAD
 obj-$(CONFIG_SND_SOC_TFA9874)   += tfa9874/
 obj-y += sdm660_cdc/
 obj-y += msm_sdw/
@@ -432,3 +433,7 @@ obj-y += msm_sdw/
 # TODO: remove me b/62058353
 subdir-ccflags-y += \
 	-Wno-enum-conversion
+=======
+obj-y += sdm660_cdc/
+obj-y += msm_sdw/
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2016-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2016-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -641,10 +645,20 @@ static int glink_spi_xprt_tx_cmd(struct edge_info *einfo, void *src,
  *			is read.
  * @frag_size:		Size of the data fragment to read.
  * @size_remaining:	Size of data left to be read in this packet.
+<<<<<<< HEAD
  */
 static void process_rx_data(struct edge_info *einfo, uint16_t cmd_id,
 			    uint32_t rcid, uint32_t intent_id, void *src,
 			    uint32_t frag_size, uint32_t size_remaining)
+=======
+ * @rx_size:	        Max size of data that can be read in this packet
+ *			from source.
+ */
+static void process_rx_data(struct edge_info *einfo, uint16_t cmd_id,
+			    uint32_t rcid, uint32_t intent_id, void *src,
+			    uint32_t frag_size, uint32_t size_remaining,
+			    int rx_size)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	struct glink_core_rx_intent *intent;
 	int rc = 0;
@@ -667,8 +681,19 @@ static void process_rx_data(struct edge_info *einfo, uint16_t cmd_id,
 		return;
 	}
 
+<<<<<<< HEAD
 	if (cmd_id == TX_SHORT_DATA_CMD)
 		memcpy(intent->data + intent->write_offset, src, frag_size);
+=======
+	if (cmd_id == TX_SHORT_DATA_CMD) {
+		if (frag_size > rx_size) {
+			GLINK_ERR("%s: frag size:%d greater than rx size %d\n",
+				  __func__, frag_size, rx_size);
+			return;
+		}
+		memcpy(intent->data + intent->write_offset, src, frag_size);
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	else
 		rc = glink_spi_xprt_rx_data(einfo, src,
 				intent->data + intent->write_offset, frag_size);
@@ -838,7 +863,12 @@ static void process_rx_cmd(struct edge_info *einfo,
 			process_rx_data(einfo, cmd->id, cmd->param1,
 					cmd->param2,
 					(void *)(uintptr_t)(rx_descp->addr),
+<<<<<<< HEAD
 					rx_descp->size, rx_descp->size_left);
+=======
+					rx_descp->size, rx_descp->size_left,
+					rx_size);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			break;
 
 		case TX_SHORT_DATA_CMD:
@@ -849,7 +879,11 @@ static void process_rx_cmd(struct edge_info *einfo,
 			offset += sizeof(*rx_sd_descp);
 			process_rx_data(einfo, cmd->id, cmd->param1,
 					cmd->param2, (void *)rx_sd_descp->data,
+<<<<<<< HEAD
 					cmd->param3, cmd->param4);
+=======
+					cmd->param3, cmd->param4, rx_size);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			break;
 
 		case READ_NOTIF_CMD:

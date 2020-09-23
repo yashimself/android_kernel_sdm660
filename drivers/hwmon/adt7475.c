@@ -268,10 +268,16 @@ static inline u16 volt2reg(int channel, long volt, u8 bypass_attn)
 	long reg;
 
 	if (bypass_attn & (1 << channel))
+<<<<<<< HEAD
 		reg = DIV_ROUND_CLOSEST(volt * 1024, 2250);
 	else
 		reg = DIV_ROUND_CLOSEST(volt * r[1] * 1024,
 					(r[0] + r[1]) * 2250);
+=======
+		reg = (volt * 1024) / 2250;
+	else
+		reg = (volt * r[1] * 1024) / ((r[0] + r[1]) * 2250);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return clamp_val(reg, 0, 1023) & (0xff << 2);
 }
 

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2011-2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2011-2016, 2020, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -153,7 +157,11 @@ static void msm_spm_drv_flush_shadow(struct msm_spm_driver_data *dev,
 {
 	BUG_ON(!dev);
 
+<<<<<<< HEAD
 	BUG_ON(!dev->reg_shadow);
+=======
+	BUG_ON(dev->reg_shadow == NULL);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	__raw_writel(dev->reg_shadow[reg_index],
 		dev->reg_base_addr + dev->reg_offsets[reg_index]);

@@ -1112,8 +1112,12 @@ int mesh_nexthop_resolve(struct ieee80211_sub_if_data *sdata,
 		}
 	}
 
+<<<<<<< HEAD
 	if (!(mpath->flags & MESH_PATH_RESOLVING) &&
 	    mesh_path_sel_is_hwmp(sdata))
+=======
+	if (!(mpath->flags & MESH_PATH_RESOLVING))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		mesh_queue_preq(mpath, PREQ_Q_F_START);
 
 	if (skb_queue_len(&mpath->frame_queue) >= MESH_FRAME_QUEUE_LEN)

@@ -12,6 +12,15 @@
 #include <asm/unistd.h>
 #include <asm/ftrace.h>
 #include <asm/unwind.h>
+<<<<<<< HEAD
+=======
+#include <asm/memory.h>
+#ifdef CONFIG_AEABI
+#include <asm/unistd-oabi.h>
+#endif
+
+	.equ    NR_syscalls, __NR_syscalls
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #ifdef CONFIG_NEED_RET_TO_USER
 #include <mach/entry-macro.S>
@@ -35,6 +44,12 @@ ret_fast_syscall:
  UNWIND(.fnstart	)
  UNWIND(.cantunwind	)
 	disable_irq_notrace			@ disable interrupts
+<<<<<<< HEAD
+=======
+	ldr	r2, [tsk, #TI_ADDR_LIMIT]
+	cmp	r2, #TASK_SIZE
+	blne	addr_limit_check_failed
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	ldr	r1, [tsk, #TI_FLAGS]		@ re-check for syscall tracing
 	tst	r1, #_TIF_SYSCALL_WORK | _TIF_WORK_MASK
 	bne	fast_work_pending
@@ -61,6 +76,12 @@ ret_fast_syscall:
  UNWIND(.cantunwind	)
 	str	r0, [sp, #S_R0 + S_OFF]!	@ save returned r0
 	disable_irq_notrace			@ disable interrupts
+<<<<<<< HEAD
+=======
+	ldr	r2, [tsk, #TI_ADDR_LIMIT]
+	cmp	r2, #TASK_SIZE
+	blne	addr_limit_check_failed
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	ldr	r1, [tsk, #TI_FLAGS]		@ re-check for syscall tracing
 	tst	r1, #_TIF_SYSCALL_WORK | _TIF_WORK_MASK
 	beq	no_work_pending
@@ -93,6 +114,12 @@ ENTRY(ret_to_user)
 ret_slow_syscall:
 	disable_irq_notrace			@ disable interrupts
 ENTRY(ret_to_user_from_irq)
+<<<<<<< HEAD
+=======
+	ldr	r2, [tsk, #TI_ADDR_LIMIT]
+	cmp	r2, #TASK_SIZE
+	blne	addr_limit_check_failed
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	ldr	r1, [tsk, #TI_FLAGS]
 	tst	r1, #_TIF_WORK_MASK
 	bne	slow_work_pending
@@ -120,6 +147,7 @@ ENTRY(ret_from_fork)
 	b	ret_slow_syscall
 ENDPROC(ret_from_fork)
 
+<<<<<<< HEAD
 	.equ NR_syscalls,0
 #define CALL(x) .equ NR_syscalls,NR_syscalls+1
 #include "calls.S"
@@ -135,6 +163,8 @@ ENDPROC(ret_from_fork)
 #undef CALL
 #define CALL(x) .long x
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /*=============================================================================
  * SWI handler
  *-----------------------------------------------------------------------------
@@ -282,10 +312,43 @@ __cr_alignment:
 #endif
 	.ltorg
 
+<<<<<<< HEAD
+=======
+	.macro	syscall_table_start, sym
+	.equ	__sys_nr, 0
+	.type	\sym, #object
+ENTRY(\sym)
+	.endm
+
+	.macro	syscall, nr, func
+	.ifgt	__sys_nr - \nr
+	.error	"Duplicated/unorded system call entry"
+	.endif
+	.rept	\nr - __sys_nr
+	.long	sys_ni_syscall
+	.endr
+	.long	\func
+	.equ	__sys_nr, \nr + 1
+	.endm
+
+	.macro	syscall_table_end, sym
+	.ifgt	__sys_nr - __NR_syscalls
+	.error	"System call table too big"
+	.endif
+	.rept	__NR_syscalls - __sys_nr
+	.long	sys_ni_syscall
+	.endr
+	.size	\sym, . - \sym
+	.endm
+
+#define NATIVE(nr, func) syscall nr, func
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /*
  * This is the syscall table declaration for native ABI syscalls.
  * With EABI a couple syscalls are obsolete and defined as sys_ni_syscall.
  */
+<<<<<<< HEAD
 #define ABI(native, compat) native
 #ifdef CONFIG_AEABI
 #define OBSOLETE(syscall) sys_ni_syscall
@@ -298,6 +361,17 @@ ENTRY(sys_call_table)
 #include "calls.S"
 #undef ABI
 #undef OBSOLETE
+=======
+	syscall_table_start sys_call_table
+#define COMPAT(nr, native, compat) syscall nr, native
+#ifdef CONFIG_AEABI
+#include <calls-eabi.S>
+#else
+#include <calls-oabi.S>
+#endif
+#undef COMPAT
+	syscall_table_end sys_call_table
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 /*============================================================================
  * Special system call wrappers
@@ -402,6 +476,7 @@ ENDPROC(sys_oabi_readahead)
  * Let's declare a second syscall table for old ABI binaries
  * using the compatibility syscall entries.
  */
+<<<<<<< HEAD
 #define ABI(native, compat) compat
 #define OBSOLETE(syscall) syscall
 
@@ -410,6 +485,12 @@ ENTRY(sys_oabi_call_table)
 #include "calls.S"
 #undef ABI
 #undef OBSOLETE
+=======
+	syscall_table_start sys_oabi_call_table
+#define COMPAT(nr, native, compat) syscall nr, compat
+#include <calls-oabi.S>
+	syscall_table_end sys_oabi_call_table
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #endif
 

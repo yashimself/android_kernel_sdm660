@@ -2056,14 +2056,20 @@ no_bw:
 	kfree(xhci->port_array);
 	kfree(xhci->rh_bw);
 	kfree(xhci->ext_caps);
+<<<<<<< HEAD
 	kfree(xhci->usb2_rhub.psi);
 	kfree(xhci->usb3_rhub.psi);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	xhci->usb2_ports = NULL;
 	xhci->usb3_ports = NULL;
 	xhci->port_array = NULL;
+<<<<<<< HEAD
 	xhci->usb2_rhub.psi = NULL;
 	xhci->usb3_rhub.psi = NULL;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	xhci->rh_bw = NULL;
 	xhci->ext_caps = NULL;
 

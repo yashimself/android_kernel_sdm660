@@ -755,14 +755,24 @@ __power_supply_register(struct device *parent,
 	}
 
 	spin_lock_init(&psy->changed_lock);
+<<<<<<< HEAD
 	rc = device_add(dev);
 	if (rc)
 		goto device_add_failed;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	rc = device_init_wakeup(dev, ws);
 	if (rc)
 		goto wakeup_init_failed;
 
+<<<<<<< HEAD
+=======
+	rc = device_add(dev);
+	if (rc)
+		goto device_add_failed;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	rc = psy_register_thermal(psy);
 	if (rc)
 		goto register_thermal_failed;
@@ -798,8 +808,13 @@ register_cooler_failed:
 	psy_unregister_thermal(psy);
 register_thermal_failed:
 	device_del(dev);
+<<<<<<< HEAD
 wakeup_init_failed:
 device_add_failed:
+=======
+device_add_failed:
+wakeup_init_failed:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 check_supplies_failed:
 dev_set_name_failed:
 	put_device(dev);

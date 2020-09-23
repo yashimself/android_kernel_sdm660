@@ -14,6 +14,7 @@
 
 struct ipc64_perm
 {
+<<<<<<< HEAD
 	__kernel_key_t		key;
 	__kernel_uid32_t	uid;
 	__kernel_gid32_t	gid;
@@ -27,6 +28,21 @@ struct ipc64_perm
 	unsigned short		seq;
 	unsigned long long	__unused1;
 	unsigned long long	__unused2;
+=======
+	__kernel_key_t	key;
+	__kernel_uid_t	uid;
+	__kernel_gid_t	gid;
+	__kernel_uid_t	cuid;
+	__kernel_gid_t	cgid;
+#ifndef __arch64__
+	unsigned short	__pad0;
+#endif
+	__kernel_mode_t	mode;
+	unsigned short	__pad1;
+	unsigned short	seq;
+	unsigned long long __unused1;
+	unsigned long long __unused2;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 #endif /* __SPARC_IPCBUF_H */

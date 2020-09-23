@@ -34,7 +34,11 @@ endif
 # Only pass canonical directory names as the output directory:
 #
 ifneq ($(O),)
+<<<<<<< HEAD
   FULL_O := $(shell cd $(PWD); readlink -f $(O) || echo $(O))
+=======
+  FULL_O := $(shell readlink -f $(O) || echo $(O))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 endif
 
 #

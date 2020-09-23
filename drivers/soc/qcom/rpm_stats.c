@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2011-2017, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2011-2017, 2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -389,7 +393,11 @@ static ssize_t rpmstats_show(struct kobject *kobj,
 {
 	struct msm_rpmstats_private_data *prvdata = NULL;
 	struct msm_rpmstats_platform_data *pdata = NULL;
+<<<<<<< HEAD
 	ssize_t ret;
+=======
+	ssize_t ret = 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	mutex_lock(&rpm_stats_mutex);
 	pdata = GET_PDATA_OF_ATTR(attr);
@@ -428,9 +436,18 @@ static ssize_t rpmstats_show(struct kobject *kobj,
 		else if (prvdata->platform_data->version == 2)
 			prvdata->len = msm_rpmstats_copy_stats_v2(
 					prvdata);
+<<<<<<< HEAD
 	}
 
 	ret = snprintf(buf, prvdata->len, "%s", prvdata->buf);
+=======
+		else
+			goto exit;
+	}
+
+	ret = snprintf(buf, prvdata->len, "%s", prvdata->buf);
+exit:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	iounmap(prvdata->reg_base);
 ioremap_fail:
 	kfree(prvdata);

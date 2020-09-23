@@ -2220,7 +2220,11 @@ void qlcnic_83xx_process_rcv_ring_diag(struct qlcnic_host_sds_ring *sds_ring)
 	if (!opcode)
 		return;
 
+<<<<<<< HEAD
 	ring = QLCNIC_FETCH_RING_ID(sts_data[0]);
+=======
+	ring = QLCNIC_FETCH_RING_ID(qlcnic_83xx_hndl(sts_data[0]));
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	qlcnic_83xx_process_rcv_diag(adapter, ring, sts_data);
 	desc = &sds_ring->desc_head[consumer];
 	desc->status_desc_data[0] = cpu_to_le64(STATUS_OWNER_PHANTOM);

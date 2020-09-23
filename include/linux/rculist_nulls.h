@@ -33,7 +33,11 @@ static inline void hlist_nulls_del_init_rcu(struct hlist_nulls_node *n)
 {
 	if (!hlist_nulls_unhashed(n)) {
 		__hlist_nulls_del(n);
+<<<<<<< HEAD
 		WRITE_ONCE(n->pprev, NULL);
+=======
+		n->pprev = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 }
 
@@ -65,7 +69,11 @@ static inline void hlist_nulls_del_init_rcu(struct hlist_nulls_node *n)
 static inline void hlist_nulls_del_rcu(struct hlist_nulls_node *n)
 {
 	__hlist_nulls_del(n);
+<<<<<<< HEAD
 	WRITE_ONCE(n->pprev, LIST_POISON2);
+=======
+	n->pprev = LIST_POISON2;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /**
@@ -93,10 +101,17 @@ static inline void hlist_nulls_add_head_rcu(struct hlist_nulls_node *n,
 	struct hlist_nulls_node *first = h->first;
 
 	n->next = first;
+<<<<<<< HEAD
 	WRITE_ONCE(n->pprev, &h->first);
 	rcu_assign_pointer(hlist_nulls_first_rcu(h), n);
 	if (!is_a_nulls(first))
 		WRITE_ONCE(first->pprev, &n->next);
+=======
+	n->pprev = &h->first;
+	rcu_assign_pointer(hlist_nulls_first_rcu(h), n);
+	if (!is_a_nulls(first))
+		first->pprev = &n->next;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 /**
  * hlist_nulls_for_each_entry_rcu - iterate over rcu list of given type

@@ -378,7 +378,11 @@ static int soc_tplg_add_kcontrol(struct soc_tplg *tplg,
 	struct snd_soc_component *comp = tplg->comp;
 
 	return soc_tplg_add_dcontrol(comp->card->snd_card,
+<<<<<<< HEAD
 				comp->dev, k, comp->name_prefix, comp, kcontrol);
+=======
+				comp->dev, k, NULL, comp, kcontrol);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /* remove a mixer kcontrol */

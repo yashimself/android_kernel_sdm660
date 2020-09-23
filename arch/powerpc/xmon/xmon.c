@@ -2840,7 +2840,11 @@ void dump_segments(void)
 
 	printf("sr0-15 =");
 	for (i = 0; i < 16; ++i)
+<<<<<<< HEAD
 		printf(" %x", mfsrin(i << 28));
+=======
+		printf(" %x", mfsrin(i));
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	printf("\n");
 }
 #endif

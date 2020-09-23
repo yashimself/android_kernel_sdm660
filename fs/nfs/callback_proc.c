@@ -368,7 +368,11 @@ static bool referring_call_exists(struct nfs_client *clp,
 				  uint32_t nrclists,
 				  struct referring_call_list *rclists)
 {
+<<<<<<< HEAD
 	bool status = false;
+=======
+	bool status = 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int i, j;
 	struct nfs4_session *session;
 	struct nfs4_slot_table *tbl;

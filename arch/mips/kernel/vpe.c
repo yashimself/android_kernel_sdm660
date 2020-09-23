@@ -134,7 +134,11 @@ void release_vpe(struct vpe *v)
 {
 	list_del(&v->list);
 	if (v->load_addr)
+<<<<<<< HEAD
 		release_progmem(v->load_addr);
+=======
+		release_progmem(v);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	kfree(v);
 }
 

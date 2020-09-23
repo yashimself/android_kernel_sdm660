@@ -110,7 +110,11 @@ static const unsigned int ack_rates_high[] =
  * bwmodes.
  */
 int
+<<<<<<< HEAD
 ath5k_hw_get_frame_duration(struct ath5k_hw *ah, enum nl80211_band band,
+=======
+ath5k_hw_get_frame_duration(struct ath5k_hw *ah, enum ieee80211_band band,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		int len, struct ieee80211_rate *rate, bool shortpre)
 {
 	int sifs, preamble, plcp_bits, sym_time;
@@ -221,7 +225,11 @@ ath5k_hw_get_default_sifs(struct ath5k_hw *ah)
 	case AR5K_BWMODE_DEFAULT:
 		sifs = AR5K_INIT_SIFS_DEFAULT_BG;
 	default:
+<<<<<<< HEAD
 		if (channel->band == NL80211_BAND_5GHZ)
+=======
+		if (channel->band == IEEE80211_BAND_5GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			sifs = AR5K_INIT_SIFS_DEFAULT_A;
 		break;
 	}
@@ -279,7 +287,11 @@ ath5k_hw_write_rate_duration(struct ath5k_hw *ah)
 	struct ieee80211_rate *rate;
 	unsigned int i;
 	/* 802.11g covers both OFDM and CCK */
+<<<<<<< HEAD
 	u8 band = NL80211_BAND_2GHZ;
+=======
+	u8 band = IEEE80211_BAND_2GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* Write rate duration table */
 	for (i = 0; i < ah->sbands[band].n_bitrates; i++) {

@@ -488,12 +488,19 @@ next:
 	return 1;
 }
 
+<<<<<<< HEAD
 static int check_target(struct arpt_entry *e, struct net *net, const char *name)
+=======
+static inline int check_target(struct arpt_entry *e, const char *name)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	struct xt_entry_target *t = arpt_get_target(e);
 	int ret;
 	struct xt_tgchk_param par = {
+<<<<<<< HEAD
 		.net       = net,
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		.table     = name,
 		.entryinfo = e,
 		.target    = t->u.kernel.target,
@@ -511,9 +518,14 @@ static int check_target(struct arpt_entry *e, struct net *net, const char *name)
 	return 0;
 }
 
+<<<<<<< HEAD
 static int
 find_check_entry(struct arpt_entry *e, struct net *net, const char *name,
 		 unsigned int size,
+=======
+static inline int
+find_check_entry(struct arpt_entry *e, const char *name, unsigned int size,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		 struct xt_percpu_counter_alloc_state *alloc_state)
 {
 	struct xt_entry_target *t;
@@ -533,7 +545,11 @@ find_check_entry(struct arpt_entry *e, struct net *net, const char *name,
 	}
 	t->u.kernel.target = target;
 
+<<<<<<< HEAD
 	ret = check_target(e, net, name);
+=======
+	ret = check_target(e, name);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (ret)
 		goto err;
 	return 0;
@@ -634,9 +650,13 @@ static inline void cleanup_entry(struct arpt_entry *e)
 /* Checks and translates the user-supplied table segment (held in
  * newinfo).
  */
+<<<<<<< HEAD
 static int translate_table(struct net *net,
 			   struct xt_table_info *newinfo,
 			   void *entry0,
+=======
+static int translate_table(struct xt_table_info *newinfo, void *entry0,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			   const struct arpt_replace *repl)
 {
 	struct xt_percpu_counter_alloc_state alloc_state = { 0 };
@@ -713,7 +733,11 @@ static int translate_table(struct net *net,
 	/* Finally, each sanity check must pass */
 	i = 0;
 	xt_entry_foreach(iter, entry0, newinfo->size) {
+<<<<<<< HEAD
 		ret = find_check_entry(iter, net, repl->name, repl->size,
+=======
+		ret = find_check_entry(iter, repl->name, repl->size,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				       &alloc_state);
 		if (ret != 0)
 			break;
@@ -1118,7 +1142,11 @@ static int do_replace(struct net *net, const void __user *user,
 		goto free_newinfo;
 	}
 
+<<<<<<< HEAD
 	ret = translate_table(net, newinfo, loc_cpu_entry, &tmp);
+=======
+	ret = translate_table(newinfo, loc_cpu_entry, &tmp);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (ret != 0)
 		goto free_newinfo;
 
@@ -1305,8 +1333,12 @@ compat_copy_entry_from_user(struct compat_arpt_entry *e, void **dstptr,
 	}
 }
 
+<<<<<<< HEAD
 static int translate_compat_table(struct net *net,
 				  struct xt_table_info **pinfo,
+=======
+static int translate_compat_table(struct xt_table_info **pinfo,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				  void **pentry0,
 				  const struct compat_arpt_replace *compatr)
 {
@@ -1376,7 +1408,11 @@ static int translate_compat_table(struct net *net,
 	repl.num_counters = 0;
 	repl.counters = NULL;
 	repl.size = newinfo->size;
+<<<<<<< HEAD
 	ret = translate_table(net, newinfo, entry1, &repl);
+=======
+	ret = translate_table(newinfo, entry1, &repl);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (ret)
 		goto free_newinfo;
 
@@ -1431,7 +1467,11 @@ static int compat_do_replace(struct net *net, void __user *user,
 		goto free_newinfo;
 	}
 
+<<<<<<< HEAD
 	ret = translate_compat_table(net, &newinfo, &loc_cpu_entry, &tmp);
+=======
+	ret = translate_compat_table(&newinfo, &loc_cpu_entry, &tmp);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (ret != 0)
 		goto free_newinfo;
 
@@ -1701,7 +1741,11 @@ struct xt_table *arpt_register_table(struct net *net,
 	loc_cpu_entry = newinfo->entries;
 	memcpy(loc_cpu_entry, repl->entries, repl->size);
 
+<<<<<<< HEAD
 	ret = translate_table(net, newinfo, loc_cpu_entry, repl);
+=======
+	ret = translate_table(newinfo, loc_cpu_entry, repl);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	duprintf("arpt_register_table: translate table gives %d\n", ret);
 	if (ret != 0)
 		goto out_free;

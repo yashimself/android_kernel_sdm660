@@ -1366,7 +1366,11 @@ struct rtl_mac {
 	u32 tx_ss_num;
 	u32 rx_ss_num;
 
+<<<<<<< HEAD
 	struct ieee80211_supported_band bands[NUM_NL80211_BANDS];
+=======
+	struct ieee80211_supported_band bands[IEEE80211_NUM_BANDS];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct ieee80211_hw *hw;
 	struct ieee80211_vif *vif;
 	enum nl80211_iftype opmode;

@@ -256,11 +256,18 @@ bool icmp_global_allow(void)
 	bool rc = false;
 
 	/* Check if token bucket is empty and cannot be refilled
+<<<<<<< HEAD
 	 * without taking the spinlock. The READ_ONCE() are paired
 	 * with the following WRITE_ONCE() in this same function.
 	 */
 	if (!READ_ONCE(icmp_global.credit)) {
 		delta = min_t(u32, now - READ_ONCE(icmp_global.stamp), HZ);
+=======
+	 * without taking the spinlock.
+	 */
+	if (!icmp_global.credit) {
+		delta = min_t(u32, now - icmp_global.stamp, HZ);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (delta < HZ / 50)
 			return false;
 	}
@@ -270,14 +277,22 @@ bool icmp_global_allow(void)
 	if (delta >= HZ / 50) {
 		incr = sysctl_icmp_msgs_per_sec * delta / HZ ;
 		if (incr)
+<<<<<<< HEAD
 			WRITE_ONCE(icmp_global.stamp, now);
+=======
+			icmp_global.stamp = now;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 	credit = min_t(u32, icmp_global.credit + incr, sysctl_icmp_msgs_burst);
 	if (credit) {
 		credit--;
 		rc = true;
 	}
+<<<<<<< HEAD
 	WRITE_ONCE(icmp_global.credit, credit);
+=======
+	icmp_global.credit = credit;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	spin_unlock(&icmp_global.lock);
 	return rc;
 }
@@ -480,7 +495,11 @@ static struct rtable *icmp_route_lookup(struct net *net,
 	fl4->flowi4_proto = IPPROTO_ICMP;
 	fl4->fl4_icmp_type = type;
 	fl4->fl4_icmp_code = code;
+<<<<<<< HEAD
 	fl4->flowi4_oif = l3mdev_master_ifindex(skb_dst(skb_in)->dev);
+=======
+	fl4->flowi4_oif = l3mdev_master_ifindex(skb_in->dev);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	security_skb_classify_flow(skb_in, flowi4_to_flowi(fl4));
 	rt = __ip_route_output_key_hash(net, fl4,
@@ -505,7 +524,11 @@ static struct rtable *icmp_route_lookup(struct net *net,
 	if (err)
 		goto relookup_failed;
 
+<<<<<<< HEAD
 	if (inet_addr_type_dev_table(net, skb_dst(skb_in)->dev,
+=======
+	if (inet_addr_type_dev_table(net, skb_in->dev,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				     fl4_dec.saddr) == RTN_LOCAL) {
 		rt2 = __ip_route_output_key(net, &fl4_dec);
 		if (IS_ERR(rt2))

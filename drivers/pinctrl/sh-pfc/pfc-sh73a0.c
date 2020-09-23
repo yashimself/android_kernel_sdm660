@@ -2672,7 +2672,10 @@ static const unsigned int tpu4_to2_mux[] = {
 };
 static const unsigned int tpu4_to3_pins[] = {
 	/* TO */
+<<<<<<< HEAD
 	PIN_NUMBER(6, 26),
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 static const unsigned int tpu4_to3_mux[] = {
 	TPU4TO3_MARK,
@@ -2895,8 +2898,12 @@ static const char * const fsic_groups[] = {
 	"fsic_sclk_out",
 	"fsic_data_in",
 	"fsic_data_out",
+<<<<<<< HEAD
 	"fsic_spdif_0",
 	"fsic_spdif_1",
+=======
+	"fsic_spdif",
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 static const char * const fsid_groups[] = {

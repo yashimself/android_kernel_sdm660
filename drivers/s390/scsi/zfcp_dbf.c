@@ -93,9 +93,17 @@ void zfcp_dbf_hba_fsf_res(char *tag, int level, struct zfcp_fsf_req *req)
 	memcpy(rec->u.res.fsf_status_qual, &q_head->fsf_status_qual,
 	       FSF_STATUS_QUALIFIER_SIZE);
 
+<<<<<<< HEAD
 	rec->pl_len = q_head->log_length;
 	zfcp_dbf_pl_write(dbf, (char *)q_pref + q_head->log_start,
 			  rec->pl_len, "fsf_res", req->req_id);
+=======
+	if (req->fsf_command != FSF_QTCB_FCP_CMND) {
+		rec->pl_len = q_head->log_length;
+		zfcp_dbf_pl_write(dbf, (char *)q_pref + q_head->log_start,
+				  rec->pl_len, "fsf_res", req->req_id);
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	debug_event(dbf->hba, level, rec, sizeof(*rec));
 	spin_unlock_irqrestore(&dbf->hba_lock, flags);

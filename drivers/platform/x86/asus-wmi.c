@@ -452,7 +452,17 @@ static void kbd_led_update(struct work_struct *work)
 
 	asus = container_of(work, struct asus_wmi, kbd_led_work);
 
+<<<<<<< HEAD
 	ctrl_param = 0x80 | (asus->kbd_led_wk & 0x7F);
+=======
+	/*
+	 * bits 0-2: level
+	 * bit 7: light on/off
+	 */
+	if (asus->kbd_led_wk > 0)
+		ctrl_param = 0x80 | (asus->kbd_led_wk & 0x7F);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	asus_wmi_set_devstate(ASUS_WMI_DEVID_KBD_BACKLIGHT, ctrl_param, NULL);
 }
 

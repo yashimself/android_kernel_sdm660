@@ -35,6 +35,10 @@
 #include "msm_isp44.h"
 #include "msm_isp40.h"
 #include "msm_isp32.h"
+<<<<<<< HEAD
+=======
+#include "msm_cam_cx_ipeak.h"
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 static struct msm_sd_req_vb2_q vfe_vb2_ops;
 static struct msm_isp_buf_mgr vfe_buf_mgr;
@@ -467,7 +471,11 @@ static int isp_vma_fault(struct vm_area_struct *vma, struct vm_fault *vmf)
 {
 	struct page *page;
 	struct vfe_device *vfe_dev = vma->vm_private_data;
+<<<<<<< HEAD
 	struct isp_proc *isp_page = NULL;
+=======
+	struct isp_kstate *isp_page = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	isp_page = vfe_dev->isp_page;
 
@@ -675,6 +683,14 @@ int vfe_hw_probe(struct platform_device *pdev)
 			"qcom,vfe-cx-ipeak", NULL)) {
 			vfe_dev->vfe_cx_ipeak = cx_ipeak_register(
 				pdev->dev.of_node, "qcom,vfe-cx-ipeak");
+<<<<<<< HEAD
+=======
+			if (vfe_dev->vfe_cx_ipeak)
+				cam_cx_ipeak_register_cx_ipeak(
+				vfe_dev->vfe_cx_ipeak, &vfe_dev->cx_ipeak_bit);
+			pr_debug("%s: register cx_ipeak received bit %d\n",
+				__func__, vfe_dev->cx_ipeak_bit);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 	} else {
 		vfe_dev->hw_info = (struct msm_vfe_hardware_info *)
@@ -749,7 +765,11 @@ int vfe_hw_probe(struct platform_device *pdev)
 	vfe_dev->buf_mgr->init_done = 1;
 	vfe_dev->vfe_open_cnt = 0;
 	/*Allocate a page in kernel and map it to camera user process*/
+<<<<<<< HEAD
 	vfe_dev->isp_page = (struct isp_proc *)get_zeroed_page(GFP_KERNEL);
+=======
+	vfe_dev->isp_page = (struct isp_kstate *)get_zeroed_page(GFP_KERNEL);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (vfe_dev->isp_page == NULL) {
 		pr_err("%s: no enough memory\n", __func__);
 		rc = -ENOMEM;

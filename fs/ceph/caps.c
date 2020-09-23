@@ -1734,12 +1734,17 @@ retry_locked:
 		}
 
 		/* want more caps from mds? */
+<<<<<<< HEAD
 		if (want & ~cap->mds_wanted) {
 			if (want & ~(cap->mds_wanted | cap->issued))
 				goto ack;
 			if (!__cap_is_valid(cap))
 				goto ack;
 		}
+=======
+		if (want & ~(cap->mds_wanted | cap->issued))
+			goto ack;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		/* things we might delay */
 		if ((cap->issued & ~retain) == 0 &&

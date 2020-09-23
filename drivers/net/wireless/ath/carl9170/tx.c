@@ -720,12 +720,20 @@ static void carl9170_tx_rate_tpc_chains(struct ar9170 *ar,
 			/* +1 dBm for HT40 */
 			*tpc += 2;
 
+<<<<<<< HEAD
 			if (info->band == NL80211_BAND_2GHZ)
+=======
+			if (info->band == IEEE80211_BAND_2GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				txpower = ar->power_2G_ht40;
 			else
 				txpower = ar->power_5G_ht40;
 		} else {
+<<<<<<< HEAD
 			if (info->band == NL80211_BAND_2GHZ)
+=======
+			if (info->band == IEEE80211_BAND_2GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				txpower = ar->power_2G_ht20;
 			else
 				txpower = ar->power_5G_ht20;
@@ -734,7 +742,11 @@ static void carl9170_tx_rate_tpc_chains(struct ar9170 *ar,
 		*phyrate = txrate->idx;
 		*tpc += txpower[idx & 7];
 	} else {
+<<<<<<< HEAD
 		if (info->band == NL80211_BAND_2GHZ) {
+=======
+		if (info->band == IEEE80211_BAND_2GHZ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			if (idx < 4)
 				txpower = ar->power_2G_cck;
 			else
@@ -797,7 +809,11 @@ static __le32 carl9170_tx_physet(struct ar9170 *ar,
 		 * tmp |= cpu_to_le32(AR9170_TX_PHY_GREENFIELD);
 		 */
 	} else {
+<<<<<<< HEAD
 		if (info->band == NL80211_BAND_2GHZ) {
+=======
+		if (info->band == IEEE80211_BAND_2GHZ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			if (txrate->idx <= AR9170_TX_PHY_RATE_CCK_11M)
 				tmp |= cpu_to_le32(AR9170_TX_PHY_MOD_CCK);
 			else

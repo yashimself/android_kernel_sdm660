@@ -227,8 +227,13 @@ static int vaddr_get_pfn(unsigned long vaddr, int prot, unsigned long *pfn)
 	vma = find_vma_intersection(current->mm, vaddr, vaddr + 1);
 
 	if (vma && vma->vm_flags & VM_PFNMAP) {
+<<<<<<< HEAD
 		if (!follow_pfn(vma, vaddr, pfn) &&
 		    is_invalid_reserved_pfn(*pfn))
+=======
+		*pfn = ((vaddr - vma->vm_start) >> PAGE_SHIFT) + vma->vm_pgoff;
+		if (is_invalid_reserved_pfn(*pfn))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			ret = 0;
 	}
 

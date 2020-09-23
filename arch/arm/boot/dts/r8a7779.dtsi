@@ -63,6 +63,7 @@
 		      <0xf0000100 0x100>;
 	};
 
+<<<<<<< HEAD
 	timer@f0000200 {
 		compatible = "arm,cortex-a9-global-timer";
 		reg = <0xf0000200 0x100>;
@@ -71,6 +72,8 @@
 		clocks = <&cpg_clocks R8A7779_CLK_ZS>;
 	};
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	timer@f0000600 {
 		compatible = "arm,cortex-a9-twd-timer";
 		reg = <0xf0000600 0x20>;

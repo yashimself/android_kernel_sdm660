@@ -53,10 +53,13 @@
 #define R_AARCH64_ABS64	257
 #endif
 
+<<<<<<< HEAD
 #define R_ARM_PC24		1
 #define R_ARM_THM_CALL		10
 #define R_ARM_CALL		28
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int fd_map;	/* File descriptor for file being modified. */
 static int mmap_failed; /* Boolean flag. */
 static char gpfx;	/* prefix for global symbol name (sometimes '_') */
@@ -376,6 +379,7 @@ is_mcounted_section_name(char const *const txtname)
 #define RECORD_MCOUNT_64
 #include "recordmcount.h"
 
+<<<<<<< HEAD
 static int arm_is_fake_mcount(Elf32_Rel const *rp)
 {
 	switch (ELF32_R_TYPE(w(rp->r_info))) {
@@ -388,6 +392,8 @@ static int arm_is_fake_mcount(Elf32_Rel const *rp)
 	return 1;
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /* 64-bit EM_MIPS has weird ELF64_Rela.r_info.
  * http://techpubs.sgi.com/library/manuals/4000/007-4658-001/pdf/007-4658-001.pdf
  * We interpret Table 29 Relocation Operation (Elf64_Rel, Elf64_Rela) [p.40]
@@ -477,7 +483,10 @@ do_file(char const *const fname)
 		break;
 	case EM_ARM:	 reltype = R_ARM_ABS32;
 			 altmcount = "__gnu_mcount_nc";
+<<<<<<< HEAD
 			 is_fake_mcount32 = arm_is_fake_mcount;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			 break;
 	case EM_AARCH64:
 			reltype = R_AARCH64_ABS64;

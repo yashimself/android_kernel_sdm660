@@ -2151,9 +2151,17 @@ void exit_sem(struct task_struct *tsk)
 		ipc_assert_locked_object(&sma->sem_perm);
 		list_del(&un->list_id);
 
+<<<<<<< HEAD
 		spin_lock(&ulp->lock);
 		list_del_rcu(&un->list_proc);
 		spin_unlock(&ulp->lock);
+=======
+		/* we are the last process using this ulp, acquiring ulp->lock
+		 * isn't required. Besides that, we are also protected against
+		 * IPC_RMID as we hold sma->sem_perm lock now
+		 */
+		list_del_rcu(&un->list_proc);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		/* perform adjustments registered in un */
 		for (i = 0; i < sma->sem_nsems; i++) {

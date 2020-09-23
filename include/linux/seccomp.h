@@ -29,6 +29,7 @@ struct seccomp {
 };
 
 #ifdef CONFIG_HAVE_ARCH_SECCOMP_FILTER
+<<<<<<< HEAD
 extern int __secure_computing(void);
 static inline int secure_computing(void)
 {
@@ -42,6 +43,15 @@ static inline int secure_computing(void)
 
 extern u32 seccomp_phase1(struct seccomp_data *sd);
 int seccomp_phase2(u32 phase1_result);
+=======
+extern int __secure_computing(const struct seccomp_data *sd);
+static inline int secure_computing(const struct seccomp_data *sd)
+{
+	if (unlikely(test_thread_flag(TIF_SECCOMP)))
+		return  __secure_computing(sd);
+	return 0;
+}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #else
 extern void secure_computing_strict(int this_syscall);
 #endif
@@ -62,7 +72,11 @@ struct seccomp { };
 struct seccomp_filter { };
 
 #ifdef CONFIG_HAVE_ARCH_SECCOMP_FILTER
+<<<<<<< HEAD
 static inline int secure_computing(void) { return 0; }
+=======
+static inline int secure_computing(struct seccomp_data *sd) { return 0; }
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #else
 static inline void secure_computing_strict(int this_syscall) { return; }
 #endif

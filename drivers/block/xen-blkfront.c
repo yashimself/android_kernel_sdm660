@@ -952,8 +952,13 @@ static int xlvbd_alloc_gendisk(blkif_sector_t capacity,
 	if (!VDEV_IS_EXTENDED(info->vdevice)) {
 		err = xen_translate_vdev(info->vdevice, &minor, &offset);
 		if (err)
+<<<<<<< HEAD
 			return err;
 		nr_parts = PARTS_PER_DISK;
+=======
+			return err;		
+ 		nr_parts = PARTS_PER_DISK;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	} else {
 		minor = BLKIF_MINOR_EXT(info->vdevice);
 		nr_parts = PARTS_PER_EXT_DISK;

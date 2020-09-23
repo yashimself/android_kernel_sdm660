@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2014-2017, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2014-2017, 2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -8254,7 +8258,11 @@ static struct snd_soc_dai_link msm8996_hdmi_dai_link[] = {
 		.stream_name = "HDMI Playback",
 		.cpu_dai_name = "msm-dai-q6-hdmi.8",
 		.platform_name = "msm-pcm-routing",
+<<<<<<< HEAD
 		.codec_name = "msm-hdmi-audio-codec-rx",
+=======
+		.codec_name = "msm-ext-disp-audio-codec-rx",
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		.codec_dai_name = "msm_hdmi_audio_codec_rx_dai",
 		.no_pcm = 1,
 		.dpcm_playback = 1,

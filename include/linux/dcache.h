@@ -238,7 +238,10 @@ extern seqlock_t rename_lock;
  * These are the low-level FS interfaces to the dcache..
  */
 extern void d_instantiate(struct dentry *, struct inode *);
+<<<<<<< HEAD
 extern void d_instantiate_new(struct dentry *, struct inode *);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 extern struct dentry * d_instantiate_unique(struct dentry *, struct inode *);
 extern int d_instantiate_no_diralias(struct dentry *, struct inode *);
 extern void __d_drop(struct dentry *dentry);
@@ -619,8 +622,13 @@ static inline struct inode *d_real_inode(struct dentry *dentry)
 }
 
 struct name_snapshot {
+<<<<<<< HEAD
 	const unsigned char *name;
 	unsigned char inline_name[DNAME_INLINE_LEN];
+=======
+	const char *name;
+	char inline_name[DNAME_INLINE_LEN];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 void take_dentry_name_snapshot(struct name_snapshot *, struct dentry *);
 void release_dentry_name_snapshot(struct name_snapshot *);

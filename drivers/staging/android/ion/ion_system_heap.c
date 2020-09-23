@@ -348,7 +348,11 @@ static int ion_system_heap_allocate(struct ion_heap *heap,
 	struct sg_table table_sync;
 	struct scatterlist *sg;
 	struct scatterlist *sg_sync;
+<<<<<<< HEAD
 	int ret;
+=======
+	int ret = 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct list_head pages;
 	struct list_head pages_from_pool;
 	struct page_info *info, *tmp_info;
@@ -482,7 +486,11 @@ static int ion_system_heap_allocate(struct ion_heap *heap,
 
 err_free_sg2:
 	/* We failed to zero buffers. Bypass pool */
+<<<<<<< HEAD
 	buffer->flags |= ION_PRIV_FLAG_SHRINKER_FREE;
+=======
+	buffer->private_flags |= ION_PRIV_FLAG_SHRINKER_FREE;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (vmid > 0)
 		ion_system_secure_heap_unassign_sg(table, vmid);

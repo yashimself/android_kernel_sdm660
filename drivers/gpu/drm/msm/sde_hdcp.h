@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2017, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2017-2018, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -59,6 +63,10 @@ struct sde_hdcp_init_data {
 	struct workqueue_struct *workq;
 	void *cb_data;
 	void (*notify_status)(void *cb_data, enum sde_hdcp_states status);
+<<<<<<< HEAD
+=======
+	void (*avmute_sink)(void *cb_data);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct sde_hdmi_tx_ddc_ctrl *ddc_ctrl;
 	u8 sink_rx_status;
 	u16 *version;

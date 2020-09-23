@@ -69,11 +69,14 @@ static int parse_features(struct dm_arg_set *as, struct flakey_c *fc,
 		arg_name = dm_shift_arg(as);
 		argc--;
 
+<<<<<<< HEAD
 		if (!arg_name) {
 			ti->error = "Insufficient feature arguments";
 			return -EINVAL;
 		}
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		/*
 		 * drop_writes
 		 */

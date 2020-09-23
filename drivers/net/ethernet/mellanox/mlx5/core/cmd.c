@@ -634,6 +634,7 @@ static void free_msg(struct mlx5_core_dev *dev, struct mlx5_cmd_msg *msg);
 static void mlx5_free_cmd_msg(struct mlx5_core_dev *dev,
 			      struct mlx5_cmd_msg *msg);
 
+<<<<<<< HEAD
 static u16 msg_to_opcode(struct mlx5_cmd_msg *in)
 {
 	struct mlx5_inbox_hdr *hdr = (struct mlx5_inbox_hdr *)(in->first.data);
@@ -658,12 +659,17 @@ static void cb_timeout_handler(struct work_struct *work)
 	mlx5_cmd_comp_handler(dev, 1UL << ent->idx);
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static void cmd_work_handler(struct work_struct *work)
 {
 	struct mlx5_cmd_work_ent *ent = container_of(work, struct mlx5_cmd_work_ent, work);
 	struct mlx5_cmd *cmd = ent->cmd;
 	struct mlx5_core_dev *dev = container_of(cmd, struct mlx5_core_dev, cmd);
+<<<<<<< HEAD
 	unsigned long cb_timeout = msecs_to_jiffies(MLX5_CMD_TIMEOUT_MSEC);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct mlx5_cmd_layout *lay;
 	struct semaphore *sem;
 	unsigned long flags;
@@ -716,9 +722,12 @@ static void cmd_work_handler(struct work_struct *work)
 	ent->ts1 = ktime_get_ns();
 	cmd_mode = cmd->mode;
 
+<<<<<<< HEAD
 	if (ent->callback)
 		schedule_delayed_work(&ent->cb_timeout_work, cb_timeout);
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* ring doorbell after the descriptor is valid */
 	mlx5_core_dbg(dev, "writing 0x%x to command doorbell\n", 1 << ent->idx);
 	wmb();
@@ -763,6 +772,16 @@ static const char *deliv_status_to_str(u8 status)
 	}
 }
 
+<<<<<<< HEAD
+=======
+static u16 msg_to_opcode(struct mlx5_cmd_msg *in)
+{
+	struct mlx5_inbox_hdr *hdr = (struct mlx5_inbox_hdr *)(in->first.data);
+
+	return be16_to_cpu(hdr->opcode);
+}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int wait_func(struct mlx5_core_dev *dev, struct mlx5_cmd_work_ent *ent)
 {
 	unsigned long timeout = msecs_to_jiffies(MLX5_CMD_TIMEOUT_MSEC);
@@ -771,6 +790,7 @@ static int wait_func(struct mlx5_core_dev *dev, struct mlx5_cmd_work_ent *ent)
 
 	if (cmd->mode == CMD_MODE_POLLING) {
 		wait_for_completion(&ent->done);
+<<<<<<< HEAD
 	} else if (!wait_for_completion_timeout(&ent->done, timeout)) {
 		ent->ret = -ETIMEDOUT;
 		mlx5_cmd_comp_handler(dev, 1UL << ent->idx);
@@ -778,6 +798,15 @@ static int wait_func(struct mlx5_core_dev *dev, struct mlx5_cmd_work_ent *ent)
 
 	err = ent->ret;
 
+=======
+		err = ent->ret;
+	} else {
+		if (!wait_for_completion_timeout(&ent->done, timeout))
+			err = -ETIMEDOUT;
+		else
+			err = 0;
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (err == -ETIMEDOUT) {
 		mlx5_core_warn(dev, "%s(0x%x) timeout. Will cause a leak of a command resource\n",
 			       mlx5_command_str(msg_to_opcode(ent->in)),
@@ -829,7 +858,10 @@ static int mlx5_cmd_invoke(struct mlx5_core_dev *dev, struct mlx5_cmd_msg *in,
 	if (!callback)
 		init_completion(&ent->done);
 
+<<<<<<< HEAD
 	INIT_DELAYED_WORK(&ent->cb_timeout_work, cb_timeout_handler);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	INIT_WORK(&ent->work, cmd_work_handler);
 	if (page_queue) {
 		cmd_work_handler(&ent->work);
@@ -839,6 +871,7 @@ static int mlx5_cmd_invoke(struct mlx5_core_dev *dev, struct mlx5_cmd_msg *in,
 		goto out_free;
 	}
 
+<<<<<<< HEAD
 	if (callback)
 		goto out;
 
@@ -859,6 +892,30 @@ static int mlx5_cmd_invoke(struct mlx5_core_dev *dev, struct mlx5_cmd_msg *in,
 			   "fw exec time for %s is %lld nsec\n",
 			   mlx5_command_str(op), ds);
 	*status = ent->status;
+=======
+	if (!callback) {
+		err = wait_func(dev, ent);
+		if (err == -ETIMEDOUT)
+			goto out;
+
+		ds = ent->ts2 - ent->ts1;
+		op = be16_to_cpu(((struct mlx5_inbox_hdr *)in->first.data)->opcode);
+		if (op < ARRAY_SIZE(cmd->stats)) {
+			stats = &cmd->stats[op];
+			spin_lock_irq(&stats->lock);
+			stats->sum += ds;
+			++stats->n;
+			spin_unlock_irq(&stats->lock);
+		}
+		mlx5_core_dbg_mask(dev, 1 << MLX5_CMD_TIME,
+				   "fw exec time for %s is %lld nsec\n",
+				   mlx5_command_str(op), ds);
+		*status = ent->status;
+		free_cmd(ent);
+	}
+
+	return err;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 out_free:
 	free_cmd(ent);
@@ -1250,22 +1307,36 @@ err_dbg:
 	return err;
 }
 
+<<<<<<< HEAD
 static void mlx5_cmd_change_mod(struct mlx5_core_dev *dev, int mode)
+=======
+void mlx5_cmd_use_events(struct mlx5_core_dev *dev)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	struct mlx5_cmd *cmd = &dev->cmd;
 	int i;
 
 	for (i = 0; i < cmd->max_reg_cmds; i++)
 		down(&cmd->sem);
+<<<<<<< HEAD
 	down(&cmd->pages_sem);
 
 	cmd->mode = mode;
+=======
+
+	down(&cmd->pages_sem);
+
+	flush_workqueue(cmd->wq);
+
+	cmd->mode = CMD_MODE_EVENTS;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	up(&cmd->pages_sem);
 	for (i = 0; i < cmd->max_reg_cmds; i++)
 		up(&cmd->sem);
 }
 
+<<<<<<< HEAD
 void mlx5_cmd_use_events(struct mlx5_core_dev *dev)
 {
 	mlx5_cmd_change_mod(dev, CMD_MODE_EVENTS);
@@ -1274,6 +1345,24 @@ void mlx5_cmd_use_events(struct mlx5_core_dev *dev)
 void mlx5_cmd_use_polling(struct mlx5_core_dev *dev)
 {
 	mlx5_cmd_change_mod(dev, CMD_MODE_POLLING);
+=======
+void mlx5_cmd_use_polling(struct mlx5_core_dev *dev)
+{
+	struct mlx5_cmd *cmd = &dev->cmd;
+	int i;
+
+	for (i = 0; i < cmd->max_reg_cmds; i++)
+		down(&cmd->sem);
+
+	down(&cmd->pages_sem);
+
+	flush_workqueue(cmd->wq);
+	cmd->mode = CMD_MODE_POLLING;
+
+	up(&cmd->pages_sem);
+	for (i = 0; i < cmd->max_reg_cmds; i++)
+		up(&cmd->sem);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static void free_msg(struct mlx5_core_dev *dev, struct mlx5_cmd_msg *msg)
@@ -1309,8 +1398,11 @@ void mlx5_cmd_comp_handler(struct mlx5_core_dev *dev, u64 vec)
 			struct semaphore *sem;
 
 			ent = cmd->ent_arr[i];
+<<<<<<< HEAD
 			if (ent->callback)
 				cancel_delayed_work(&ent->cb_timeout_work);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			if (ent->page_queue)
 				sem = &cmd->pages_sem;
 			else

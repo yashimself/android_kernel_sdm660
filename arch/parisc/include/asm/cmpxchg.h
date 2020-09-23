@@ -43,6 +43,7 @@ __xchg(unsigned long x, __volatile__ void *ptr, int size)
 **		if (((unsigned long)p & 0xf) == 0)
 **			return __ldcw(p);
 */
+<<<<<<< HEAD
 #define xchg(ptr, x)							\
 ({									\
 	__typeof__(*(ptr)) __ret;					\
@@ -51,6 +52,10 @@ __xchg(unsigned long x, __volatile__ void *ptr, int size)
 		__xchg((unsigned long)_x_, (ptr), sizeof(*(ptr)));	\
 	__ret;								\
 })
+=======
+#define xchg(ptr, x) \
+	((__typeof__(*(ptr)))__xchg((unsigned long)(x), (ptr), sizeof(*(ptr))))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 /* bug catcher for when unsupported size is used - won't link */
 extern void __cmpxchg_called_with_bad_pointer(void);

@@ -231,6 +231,7 @@ static ssize_t blk_mq_hw_sysfs_active_show(struct blk_mq_hw_ctx *hctx, char *pag
 
 static ssize_t blk_mq_hw_sysfs_cpus_show(struct blk_mq_hw_ctx *hctx, char *page)
 {
+<<<<<<< HEAD
 	const size_t size = PAGE_SIZE - 1;
 	unsigned int i, first = 1;
 	int ret = 0, pos = 0;
@@ -250,6 +251,22 @@ static ssize_t blk_mq_hw_sysfs_cpus_show(struct blk_mq_hw_ctx *hctx, char *page)
 
 	ret = snprintf(pos + page, size + 1 - pos, "\n");
 	return pos + ret;
+=======
+	unsigned int i, first = 1;
+	ssize_t ret = 0;
+
+	for_each_cpu(i, hctx->cpumask) {
+		if (first)
+			ret += sprintf(ret + page, "%u", i);
+		else
+			ret += sprintf(ret + page, ", %u", i);
+
+		first = 0;
+	}
+
+	ret += sprintf(ret + page, "\n");
+	return ret;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static struct blk_mq_ctx_sysfs_entry blk_mq_sysfs_dispatched = {

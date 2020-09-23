@@ -370,7 +370,11 @@ static void tcp_probe_timer(struct sock *sk)
 			return;
 	}
 
+<<<<<<< HEAD
 	if (icsk->icsk_probes_out >= max_probes) {
+=======
+	if (icsk->icsk_probes_out > max_probes) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 abort:		tcp_write_err(sk);
 	} else {
 		/* Only send another probe if we didn't close things up. */

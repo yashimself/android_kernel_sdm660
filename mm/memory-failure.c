@@ -1173,7 +1173,11 @@ int memory_failure(unsigned long pfn, int trapno, int flags)
 	/*
 	 * We ignore non-LRU pages for good reasons.
 	 * - PG_locked is only well defined for LRU pages and a few others
+<<<<<<< HEAD
 	 * - to avoid races with __set_page_locked()
+=======
+	 * - to avoid races with __SetPageLocked()
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	 * - to avoid races with __SetPageSlab*() (and more non-atomic ops)
 	 * The check (unnecessarily) ignores LRU pages being isolated and
 	 * walked by the page reclaim code, however that's not a big loss.

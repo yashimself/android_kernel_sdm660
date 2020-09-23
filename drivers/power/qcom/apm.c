@@ -28,7 +28,10 @@
 #include <linux/power/qcom/apm.h>
 #include <soc/qcom/scm.h>
 #include <linux/arm-smccc.h>
+<<<<<<< HEAD
 #include <linux/psci.h>
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 /*
  *        VDD_APCC

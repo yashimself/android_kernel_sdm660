@@ -765,11 +765,19 @@ static void ath9k_set_hw_capab(struct ath9k_htc_priv *priv,
 		sizeof(struct htc_frame_hdr) + 4;
 
 	if (priv->ah->caps.hw_caps & ATH9K_HW_CAP_2GHZ)
+<<<<<<< HEAD
 		hw->wiphy->bands[NL80211_BAND_2GHZ] =
 			&common->sbands[NL80211_BAND_2GHZ];
 	if (priv->ah->caps.hw_caps & ATH9K_HW_CAP_5GHZ)
 		hw->wiphy->bands[NL80211_BAND_5GHZ] =
 			&common->sbands[NL80211_BAND_5GHZ];
+=======
+		hw->wiphy->bands[IEEE80211_BAND_2GHZ] =
+			&common->sbands[IEEE80211_BAND_2GHZ];
+	if (priv->ah->caps.hw_caps & ATH9K_HW_CAP_5GHZ)
+		hw->wiphy->bands[IEEE80211_BAND_5GHZ] =
+			&common->sbands[IEEE80211_BAND_5GHZ];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	ath9k_cmn_reload_chainmask(ah);
 

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2017, 2020, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -1529,6 +1533,7 @@ void ipahal_get_disable_aggr_valmask(struct ipahal_reg_valmask *valmask)
 		IPAHAL_ERR("Input error\n");
 		return;
 	}
+<<<<<<< HEAD
 
 	valmask->val = (1 & IPA_ENDP_INIT_AGGR_n_AGGR_FORCE_CLOSE_BMSK) <<
 		IPA_ENDP_INIT_AGGR_n_AGGR_FORCE_CLOSE_SHFT;
@@ -1539,6 +1544,15 @@ void ipahal_get_disable_aggr_valmask(struct ipahal_reg_valmask *valmask)
 		IPA_ENDP_INIT_AGGR_n_AGGR_EN_SHFT);
 	valmask->mask |= ((IPA_ENDP_INIT_AGGR_n_AGGR_EN_BMSK <<
 		IPA_ENDP_INIT_AGGR_n_AGGR_EN_SHFT));
+=======
+	valmask->val = (1 << IPA_ENDP_INIT_AGGR_n_AGGR_FORCE_CLOSE_SHFT) &
+		IPA_ENDP_INIT_AGGR_n_AGGR_FORCE_CLOSE_BMSK;
+	valmask->mask = IPA_ENDP_INIT_AGGR_n_AGGR_FORCE_CLOSE_BMSK;
+
+	valmask->val |= ((0 << IPA_ENDP_INIT_AGGR_n_AGGR_EN_SHFT) &
+		IPA_ENDP_INIT_AGGR_n_AGGR_EN_BMSK);
+	valmask->mask |= IPA_ENDP_INIT_AGGR_n_AGGR_EN_BMSK;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 u32 ipahal_aggr_get_max_byte_limit(void)

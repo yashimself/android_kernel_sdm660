@@ -148,6 +148,7 @@ static bool fuse_block_alloc(struct fuse_conn *fc, bool for_background)
 
 static void fuse_drop_waiting(struct fuse_conn *fc)
 {
+<<<<<<< HEAD
 	/*
 	 * lockess check of fc->connected is okay, because atomic_dec_and_test()
 	 * provides a memory barrier mached with the one in fuse_wait_aborted()
@@ -155,6 +156,11 @@ static void fuse_drop_waiting(struct fuse_conn *fc)
 	 */
 	if (atomic_dec_and_test(&fc->num_waiting) &&
 	    !READ_ONCE(fc->connected)) {
+=======
+	if (fc->connected) {
+		atomic_dec(&fc->num_waiting);
+	} else if (atomic_dec_and_test(&fc->num_waiting)) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		/* wake up aborters */
 		wake_up_all(&fc->blocked_waitq);
 	}
@@ -2052,8 +2058,15 @@ static ssize_t fuse_dev_splice_write(struct pipe_inode_info *pipe,
 		rem += pipe->bufs[(pipe->curbuf + idx) & (pipe->buffers - 1)].len;
 
 	ret = -EINVAL;
+<<<<<<< HEAD
 	if (rem < len)
 		goto out_free;
+=======
+	if (rem < len) {
+		pipe_unlock(pipe);
+		goto out;
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	rem = len;
 	while (rem) {
@@ -2071,9 +2084,13 @@ static ssize_t fuse_dev_splice_write(struct pipe_inode_info *pipe,
 			pipe->curbuf = (pipe->curbuf + 1) & (pipe->buffers - 1);
 			pipe->nrbufs--;
 		} else {
+<<<<<<< HEAD
 			if (!pipe_buf_get(pipe, ibuf))
 				goto out_free;
 
+=======
+			ibuf->ops->get(pipe, ibuf);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			*obuf = *ibuf;
 			obuf->flags &= ~PIPE_BUF_FLAG_GIFT;
 			obuf->len = rem;
@@ -2096,13 +2113,20 @@ static ssize_t fuse_dev_splice_write(struct pipe_inode_info *pipe,
 	ret = fuse_dev_do_write(fud, &cs, len);
 
 	pipe_lock(pipe);
+<<<<<<< HEAD
 out_free:
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	for (idx = 0; idx < nbuf; idx++) {
 		struct pipe_buffer *buf = &bufs[idx];
 		buf->ops->release(pipe, buf);
 	}
 	pipe_unlock(pipe);
 
+<<<<<<< HEAD
+=======
+out:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	kfree(bufs);
 	return ret;
 }
@@ -2243,8 +2267,11 @@ EXPORT_SYMBOL_GPL(fuse_abort_conn);
 
 void fuse_wait_aborted(struct fuse_conn *fc)
 {
+<<<<<<< HEAD
 	/* matches implicit memory barrier in fuse_drop_waiting() */
 	smp_mb();
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	wait_event(fc->blocked_waitq, atomic_read(&fc->num_waiting) == 0);
 }
 

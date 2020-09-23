@@ -78,6 +78,7 @@ static void dw_mci_rk3288_set_ios(struct dw_mci *host, struct mmc_ios *ios)
 	/* Make sure we use phases which we can enumerate with */
 	if (!IS_ERR(priv->sample_clk))
 		clk_set_phase(priv->sample_clk, priv->default_sample_phase);
+<<<<<<< HEAD
 
 	/*
 	 * Set the drive phase offset based on speed mode to achieve hold times.
@@ -142,6 +143,8 @@ static void dw_mci_rk3288_set_ios(struct dw_mci *host, struct mmc_ios *ios)
 
 		clk_set_phase(priv->drv_clk, phase);
 	}
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 #define NUM_PHASES			360

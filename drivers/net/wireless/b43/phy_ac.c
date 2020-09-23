@@ -61,7 +61,11 @@ static void b43_phy_ac_op_radio_write(struct b43_wldev *dev, u16 reg,
 
 static unsigned int b43_phy_ac_op_get_default_chan(struct b43_wldev *dev)
 {
+<<<<<<< HEAD
 	if (b43_current_band(dev->wl) == NL80211_BAND_2GHZ)
+=======
+	if (b43_current_band(dev->wl) == IEEE80211_BAND_2GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return 11;
 	return 36;
 }

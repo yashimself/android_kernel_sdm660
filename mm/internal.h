@@ -81,8 +81,12 @@ static inline void __get_page_tail_foll(struct page *page,
 	 * speculative page access (like in
 	 * page_cache_get_speculative()) on tail pages.
 	 */
+<<<<<<< HEAD
 	VM_BUG_ON_PAGE(page_ref_zero_or_close_to_overflow(compound_head(page)),
 		       page);
+=======
+	VM_BUG_ON_PAGE(atomic_read(&compound_head(page)->_count) <= 0, page);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (get_page_head)
 		atomic_inc(&compound_head(page)->_count);
 	get_huge_page_tail(page);
@@ -107,11 +111,16 @@ static inline void get_page_foll(struct page *page)
 		 * Getting a normal page or the head of a compound page
 		 * requires to already have an elevated page->_count.
 		 */
+<<<<<<< HEAD
 		VM_BUG_ON_PAGE(page_ref_zero_or_close_to_overflow(page), page);
+=======
+		VM_BUG_ON_PAGE(atomic_read(&page->_count) <= 0, page);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		atomic_inc(&page->_count);
 	}
 }
 
+<<<<<<< HEAD
 static inline __must_check bool try_get_page_foll(struct page *page)
 {
 	if (unlikely(PageTail(page))) {
@@ -135,6 +144,8 @@ static inline __must_check bool try_get_page_foll(struct page *page)
 	return true;
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 extern unsigned long highest_memmap_pfn;
 
 /*

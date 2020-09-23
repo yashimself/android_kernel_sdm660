@@ -40,6 +40,10 @@ static cstate_t hsw_ext_cstates[HSW_EXT_CSTATE_COUNT] = {
 	{
 		.name			= "PC9",
 		.desc			= N_("Processor Package C9"),
+<<<<<<< HEAD
+=======
+		.desc			= N_("Processor Package C2"),
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		.id			= PC9,
 		.range			= RANGE_PACKAGE,
 		.get_count_percent	= hsw_ext_get_count_percent,

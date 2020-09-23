@@ -645,6 +645,7 @@ static void init_r_port(int board, int aiop, int chan, struct pci_dev *pci_dev)
 	info->port.ops = &rocket_port_ops;
 	init_completion(&info->close_wait);
 	info->flags &= ~ROCKET_MODE_MASK;
+<<<<<<< HEAD
 	if (board < ARRAY_SIZE(pc104) && line < ARRAY_SIZE(pc104_1))
 		switch (pc104[board][line]) {
 		case 422:
@@ -660,6 +661,20 @@ static void init_r_port(int board, int aiop, int chan, struct pci_dev *pci_dev)
 		}
 	else
 		info->flags |= ROCKET_MODE_RS232;
+=======
+	switch (pc104[board][line]) {
+	case 422:
+		info->flags |= ROCKET_MODE_RS422;
+		break;
+	case 485:
+		info->flags |= ROCKET_MODE_RS485;
+		break;
+	case 232:
+	default:
+		info->flags |= ROCKET_MODE_RS232;
+		break;
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	info->intmask = RXF_TRIG | TXFIFO_MT | SRC_INT | DELTA_CD | DELTA_CTS | DELTA_DSR;
 	if (sInitChan(ctlp, &info->channel, aiop, chan) == 0) {

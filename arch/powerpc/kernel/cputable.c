@@ -2147,13 +2147,20 @@ static struct cpu_spec * __init setup_cpu_spec(unsigned long offset,
 		 * oprofile_cpu_type already has a value, then we are
 		 * possibly overriding a real PVR with a logical one,
 		 * and, in that case, keep the current value for
+<<<<<<< HEAD
 		 * oprofile_cpu_type. Futhermore, let's ensure that the
 		 * fix for the PMAO bug is enabled on compatibility mode.
+=======
+		 * oprofile_cpu_type.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		 */
 		if (old.oprofile_cpu_type != NULL) {
 			t->oprofile_cpu_type = old.oprofile_cpu_type;
 			t->oprofile_type = old.oprofile_type;
+<<<<<<< HEAD
 			t->cpu_features |= old.cpu_features & CPU_FTR_PMAO_BUG;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 	}
 

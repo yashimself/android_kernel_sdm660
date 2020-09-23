@@ -1291,7 +1291,11 @@ static int set_channel(struct usbnet *usbdev, int channel)
 		return 0;
 
 	dsconfig = 1000 *
+<<<<<<< HEAD
 		ieee80211_channel_to_frequency(channel, NL80211_BAND_2GHZ);
+=======
+		ieee80211_channel_to_frequency(channel, IEEE80211_BAND_2GHZ);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	len = sizeof(config);
 	ret = rndis_query_oid(usbdev,
@@ -3482,7 +3486,11 @@ static int rndis_wlan_bind(struct usbnet *usbdev, struct usb_interface *intf)
 	priv->band.n_channels = ARRAY_SIZE(rndis_channels);
 	priv->band.bitrates = priv->rates;
 	priv->band.n_bitrates = ARRAY_SIZE(rndis_rates);
+<<<<<<< HEAD
 	wiphy->bands[NL80211_BAND_2GHZ] = &priv->band;
+=======
+	wiphy->bands[IEEE80211_BAND_2GHZ] = &priv->band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	wiphy->signal_type = CFG80211_SIGNAL_TYPE_UNSPEC;
 
 	memcpy(priv->cipher_suites, rndis_cipher_suites,

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2019, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2020, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -110,7 +114,11 @@ static struct adm_ctl			this_adm;
 
 struct adm_multi_ch_map {
 	bool set_channel_map;
+<<<<<<< HEAD
 	char channel_mapping[PCM_FORMAT_MAX_NUM_CHANNEL];
+=======
+	char channel_mapping[PCM_FORMAT_MAX_NUM_CHANNEL_V2];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 #define ADM_MCH_MAP_IDX_PLAYBACK 0
@@ -1186,7 +1194,11 @@ int adm_set_multi_ch_map(char *channel_map, int path)
 	}
 
 	memcpy(multi_ch_maps[idx].channel_mapping, channel_map,
+<<<<<<< HEAD
 		PCM_FORMAT_MAX_NUM_CHANNEL);
+=======
+		PCM_FORMAT_MAX_NUM_CHANNEL_V2);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	multi_ch_maps[idx].set_channel_map = true;
 
 	return 0;
@@ -1207,7 +1219,11 @@ int adm_get_multi_ch_map(char *channel_map, int path)
 
 	if (multi_ch_maps[idx].set_channel_map) {
 		memcpy(channel_map, multi_ch_maps[idx].channel_mapping,
+<<<<<<< HEAD
 		       PCM_FORMAT_MAX_NUM_CHANNEL);
+=======
+		       PCM_FORMAT_MAX_NUM_CHANNEL_V2);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	return 0;
@@ -1219,7 +1235,11 @@ static int adm_process_get_param_response(u32 opcode, u32 idx, u32 *payload,
 	struct adm_cmd_rsp_get_pp_params_v5 *v5_rsp = NULL;
 	struct adm_cmd_rsp_get_pp_params_v6 *v6_rsp = NULL;
 	u32 *param_data = NULL;
+<<<<<<< HEAD
 	int data_size;
+=======
+	int data_size = 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int struct_size;
 
 	if (payload == NULL) {
@@ -1233,7 +1253,11 @@ static int adm_process_get_param_response(u32 opcode, u32 idx, u32 *payload,
 		if (payload_size < struct_size) {
 			pr_err("%s: payload size %d < expected size %d\n",
 				__func__, payload_size, struct_size);
+<<<<<<< HEAD
 			break;
+=======
+			return -EINVAL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 		v5_rsp = (struct adm_cmd_rsp_get_pp_params_v5 *) payload;
 		data_size = v5_rsp->param_hdr.param_size;
@@ -1244,7 +1268,11 @@ static int adm_process_get_param_response(u32 opcode, u32 idx, u32 *payload,
 		if (payload_size < struct_size) {
 			pr_err("%s: payload size %d < expected size %d\n",
 				__func__, payload_size, struct_size);
+<<<<<<< HEAD
 			break;
+=======
+			return -EINVAL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 		v6_rsp = (struct adm_cmd_rsp_get_pp_params_v6 *) payload;
 		data_size = v6_rsp->param_hdr.param_size;
@@ -1272,6 +1300,13 @@ static int adm_process_get_param_response(u32 opcode, u32 idx, u32 *payload,
 		pr_debug("%s: GET_PP PARAM: received parameter length: 0x%x\n",
 			 __func__, adm_get_parameters[idx]);
 		/* store params after param_size */
+<<<<<<< HEAD
+=======
+		if (param_data == NULL) {
+			pr_err("%s: Invalid parameter data got!\n", __func__);
+			return -EINVAL;
+		}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		memcpy(&adm_get_parameters[idx + 1], param_data, data_size);
 		return 0;
 	}
@@ -2394,7 +2429,11 @@ static int adm_arrange_mch_map_v8(
 			multi_ch_maps[idx].set_channel_map) {
 		memcpy(ep_payload->dev_channel_mapping,
 			multi_ch_maps[idx].channel_mapping,
+<<<<<<< HEAD
 			PCM_FORMAT_MAX_NUM_CHANNEL);
+=======
+			PCM_FORMAT_MAX_NUM_CHANNEL_V2);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	} else {
 		if (channel_mode == 1) {
 			ep_payload->dev_channel_mapping[0] = PCM_CHANNEL_FC;
@@ -2419,8 +2458,13 @@ static int adm_arrange_mch_map_v8(
 		} else if (channel_mode == 6) {
 			ep_payload->dev_channel_mapping[0] = PCM_CHANNEL_FL;
 			ep_payload->dev_channel_mapping[1] = PCM_CHANNEL_FR;
+<<<<<<< HEAD
 			ep_payload->dev_channel_mapping[2] = PCM_CHANNEL_LFE;
 			ep_payload->dev_channel_mapping[3] = PCM_CHANNEL_FC;
+=======
+			ep_payload->dev_channel_mapping[2] = PCM_CHANNEL_FC;
+			ep_payload->dev_channel_mapping[3] = PCM_CHANNEL_LFE;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			ep_payload->dev_channel_mapping[4] = PCM_CHANNEL_LS;
 			ep_payload->dev_channel_mapping[5] = PCM_CHANNEL_RS;
 		} else if (channel_mode == 7) {
@@ -2428,18 +2472,32 @@ static int adm_arrange_mch_map_v8(
 			ep_payload->dev_channel_mapping[1] = PCM_CHANNEL_FR;
 			ep_payload->dev_channel_mapping[2] = PCM_CHANNEL_FC;
 			ep_payload->dev_channel_mapping[3] = PCM_CHANNEL_LFE;
+<<<<<<< HEAD
 			ep_payload->dev_channel_mapping[4] = PCM_CHANNEL_LB;
 			ep_payload->dev_channel_mapping[5] = PCM_CHANNEL_RB;
+=======
+			ep_payload->dev_channel_mapping[4] = PCM_CHANNEL_LS;
+			ep_payload->dev_channel_mapping[5] = PCM_CHANNEL_RS;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			ep_payload->dev_channel_mapping[6] = PCM_CHANNEL_CS;
 		} else if (channel_mode == 8) {
 			ep_payload->dev_channel_mapping[0] = PCM_CHANNEL_FL;
 			ep_payload->dev_channel_mapping[1] = PCM_CHANNEL_FR;
+<<<<<<< HEAD
 			ep_payload->dev_channel_mapping[2] = PCM_CHANNEL_LFE;
 			ep_payload->dev_channel_mapping[3] = PCM_CHANNEL_FC;
 			ep_payload->dev_channel_mapping[4] = PCM_CHANNEL_LS;
 			ep_payload->dev_channel_mapping[5] = PCM_CHANNEL_RS;
 			ep_payload->dev_channel_mapping[6] = PCM_CHANNEL_LB;
 			ep_payload->dev_channel_mapping[7] = PCM_CHANNEL_RB;
+=======
+			ep_payload->dev_channel_mapping[2] = PCM_CHANNEL_FC;
+			ep_payload->dev_channel_mapping[3] = PCM_CHANNEL_LFE;
+			ep_payload->dev_channel_mapping[4] = PCM_CHANNEL_LB;
+			ep_payload->dev_channel_mapping[5] = PCM_CHANNEL_RB;
+			ep_payload->dev_channel_mapping[6] = PCM_CHANNEL_LS;
+			ep_payload->dev_channel_mapping[7] = PCM_CHANNEL_RS;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		} else if (channel_mode == 10) {
 			ep_payload->dev_channel_mapping[0] = PCM_CHANNEL_FL;
 			ep_payload->dev_channel_mapping[1] = PCM_CHANNEL_FR;

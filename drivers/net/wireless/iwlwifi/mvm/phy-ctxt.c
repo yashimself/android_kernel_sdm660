@@ -147,7 +147,11 @@ static void iwl_mvm_phy_ctxt_cmd_data(struct iwl_mvm *mvm,
 	u8 active_cnt, idle_cnt;
 
 	/* Set the channel info data */
+<<<<<<< HEAD
 	cmd->ci.band = (chandef->chan->band == NL80211_BAND_2GHZ ?
+=======
+	cmd->ci.band = (chandef->chan->band == IEEE80211_BAND_2GHZ ?
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	      PHY_BAND_24 : PHY_BAND_5);
 
 	cmd->ci.channel = chandef->chan->hw_value;

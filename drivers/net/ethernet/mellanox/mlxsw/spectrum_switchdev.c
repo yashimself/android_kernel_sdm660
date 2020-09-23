@@ -87,6 +87,7 @@ static int mlxsw_sp_port_stp_state_set(struct mlxsw_sp_port *mlxsw_sp_port,
 	int err;
 
 	switch (state) {
+<<<<<<< HEAD
 	case BR_STATE_FORWARDING:
 		spms_state = MLXSW_REG_SPMS_STATE_FORWARDING;
 		break;
@@ -95,6 +96,16 @@ static int mlxsw_sp_port_stp_state_set(struct mlxsw_sp_port *mlxsw_sp_port,
 		break;
 	case BR_STATE_LISTENING: /* fall-through */
 	case BR_STATE_DISABLED: /* fall-through */
+=======
+	case BR_STATE_DISABLED: /* fall-through */
+	case BR_STATE_FORWARDING:
+		spms_state = MLXSW_REG_SPMS_STATE_FORWARDING;
+		break;
+	case BR_STATE_LISTENING: /* fall-through */
+	case BR_STATE_LEARNING:
+		spms_state = MLXSW_REG_SPMS_STATE_LEARNING;
+		break;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	case BR_STATE_BLOCKING:
 		spms_state = MLXSW_REG_SPMS_STATE_DISCARDING;
 		break;

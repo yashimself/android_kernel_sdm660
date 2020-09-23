@@ -4275,6 +4275,7 @@ static bool cs_ss_rpl_check(struct kvm_vcpu *vcpu)
 		 (ss.selector & SEGMENT_RPL_MASK));
 }
 
+<<<<<<< HEAD
 static bool nested_vmx_check_io_bitmaps(struct kvm_vcpu *vcpu,
 					unsigned int port, int size);
 static bool nested_vmx_exit_handled_io(struct kvm_vcpu *vcpu,
@@ -4295,6 +4296,8 @@ static bool nested_vmx_exit_handled_io(struct kvm_vcpu *vcpu,
 	return nested_vmx_check_io_bitmaps(vcpu, port, size);
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /*
  * Check if guest state is valid. Returns true if valid, false if
  * not.
@@ -5441,7 +5444,11 @@ static int handle_rmode_exception(struct kvm_vcpu *vcpu,
  */
 static void kvm_machine_check(void)
 {
+<<<<<<< HEAD
 #if defined(CONFIG_X86_MCE)
+=======
+#if defined(CONFIG_X86_MCE) && defined(CONFIG_X86_64)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct pt_regs regs = {
 		.cs = 3, /* Fake ring 3 no matter what the guest ran on */
 		.flags = X86_EFLAGS_IF,
@@ -6187,8 +6194,13 @@ static int handle_ept_misconfig(struct kvm_vcpu *vcpu)
 			return 1;
 		}
 		else
+<<<<<<< HEAD
 			return emulate_instruction(vcpu, EMULTYPE_SKIP) ==
 								EMULATE_DONE;
+=======
+			return x86_emulate_instruction(vcpu, gpa, EMULTYPE_SKIP,
+						       NULL, 0) == EMULATE_DONE;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	ret = handle_mmio_page_fault(vcpu, gpa, true);
@@ -7281,10 +7293,15 @@ static int handle_vmread(struct kvm_vcpu *vcpu)
 		/* _system ok, as nested_vmx_check_permission verified cpl=0 */
 		if (kvm_write_guest_virt_system(vcpu, gva, &field_value,
 						(is_long_mode(vcpu) ? 8 : 4),
+<<<<<<< HEAD
 						&e)) {
 			kvm_inject_page_fault(vcpu, &e);
 			return 1;
 		}
+=======
+						&e))
+			kvm_inject_page_fault(vcpu, &e);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	nested_vmx_succeed(vcpu);
@@ -7644,6 +7661,7 @@ static int (*const kvm_vmx_exit_handlers[])(struct kvm_vcpu *vcpu) = {
 static const int kvm_vmx_max_exit_handlers =
 	ARRAY_SIZE(kvm_vmx_exit_handlers);
 
+<<<<<<< HEAD
 /*
  * Return true if an IO instruction with the specified port and size should cause
  * a VM-exit into L1.
@@ -7655,6 +7673,25 @@ bool nested_vmx_check_io_bitmaps(struct kvm_vcpu *vcpu, unsigned int port,
 	gpa_t bitmap, last_bitmap;
 	u8 b;
 
+=======
+static bool nested_vmx_exit_handled_io(struct kvm_vcpu *vcpu,
+				       struct vmcs12 *vmcs12)
+{
+	unsigned long exit_qualification;
+	gpa_t bitmap, last_bitmap;
+	unsigned int port;
+	int size;
+	u8 b;
+
+	if (!nested_cpu_has(vmcs12, CPU_BASED_USE_IO_BITMAPS))
+		return nested_cpu_has(vmcs12, CPU_BASED_UNCOND_IO_EXITING);
+
+	exit_qualification = vmcs_readl(EXIT_QUALIFICATION);
+
+	port = exit_qualification >> 16;
+	size = (exit_qualification & 7) + 1;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	last_bitmap = (gpa_t)-1;
 	b = -1;
 
@@ -10754,6 +10791,7 @@ static void nested_vmx_entry_failure(struct kvm_vcpu *vcpu,
 		to_vmx(vcpu)->nested.sync_shadow_vmcs = true;
 }
 
+<<<<<<< HEAD
 static int vmx_check_intercept_io(struct kvm_vcpu *vcpu,
 				  struct x86_instruction_info *info)
 {
@@ -10787,10 +10825,13 @@ static int vmx_check_intercept_io(struct kvm_vcpu *vcpu,
 	return intercept ? X86EMUL_UNHANDLEABLE : X86EMUL_CONTINUE;
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int vmx_check_intercept(struct kvm_vcpu *vcpu,
 			       struct x86_instruction_info *info,
 			       enum x86_intercept_stage stage)
 {
+<<<<<<< HEAD
 	struct vmcs12 *vmcs12 = get_vmcs12(vcpu);
 	struct x86_emulate_ctxt *ctxt = &vcpu->arch.emulate_ctxt;
 
@@ -10819,6 +10860,9 @@ static int vmx_check_intercept(struct kvm_vcpu *vcpu,
 	}
 
 	return X86EMUL_UNHANDLEABLE;
+=======
+	return X86EMUL_CONTINUE;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static void vmx_sched_in(struct kvm_vcpu *vcpu, int cpu)

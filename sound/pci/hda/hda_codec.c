@@ -876,7 +876,10 @@ int snd_hda_codec_new(struct hda_bus *bus, struct snd_card *card,
 
 	/* power-up all before initialization */
 	hda_set_power_state(codec, AC_PWRST_D0);
+<<<<<<< HEAD
 	codec->core.dev.power.power_state = PMSG_ON;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	snd_hda_codec_proc_new(codec);
 
@@ -4099,7 +4102,11 @@ void snd_print_pcm_bits(int pcm, char *buf, int buflen)
 
 	for (i = 0, j = 0; i < ARRAY_SIZE(bits); i++)
 		if (pcm & (AC_SUPPCM_BITS_8 << i))
+<<<<<<< HEAD
 			j += scnprintf(buf + j, buflen - j,  " %d", bits[i]);
+=======
+			j += snprintf(buf + j, buflen - j,  " %d", bits[i]);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	buf[j] = '\0'; /* necessary when j == 0 */
 }

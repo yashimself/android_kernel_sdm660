@@ -407,7 +407,11 @@ static int ovl_create_or_link(struct dentry *dentry, int mode, dev_t rdev,
 	if (!ovl_dentry_is_opaque(dentry)) {
 		err = ovl_create_upper(dentry, inode, &stat, link, hardlink);
 	} else {
+<<<<<<< HEAD
 		const struct cred *old_cred;
+=======
+		const struct cred *old_cred, *hold_cred = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		struct cred *override_cred;
 
 		old_cred = ovl_override_creds(dentry->d_sb);
@@ -415,15 +419,32 @@ static int ovl_create_or_link(struct dentry *dentry, int mode, dev_t rdev,
 		err = -ENOMEM;
 		override_cred = prepare_creds();
 		if (override_cred) {
+<<<<<<< HEAD
 			override_cred->fsuid = old_cred->fsuid;
 			override_cred->fsgid = old_cred->fsgid;
 			put_cred(override_creds(override_cred));
+=======
+			const struct cred *our_cred;
+
+			our_cred = old_cred;
+			if (!our_cred)
+				our_cred = current_cred();
+			override_cred->fsuid = our_cred->fsuid;
+			override_cred->fsgid = our_cred->fsgid;
+			hold_cred = override_creds(override_cred);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			put_cred(override_cred);
 
 			err = ovl_create_over_whiteout(dentry, inode, &stat,
 						       link, hardlink);
 		}
+<<<<<<< HEAD
 		revert_creds(old_cred);
+=======
+		ovl_revert_creds(old_cred ?: hold_cred);
+		if (old_cred && hold_cred)
+			put_cred(hold_cred);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	if (!err)
@@ -657,7 +678,11 @@ static int ovl_do_remove(struct dentry *dentry, bool is_dir)
 
 		err = ovl_remove_and_whiteout(dentry, is_dir);
 
+<<<<<<< HEAD
 		revert_creds(old_cred);
+=======
+		ovl_revert_creds(old_cred);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 out_drop_write:
 	ovl_drop_write(dentry);
@@ -896,8 +921,12 @@ out_dput_old:
 out_unlock:
 	unlock_rename(new_upperdir, old_upperdir);
 out_revert_creds:
+<<<<<<< HEAD
 	if (old_opaque || new_opaque)
 		revert_creds(old_cred);
+=======
+	ovl_revert_creds(old_cred);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 out_drop_write:
 	ovl_drop_write(old);
 out:

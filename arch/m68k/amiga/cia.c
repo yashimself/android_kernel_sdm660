@@ -88,6 +88,7 @@ static irqreturn_t cia_handler(int irq, void *dev_id)
 	struct ciabase *base = dev_id;
 	int mach_irq;
 	unsigned char ints;
+<<<<<<< HEAD
 	unsigned long flags;
 
 	/* Interrupts get disabled while the timer irq flag is cleared and
@@ -101,6 +102,12 @@ static irqreturn_t cia_handler(int irq, void *dev_id)
 		generic_handle_irq(mach_irq);
 	local_irq_restore(flags);
 	mach_irq++, ints >>= 1;
+=======
+
+	mach_irq = base->cia_irq;
+	ints = cia_set_irq(base, CIA_ICR_ALL);
+	amiga_custom.intreq = base->int_mask;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	for (; ints; mach_irq++, ints >>= 1) {
 		if (ints & 1)
 			generic_handle_irq(mach_irq);

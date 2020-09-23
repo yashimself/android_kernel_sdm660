@@ -2186,8 +2186,11 @@ lpfc_sli_def_mbox_cmpl(struct lpfc_hba *phba, LPFC_MBOXQ_t *pmb)
 	    !pmb->u.mb.mbxStatus) {
 		rpi = pmb->u.mb.un.varWords[0];
 		vpi = pmb->u.mb.un.varRegLogin.vpi;
+<<<<<<< HEAD
 		if (phba->sli_rev == LPFC_SLI_REV4)
 			vpi -= phba->sli4_hba.max_cfg_param.vpi_base;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		lpfc_unreg_login(phba, vpi, rpi, pmb);
 		pmb->mbox_cmpl = lpfc_sli_def_mbox_cmpl;
 		rc = lpfc_sli_issue_mbox(phba, pmb, MBX_NOWAIT);
@@ -11761,6 +11764,7 @@ send_current_mbox:
 	phba->sli.sli_flag &= ~LPFC_SLI_MBOX_ACTIVE;
 	/* Setting active mailbox pointer need to be in sync to flag clear */
 	phba->sli.mbox_active = NULL;
+<<<<<<< HEAD
 	if (bf_get(lpfc_trailer_consumed, mcqe))
 		lpfc_sli4_mq_release(phba->sli4_hba.mbx_wq);
 	spin_unlock_irqrestore(&phba->hbalock, iflags);
@@ -11774,6 +11778,15 @@ out_no_mqe_complete:
 		lpfc_sli4_mq_release(phba->sli4_hba.mbx_wq);
 	spin_unlock_irqrestore(&phba->hbalock, iflags);
 	return false;
+=======
+	spin_unlock_irqrestore(&phba->hbalock, iflags);
+	/* Wake up worker thread to post the next pending mailbox command */
+	lpfc_worker_wake_up(phba);
+out_no_mqe_complete:
+	if (bf_get(lpfc_trailer_consumed, mcqe))
+		lpfc_sli4_mq_release(phba->sli4_hba.mbx_wq);
+	return workposted;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /**
@@ -15794,6 +15807,7 @@ lpfc_sli4_alloc_rpi(struct lpfc_hba *phba)
 static void
 __lpfc_sli4_free_rpi(struct lpfc_hba *phba, int rpi)
 {
+<<<<<<< HEAD
 	/*
 	 * if the rpi value indicates a prior unreg has already
 	 * been done, skip the unreg.
@@ -15801,6 +15815,8 @@ __lpfc_sli4_free_rpi(struct lpfc_hba *phba, int rpi)
 	if (rpi == LPFC_RPI_ALLOC_ERROR)
 		return;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (test_and_clear_bit(rpi, phba->sli4_hba.rpi_bmask)) {
 		phba->sli4_hba.rpi_count--;
 		phba->sli4_hba.max_cfg_param.rpi_used--;

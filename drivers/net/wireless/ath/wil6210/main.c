@@ -896,7 +896,11 @@ static void wil_bl_crash_info(struct wil6210_priv *wil, bool is_err)
 
 static int wil_wait_for_fw_ready(struct wil6210_priv *wil)
 {
+<<<<<<< HEAD
 	ulong to = msecs_to_jiffies(2000);
+=======
+	ulong to = msecs_to_jiffies(1000);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	ulong left = wait_for_completion_timeout(&wil->wmi_ready, to);
 
 	if (0 == left) {

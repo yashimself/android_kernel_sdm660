@@ -255,8 +255,12 @@ static int ar5523_cmd(struct ar5523 *ar, u32 code, const void *idata,
 
 	if (flags & AR5523_CMD_FLAG_MAGIC)
 		hdr->magic = cpu_to_be32(1 << 24);
+<<<<<<< HEAD
 	if (ilen)
 		memcpy(hdr + 1, idata, ilen);
+=======
+	memcpy(hdr + 1, idata, ilen);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	cmd->odata = odata;
 	cmd->olen = olen;
@@ -1472,12 +1476,20 @@ static int ar5523_init_modes(struct ar5523 *ar)
 	memcpy(ar->channels, ar5523_channels, sizeof(ar5523_channels));
 	memcpy(ar->rates, ar5523_rates, sizeof(ar5523_rates));
 
+<<<<<<< HEAD
 	ar->band.band = NL80211_BAND_2GHZ;
+=======
+	ar->band.band = IEEE80211_BAND_2GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	ar->band.channels = ar->channels;
 	ar->band.n_channels = ARRAY_SIZE(ar5523_channels);
 	ar->band.bitrates = ar->rates;
 	ar->band.n_bitrates = ARRAY_SIZE(ar5523_rates);
+<<<<<<< HEAD
 	ar->hw->wiphy->bands[NL80211_BAND_2GHZ] = &ar->band;
+=======
+	ar->hw->wiphy->bands[IEEE80211_BAND_2GHZ] = &ar->band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return 0;
 }
 

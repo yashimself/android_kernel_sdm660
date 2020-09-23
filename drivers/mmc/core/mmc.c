@@ -542,7 +542,11 @@ static int mmc_decode_ext_csd(struct mmc_card *card, u8 *ext_csd)
 			card->ext_csd.raw_bkops_status =
 				ext_csd[EXT_CSD_BKOPS_STATUS];
 			if (!card->ext_csd.bkops_en)
+<<<<<<< HEAD
 				pr_info("%s: BKOPS_EN equals 0x%x\n",
+=======
+				pr_debug("%s: BKOPS_EN equals 0x%x\n",
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 					mmc_hostname(card->host),
 					card->ext_csd.bkops_en);
 		}

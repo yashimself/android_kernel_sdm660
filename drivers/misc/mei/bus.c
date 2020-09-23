@@ -761,16 +761,26 @@ static struct device_type mei_cl_device_type = {
 
 /**
  * mei_cl_bus_set_name - set device name for me client device
+<<<<<<< HEAD
  *  <controller>-<client device>
  *  Example: 0000:00:16.0-55213584-9a29-4916-badf-0fb7ed682aeb
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * @cldev: me client device
  */
 static inline void mei_cl_bus_set_name(struct mei_cl_device *cldev)
 {
+<<<<<<< HEAD
 	dev_set_name(&cldev->dev, "%s-%pUl",
 		     dev_name(cldev->bus->dev),
 		     mei_me_cl_uuid(cldev->me_cl));
+=======
+	dev_set_name(&cldev->dev, "mei:%s:%pUl:%02X",
+		     cldev->name,
+		     mei_me_cl_uuid(cldev->me_cl),
+		     mei_me_cl_ver(cldev->me_cl));
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /**

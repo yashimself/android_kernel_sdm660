@@ -523,6 +523,16 @@ int line6_init_pcm(struct usb_line6 *line6,
 	line6pcm->volume_monitor = 255;
 	line6pcm->line6 = line6;
 
+<<<<<<< HEAD
+=======
+	/* Read and write buffers are sized identically, so choose minimum */
+	line6pcm->max_packet_size = min(
+			usb_maxpacket(line6->usbdev,
+				usb_rcvisocpipe(line6->usbdev, ep_read), 0),
+			usb_maxpacket(line6->usbdev,
+				usb_sndisocpipe(line6->usbdev, ep_write), 1));
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	spin_lock_init(&line6pcm->out.lock);
 	spin_lock_init(&line6pcm->in.lock);
 	line6pcm->impulse_period = LINE6_IMPULSE_DEFAULT_PERIOD;
@@ -532,6 +542,7 @@ int line6_init_pcm(struct usb_line6 *line6,
 	pcm->private_data = line6pcm;
 	pcm->private_free = line6_cleanup_pcm;
 
+<<<<<<< HEAD
 	/* Read and write buffers are sized identically, so choose minimum */
 	line6pcm->max_packet_size = min(
 			usb_maxpacket(line6->usbdev,
@@ -544,6 +555,8 @@ int line6_init_pcm(struct usb_line6 *line6,
 		return -EINVAL;
 	}
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	err = line6_create_audio_out_urbs(line6pcm);
 	if (err < 0)
 		return err;

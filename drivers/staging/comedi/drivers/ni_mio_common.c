@@ -4809,10 +4809,14 @@ static int ni_valid_rtsi_output_source(struct comedi_device *dev,
 	case NI_RTSI_OUTPUT_G_SRC0:
 	case NI_RTSI_OUTPUT_G_GATE0:
 	case NI_RTSI_OUTPUT_RGOUT0:
+<<<<<<< HEAD
 	case NI_RTSI_OUTPUT_RTSI_BRD(0):
 	case NI_RTSI_OUTPUT_RTSI_BRD(1):
 	case NI_RTSI_OUTPUT_RTSI_BRD(2):
 	case NI_RTSI_OUTPUT_RTSI_BRD(3):
+=======
+	case NI_RTSI_OUTPUT_RTSI_BRD_0:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return 1;
 	case NI_RTSI_OUTPUT_RTSI_OSC:
 		return (devpriv->is_m_series) ? 1 : 0;
@@ -4833,11 +4837,16 @@ static int ni_set_rtsi_routing(struct comedi_device *dev,
 		devpriv->rtsi_trig_a_output_reg |= NISTC_RTSI_TRIG(chan, src);
 		ni_stc_writew(dev, devpriv->rtsi_trig_a_output_reg,
 			      NISTC_RTSI_TRIGA_OUT_REG);
+<<<<<<< HEAD
 	} else if (chan < NISTC_RTSI_TRIG_NUM_CHAN(devpriv->is_m_series)) {
+=======
+	} else if (chan < 8) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		devpriv->rtsi_trig_b_output_reg &= ~NISTC_RTSI_TRIG_MASK(chan);
 		devpriv->rtsi_trig_b_output_reg |= NISTC_RTSI_TRIG(chan, src);
 		ni_stc_writew(dev, devpriv->rtsi_trig_b_output_reg,
 			      NISTC_RTSI_TRIGB_OUT_REG);
+<<<<<<< HEAD
 	} else if (chan != NISTC_RTSI_TRIG_OLD_CLK_CHAN) {
 		/* probably should never reach this, since the
 		 * ni_valid_rtsi_output_source above errors out if chan is too
@@ -4845,6 +4854,8 @@ static int ni_set_rtsi_routing(struct comedi_device *dev,
 		 */
 		dev_err(dev->class_dev, "%s: unknown rtsi channel\n", __func__);
 		return -EINVAL;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 	return 2;
 }
@@ -4859,12 +4870,21 @@ static unsigned ni_get_rtsi_routing(struct comedi_device *dev, unsigned chan)
 	} else if (chan < NISTC_RTSI_TRIG_NUM_CHAN(devpriv->is_m_series)) {
 		return NISTC_RTSI_TRIG_TO_SRC(chan,
 					      devpriv->rtsi_trig_b_output_reg);
+<<<<<<< HEAD
 	} else if (chan == NISTC_RTSI_TRIG_OLD_CLK_CHAN) {
 		return NI_RTSI_OUTPUT_RTSI_OSC;
 	}
 
 	dev_err(dev->class_dev, "%s: unknown rtsi channel\n", __func__);
 	return -EINVAL;
+=======
+	} else {
+		if (chan == NISTC_RTSI_TRIG_OLD_CLK_CHAN)
+			return NI_RTSI_OUTPUT_RTSI_OSC;
+		dev_err(dev->class_dev, "bug! should never get here?\n");
+		return 0;
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static int ni_rtsi_insn_config(struct comedi_device *dev,

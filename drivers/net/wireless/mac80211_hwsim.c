@@ -255,14 +255,22 @@ static struct class *hwsim_class;
 static struct net_device *hwsim_mon; /* global monitor netdev */
 
 #define CHAN2G(_freq)  { \
+<<<<<<< HEAD
 	.band = NL80211_BAND_2GHZ, \
+=======
+	.band = IEEE80211_BAND_2GHZ, \
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.center_freq = (_freq), \
 	.hw_value = (_freq), \
 	.max_power = 20, \
 }
 
 #define CHAN5G(_freq) { \
+<<<<<<< HEAD
 	.band = NL80211_BAND_5GHZ, \
+=======
+	.band = IEEE80211_BAND_5GHZ, \
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.center_freq = (_freq), \
 	.hw_value = (_freq), \
 	.max_power = 20, \
@@ -479,7 +487,11 @@ struct mac80211_hwsim_data {
 	struct list_head list;
 	struct ieee80211_hw *hw;
 	struct device *dev;
+<<<<<<< HEAD
 	struct ieee80211_supported_band bands[NUM_NL80211_BANDS];
+=======
+	struct ieee80211_supported_band bands[IEEE80211_NUM_BANDS];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct ieee80211_channel channels_2ghz[ARRAY_SIZE(hwsim_channels_2ghz)];
 	struct ieee80211_channel channels_5ghz[ARRAY_SIZE(hwsim_channels_5ghz)];
 	struct ieee80211_rate rates[ARRAY_SIZE(hwsim_rates)];
@@ -2303,7 +2315,11 @@ static int mac80211_hwsim_new_radio(struct genl_info *info,
 	u8 addr[ETH_ALEN];
 	struct mac80211_hwsim_data *data;
 	struct ieee80211_hw *hw;
+<<<<<<< HEAD
 	enum nl80211_band band;
+=======
+	enum ieee80211_band band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	const struct ieee80211_ops *ops = &mac80211_hwsim_ops;
 	int idx;
 
@@ -2430,16 +2446,27 @@ static int mac80211_hwsim_new_radio(struct genl_info *info,
 		sizeof(hwsim_channels_5ghz));
 	memcpy(data->rates, hwsim_rates, sizeof(hwsim_rates));
 
+<<<<<<< HEAD
 	for (band = NL80211_BAND_2GHZ; band < NUM_NL80211_BANDS; band++) {
 		struct ieee80211_supported_band *sband = &data->bands[band];
 		switch (band) {
 		case NL80211_BAND_2GHZ:
+=======
+	for (band = IEEE80211_BAND_2GHZ; band < IEEE80211_NUM_BANDS; band++) {
+		struct ieee80211_supported_band *sband = &data->bands[band];
+		switch (band) {
+		case IEEE80211_BAND_2GHZ:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			sband->channels = data->channels_2ghz;
 			sband->n_channels = ARRAY_SIZE(hwsim_channels_2ghz);
 			sband->bitrates = data->rates;
 			sband->n_bitrates = ARRAY_SIZE(hwsim_rates);
 			break;
+<<<<<<< HEAD
 		case NL80211_BAND_5GHZ:
+=======
+		case IEEE80211_BAND_5GHZ:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			sband->channels = data->channels_5ghz;
 			sband->n_channels = ARRAY_SIZE(hwsim_channels_5ghz);
 			sband->bitrates = data->rates + 4;
@@ -2901,9 +2928,15 @@ static int hwsim_new_radio_nl(struct sk_buff *msg, struct genl_info *info)
 		param.no_vif = true;
 
 	if (info->attrs[HWSIM_ATTR_RADIO_NAME]) {
+<<<<<<< HEAD
 		hwname = kstrndup((char *)nla_data(info->attrs[HWSIM_ATTR_RADIO_NAME]),
 				  nla_len(info->attrs[HWSIM_ATTR_RADIO_NAME]),
 				  GFP_KERNEL);
+=======
+		hwname = kasprintf(GFP_KERNEL, "%.*s",
+				   nla_len(info->attrs[HWSIM_ATTR_RADIO_NAME]),
+				   (char *)nla_data(info->attrs[HWSIM_ATTR_RADIO_NAME]));
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (!hwname)
 			return -ENOMEM;
 		param.hwname = hwname;
@@ -2942,9 +2975,15 @@ static int hwsim_del_radio_nl(struct sk_buff *msg, struct genl_info *info)
 	if (info->attrs[HWSIM_ATTR_RADIO_ID]) {
 		idx = nla_get_u32(info->attrs[HWSIM_ATTR_RADIO_ID]);
 	} else if (info->attrs[HWSIM_ATTR_RADIO_NAME]) {
+<<<<<<< HEAD
 		hwname = kstrndup((char *)nla_data(info->attrs[HWSIM_ATTR_RADIO_NAME]),
 				  nla_len(info->attrs[HWSIM_ATTR_RADIO_NAME]),
 				  GFP_KERNEL);
+=======
+		hwname = kasprintf(GFP_KERNEL, "%.*s",
+				   nla_len(info->attrs[HWSIM_ATTR_RADIO_NAME]),
+				   (char *)nla_data(info->attrs[HWSIM_ATTR_RADIO_NAME]));
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (!hwname)
 			return -ENOMEM;
 	} else

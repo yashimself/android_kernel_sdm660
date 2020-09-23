@@ -425,6 +425,7 @@ static int do_task_stat(struct seq_file *m, struct pid_namespace *ns,
 	mm = get_task_mm(task);
 	if (mm) {
 		vsize = task_vsize(mm);
+<<<<<<< HEAD
 		/*
 		 * esp and eip are intentionally zeroed out.  There is no
 		 * non-racy way to read them without freezing the task.
@@ -440,6 +441,11 @@ static int do_task_stat(struct seq_file *m, struct pid_namespace *ns,
 				esp = KSTK_ESP(task);
 				put_task_stack(task);
 			}
+=======
+		if (permitted) {
+			eip = KSTK_EIP(task);
+			esp = KSTK_ESP(task);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 	}
 

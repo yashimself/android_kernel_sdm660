@@ -2510,15 +2510,25 @@ fec_enet_set_coalesce(struct net_device *ndev, struct ethtool_coalesce *ec)
 		return -EINVAL;
 	}
 
+<<<<<<< HEAD
 	cycle = fec_enet_us_to_itr_clock(ndev, ec->rx_coalesce_usecs);
+=======
+	cycle = fec_enet_us_to_itr_clock(ndev, fep->rx_time_itr);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (cycle > 0xFFFF) {
 		pr_err("Rx coalesed usec exceeed hardware limiation");
 		return -EINVAL;
 	}
 
+<<<<<<< HEAD
 	cycle = fec_enet_us_to_itr_clock(ndev, ec->tx_coalesce_usecs);
 	if (cycle > 0xFFFF) {
 		pr_err("Tx coalesed usec exceeed hardware limiation");
+=======
+	cycle = fec_enet_us_to_itr_clock(ndev, fep->tx_time_itr);
+	if (cycle > 0xFFFF) {
+		pr_err("Rx coalesed usec exceeed hardware limiation");
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return -EINVAL;
 	}
 

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2017-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2017-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -21,6 +25,7 @@
 		};
 	};
 
+<<<<<<< HEAD
 	aliases {
 		mhi_rmnet0 = &mhi_rmnet_0;
 		mhi_rmnet1 = &mhi_rmnet_1;
@@ -28,6 +33,8 @@
 		mhi0 = &mhi;
 	};
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	gpio-leds {
 		compatible = "gpio-leds";
 
@@ -146,6 +153,7 @@
 		gpio = <&tlmm 125 0>;
 	};
 
+<<<<<<< HEAD
 	mhi_rmnet_0: qcom,mhi-rmnet@0 {
 		compatible = "qcom,mhi-rmnet";
 		cell-index = <0>;
@@ -192,6 +200,8 @@
 		status = "okay";
 	};
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	qcom,diagfwd-usb {
 		compatible = "qcom,diagfwd-usb";
 		status = "okay";
@@ -201,6 +211,10 @@
 /delete-node/ &mdss_mdp;
 /delete-node/ &mdss_dsi;
 /delete-node/ &msm_ext_disp;
+<<<<<<< HEAD
+=======
+/delete-node/ &msm_wb_disp;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /delete-node/ &mdss_hdmi_tx;
 /delete-node/ &mdss_rotator;
 /delete-node/ &routing;
@@ -234,7 +248,10 @@
 		spi-max-frequency = <9600000>;
 		interrupt-parent = <&tlmm>;
 		interrupts = <78 2>;
+<<<<<<< HEAD
 		qcom,reset-gpio = <&tlmm 71 GPIO_ACTIVE_LOW>;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		qcom,clk-freq-mhz = <20000000>;
 		qcom,max-can-channels = <2>;
 		qcom,bits-per-word = <8>;
@@ -242,9 +259,12 @@
 		qcom,can-fw-cmd-timeout-req;
 		qcom,can-fw-cmd-timeout-ms = <400>;
 		qcom,rem-all-buffering-timeout-ms = <2000>;
+<<<<<<< HEAD
 		pinctrl-names = "active", "sleep";
 		pinctrl-0 = <&can_rst_on>;
 		pinctrl-1 = <&can_rst_off>;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	};
 };
 
@@ -327,6 +347,11 @@
 
 &usb2s {
 	status = "okay";
+<<<<<<< HEAD
+=======
+	qcom,no-wakeup-src-in-hostmode;
+	qcom,disable-host-mode-pm;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 &usb3 {
@@ -362,6 +387,7 @@
 	/delete-property/ qcom,l1ss-supported;
 };
 
+<<<<<<< HEAD
 &mdm3 {
 	pinctrl-names = "mdm_active", "mdm_suspend";
 	pinctrl-0 = <&ap2mdm_active &mdm2ap_active>;
@@ -441,6 +467,8 @@
 	status = "okay";
 };
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 &pm8994_gpios {
 	gpio@c700 { /* GPIO 8 - WLAN_EN */
 		qcom,mode = <1>;		/* Digital output*/
@@ -531,7 +559,11 @@
 		qcom,vin-sel = <2>;		/* S4 1.8V */
 		qcom,src-sel = <0>;		/* Constant */
 		qcom,master-en = <1>;		/* Enable GPIO */
+<<<<<<< HEAD
 		qcom,invert = <0>;		/* Output low */
+=======
+		qcom,invert = <1>;		/* Output high */
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		status = "okay";
 	};
 };
@@ -705,3 +737,25 @@
 		qcom,thermal-node;
 	};
 };
+<<<<<<< HEAD
+=======
+
+&soc {
+	qcom,msm-thermal {
+		qcom,hotplug-temp = <115>;
+		qcom,hotplug-temp-hysteresis = <25>;
+		qcom,therm-reset-temp = <119>;
+	};
+};
+
+&tlmm {
+	pinctrl-names = "default";
+	pinctrl-0 = <&can_rst_on>;
+};
+
+&can_rst_on {
+	config {
+		output-high;
+	};
+};
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

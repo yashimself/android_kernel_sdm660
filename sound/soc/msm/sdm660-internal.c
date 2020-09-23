@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2015-2018, 2020, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -15,14 +19,21 @@
 #include <linux/module.h>
 #include <linux/mfd/msm-cdc-pinctrl.h>
 #include <sound/pcm_params.h>
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_SDM660
 #include <linux/delay.h>
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #include "qdsp6v2/msm-pcm-routing-v2.h"
 #include "sdm660-common.h"
 #include "../codecs/sdm660_cdc/msm-digital-cdc.h"
 #include "../codecs/sdm660_cdc/msm-analog-cdc.h"
 #include "../codecs/msm_sdw/msm_sdw.h"
+<<<<<<< HEAD
+=======
+#include <linux/pm_qos.h>
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #define __CHIPSET__ "SDM660 "
 #define MSM_DAILINK_NAME(name) (__CHIPSET__#name)
@@ -34,6 +45,10 @@
 
 #define WSA8810_NAME_1 "wsa881x.20170211"
 #define WSA8810_NAME_2 "wsa881x.20170212"
+<<<<<<< HEAD
+=======
+#define MSM_LL_QOS_VALUE 300 /* time in us to ensure LPM doesn't go in C3/C4 */
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 enum {
 	INT0_MI2S = 0,
@@ -137,7 +152,11 @@ static struct dev_config int_mi2s_cfg[] = {
 	[INT2_MI2S]  = {SAMPLING_RATE_48KHZ, SNDRV_PCM_FORMAT_S16_LE, 1},
 	[INT3_MI2S] = {SAMPLING_RATE_48KHZ, SNDRV_PCM_FORMAT_S16_LE, 1},
 	[INT4_MI2S] = {SAMPLING_RATE_48KHZ, SNDRV_PCM_FORMAT_S16_LE, 1},
+<<<<<<< HEAD
 	[INT5_MI2S] = {SAMPLING_RATE_48KHZ, SNDRV_PCM_FORMAT_S16_LE, 2},
+=======
+	[INT5_MI2S] = {SAMPLING_RATE_8KHZ, SNDRV_PCM_FORMAT_S16_LE, 2},
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	[INT6_MI2S] = {SAMPLING_RATE_8KHZ, SNDRV_PCM_FORMAT_S16_LE, 2},
 };
 
@@ -485,6 +504,7 @@ done:
 	return ret;
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_SDM660
 extern int hph_ext_en_gpio;
 extern int hph_ext_sw_gpio;
@@ -506,6 +526,11 @@ static int is_ext_spk_gpio_support(struct platform_device *pdev,
 				   struct msm_asoc_mach_data *pdata)
 {
 #ifndef CONFIG_MACH_ASUS_SDM660
+=======
+static int is_ext_spk_gpio_support(struct platform_device *pdev,
+				   struct msm_asoc_mach_data *pdata)
+{
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	const char *spk_ext_pa = "qcom,msm-spk-ext-pa";
 
 	pr_debug("%s:Enter\n", __func__);
@@ -523,14 +548,20 @@ static int is_ext_spk_gpio_support(struct platform_device *pdev,
 			return -EINVAL;
 		}
 	}
+<<<<<<< HEAD
 #endif
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return 0;
 }
 
 static int enable_spk_ext_pa(struct snd_soc_codec *codec, int enable)
 {
+<<<<<<< HEAD
 #ifndef CONFIG_MACH_ASUS_SDM660
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct snd_soc_card *card = codec->component.card;
 	struct msm_asoc_mach_data *pdata = snd_soc_card_get_drvdata(card);
 	int ret;
@@ -563,8 +594,11 @@ static int enable_spk_ext_pa(struct snd_soc_codec *codec, int enable)
 			return ret;
 		}
 	}
+<<<<<<< HEAD
 #endif /* !CONFIG_MACH_ASUS_X00TD */
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return 0;
 }
 
@@ -1333,11 +1367,15 @@ static void *def_msm_int_wcd_mbhc_cal(void)
 		return NULL;
 
 #define S(X, Y) ((WCD_MBHC_CAL_PLUG_TYPE_PTR(msm_int_wcd_cal)->X) = (Y))
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_SDM660
 	S(v_hs_max, 1700);
 #else
 	S(v_hs_max, 1500);
 #endif
+=======
+	S(v_hs_max, 1500);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #undef S
 #define S(X, Y) ((WCD_MBHC_CAL_BTN_DET_PTR(msm_int_wcd_cal)->X) = (Y))
 	S(num_btn, WCD_MBHC_DEF_BUTTONS);
@@ -1362,17 +1400,23 @@ static void *def_msm_int_wcd_mbhc_cal(void)
 	 */
 	btn_low[0] = 75;
 	btn_high[0] = 75;
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_SDM660
 	btn_low[1] = 225;
 	btn_high[1] = 225;
 	btn_low[2] = 450;
 	btn_high[2] = 450;
 #else
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	btn_low[1] = 150;
 	btn_high[1] = 150;
 	btn_low[2] = 225;
 	btn_high[2] = 225;
+<<<<<<< HEAD
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	btn_low[3] = 450;
 	btn_high[3] = 450;
 	btn_low[4] = 500;
@@ -1436,9 +1480,12 @@ static int msm_audrx_init(struct snd_soc_pcm_runtime *rtd)
 	snd_soc_dapm_sync(dapm);
 
 	msm_anlg_cdc_spk_ext_pa_cb(enable_spk_ext_pa, ana_cdc);
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_SDM660
 	msm_anlg_cdc_hph_ext_sw_cb(enable_hph_ext_sw, ana_cdc);
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	msm_dig_cdc_hph_comp_cb(msm_config_hph_compander_gpio, dig_cdc);
 
 	card = rtd->card->snd_card;
@@ -1758,6 +1805,32 @@ static struct snd_soc_ops msm_sdw_mi2s_be_ops = {
 	.shutdown = msm_sdw_mi2s_snd_shutdown,
 };
 
+<<<<<<< HEAD
+=======
+static int msm_fe_qos_prepare(struct snd_pcm_substream *substream)
+{
+	cpumask_t mask;
+
+	if (pm_qos_request_active(&substream->latency_pm_qos_req))
+		pm_qos_remove_request(&substream->latency_pm_qos_req);
+
+	cpumask_clear(&mask);
+	cpumask_set_cpu(1, &mask); /* affine to core 1 */
+	cpumask_set_cpu(2, &mask); /* affine to core 2 */
+	cpumask_copy(&substream->latency_pm_qos_req.cpus_affine, &mask);
+	substream->latency_pm_qos_req.type = PM_QOS_REQ_AFFINE_CORES;
+
+	pm_qos_add_request(&substream->latency_pm_qos_req,
+				PM_QOS_CPU_DMA_LATENCY,
+				MSM_LL_QOS_VALUE);
+	return 0;
+}
+
+static struct snd_soc_ops msm_fe_qos_ops = {
+	.prepare = msm_fe_qos_prepare,
+};
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 struct snd_soc_dai_link_component dlc_rx1[] = {
 	{
 		.of_node = NULL,
@@ -2014,6 +2087,10 @@ static struct snd_soc_dai_link msm_int_dai[] = {
 		/* this dai link has playback support */
 		.ignore_pmdown_time = 1,
 		.be_id = MSM_FRONTEND_DAI_MULTIMEDIA5,
+<<<<<<< HEAD
+=======
+		.ops = &msm_fe_qos_ops,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	},
 	/* LSM FE */
 	{/* hw:x,14 */
@@ -2080,6 +2157,10 @@ static struct snd_soc_dai_link msm_int_dai[] = {
 		.ignore_pmdown_time = 1,
 		 /* this dai link has playback support */
 		.be_id = MSM_FRONTEND_DAI_MULTIMEDIA8,
+<<<<<<< HEAD
+=======
+		.ops = &msm_fe_qos_ops,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	},
 	{/* hw:x,18 */
 		.name = "HDMI_RX_HOSTLESS",
@@ -2444,6 +2525,7 @@ static struct snd_soc_dai_link msm_int_dai[] = {
 		.ignore_pmdown_time = 1,
 		.be_id = MSM_FRONTEND_DAI_MULTIMEDIA6,
 	},
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_SDM660
 	{/* hw:x,40 */
 		.name = "Tertiary MI2S_TX Hostless",
@@ -2463,6 +2545,8 @@ static struct snd_soc_dai_link msm_int_dai[] = {
 		.codec_name = "snd-soc-dummy",
 	},
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 
@@ -2484,6 +2568,7 @@ static struct snd_soc_dai_link msm_int_wsa_dai[] = {
 	},
 };
 
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_SDM660
 static struct snd_soc_dai_link_component tfa98xx_codecs[] = {
 	{
@@ -2495,6 +2580,8 @@ static struct snd_soc_dai_link_component tfa98xx_codecs[] = {
 };
 #endif
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static struct snd_soc_dai_link msm_int_be_dai[] = {
 	/* Backend I2S DAI Links */
 	{
@@ -2630,6 +2717,36 @@ static struct snd_soc_dai_link msm_int_be_dai[] = {
 		.be_hw_params_fixup = msm_be_hw_params_fixup,
 		.ignore_suspend = 1,
 	},
+<<<<<<< HEAD
+=======
+	/* Proxy Tx BACK END DAI Link */
+	{
+		.name = LPASS_BE_PROXY_TX,
+		.stream_name = "Proxy Capture",
+		.cpu_dai_name = "msm-dai-q6-dev.8195",
+		.platform_name = "msm-pcm-routing",
+		.codec_name = "msm-stub-codec.1",
+		.codec_dai_name = "msm-stub-tx",
+		.no_pcm = 1,
+		.dpcm_capture = 1,
+		.be_id = MSM_BACKEND_DAI_PROXY_TX,
+		.ignore_suspend = 1,
+	},
+	/* Proxy Rx BACK END DAI Link */
+	{
+		.name = LPASS_BE_PROXY_RX,
+		.stream_name = "Proxy Playback",
+		.cpu_dai_name = "msm-dai-q6-dev.8194",
+		.platform_name = "msm-pcm-routing",
+		.codec_name = "msm-stub-codec.1",
+		.codec_dai_name = "msm-stub-rx",
+		.no_pcm = 1,
+		.dpcm_playback = 1,
+		.be_id = MSM_BACKEND_DAI_PROXY_RX,
+		.ignore_pmdown_time = 1,
+		.ignore_suspend = 1,
+	},
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	{
 		.name = LPASS_BE_USB_AUDIO_RX,
 		.stream_name = "USB Audio Playback",
@@ -2835,6 +2952,7 @@ static struct snd_soc_dai_link msm_mi2s_be_dai_links[] = {
 		.stream_name = "Tertiary MI2S Playback",
 		.cpu_dai_name = "msm-dai-q6-mi2s.2",
 		.platform_name = "msm-pcm-routing",
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_SDM660
 		.codecs = tfa98xx_codecs,
 		.num_codecs = 1,
@@ -2842,6 +2960,10 @@ static struct snd_soc_dai_link msm_mi2s_be_dai_links[] = {
 		.codec_name = "msm-stub-codec.1",
 		.codec_dai_name = "msm-stub-rx",
 #endif
+=======
+		.codec_name = "msm-stub-codec.1",
+		.codec_dai_name = "msm-stub-rx",
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		.no_pcm = 1,
 		.dpcm_playback = 1,
 		.be_id = MSM_BACKEND_DAI_TERTIARY_MI2S_RX,
@@ -2855,6 +2977,7 @@ static struct snd_soc_dai_link msm_mi2s_be_dai_links[] = {
 		.stream_name = "Tertiary MI2S Capture",
 		.cpu_dai_name = "msm-dai-q6-mi2s.2",
 		.platform_name = "msm-pcm-routing",
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_SDM660
 		.codecs = tfa98xx_codecs,
 		.num_codecs = 1,
@@ -2862,6 +2985,10 @@ static struct snd_soc_dai_link msm_mi2s_be_dai_links[] = {
 		.codec_name = "msm-stub-codec.1",
 		.codec_dai_name = "msm-stub-tx",
 #endif
+=======
+		.codec_name = "msm-stub-codec.1",
+		.codec_dai_name = "msm-stub-tx",
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		.no_pcm = 1,
 		.dpcm_capture = 1,
 		.be_id = MSM_BACKEND_DAI_TERTIARY_MI2S_TX,
@@ -3255,6 +3382,7 @@ static int msm_internal_init(struct platform_device *pdev,
 			"%s: doesn't support external speaker pa\n",
 			__func__);
 
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_SDM660
 	ret = is_ext_hph_gpio_support(pdev, pdata);
 	if (ret < 0)
@@ -3263,6 +3391,8 @@ static int msm_internal_init(struct platform_device *pdev,
 			__func__);
 #endif
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	ret = of_property_read_string(pdev->dev.of_node,
 				      hs_micbias_type, &type);
 	if (ret) {

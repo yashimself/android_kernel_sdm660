@@ -3500,7 +3500,11 @@ static void alc280_fixup_hp_gpio4(struct hda_codec *codec,
 	}
 }
 
+<<<<<<< HEAD
 #if IS_REACHABLE(CONFIG_INPUT)
+=======
+#if IS_REACHABLE(INPUT)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static void gpio2_mic_hotkey_event(struct hda_codec *codec,
 				   struct hda_jack_callback *event)
 {
@@ -6333,8 +6337,11 @@ static int patch_alc269(struct hda_codec *codec)
 		alc_update_coef_idx(codec, 0x36, 1 << 13, 1 << 5); /* Switch pcbeep path to Line in path*/
 		break;
 	case 0x10ec0225:
+<<<<<<< HEAD
 		codec->power_save_node = 1;
 		/* fall through */
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	case 0x10ec0295:
 	case 0x10ec0299:
 		spec->codec_variant = ALC269_TYPE_ALC225;

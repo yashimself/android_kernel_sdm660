@@ -104,7 +104,11 @@ int regulatory_hint_found_beacon(struct wiphy *wiphy,
  * information for a band the BSS is not present in it will be ignored.
  */
 void regulatory_hint_country_ie(struct wiphy *wiphy,
+<<<<<<< HEAD
 			 enum nl80211_band band,
+=======
+			 enum ieee80211_band band,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			 const u8 *country_ie,
 			 u8 country_ie_len);
 

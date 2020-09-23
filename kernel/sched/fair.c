@@ -5673,6 +5673,7 @@ static enum hrtimer_restart sched_cfs_period_timer(struct hrtimer *timer)
 		if (++count > 3) {
 			u64 new, old = ktime_to_ns(cfs_b->period);
 
+<<<<<<< HEAD
 			/*
 			 * Grow period by a factor of 2 to avoid losing precision.
 			 * Precision loss in the quota/period ratio can cause __cfs_schedulable
@@ -5695,6 +5696,22 @@ static enum hrtimer_restart sched_cfs_period_timer(struct hrtimer *timer)
 					div_u64(old, NSEC_PER_USEC),
 					div_u64(cfs_b->quota, NSEC_PER_USEC));
 			}
+=======
+			new = (old * 147) / 128; /* ~115% */
+			new = min(new, max_cfs_quota_period);
+
+			cfs_b->period = ns_to_ktime(new);
+
+			/* since max is 1s, this is limited to 1e9^2, which fits in u64 */
+			cfs_b->quota *= new;
+			cfs_b->quota = div64_u64(cfs_b->quota, old);
+
+			pr_warn_ratelimited(
+        "cfs_period_timer[cpu%d]: period too short, scaling up (new cfs_period_us %lld, cfs_quota_us = %lld)\n",
+	                        smp_processor_id(),
+	                        div_u64(new, NSEC_PER_USEC),
+                                div_u64(cfs_b->quota, NSEC_PER_USEC));
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 			/* reset count so we don't come right back in here */
 			count = 0;

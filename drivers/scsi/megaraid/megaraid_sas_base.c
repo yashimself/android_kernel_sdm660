@@ -3585,12 +3585,20 @@ megasas_transition_to_ready(struct megasas_instance *instance, int ocr)
 		/*
 		 * The cur_state should not last for more than max_wait secs
 		 */
+<<<<<<< HEAD
 		for (i = 0; i < max_wait * 50; i++) {
+=======
+		for (i = 0; i < max_wait; i++) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			curr_abs_state = instance->instancet->
 				read_fw_status_reg(instance->reg_set);
 
 			if (abs_state == curr_abs_state) {
+<<<<<<< HEAD
 				msleep(20);
+=======
+				msleep(1000);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			} else
 				break;
 		}

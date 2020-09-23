@@ -125,7 +125,13 @@ int xfrm6_output_finish(struct sock *sk, struct sk_buff *skb)
 {
 	memset(IP6CB(skb), 0, sizeof(*IP6CB(skb)));
 
+<<<<<<< HEAD
 	IP6CB(skb)->flags |= IP6SKB_XFRM_TRANSFORMED;
+=======
+#ifdef CONFIG_NETFILTER
+	IP6CB(skb)->flags |= IP6SKB_XFRM_TRANSFORMED;
+#endif
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	return xfrm_output(sk, skb);
 }

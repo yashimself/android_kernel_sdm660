@@ -718,7 +718,11 @@ prefer_idle_write(struct cgroup_subsys_state *css, struct cftype *cft,
 	    u64 prefer_idle)
 {
 	struct schedtune *st = css_st(css);
+<<<<<<< HEAD
 	st->prefer_idle = prefer_idle;
+=======
+	st->prefer_idle = !!prefer_idle;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	return 0;
 }

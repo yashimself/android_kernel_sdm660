@@ -331,6 +331,7 @@ void ext4_free_inode(handle_t *handle, struct inode *inode)
 
 	percpu_counter_inc(&sbi->s_freeinodes_counter);
 	if (sbi->s_log_groups_per_flex) {
+<<<<<<< HEAD
 		struct flex_groups *fg;
 
 		fg = sbi_array_rcu_deref(sbi, s_flex_groups,
@@ -338,6 +339,13 @@ void ext4_free_inode(handle_t *handle, struct inode *inode)
 		atomic_inc(&fg->free_inodes);
 		if (is_directory)
 			atomic_dec(&fg->used_dirs);
+=======
+		ext4_group_t f = ext4_flex_group(sbi, block_group);
+
+		atomic_inc(&sbi->s_flex_groups[f].free_inodes);
+		if (is_directory)
+			atomic_dec(&sbi->s_flex_groups[f].used_dirs);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 	BUFFER_TRACE(bh2, "call ext4_handle_dirty_metadata");
 	fatal = ext4_handle_dirty_metadata(handle, NULL, bh2);
@@ -378,6 +386,7 @@ static void get_orlov_stats(struct super_block *sb, ext4_group_t g,
 			    int flex_size, struct orlov_stats *stats)
 {
 	struct ext4_group_desc *desc;
+<<<<<<< HEAD
 
 	if (flex_size > 1) {
 		struct flex_groups *fg = sbi_array_rcu_deref(EXT4_SB(sb),
@@ -385,6 +394,14 @@ static void get_orlov_stats(struct super_block *sb, ext4_group_t g,
 		stats->free_inodes = atomic_read(&fg->free_inodes);
 		stats->free_clusters = atomic64_read(&fg->free_clusters);
 		stats->used_dirs = atomic_read(&fg->used_dirs);
+=======
+	struct flex_groups *flex_group = EXT4_SB(sb)->s_flex_groups;
+
+	if (flex_size > 1) {
+		stats->free_inodes = atomic_read(&flex_group[g].free_inodes);
+		stats->free_clusters = atomic64_read(&flex_group[g].free_clusters);
+		stats->used_dirs = atomic_read(&flex_group[g].used_dirs);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return;
 	}
 
@@ -984,8 +1001,12 @@ got:
 		if (sbi->s_log_groups_per_flex) {
 			ext4_group_t f = ext4_flex_group(sbi, group);
 
+<<<<<<< HEAD
 			atomic_inc(&sbi_array_rcu_deref(sbi, s_flex_groups,
 							f)->used_dirs);
+=======
+			atomic_inc(&sbi->s_flex_groups[f].used_dirs);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 	}
 	if (ext4_has_group_desc_csum(sb)) {
@@ -1008,8 +1029,12 @@ got:
 
 	if (sbi->s_log_groups_per_flex) {
 		flex_group = ext4_flex_group(sbi, group);
+<<<<<<< HEAD
 		atomic_dec(&sbi_array_rcu_deref(sbi, s_flex_groups,
 						flex_group)->free_inodes);
+=======
+		atomic_dec(&sbi->s_flex_groups[flex_group].free_inodes);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	inode->i_ino = ino + group * EXT4_INODES_PER_GROUP(sb);
@@ -1150,7 +1175,11 @@ struct inode *ext4_orphan_get(struct super_block *sb, unsigned long ino)
 	if (!ext4_test_bit(bit, bitmap_bh->b_data))
 		goto bad_orphan;
 
+<<<<<<< HEAD
 	inode = ext4_iget(sb, ino, EXT4_IGET_NORMAL);
+=======
+	inode = ext4_iget(sb, ino);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (IS_ERR(inode)) {
 		err = PTR_ERR(inode);
 		ext4_error(sb, "couldn't read orphan inode %lu (err %d)",

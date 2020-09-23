@@ -20,9 +20,12 @@
 #include <linux/platform_device.h>
 #include <linux/iio/consumer.h>
 #include <linux/qpnp/qpnp-revid.h>
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 #include <linux/switch.h>
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #include "fg-core.h"
 #include "fg-reg.h"
 
@@ -411,6 +414,7 @@ module_param_named(
 static int fg_restart;
 static bool fg_sram_dump;
 
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 struct battery_name {
 	struct switch_dev battery_switch_dev;
@@ -418,6 +422,8 @@ struct battery_name {
 } battery_name;
 #endif
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /* All getters HERE */
 
 #define VOLTAGE_15BIT_MASK	GENMASK(14, 0)
@@ -953,6 +959,7 @@ static int fg_batt_missing_config(struct fg_chip *chip, bool enable)
 	return rc;
 }
 
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 ssize_t battery_print_name(struct switch_dev *sdev, char *buf)
 {
@@ -978,6 +985,8 @@ static int battery_switch_register(void)
 }
 #endif /* CONFIG_MACH_ASUS_X00TD */
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int fg_get_batt_id(struct fg_chip *chip)
 {
 	int rc, ret, batt_id = 0;
@@ -1043,11 +1052,14 @@ static int fg_get_batt_profile(struct fg_chip *chip)
 		return rc;
 	}
 
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 	strcpy(battery_name.battery_name_type, chip->bp.batt_type_str);
 	battery_switch_register();
 #endif
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	rc = of_property_read_u32(profile_node, "qcom,max-voltage-uv",
 			&chip->bp.float_volt_uv);
 	if (rc < 0) {
@@ -2648,7 +2660,11 @@ static void clear_cycle_counter(struct fg_chip *chip)
 	}
 	rc = fg_sram_write(chip, CYCLE_COUNT_WORD, CYCLE_COUNT_OFFSET,
 			(u8 *)&chip->cyc_ctr.count,
+<<<<<<< HEAD
 			sizeof(chip->cyc_ctr.count) / sizeof(u8 *),
+=======
+			sizeof(chip->cyc_ctr.count) / (sizeof(u8 *)),
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			FG_IMA_DEFAULT);
 	if (rc < 0)
 		pr_err("failed to clear cycle counter rc=%d\n", rc);
@@ -2766,7 +2782,10 @@ static void status_change_work(struct work_struct *work)
 		goto out;
 	}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	chip->charge_status = prop.intval;
 	rc = power_supply_get_property(chip->batt_psy,
 			POWER_SUPPLY_PROP_CHARGE_TYPE, &prop);
@@ -3479,18 +3498,27 @@ static int fg_get_time_to_empty(struct fg_chip *chip, int *val)
 {
 	int rc, ibatt_avg, msoc, full_soc, act_cap_mah, divisor;
 
+<<<<<<< HEAD
 	mutex_lock(&chip->ttf.lock);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	rc = fg_circ_buf_median(&chip->ttf.ibatt, &ibatt_avg);
 	if (rc < 0) {
 		/* try to get instantaneous current */
 		rc = fg_get_battery_current(chip, &ibatt_avg);
 		if (rc < 0) {
 			pr_err("failed to get battery current, rc=%d\n", rc);
+<<<<<<< HEAD
 			mutex_unlock(&chip->ttf.lock);
 			return rc;
 		}
 	}
 	mutex_unlock(&chip->ttf.lock);
+=======
+			return rc;
+		}
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	ibatt_avg /= MILLI_UNIT;
 	/* clamp ibatt_avg to 100mA */
@@ -3782,6 +3810,7 @@ static int fg_psy_get_property(struct power_supply *psy,
 	switch (psp) {
 	case POWER_SUPPLY_PROP_CAPACITY:
 		rc = fg_get_prop_capacity(chip, &pval->intval);
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_X01BD
 		/* if soc is 0, hold soc 1 when vol over 3.4v  */
 		if(1 > pval->intval) {
@@ -3797,6 +3826,8 @@ static int fg_psy_get_property(struct power_supply *psy,
 			}
 		}
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case POWER_SUPPLY_PROP_CAPACITY_RAW:
 		rc = fg_get_msoc_raw(chip, &pval->intval);
@@ -5103,9 +5134,13 @@ static int fg_parse_dt(struct fg_chip *chip)
 			pr_warn("Error reading Jeita thresholds, default values will be used rc:%d\n",
 				rc);
 	}
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_X01BD
 	printk("enter fg_parse_dt :HW jeita cold:%d,cool:%d,warm:%d,hot:%d\n", chip->dt.jeita_thresholds[JEITA_COLD],chip->dt.jeita_thresholds[JEITA_COOL] ,chip->dt.jeita_thresholds[JEITA_WARM],chip->dt.jeita_thresholds[JEITA_HOT]); 
 #endif
+=======
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (of_property_count_elems_of_size(node,
 		"qcom,battery-thermal-coefficients",
 		sizeof(u8)) == BATT_THERM_NUM_COEFFS) {
@@ -5565,6 +5600,7 @@ static void fg_gen3_shutdown(struct platform_device *pdev)
 {
 	struct fg_chip *chip = dev_get_drvdata(&pdev->dev);
 	int rc, bsoc;
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 	u8 status;
 
@@ -5580,6 +5616,8 @@ static void fg_gen3_shutdown(struct platform_device *pdev)
 	rc = fg_read(chip, BATT_INFO_BATT_MISS_CFG(chip), &status, 1);
 	pr_debug("fg_gen3_shutdown status1=%d\n", status);
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (chip->charge_full) {
 		rc = fg_get_sram_prop(chip, FG_SRAM_BATT_SOC, &bsoc);

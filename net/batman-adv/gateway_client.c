@@ -29,7 +29,10 @@
 #include <linux/ipv6.h>
 #include <linux/kernel.h>
 #include <linux/list.h>
+<<<<<<< HEAD
 #include <linux/lockdep.h>
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #include <linux/netdevice.h>
 #include <linux/rculist.h>
 #include <linux/rcupdate.h>
@@ -414,9 +417,12 @@ out:
  * @bat_priv: the bat priv with all the soft interface information
  * @orig_node: originator announcing gateway capabilities
  * @gateway: announced bandwidth information
+<<<<<<< HEAD
  *
  * Has to be called with the appropriate locks being acquired
  * (gw.list_lock).
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  */
 static void batadv_gw_node_add(struct batadv_priv *bat_priv,
 			       struct batadv_orig_node *orig_node,
@@ -424,8 +430,11 @@ static void batadv_gw_node_add(struct batadv_priv *bat_priv,
 {
 	struct batadv_gw_node *gw_node;
 
+<<<<<<< HEAD
 	lockdep_assert_held(&bat_priv->gw.list_lock);
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (gateway->bandwidth_down == 0)
 		return;
 
@@ -444,7 +453,13 @@ static void batadv_gw_node_add(struct batadv_priv *bat_priv,
 	gw_node->bandwidth_up = ntohl(gateway->bandwidth_up);
 	atomic_set(&gw_node->refcount, 1);
 
+<<<<<<< HEAD
 	hlist_add_head_rcu(&gw_node->list, &bat_priv->gw.list);
+=======
+	spin_lock_bh(&bat_priv->gw.list_lock);
+	hlist_add_head_rcu(&gw_node->list, &bat_priv->gw.list);
+	spin_unlock_bh(&bat_priv->gw.list_lock);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	batadv_dbg(BATADV_DBG_BATMAN, bat_priv,
 		   "Found new gateway %pM -> gw bandwidth: %u.%u/%u.%u MBit\n",
@@ -497,6 +512,7 @@ void batadv_gw_node_update(struct batadv_priv *bat_priv,
 {
 	struct batadv_gw_node *gw_node, *curr_gw = NULL;
 
+<<<<<<< HEAD
 	spin_lock_bh(&bat_priv->gw.list_lock);
 	gw_node = batadv_gw_node_get(bat_priv, orig_node);
 	if (!gw_node) {
@@ -505,6 +521,13 @@ void batadv_gw_node_update(struct batadv_priv *bat_priv,
 		goto out;
 	}
 	spin_unlock_bh(&bat_priv->gw.list_lock);
+=======
+	gw_node = batadv_gw_node_get(bat_priv, orig_node);
+	if (!gw_node) {
+		batadv_gw_node_add(bat_priv, orig_node, gateway);
+		goto out;
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if ((gw_node->bandwidth_down == ntohl(gateway->bandwidth_down)) &&
 	    (gw_node->bandwidth_up == ntohl(gateway->bandwidth_up)))
@@ -534,12 +557,20 @@ void batadv_gw_node_update(struct batadv_priv *bat_priv,
 		 * gets dereferenced.
 		 */
 		spin_lock_bh(&bat_priv->gw.list_lock);
+<<<<<<< HEAD
 		if (!hlist_unhashed(&gw_node->list)) {
 			hlist_del_init_rcu(&gw_node->list);
 			batadv_gw_node_free_ref(gw_node);
 		}
 		spin_unlock_bh(&bat_priv->gw.list_lock);
 
+=======
+		hlist_del_init_rcu(&gw_node->list);
+		spin_unlock_bh(&bat_priv->gw.list_lock);
+
+		batadv_gw_node_free_ref(gw_node);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		curr_gw = batadv_gw_get_selected_gw_node(bat_priv);
 		if (gw_node == curr_gw)
 			batadv_gw_reselect(bat_priv);

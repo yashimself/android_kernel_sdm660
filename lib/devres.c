@@ -131,8 +131,12 @@ EXPORT_SYMBOL(devm_iounmap);
  *	if (IS_ERR(base))
  *		return PTR_ERR(base);
  */
+<<<<<<< HEAD
 void __iomem *devm_ioremap_resource(struct device *dev,
 				    const struct resource *res)
+=======
+void __iomem *devm_ioremap_resource(struct device *dev, struct resource *res)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	resource_size_t size;
 	const char *name;

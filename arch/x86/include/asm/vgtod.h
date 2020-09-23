@@ -83,6 +83,7 @@ static inline unsigned int __getcpu(void)
 	 * works on all CPUs.  This is volatile so that it orders
 	 * correctly wrt barrier() and to keep gcc from cleverly
 	 * hoisting it out of the calling function.
+<<<<<<< HEAD
 	 *
 	 * If RDPID is available, use it.
 	 */
@@ -90,6 +91,10 @@ static inline unsigned int __getcpu(void)
 			".byte 0xf3,0x0f,0xc7,0xf8", /* RDPID %eax/rax */
 			X86_FEATURE_RDPID,
 			[p] "=a" (p), [seg] "r" (__PER_CPU_SEG));
+=======
+	 */
+	asm volatile ("lsl %1,%0" : "=r" (p) : "r" (__PER_CPU_SEG));
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	return p;
 }

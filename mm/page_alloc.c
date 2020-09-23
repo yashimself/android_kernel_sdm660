@@ -3735,6 +3735,7 @@ static inline void show_node(struct zone *zone)
 		printk("Node %d ", zone_to_nid(zone));
 }
 
+<<<<<<< HEAD
 long si_mem_available(void)
 {
 	long available;
@@ -3785,6 +3786,8 @@ long si_mem_available(void)
 }
 EXPORT_SYMBOL_GPL(si_mem_available);
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 void si_meminfo(struct sysinfo *val)
 {
 	val->totalram = totalram_pages;

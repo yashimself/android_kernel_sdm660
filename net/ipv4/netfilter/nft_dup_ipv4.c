@@ -28,7 +28,11 @@ static void nft_dup_ipv4_eval(const struct nft_expr *expr,
 	struct in_addr gw = {
 		.s_addr = (__force __be32)regs->data[priv->sreg_addr],
 	};
+<<<<<<< HEAD
 	int oif = priv->sreg_dev ? regs->data[priv->sreg_dev] : -1;
+=======
+	int oif = regs->data[priv->sreg_dev];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	nf_dup_ipv4(pkt->net, pkt->skb, pkt->hook, &gw, oif);
 }
@@ -59,9 +63,13 @@ static int nft_dup_ipv4_dump(struct sk_buff *skb, const struct nft_expr *expr)
 {
 	struct nft_dup_ipv4 *priv = nft_expr_priv(expr);
 
+<<<<<<< HEAD
 	if (nft_dump_register(skb, NFTA_DUP_SREG_ADDR, priv->sreg_addr))
 		goto nla_put_failure;
 	if (priv->sreg_dev &&
+=======
+	if (nft_dump_register(skb, NFTA_DUP_SREG_ADDR, priv->sreg_addr) ||
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	    nft_dump_register(skb, NFTA_DUP_SREG_DEV, priv->sreg_dev))
 		goto nla_put_failure;
 

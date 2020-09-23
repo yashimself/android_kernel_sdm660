@@ -100,7 +100,11 @@ static int __init ske_keypad_chip_init(struct ske_keypad *keypad)
 	while ((readl(keypad->reg_base + SKE_RIS) != 0x00000000) && timeout--)
 		cpu_relax();
 
+<<<<<<< HEAD
 	if (timeout == -1)
+=======
+	if (!timeout)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return -EINVAL;
 
 	/*

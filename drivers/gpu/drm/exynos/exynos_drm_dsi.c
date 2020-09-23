@@ -1899,9 +1899,14 @@ static int exynos_dsi_probe(struct platform_device *pdev)
 	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(dsi->supplies),
 				      dsi->supplies);
 	if (ret) {
+<<<<<<< HEAD
 		if (ret != -EPROBE_DEFER)
 			dev_info(dev, "failed to get regulators: %d\n", ret);
 		return ret;
+=======
+		dev_info(dev, "failed to get regulators: %d\n", ret);
+		return -EPROBE_DEFER;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	dsi->clks = devm_kzalloc(dev,
@@ -1914,10 +1919,16 @@ static int exynos_dsi_probe(struct platform_device *pdev)
 		dsi->clks[i] = devm_clk_get(dev, clk_names[i]);
 		if (IS_ERR(dsi->clks[i])) {
 			if (strcmp(clk_names[i], "sclk_mipi") == 0) {
+<<<<<<< HEAD
 				dsi->clks[i] = devm_clk_get(dev,
 							OLD_SCLK_MIPI_CLK_NAME);
 				if (!IS_ERR(dsi->clks[i]))
 					continue;
+=======
+				strcpy(clk_names[i], OLD_SCLK_MIPI_CLK_NAME);
+				i--;
+				continue;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			}
 
 			dev_info(dev, "failed to get the clock: %s\n",

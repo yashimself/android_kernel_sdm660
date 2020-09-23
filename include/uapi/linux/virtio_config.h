@@ -47,7 +47,11 @@
  * transport being used (eg. virtio_ring), the rest are per-device feature
  * bits. */
 #define VIRTIO_TRANSPORT_F_START	28
+<<<<<<< HEAD
 #define VIRTIO_TRANSPORT_F_END		33
+=======
+#define VIRTIO_TRANSPORT_F_END		34
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #ifndef VIRTIO_CONFIG_NO_LEGACY
 /* Do we get callbacks when the ring is completely used, even if we've
@@ -61,4 +65,15 @@
 /* v1.0 compliant. */
 #define VIRTIO_F_VERSION_1		32
 
+<<<<<<< HEAD
+=======
+/*
+ * If clear - device has the IOMMU bypass quirk feature.
+ * If set - use platform tools to detect the IOMMU.
+ *
+ * Note the reverse polarity (compared to most other features),
+ * this is for compatibility with legacy systems.
+ */
+#define VIRTIO_F_IOMMU_PLATFORM		33
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #endif /* _UAPI_LINUX_VIRTIO_CONFIG_H */

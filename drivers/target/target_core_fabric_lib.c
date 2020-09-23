@@ -75,7 +75,11 @@ static int fc_get_pr_transport_id(
 	 * encoded TransportID.
 	 */
 	ptr = &se_nacl->initiatorname[0];
+<<<<<<< HEAD
 	for (i = 0; i < 23; ) {
+=======
+	for (i = 0; i < 24; ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (!strncmp(&ptr[i], ":", 1)) {
 			i++;
 			continue;
@@ -130,7 +134,11 @@ static int srp_get_pr_transport_id(
 	memset(buf + 8, 0, leading_zero_bytes);
 	rc = hex2bin(buf + 8 + leading_zero_bytes, p, count);
 	if (rc < 0) {
+<<<<<<< HEAD
 		pr_debug("hex2bin failed for %s: %d\n", p, rc);
+=======
+		pr_debug("hex2bin failed for %s: %d\n", __func__, rc);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return rc;
 	}
 

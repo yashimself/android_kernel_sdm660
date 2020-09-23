@@ -1447,10 +1447,14 @@ static inline void cpu_probe_broadcom(struct cpuinfo_mips *c, unsigned int cpu)
 	case PRID_IMP_BMIPS5000:
 	case PRID_IMP_BMIPS5200:
 		c->cputype = CPU_BMIPS5000;
+<<<<<<< HEAD
 		if ((c->processor_id & PRID_IMP_MASK) == PRID_IMP_BMIPS5200)
 			__cpu_name[cpu] = "Broadcom BMIPS5200";
 		else
 			__cpu_name[cpu] = "Broadcom BMIPS5000";
+=======
+		__cpu_name[cpu] = "Broadcom BMIPS5000";
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		set_elf_platform(cpu, "bmips5000");
 		c->options |= MIPS_CPU_ULRI;
 		break;

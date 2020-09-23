@@ -40,7 +40,12 @@ static inline int ext2_add_nondir(struct dentry *dentry, struct inode *inode)
 {
 	int err = ext2_add_link(dentry, inode);
 	if (!err) {
+<<<<<<< HEAD
 		d_instantiate_new(dentry, inode);
+=======
+		unlock_new_inode(inode);
+		d_instantiate(dentry, inode);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return 0;
 	}
 	inode_dec_link_count(inode);
@@ -266,7 +271,12 @@ static int ext2_mkdir(struct inode * dir, struct dentry * dentry, umode_t mode)
 	if (err)
 		goto out_fail;
 
+<<<<<<< HEAD
 	d_instantiate_new(dentry, inode);
+=======
+	unlock_new_inode(inode);
+	d_instantiate(dentry, inode);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 out:
 	return err;
 

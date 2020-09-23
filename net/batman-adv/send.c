@@ -381,8 +381,13 @@ int batadv_send_skb_via_gw(struct batadv_priv *bat_priv, struct sk_buff *skb,
 	struct batadv_orig_node *orig_node;
 
 	orig_node = batadv_gw_get_selected_orig(bat_priv);
+<<<<<<< HEAD
 	return batadv_send_skb_unicast(bat_priv, skb, BATADV_UNICAST_4ADDR,
 				       BATADV_P_DATA, orig_node, vid);
+=======
+	return batadv_send_skb_unicast(bat_priv, skb, BATADV_UNICAST, 0,
+				       orig_node, vid);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 void batadv_schedule_bat_ogm(struct batadv_hard_iface *hard_iface)

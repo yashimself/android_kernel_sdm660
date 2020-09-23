@@ -30,7 +30,16 @@
 
 #define get_ds()	(KERNEL_DS)
 #define get_fs()	(current_thread_info()->addr_limit)
+<<<<<<< HEAD
 #define set_fs(x)	(current_thread_info()->addr_limit = (x))
+=======
+static inline void set_fs(mm_segment_t fs)
+{
+	current_thread_info()->addr_limit = fs;
+	/* On user-mode return, check fs is correct */
+	set_thread_flag(TIF_FSCHECK);
+}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #define segment_eq(a, b)	((a).seg == (b).seg)
 

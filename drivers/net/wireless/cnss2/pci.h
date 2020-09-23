@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2016-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2016-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -42,6 +46,10 @@ enum cnss_mhi_state {
 	CNSS_MHI_RDDM,
 	CNSS_MHI_RDDM_KERNEL_PANIC,
 	CNSS_MHI_NOTIFY_LINK_ERROR,
+<<<<<<< HEAD
+=======
+	CNSS_MHI_RDDM_DONE,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 struct cnss_msi_user {
@@ -69,6 +77,10 @@ struct cnss_pci_data {
 	struct pci_saved_state *default_state;
 	struct msm_pcie_register_event msm_pci_event;
 	atomic_t auto_suspended;
+<<<<<<< HEAD
+=======
+	u8 drv_connected_last;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	bool monitor_wake_intr;
 	struct dma_iommu_mapping *smmu_mapping;
 	dma_addr_t smmu_iova_start;

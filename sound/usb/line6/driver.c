@@ -283,7 +283,11 @@ static void line6_data_received(struct urb *urb)
 		    line6_midibuf_read(mb, line6->buffer_message,
 				       LINE6_MESSAGE_MAXLEN);
 
+<<<<<<< HEAD
 		if (done <= 0)
+=======
+		if (done == 0)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			break;
 
 		line6->message_length = done;

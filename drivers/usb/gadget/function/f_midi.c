@@ -207,7 +207,11 @@ static struct usb_gadget_strings *midi_strings[] = {
 static inline struct usb_request *midi_alloc_ep_req(struct usb_ep *ep,
 						    unsigned length)
 {
+<<<<<<< HEAD
 	return alloc_ep_req(ep, length, length);
+=======
+	return alloc_ep_req(ep, length);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static const uint8_t f_midi_cin_length[] = {

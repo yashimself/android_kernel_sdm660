@@ -803,7 +803,11 @@ void b43_rx(struct b43_wldev *dev, struct sk_buff *skb, const void *_rxhdr)
 	chanid = (chanstat & B43_RX_CHAN_ID) >> B43_RX_CHAN_ID_SHIFT;
 	switch (chanstat & B43_RX_CHAN_PHYTYPE) {
 	case B43_PHYTYPE_A:
+<<<<<<< HEAD
 		status.band = NL80211_BAND_5GHZ;
+=======
+		status.band = IEEE80211_BAND_5GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		B43_WARN_ON(1);
 		/* FIXME: We don't really know which value the "chanid" contains.
 		 *        So the following assignment might be wrong. */
@@ -811,7 +815,11 @@ void b43_rx(struct b43_wldev *dev, struct sk_buff *skb, const void *_rxhdr)
 			ieee80211_channel_to_frequency(chanid, status.band);
 		break;
 	case B43_PHYTYPE_G:
+<<<<<<< HEAD
 		status.band = NL80211_BAND_2GHZ;
+=======
+		status.band = IEEE80211_BAND_2GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		/* Somewhere between 478.104 and 508.1084 firmware for G-PHY
 		 * has been modified to be compatible with N-PHY and others.
 		 */
@@ -826,9 +834,15 @@ void b43_rx(struct b43_wldev *dev, struct sk_buff *skb, const void *_rxhdr)
 		/* chanid is the SHM channel cookie. Which is the plain
 		 * channel number in b43. */
 		if (chanstat & B43_RX_CHAN_5GHZ)
+<<<<<<< HEAD
 			status.band = NL80211_BAND_5GHZ;
 		else
 			status.band = NL80211_BAND_2GHZ;
+=======
+			status.band = IEEE80211_BAND_5GHZ;
+		else
+			status.band = IEEE80211_BAND_2GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		status.freq =
 			ieee80211_channel_to_frequency(chanid, status.band);
 		break;

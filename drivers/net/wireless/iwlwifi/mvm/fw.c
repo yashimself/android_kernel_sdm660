@@ -1042,7 +1042,11 @@ int iwl_mvm_up(struct iwl_mvm *mvm)
 		goto error;
 
 	/* Add all the PHY contexts */
+<<<<<<< HEAD
 	chan = &mvm->hw->wiphy->bands[NL80211_BAND_2GHZ]->channels[0];
+=======
+	chan = &mvm->hw->wiphy->bands[IEEE80211_BAND_2GHZ]->channels[0];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	cfg80211_chandef_create(&chandef, chan, NL80211_CHAN_NO_HT);
 	for (i = 0; i < NUM_PHY_CTX; i++) {
 		/*

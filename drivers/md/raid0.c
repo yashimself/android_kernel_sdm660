@@ -83,7 +83,11 @@ static int create_strip_zones(struct mddev *mddev, struct r0conf **private_conf)
 	char b[BDEVNAME_SIZE];
 	char b2[BDEVNAME_SIZE];
 	struct r0conf *conf = kzalloc(sizeof(*conf), GFP_KERNEL);
+<<<<<<< HEAD
 	unsigned blksize = 512;
+=======
+	unsigned short blksize = 512;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (!conf)
 		return -ENOMEM;

@@ -76,14 +76,22 @@ struct p54_channel_entry {
 	u16 data;
 	int index;
 	int max_power;
+<<<<<<< HEAD
 	enum nl80211_band band;
+=======
+	enum ieee80211_band band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 struct p54_channel_list {
 	struct p54_channel_entry *channels;
 	size_t entries;
 	size_t max_entries;
+<<<<<<< HEAD
 	size_t band_channel_num[NUM_NL80211_BANDS];
+=======
+	size_t band_channel_num[IEEE80211_NUM_BANDS];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 static int p54_get_band_from_freq(u16 freq)
@@ -91,10 +99,17 @@ static int p54_get_band_from_freq(u16 freq)
 	/* FIXME: sync these values with the 802.11 spec */
 
 	if ((freq >= 2412) && (freq <= 2484))
+<<<<<<< HEAD
 		return NL80211_BAND_2GHZ;
 
 	if ((freq >= 4920) && (freq <= 5825))
 		return NL80211_BAND_5GHZ;
+=======
+		return IEEE80211_BAND_2GHZ;
+
+	if ((freq >= 4920) && (freq <= 5825))
+		return IEEE80211_BAND_5GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	return -1;
 }
@@ -124,16 +139,28 @@ static int p54_compare_rssichan(const void *_a,
 
 static int p54_fill_band_bitrates(struct ieee80211_hw *dev,
 				  struct ieee80211_supported_band *band_entry,
+<<<<<<< HEAD
 				  enum nl80211_band band)
+=======
+				  enum ieee80211_band band)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	/* TODO: generate rate array dynamically */
 
 	switch (band) {
+<<<<<<< HEAD
 	case NL80211_BAND_2GHZ:
 		band_entry->bitrates = p54_bgrates;
 		band_entry->n_bitrates = ARRAY_SIZE(p54_bgrates);
 		break;
 	case NL80211_BAND_5GHZ:
+=======
+	case IEEE80211_BAND_2GHZ:
+		band_entry->bitrates = p54_bgrates;
+		band_entry->n_bitrates = ARRAY_SIZE(p54_bgrates);
+		break;
+	case IEEE80211_BAND_5GHZ:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		band_entry->bitrates = p54_arates;
 		band_entry->n_bitrates = ARRAY_SIZE(p54_arates);
 		break;
@@ -147,7 +174,11 @@ static int p54_fill_band_bitrates(struct ieee80211_hw *dev,
 static int p54_generate_band(struct ieee80211_hw *dev,
 			     struct p54_channel_list *list,
 			     unsigned int *chan_num,
+<<<<<<< HEAD
 			     enum nl80211_band band)
+=======
+			     enum ieee80211_band band)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	struct p54_common *priv = dev->priv;
 	struct ieee80211_supported_band *tmp, *old;
@@ -206,7 +237,11 @@ static int p54_generate_band(struct ieee80211_hw *dev,
 
 	if (j == 0) {
 		wiphy_err(dev->wiphy, "Disabling totally damaged %d GHz band\n",
+<<<<<<< HEAD
 			  (band == NL80211_BAND_2GHZ) ? 2 : 5);
+=======
+			  (band == IEEE80211_BAND_2GHZ) ? 2 : 5);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		ret = -ENODATA;
 		goto err_out;
@@ -396,7 +431,11 @@ static int p54_generate_channel_lists(struct ieee80211_hw *dev)
 	     p54_compare_channels, NULL);
 
 	k = 0;
+<<<<<<< HEAD
 	for (i = 0, j = 0; i < NUM_NL80211_BANDS; i++) {
+=======
+	for (i = 0, j = 0; i < IEEE80211_NUM_BANDS; i++) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (p54_generate_band(dev, list, &k, i) == 0)
 			j++;
 	}
@@ -573,10 +612,17 @@ static int p54_parse_rssical(struct ieee80211_hw *dev,
 		for (i = 0; i < entries; i++) {
 			u16 freq = 0;
 			switch (i) {
+<<<<<<< HEAD
 			case NL80211_BAND_2GHZ:
 				freq = 2437;
 				break;
 			case NL80211_BAND_5GHZ:
+=======
+			case IEEE80211_BAND_2GHZ:
+				freq = 2437;
+				break;
+			case IEEE80211_BAND_5GHZ:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				freq = 5240;
 				break;
 			}
@@ -902,11 +948,19 @@ good_eeprom:
 	if (priv->rxhw == PDR_SYNTH_FRONTEND_XBOW)
 		p54_init_xbow_synth(priv);
 	if (!(synth & PDR_SYNTH_24_GHZ_DISABLED))
+<<<<<<< HEAD
 		dev->wiphy->bands[NL80211_BAND_2GHZ] =
 			priv->band_table[NL80211_BAND_2GHZ];
 	if (!(synth & PDR_SYNTH_5_GHZ_DISABLED))
 		dev->wiphy->bands[NL80211_BAND_5GHZ] =
 			priv->band_table[NL80211_BAND_5GHZ];
+=======
+		dev->wiphy->bands[IEEE80211_BAND_2GHZ] =
+			priv->band_table[IEEE80211_BAND_2GHZ];
+	if (!(synth & PDR_SYNTH_5_GHZ_DISABLED))
+		dev->wiphy->bands[IEEE80211_BAND_5GHZ] =
+			priv->band_table[IEEE80211_BAND_5GHZ];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if ((synth & PDR_SYNTH_RX_DIV_MASK) == PDR_SYNTH_RX_DIV_SUPPORTED)
 		priv->rx_diversity_mask = 3;
 	if ((synth & PDR_SYNTH_TX_DIV_MASK) == PDR_SYNTH_TX_DIV_SUPPORTED)

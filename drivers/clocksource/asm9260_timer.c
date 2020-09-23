@@ -196,10 +196,13 @@ static void __init asm9260_timer_init(struct device_node *np)
 		panic("%s: unable to map resource", np->name);
 
 	clk = of_clk_get(np, 0);
+<<<<<<< HEAD
 	if (IS_ERR(clk)) {
 		pr_err("Failed to get clk!\n");
 		return PTR_ERR(clk);
 	}
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	ret = clk_prepare_enable(clk);
 	if (ret)

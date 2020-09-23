@@ -82,14 +82,23 @@ n64_syscall_exit:
 
 syscall_trace_entry:
 	SAVE_STATIC
+<<<<<<< HEAD
+=======
+	move	s0, v0
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	move	a0, sp
 	move	a1, v0
 	jal	syscall_trace_enter
 
 	bltz	v0, 1f			# seccomp failed? Skip syscall
 
+<<<<<<< HEAD
 	RESTORE_STATIC
 	ld	v0, PT_R2(sp)		# Restore syscall (maybe modified)
+=======
+	move	v0, s0
+	RESTORE_STATIC
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	ld	a0, PT_R4(sp)		# Restore argument registers
 	ld	a1, PT_R5(sp)
 	ld	a2, PT_R6(sp)

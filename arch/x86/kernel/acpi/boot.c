@@ -1708,7 +1708,11 @@ int __acpi_acquire_global_lock(unsigned int *lock)
 		new = (((old & ~0x3) + 2) + ((old >> 1) & 0x1));
 		val = cmpxchg(lock, old, new);
 	} while (unlikely (val != old));
+<<<<<<< HEAD
 	return ((new & 0x3) < 3) ? -1 : 0;
+=======
+	return (new < 3) ? -1 : 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 int __acpi_release_global_lock(unsigned int *lock)

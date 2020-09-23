@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2017, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2017-2018, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -17,6 +21,11 @@
 #include "dsi-panel-truly-1080p-video.dtsi"
 #include "dsi-panel-rm67195-amoled-fhd-cmd.dtsi"
 #include "dsi-panel-sharp-split-link-wuxga-video.dtsi"
+<<<<<<< HEAD
+=======
+#include "dsi-panel-lgd-incell-sw49106-fhd-video.dtsi"
+#include "dsi-panel-hx8399c-fhd-plus-video.dtsi"
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 &soc {
 	dsi_panel_pwr_supply: dsi_panel_pwr_supply {
@@ -243,3 +252,28 @@
 	qcom,mdss-dsi-pan-enable-dynamic-fps;
 	qcom,mdss-dsi-pan-fps-update = "dfps_immediate_porch_mode_vfp";
 };
+<<<<<<< HEAD
+=======
+
+&dsi_lgd_incell_sw49106_fhd_video {
+	qcom,mdss-dsi-panel-timings-phy-v2 = [24 1f 08 09 05 03 04 a0
+		24 1f 08 09 05 03 04 a0
+		24 1f 08 09 05 03 04 a0
+		24 1f 08 09 05 03 04 a0
+		24 1b 08 09 05 03 04 a0];
+	qcom,mdss-dsi-t-clk-post = <0x0d>;
+	qcom,mdss-dsi-t-clk-pre = <0x30>;
+};
+
+&dsi_hx8399c_truly_vid {
+	qcom,mdss-dsi-panel-timings-phy-v2 = [24 1f 08 09 05 03 04 a0
+		24 1f 08 09 05 03 04 a0
+		24 1f 08 09 05 03 04 a0
+		24 1f 08 09 05 03 04 a0
+		24 1c 08 09 05 03 04 a0];
+	qcom,mdss-dsi-min-refresh-rate = <48>;
+	qcom,mdss-dsi-max-refresh-rate = <60>;
+	qcom,mdss-dsi-pan-enable-dynamic-fps;
+	qcom,mdss-dsi-pan-fps-update = "dfps_immediate_porch_mode_vfp";
+};
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

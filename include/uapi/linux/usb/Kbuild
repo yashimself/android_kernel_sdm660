@@ -1,4 +1,5 @@
 # UAPI Header export list
+<<<<<<< HEAD
 header-y += audio.h
 header-y += cdc.h
 header-y += cdc-wdm.h
@@ -11,3 +12,7 @@ header-y += midi.h
 header-y += tmc.h
 header-y += usb_ctrl_qti.h
 header-y += video.h
+=======
+no-export-headers += f_accessory.h
+no-export-headers += f_mtp.h
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

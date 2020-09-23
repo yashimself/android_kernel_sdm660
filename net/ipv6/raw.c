@@ -757,7 +757,10 @@ static int rawv6_sendmsg(struct sock *sk, struct msghdr *msg, size_t len)
 	int hlimit = -1;
 	int tclass = -1;
 	int dontfrag = -1;
+<<<<<<< HEAD
 	int hdrincl;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	u16 proto;
 	int err;
 
@@ -771,6 +774,7 @@ static int rawv6_sendmsg(struct sock *sk, struct msghdr *msg, size_t len)
 	if (msg->msg_flags & MSG_OOB)
 		return -EOPNOTSUPP;
 
+<<<<<<< HEAD
 	/* hdrincl should be READ_ONCE(inet->hdrincl)
 	 * but READ_ONCE() doesn't work with bit fields.
 	 * Doing this indirectly yields the same result.
@@ -778,6 +782,8 @@ static int rawv6_sendmsg(struct sock *sk, struct msghdr *msg, size_t len)
 	hdrincl = inet->hdrincl;
 	hdrincl = READ_ONCE(hdrincl);
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/*
 	 *	Get and verify the address.
 	 */
@@ -887,7 +893,11 @@ static int rawv6_sendmsg(struct sock *sk, struct msghdr *msg, size_t len)
 		fl6.flowi6_oif = np->ucast_oif;
 	security_sk_classify_flow(sk, flowi6_to_flowi(&fl6));
 
+<<<<<<< HEAD
 	if (hdrincl)
+=======
+	if (inet->hdrincl)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		fl6.flowi6_flags |= FLOWI_FLAG_KNOWN_NH;
 
 	dst = ip6_dst_lookup_flow(sk, &fl6, final_p);
@@ -908,7 +918,11 @@ static int rawv6_sendmsg(struct sock *sk, struct msghdr *msg, size_t len)
 		goto do_confirm;
 
 back_from_confirm:
+<<<<<<< HEAD
 	if (hdrincl)
+=======
+	if (inet->hdrincl)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		err = rawv6_send_hdrinc(sk, msg, len, &fl6, &dst, msg->msg_flags);
 	else {
 		lock_sock(sk);

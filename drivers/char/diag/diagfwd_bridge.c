@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -22,6 +26,10 @@
 #include "diagfwd_bridge.h"
 #ifdef CONFIG_USB_QCOM_DIAG_BRIDGE
 #include "diagfwd_hsic.h"
+<<<<<<< HEAD
+=======
+#include "diagfwd_sdio.h"
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #endif
 #ifdef CONFIG_MSM_MHI
 #include "diagfwd_mhi.h"
@@ -42,6 +50,16 @@ static int diag_mhi_init(void)
 }
 #endif
 
+<<<<<<< HEAD
+=======
+#ifndef CONFIG_QTI_SDIO_CLIENT
+static int diag_sdio_init(void)
+{
+	return -EINVAL;
+}
+#endif
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #define BRIDGE_TO_MUX(x)	(x + DIAG_MUX_BRIDGE_BASE)
 
 struct diagfwd_bridge_info bridge_info[NUM_REMOTE_DEV] = {
@@ -271,6 +289,7 @@ int diag_remote_dev_write_done(int id, unsigned char *buf, int len, int ctxt)
 	return err;
 }
 
+<<<<<<< HEAD
 int diagfwd_bridge_init(bool use_mhi)
 {
 	int err = 0;
@@ -279,6 +298,19 @@ int diagfwd_bridge_init(bool use_mhi)
 		err = diag_mhi_init();
 	else
 		err = diag_hsic_init();
+=======
+int diagfwd_bridge_init(int xprt)
+{
+	int err = 0;
+
+	if (xprt == 1)
+		err = diag_mhi_init();
+	else if (xprt == 2)
+		err = diag_sdio_init();
+	else
+		err = diag_hsic_init();
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (err)
 		goto fail;
 	return 0;

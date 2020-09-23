@@ -212,6 +212,7 @@ static inline void native_cpuid(unsigned int *eax, unsigned int *ebx,
 	    : "memory");
 }
 
+<<<<<<< HEAD
 #define native_cpuid_reg(reg)					\
 static inline unsigned int native_cpuid_##reg(unsigned int op)	\
 {								\
@@ -230,6 +231,8 @@ native_cpuid_reg(ebx)
 native_cpuid_reg(ecx)
 native_cpuid_reg(edx)
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static inline void load_cr3(pgd_t *pgdir)
 {
 	write_cr3(__pa(pgdir));

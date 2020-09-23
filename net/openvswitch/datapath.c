@@ -725,6 +725,7 @@ static size_t ovs_flow_cmd_msg_size(const struct sw_flow_actions *acts,
 {
 	size_t len = NLMSG_ALIGN(sizeof(struct ovs_header));
 
+<<<<<<< HEAD
 	/* OVS_FLOW_ATTR_UFID, or unmasked flow key as fallback
 	 * see ovs_nla_put_identifier()
 	 */
@@ -732,6 +733,11 @@ static size_t ovs_flow_cmd_msg_size(const struct sw_flow_actions *acts,
 		len += nla_total_size(sfid->ufid_len);
 	else
 		len += nla_total_size(ovs_key_attr_size());
+=======
+	/* OVS_FLOW_ATTR_UFID */
+	if (sfid && ovs_identifier_is_ufid(sfid))
+		len += nla_total_size(sfid->ufid_len);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* OVS_FLOW_ATTR_KEY */
 	if (!sfid || should_fill_key(sfid, ufid_flags))
@@ -904,10 +910,14 @@ static struct sk_buff *ovs_flow_cmd_build_info(const struct sw_flow *flow,
 	retval = ovs_flow_cmd_fill_info(flow, dp_ifindex, skb,
 					info->snd_portid, info->snd_seq, 0,
 					cmd, ufid_flags);
+<<<<<<< HEAD
 	if (WARN_ON_ONCE(retval < 0)) {
 		kfree_skb(skb);
 		skb = ERR_PTR(retval);
 	}
+=======
+	BUG_ON(retval < 0);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return skb;
 }
 
@@ -1325,10 +1335,14 @@ static int ovs_flow_cmd_del(struct sk_buff *skb, struct genl_info *info)
 						     OVS_FLOW_CMD_DEL,
 						     ufid_flags);
 			rcu_read_unlock();
+<<<<<<< HEAD
 			if (WARN_ON_ONCE(err < 0)) {
 				kfree_skb(reply);
 				goto out_free;
 			}
+=======
+			BUG_ON(err < 0);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 			ovs_notify(&dp_flow_genl_family, reply, info);
 		} else {
@@ -1336,7 +1350,10 @@ static int ovs_flow_cmd_del(struct sk_buff *skb, struct genl_info *info)
 		}
 	}
 
+<<<<<<< HEAD
 out_free:
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	ovs_flow_free(flow, true);
 	return 0;
 unlock:

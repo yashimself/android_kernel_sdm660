@@ -315,7 +315,11 @@ static int vti6_rcv(struct sk_buff *skb)
 
 		if (!xfrm6_policy_check(NULL, XFRM_POLICY_IN, skb)) {
 			rcu_read_unlock();
+<<<<<<< HEAD
 			goto discard;
+=======
+			return 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 
 		if (!ip6_tnl_rcv_ctl(t, &ipv6h->daddr, &ipv6h->saddr)) {
@@ -324,9 +328,17 @@ static int vti6_rcv(struct sk_buff *skb)
 			goto discard;
 		}
 
+<<<<<<< HEAD
 		rcu_read_unlock();
 
 		return xfrm6_rcv_tnl(skb, t);
+=======
+		XFRM_TUNNEL_SKB_CB(skb)->tunnel.ip6 = t;
+
+		rcu_read_unlock();
+
+		return xfrm6_rcv(skb);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 	rcu_read_unlock();
 	return -EINVAL;
@@ -439,6 +451,7 @@ vti6_xmit(struct sk_buff *skb, struct net_device *dev, struct flowi *fl)
 	int err = -1;
 	int mtu;
 
+<<<<<<< HEAD
 	if (!dst) {
 		switch (skb->protocol) {
 		case htons(ETH_P_IP): {
@@ -468,6 +481,10 @@ vti6_xmit(struct sk_buff *skb, struct net_device *dev, struct flowi *fl)
 			goto tx_err_link_failure;
 		}
 	}
+=======
+	if (!dst)
+		goto tx_err_link_failure;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	dst_hold(dst);
 	dst = xfrm_lookup(t->net, dst, fl, NULL, 0);

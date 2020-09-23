@@ -1156,6 +1156,7 @@ static const struct sectioncheck *section_mismatch(
  *   fromsec = text section
  *   refsymname = *.constprop.*
  *
+<<<<<<< HEAD
  * Pattern 6:
  *   Hide section mismatch warnings for ELF local symbols.  The goal
  *   is to eliminate false positive modpost warnings caused by
@@ -1164,6 +1165,8 @@ static const struct sectioncheck *section_mismatch(
  *   whitelisting, which relies on pattern-matching against symbol
  *   names to work.  (One situation where gcc can autogenerate ELF
  *   local symbols is when "-fsection-anchors" is used.)
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  **/
 static int secref_whitelist(const struct sectioncheck *mismatch,
 			    const char *fromsec, const char *fromsym,
@@ -1202,10 +1205,13 @@ static int secref_whitelist(const struct sectioncheck *mismatch,
 	    match(fromsym, optim_symbols))
 		return 0;
 
+<<<<<<< HEAD
 	/* Check for pattern 6 */
 	if (strstarts(fromsym, ".L"))
 		return 0;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return 1;
 }
 

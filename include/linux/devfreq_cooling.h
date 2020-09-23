@@ -53,7 +53,11 @@ void devfreq_cooling_unregister(struct thermal_cooling_device *dfc);
 
 #else /* !CONFIG_DEVFREQ_THERMAL */
 
+<<<<<<< HEAD
 static inline struct thermal_cooling_device *
+=======
+struct thermal_cooling_device *
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 of_devfreq_cooling_register_power(struct device_node *np, struct devfreq *df,
 				  struct devfreq_cooling_power *dfc_power)
 {

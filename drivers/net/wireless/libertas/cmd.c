@@ -743,7 +743,11 @@ int lbs_set_11d_domain_info(struct lbs_private *priv)
 	struct cmd_ds_802_11d_domain_info cmd;
 	struct mrvl_ie_domain_param_set *domain = &cmd.domain;
 	struct ieee80211_country_ie_triplet *t;
+<<<<<<< HEAD
 	enum nl80211_band band;
+=======
+	enum ieee80211_band band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct ieee80211_channel *ch;
 	u8 num_triplet = 0;
 	u8 num_parsed_chan = 0;
@@ -777,7 +781,11 @@ int lbs_set_11d_domain_info(struct lbs_private *priv)
 	 * etc.
 	 */
 	for (band = 0;
+<<<<<<< HEAD
 	     (band < NUM_NL80211_BANDS) && (num_triplet < MAX_11D_TRIPLETS);
+=======
+	     (band < IEEE80211_NUM_BANDS) && (num_triplet < MAX_11D_TRIPLETS);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	     band++) {
 
 		if (!bands[band])

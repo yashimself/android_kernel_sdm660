@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2016-2017 The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2016-2019 The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -28,6 +32,7 @@
 #include "smb-lib.h"
 #include "storm-watch.h"
 #include <linux/pmic-voter.h>
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 #include <linux/of_gpio.h>
 #include <linux/wakelock.h>
@@ -37,6 +42,8 @@
 #include <linux/switch.h>
 #include <linux/qpnp/qpnp-adc.h>
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #define SMB2_DEFAULT_WPWR_UW	8000000
 
@@ -188,6 +195,7 @@ struct smb2 {
 	bool			bad_part;
 };
 
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 struct smb_charger *smbchg_dev;
 struct timespec last_jeita_time;
@@ -206,6 +214,9 @@ static int __debug_mask = 0x10;
 #else
 static int __debug_mask;
 #endif
+=======
+static int __debug_mask;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 module_param_named(
 	debug_mask, __debug_mask, int, S_IRUSR | S_IWUSR
 );
@@ -319,12 +330,15 @@ static int smb2_parse_dt(struct smb2 *chip)
 		}
 	}
 
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 	if(of_find_property(node,"qcom,chg-alert-vadc",NULL)){
 		dev_err(chg->dev,"get chg_alert vadc good rc = %d \n",rc);
 	}
 #endif
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	of_property_read_u32(node, "qcom,float-option", &chip->dt.float_option);
 	if (chip->dt.float_option < 0 || chip->dt.float_option > 4) {
 		pr_err("qcom,float-option is out of range [0, 4]\n");
@@ -979,12 +993,15 @@ static enum power_supply_property smb2_batt_props[] = {
 	POWER_SUPPLY_PROP_FCC_STEPPER_ENABLE,
 	POWER_SUPPLY_PROP_CHARGE_FULL,
 	POWER_SUPPLY_PROP_CYCLE_COUNT,
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 	POWER_SUPPLY_PROP_CHARGING_ENABLED,
 #endif
 #ifdef CONFIG_MACH_ASUS_X01BD
 	POWER_SUPPLY_PROP_ADAPTER_ID,
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 static int smb2_batt_get_prop(struct power_supply *psy,
@@ -1008,11 +1025,14 @@ static int smb2_batt_get_prop(struct power_supply *psy,
 	case POWER_SUPPLY_PROP_INPUT_SUSPEND:
 		rc = smblib_get_prop_input_suspend(chg, val);
 		break;
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 	case POWER_SUPPLY_PROP_CHARGING_ENABLED:
 		rc = smblib_get_prop_charging_enabled(chg, val);
 		break;
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	case POWER_SUPPLY_PROP_CHARGE_TYPE:
 		rc = smblib_get_prop_batt_charge_type(chg, val);
 		break;
@@ -1090,6 +1110,7 @@ static int smb2_batt_get_prop(struct power_supply *psy,
 	case POWER_SUPPLY_PROP_CHARGE_FULL:
 	case POWER_SUPPLY_PROP_CYCLE_COUNT:
 	case POWER_SUPPLY_PROP_VOLTAGE_NOW:
+<<<<<<< HEAD
 	case POWER_SUPPLY_PROP_CURRENT_NOW:
 	case POWER_SUPPLY_PROP_TEMP:
 		rc = smblib_get_prop_from_bms(chg, psp, val);
@@ -1102,6 +1123,19 @@ static int smb2_batt_get_prop(struct power_supply *psy,
 		rc = smblib_get_prop_adapter_id(chg, val);
 		break;
 #endif
+=======
+	case POWER_SUPPLY_PROP_TEMP:
+		rc = smblib_get_prop_from_bms(chg, psp, val);
+		break;
+	case POWER_SUPPLY_PROP_CURRENT_NOW:
+		rc = smblib_get_prop_from_bms(chg, psp, val);
+		if (!rc)
+			val->intval *= (-1);
+		break;
+	case POWER_SUPPLY_PROP_FCC_STEPPER_ENABLE:
+		val->intval = chg->fcc_stepper_mode;
+		break;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	default:
 		pr_err("batt power supply prop %d not supported\n", psp);
 		return -EINVAL;
@@ -1126,11 +1160,14 @@ static int smb2_batt_set_prop(struct power_supply *psy,
 	case POWER_SUPPLY_PROP_INPUT_SUSPEND:
 		rc = smblib_set_prop_input_suspend(chg, val);
 		break;
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 	case POWER_SUPPLY_PROP_CHARGING_ENABLED:
 		rc = smblib_set_prop_charging_enabled(chg, val);
 		break;
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	case POWER_SUPPLY_PROP_SYSTEM_TEMP_LEVEL:
 		rc = smblib_set_prop_system_temp_level(chg, val);
 		break;
@@ -1519,6 +1556,7 @@ static int smb2_disable_typec(struct smb_charger *chg)
 	return rc;
 }
 
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 struct switch_dev usb_alert_dev;
 void register_usb_alert(void)
@@ -1555,6 +1593,8 @@ void register_usb_otg(void)
 }
 #endif /* CONFIG_MACH_ASUS_X00TD */
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int smb2_init_hw(struct smb2 *chip)
 {
 	struct smb_charger *chg = &chip->chg;
@@ -2333,6 +2373,7 @@ static void smb2_create_debugfs(struct smb2 *chip)
 
 #endif
 
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 #define ATD_CHG_LIMIT_SOC	70
 int charger_limit_enable_flag;
@@ -2632,6 +2673,8 @@ void read_BR_countrycode_work(struct work_struct *work)
 }
 #endif /* CONFIG_MACH_ASUS_X00TD */
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int smb2_probe(struct platform_device *pdev)
 {
 	struct smb2 *chip;
@@ -2639,15 +2682,19 @@ static int smb2_probe(struct platform_device *pdev)
 	int rc = 0;
 	union power_supply_propval val;
 	int usb_present, batt_present, batt_health, batt_charge_type;
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 	struct gpio_control *gpio_ctrl;
 	u8 HVDVP_reg, USBIN_AICL_reg;
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	chip = devm_kzalloc(&pdev->dev, sizeof(*chip), GFP_KERNEL);
 	if (!chip)
 		return -ENOMEM;
 
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 	/* ASUS BSP: allocate GPIO control */
 	pr_debug("ADC_SW_EN=%d, ADCPWREN_PMI_GP1=%d\n", gpio_ctrl->ADC_SW_EN,
@@ -2657,6 +2704,8 @@ static int smb2_probe(struct platform_device *pdev)
 		return -ENOMEM;
 #endif
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	chg = &chip->chg;
 	chg->dev = &pdev->dev;
 	chg->param = v1_params;
@@ -2666,6 +2715,7 @@ static int smb2_probe(struct platform_device *pdev)
 	chg->mode = PARALLEL_MASTER;
 	chg->irq_info = smb2_irqs;
 	chg->name = "PMI";
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 	wake_lock_init(&asus_chg_lock, WAKE_LOCK_SUSPEND, "asus_chg_lock");
 
@@ -2705,6 +2755,8 @@ static int smb2_probe(struct platform_device *pdev)
 	rc = gpio_get_value(gpio_ctrl->ADCPWREN_PMI_GP1);
 	pr_debug("ADCPWREN_PMI_GP1 init H/L %d\n", rc);
 #endif /* CONFIG_MACH_ASUS_X00TD */
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	chg->regmap = dev_get_regmap(chg->dev->parent, NULL);
 	if (!chg->regmap) {
@@ -2712,6 +2764,7 @@ static int smb2_probe(struct platform_device *pdev)
 		return -EINVAL;
 	}
 
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 	INIT_DELAYED_WORK(&chg->read_countrycode_work,
 				read_BR_countrycode_work);
@@ -2719,6 +2772,8 @@ static int smb2_probe(struct platform_device *pdev)
 				msecs_to_jiffies(8000));
 #endif
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	rc = smb2_chg_config_init(chip);
 	if (rc < 0) {
 		if (rc != -EPROBE_DEFER)
@@ -2826,10 +2881,13 @@ static int smb2_probe(struct platform_device *pdev)
 		goto cleanup;
 	}
 
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 	init_proc_charger_limit();
 #endif
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	smb2_create_debugfs(chip);
 
 	rc = smblib_get_prop_usb_present(chg, &val);
@@ -2862,6 +2920,7 @@ static int smb2_probe(struct platform_device *pdev)
 
 	device_init_wakeup(chg->dev, true);
 
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 	rc = smblib_read(smbchg_dev, USBIN_OPTIONS_1_CFG_REG, &HVDVP_reg);
 	rc = smblib_masked_write(smbchg_dev, USBIN_OPTIONS_1_CFG_REG,
@@ -2883,6 +2942,8 @@ static int smb2_probe(struct platform_device *pdev)
 	register_usb_otg();
 #endif
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	pr_info("QPNP SMB2 probed successfully usb:present=%d type=%d batt:present = %d health = %d charge = %d\n",
 		usb_present, chg->real_charger_type,
 		batt_present, batt_health, batt_charge_type);
@@ -2908,6 +2969,7 @@ cleanup:
 	smblib_deinit(chg);
 
 	platform_set_drvdata(pdev, NULL);
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 	remove_proc_charger_limit();
 #endif
@@ -2944,6 +3006,11 @@ static int smb2_resume(struct device *dev)
 }
 #endif /* CONFIG_MACH_ASUS_X00TD */
 
+=======
+	return rc;
+}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int smb2_remove(struct platform_device *pdev)
 {
 	struct smb2 *chip = platform_get_drvdata(pdev);
@@ -2981,12 +3048,15 @@ static void smb2_shutdown(struct platform_device *pdev)
 				 AUTO_SRC_DETECT_BIT, AUTO_SRC_DETECT_BIT);
 }
 
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 static const struct dev_pm_ops smb2_pm_ops = {
 	.resume		= smb2_resume,
 };
 #endif
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static const struct of_device_id match_table[] = {
 	{ .compatible = "qcom,qpnp-smb2", },
 	{ },
@@ -2997,9 +3067,12 @@ static struct platform_driver smb2_driver = {
 		.name		= "qcom,qpnp-smb2",
 		.owner		= THIS_MODULE,
 		.of_match_table	= match_table,
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 		.pm		= &smb2_pm_ops,
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	},
 	.probe		= smb2_probe,
 	.remove		= smb2_remove,

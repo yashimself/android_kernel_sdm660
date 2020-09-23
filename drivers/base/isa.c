@@ -180,4 +180,8 @@ static int __init isa_bus_init(void)
 	return error;
 }
 
+<<<<<<< HEAD
 postcore_initcall(isa_bus_init);
+=======
+device_initcall(isa_bus_init);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

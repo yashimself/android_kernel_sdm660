@@ -29,7 +29,12 @@
 
 #define MM_VID_START	500
 #define MM_VID		501
+<<<<<<< HEAD
 #define MM_VID_END	502
+=======
+#define MM_VID_2	502
+#define MM_VID_END	503
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #define MM_MISC_START	600
 #define MM_MISC		601
@@ -37,10 +42,14 @@
 
 #define MM_QCPE_START	700
 #define MM_QCPE_VM1	701
+<<<<<<< HEAD
 #define MM_QCPE_VM2	702
 #define MM_QCPE_VM3	703
 #define MM_QCPE_VM4	704
 #define MM_QCPE_END	705
+=======
+#define MM_QCPE_END	702
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #define	MM_CLK_START	800
 #define	MM_CLK_VM1 801

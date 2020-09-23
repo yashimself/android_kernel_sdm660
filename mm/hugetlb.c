@@ -3886,7 +3886,10 @@ long follow_hugetlb_page(struct mm_struct *mm, struct vm_area_struct *vma,
 	unsigned long vaddr = *position;
 	unsigned long remainder = *nr_pages;
 	struct hstate *h = hstate_vma(vma);
+<<<<<<< HEAD
 	int err = -EFAULT;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	while (vaddr < vma->vm_end && remainder) {
 		pte_t *pte;
@@ -3958,6 +3961,7 @@ long follow_hugetlb_page(struct mm_struct *mm, struct vm_area_struct *vma,
 
 		pfn_offset = (vaddr & ~huge_page_mask(h)) >> PAGE_SHIFT;
 		page = pte_page(huge_ptep_get(pte));
+<<<<<<< HEAD
 
 		/*
 		 * Instead of doing 'try_get_page_foll()' below in the same_page
@@ -3971,6 +3975,8 @@ long follow_hugetlb_page(struct mm_struct *mm, struct vm_area_struct *vma,
 				break;
 			}
 		}
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 same_page:
 		if (pages) {
 			pages[i] = mem_map_offset(page, pfn_offset);
@@ -3997,7 +4003,11 @@ same_page:
 	*nr_pages = remainder;
 	*position = vaddr;
 
+<<<<<<< HEAD
 	return i ? i : err;
+=======
+	return i ? i : -EFAULT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 unsigned long hugetlb_change_protection(struct vm_area_struct *vma,

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2015-2017, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2015-2017, 2020, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -594,6 +598,44 @@ end:
 	return ret;
 }
 
+<<<<<<< HEAD
+=======
+static ssize_t cec_wta_clear_logical_addr(struct device *dev,
+	struct device_attribute *attr, const char *buf, size_t count)
+{
+	int clear_flag;
+	unsigned long flags;
+	ssize_t ret;
+	struct cec_ctl *ctl = cec_get_ctl(dev);
+	struct cec_ops *ops;
+
+	if (!ctl) {
+		pr_err("Invalid ctl\n");
+		ret = -EINVAL;
+		goto end;
+	}
+
+	ops = ctl->init_data.ops;
+
+	ret = kstrtoint(buf, 10, &clear_flag);
+	if (ret) {
+		pr_err("kstrtoint failed\n");
+		goto end;
+	}
+
+	ret = count;
+
+	spin_lock_irqsave(&ctl->lock, flags);
+	if (ctl->enabled) {
+		if (ops && ops->clear_logical_addr)
+			ops->clear_logical_addr(ops->data, !!clear_flag);
+	}
+	spin_unlock_irqrestore(&ctl->lock, flags);
+end:
+	return ret;
+}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static ssize_t cec_rda_msg(struct device *dev,
 	struct device_attribute *attr, char *buf)
 {
@@ -703,6 +745,11 @@ static DEVICE_ATTR(enable_compliance, S_IRUGO | S_IWUSR,
 	cec_rda_enable_compliance, cec_wta_enable_compliance);
 static DEVICE_ATTR(logical_addr, S_IRUSR | S_IWUSR,
 	cec_rda_logical_addr, cec_wta_logical_addr);
+<<<<<<< HEAD
+=======
+static DEVICE_ATTR(clear_logical_addr, 0200,
+	NULL, cec_wta_clear_logical_addr);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static DEVICE_ATTR(rd_msg, S_IRUGO, cec_rda_msg, NULL);
 static DEVICE_ATTR(wr_msg, S_IWUSR | S_IRUSR, NULL, cec_wta_msg);
 
@@ -710,6 +757,10 @@ static struct attribute *cec_fs_attrs[] = {
 	&dev_attr_enable.attr,
 	&dev_attr_enable_compliance.attr,
 	&dev_attr_logical_addr.attr,
+<<<<<<< HEAD
+=======
+	&dev_attr_clear_logical_addr.attr,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	&dev_attr_rd_msg.attr,
 	&dev_attr_wr_msg.attr,
 	NULL,

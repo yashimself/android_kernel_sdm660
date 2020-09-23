@@ -562,7 +562,10 @@ config SOC_IMX7D
 	select ARM_GIC
 	select HAVE_IMX_ANATOP
 	select HAVE_IMX_MMDC
+<<<<<<< HEAD
 	select HAVE_IMX_SRC
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	help
 		This enables support for Freescale i.MX7 Dual processor.
 

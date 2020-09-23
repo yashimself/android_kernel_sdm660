@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2017, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2017-2018, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -141,8 +145,14 @@ enum sde_hdmi_tx_hdcp2p2_rxstatus_intr_mask {
 };
 
 enum sde_hdmi_hdr_state {
+<<<<<<< HEAD
 	HDR_DISABLE,
 	HDR_ENABLE
+=======
+	HDR_DISABLE = DRM_MSM_HDR_DISABLE,
+	HDR_ENABLE  = DRM_MSM_HDR_ENABLE,
+	HDR_RESET   = DRM_MSM_HDR_RESET
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 enum sde_hdmi_hdr_op {
@@ -200,5 +210,9 @@ u8 sde_hdmi_hdr_get_ops(u8 curr_state,
 	u8 new_state);
 void sde_hdmi_ctrl_reset(struct hdmi *hdmi);
 void sde_hdmi_ctrl_cfg(struct hdmi *hdmi, bool power_on);
+<<<<<<< HEAD
+=======
+u8 sde_hdmi_hdr_set_chksum(struct drm_msm_ext_panel_hdr_metadata *hdr_meta);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #endif /* _SDE_HDMI_UTIL_H_ */

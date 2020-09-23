@@ -2868,6 +2868,7 @@ err_late_init:
 	return ret;
 }
 
+<<<<<<< HEAD
 static int etm4_remove(struct amba_device *adev)
 {
 	struct etmv4_drvdata *drvdata = amba_get_drvdata(adev);
@@ -2881,6 +2882,8 @@ static int etm4_remove(struct amba_device *adev)
 	return 0;
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static struct amba_id etm4_ids[] = {
 	{       /* ETM 4.0 - Qualcomm */
 		.id	= 0x0003b95d,
@@ -2898,9 +2901,15 @@ static struct amba_id etm4_ids[] = {
 static struct amba_driver etm4x_driver = {
 	.drv = {
 		.name   = "coresight-etm4x",
+<<<<<<< HEAD
 	},
 	.probe		= etm4_probe,
 	.remove		= etm4_remove,
+=======
+		.suppress_bind_attrs = true,
+	},
+	.probe		= etm4_probe,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.id_table	= etm4_ids,
 };
 

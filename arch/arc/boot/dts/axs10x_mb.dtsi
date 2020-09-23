@@ -44,7 +44,10 @@
 			interrupt-names = "macirq";
 			phy-mode = "rgmii";
 			snps,pbl = < 32 >;
+<<<<<<< HEAD
 			snps,multicast-filter-bins = <256>;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			clocks = <&apbclk>;
 			clock-names = "stmmaceth";
 			max-speed = <100>;

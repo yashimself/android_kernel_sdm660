@@ -174,7 +174,11 @@ int iwlagn_send_beacon_cmd(struct iwl_priv *priv)
 	rate_flags = iwl_ant_idx_to_flags(priv->mgmt_tx_ant);
 
 	/* In mac80211, rates for 5 GHz start at 0 */
+<<<<<<< HEAD
 	if (info->band == NL80211_BAND_5GHZ)
+=======
+	if (info->band == IEEE80211_BAND_5GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		rate += IWL_FIRST_OFDM_RATE;
 	else if (rate >= IWL_FIRST_CCK_RATE && rate <= IWL_LAST_CCK_RATE)
 		rate_flags |= RATE_MCS_CCK_MSK;
@@ -1029,7 +1033,11 @@ static int iwl_init_drv(struct iwl_priv *priv)
 
 	INIT_LIST_HEAD(&priv->calib_results);
 
+<<<<<<< HEAD
 	priv->band = NL80211_BAND_2GHZ;
+=======
+	priv->band = IEEE80211_BAND_2GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	priv->plcp_delta_threshold = priv->lib->plcp_delta_threshold;
 

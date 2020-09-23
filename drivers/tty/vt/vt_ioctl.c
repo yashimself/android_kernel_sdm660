@@ -38,6 +38,7 @@
 #include <linux/kbd_diacr.h>
 #include <linux/selection.h>
 
+<<<<<<< HEAD
 bool vt_dont_switch;
 
 static inline bool vt_in_use(unsigned int i)
@@ -64,6 +65,13 @@ static inline bool vt_busy(int i)
 
 	return false;
 }
+=======
+char vt_dont_switch;
+extern struct tty_driver *console_driver;
+
+#define VT_IS_IN_USE(i)	(console_driver->ttys[i] && console_driver->ttys[i]->count)
+#define VT_BUSY(i)	(VT_IS_IN_USE(i) || i == fg_console || vc_cons[i].d == sel_cons)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 /*
  * Console (vt and kd) routines, as defined by USL SVR4 manual, and by
@@ -313,14 +321,25 @@ static int vt_disallocate(unsigned int vc_num)
 	int ret = 0;
 
 	console_lock();
+<<<<<<< HEAD
 	if (vt_busy(vc_num))
+=======
+	if (VT_BUSY(vc_num))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		ret = -EBUSY;
 	else if (vc_num)
 		vc = vc_deallocate(vc_num);
 	console_unlock();
 
+<<<<<<< HEAD
 	if (vc && vc_num >= MIN_NR_CONSOLES)
 		tty_port_put(&vc->port);
+=======
+	if (vc && vc_num >= MIN_NR_CONSOLES) {
+		tty_port_destroy(&vc->port);
+		kfree(vc);
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	return ret;
 }
@@ -333,15 +352,26 @@ static void vt_disallocate_all(void)
 
 	console_lock();
 	for (i = 1; i < MAX_NR_CONSOLES; i++)
+<<<<<<< HEAD
 		if (!vt_busy(i))
+=======
+		if (!VT_BUSY(i))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			vc[i] = vc_deallocate(i);
 		else
 			vc[i] = NULL;
 	console_unlock();
 
 	for (i = 1; i < MAX_NR_CONSOLES; i++) {
+<<<<<<< HEAD
 		if (vc[i] && i >= MIN_NR_CONSOLES)
 			tty_port_put(&vc[i]->port);
+=======
+		if (vc[i] && i >= MIN_NR_CONSOLES) {
+			tty_port_destroy(&vc[i]->port);
+			kfree(vc[i]);
+		}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 }
 
@@ -355,13 +385,29 @@ int vt_ioctl(struct tty_struct *tty,
 {
 	struct vc_data *vc = tty->driver_data;
 	struct console_font_op op;	/* used in multiple places here */
+<<<<<<< HEAD
 	unsigned int console = vc->vc_num;
+=======
+	unsigned int console;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	unsigned char ucval;
 	unsigned int uival;
 	void __user *up = (void __user *)arg;
 	int i, perm;
 	int ret = 0;
 
+<<<<<<< HEAD
+=======
+	console = vc->vc_num;
+
+
+	if (!vc_cons_allocated(console)) { 	/* impossible? */
+		ret = -ENOIOCTLCMD;
+		goto out;
+	}
+
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/*
 	 * To have permissions to do most of the vt ioctls, we either have
 	 * to be the owner of the tty, or have CAP_SYS_TTY_CONFIG.
@@ -652,16 +698,27 @@ int vt_ioctl(struct tty_struct *tty,
 		struct vt_stat __user *vtstat = up;
 		unsigned short state, mask;
 
+<<<<<<< HEAD
+=======
+		/* Review: FIXME: Console lock ? */
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (put_user(fg_console + 1, &vtstat->v_active))
 			ret = -EFAULT;
 		else {
 			state = 1;	/* /dev/tty0 is always open */
+<<<<<<< HEAD
 			console_lock(); /* required by vt_in_use() */
 			for (i = 0, mask = 2; i < MAX_NR_CONSOLES && mask;
 							++i, mask <<= 1)
 				if (vt_in_use(i))
 					state |= mask;
 			console_unlock();
+=======
+			for (i = 0, mask = 2; i < MAX_NR_CONSOLES && mask;
+							++i, mask <<= 1)
+				if (VT_IS_IN_USE(i))
+					state |= mask;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			ret = put_user(state, &vtstat->v_state);
 		}
 		break;
@@ -671,11 +728,18 @@ int vt_ioctl(struct tty_struct *tty,
 	 * Returns the first available (non-opened) console.
 	 */
 	case VT_OPENQRY:
+<<<<<<< HEAD
 		console_lock(); /* required by vt_in_use() */
 		for (i = 0; i < MAX_NR_CONSOLES; ++i)
 			if (!vt_in_use(i))
 				break;
 		console_unlock();
+=======
+		/* FIXME: locking ? - but then this is a stupid API */
+		for (i = 0; i < MAX_NR_CONSOLES; ++i)
+			if (! VT_IS_IN_USE(i))
+				break;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		uival = i < MAX_NR_CONSOLES ? (i+1) : -1;
 		goto setint;		 
 
@@ -860,6 +924,7 @@ int vt_ioctl(struct tty_struct *tty,
 
 	case VT_RESIZEX:
 	{
+<<<<<<< HEAD
 		struct vt_consize v;
 		if (!perm)
 			return -EPERM;
@@ -903,6 +968,60 @@ int vt_ioctl(struct tty_struct *tty,
 				vcp->vc_resize_user = 1;
 				vc_resize(vcp, v.v_cols, v.v_rows);
 			}
+=======
+		struct vt_consize __user *vtconsize = up;
+		ushort ll,cc,vlin,clin,vcol,ccol;
+		if (!perm)
+			return -EPERM;
+		if (!access_ok(VERIFY_READ, vtconsize,
+				sizeof(struct vt_consize))) {
+			ret = -EFAULT;
+			break;
+		}
+		/* FIXME: Should check the copies properly */
+		__get_user(ll, &vtconsize->v_rows);
+		__get_user(cc, &vtconsize->v_cols);
+		__get_user(vlin, &vtconsize->v_vlin);
+		__get_user(clin, &vtconsize->v_clin);
+		__get_user(vcol, &vtconsize->v_vcol);
+		__get_user(ccol, &vtconsize->v_ccol);
+		vlin = vlin ? vlin : vc->vc_scan_lines;
+		if (clin) {
+			if (ll) {
+				if (ll != vlin/clin) {
+					/* Parameters don't add up */
+					ret = -EINVAL;
+					break;
+				}
+			} else 
+				ll = vlin/clin;
+		}
+		if (vcol && ccol) {
+			if (cc) {
+				if (cc != vcol/ccol) {
+					ret = -EINVAL;
+					break;
+				}
+			} else
+				cc = vcol/ccol;
+		}
+
+		if (clin > 32) {
+			ret =  -EINVAL;
+			break;
+		}
+		    
+		for (i = 0; i < MAX_NR_CONSOLES; i++) {
+			if (!vc_cons[i].d)
+				continue;
+			console_lock();
+			if (vlin)
+				vc_cons[i].d->vc_scan_lines = vlin;
+			if (clin)
+				vc_cons[i].d->vc_font.height = clin;
+			vc_cons[i].d->vc_resize_user = 1;
+			vc_resize(vc_cons[i].d, cc, ll);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			console_unlock();
 		}
 		break;
@@ -1030,12 +1149,20 @@ int vt_ioctl(struct tty_struct *tty,
 	case VT_LOCKSWITCH:
 		if (!capable(CAP_SYS_TTY_CONFIG))
 			return -EPERM;
+<<<<<<< HEAD
 		vt_dont_switch = true;
+=======
+		vt_dont_switch = 1;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case VT_UNLOCKSWITCH:
 		if (!capable(CAP_SYS_TTY_CONFIG))
 			return -EPERM;
+<<<<<<< HEAD
 		vt_dont_switch = false;
+=======
+		vt_dont_switch = 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case VT_GETHIFONTMASK:
 		ret = put_user(vc->vc_hi_font_mask,
@@ -1203,10 +1330,24 @@ long vt_compat_ioctl(struct tty_struct *tty,
 {
 	struct vc_data *vc = tty->driver_data;
 	struct console_font_op op;	/* used in multiple places here */
+<<<<<<< HEAD
+=======
+	unsigned int console;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	void __user *up = (void __user *)arg;
 	int perm;
 	int ret = 0;
 
+<<<<<<< HEAD
+=======
+	console = vc->vc_num;
+
+	if (!vc_cons_allocated(console)) { 	/* impossible? */
+		ret = -ENOIOCTLCMD;
+		goto out;
+	}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/*
 	 * To have permissions to do most of the vt ioctls, we either have
 	 * to be the owner of the tty, or have CAP_SYS_TTY_CONFIG.
@@ -1266,7 +1407,11 @@ long vt_compat_ioctl(struct tty_struct *tty,
 		arg = (unsigned long)compat_ptr(arg);
 		goto fallback;
 	}
+<<<<<<< HEAD
 
+=======
+out:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return ret;
 
 fallback:

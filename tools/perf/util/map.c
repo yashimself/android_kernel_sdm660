@@ -85,7 +85,11 @@ static inline bool replace_android_lib(const char *filename, char *newfilename)
 		return true;
 	}
 
+<<<<<<< HEAD
 	if (!strncmp(filename, "/system/lib/", 12)) {
+=======
+	if (!strncmp(filename, "/system/lib/", 11)) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		char *ndk, *app;
 		const char *arch;
 		size_t ndk_length;

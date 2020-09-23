@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2015-2019, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2015-2020, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -42,6 +46,10 @@
 
 #define DEC_SVA 5
 #define MSM_DIG_CDC_VERSION_ENTRY_SIZE 32
+<<<<<<< HEAD
+=======
+#define ADSP_UP 1
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 static unsigned long rx_digital_gain_reg[] = {
 	MSM89XX_CDC_CORE_RX1_VOL_CTL_B2_CTL,
@@ -87,8 +95,18 @@ static int msm_digcdc_clock_control(bool flag)
 	if (flag) {
 		mutex_lock(&pdata->cdc_int_mclk0_mutex);
 		if (atomic_read(&pdata->int_mclk0_enabled) == false) {
+<<<<<<< HEAD
 			if (msm_dig_cdc->regmap->cache_only == true)
 				return ret;
+=======
+			if (msm_dig_cdc->regmap->cache_only == true) {
+				if (test_bit(ADSP_UP,
+						&msm_dig_cdc->status_mask))
+					msm_dig_cdc->regmap->cache_only = false;
+				else
+					return ret;
+			}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			if (pdata->native_clk_set)
 				pdata->digital_cdc_core_clk.clk_freq_in_hz =
 							NATIVE_MCLK_RATE;
@@ -1115,9 +1133,17 @@ static int msm_dig_cdc_event_notify(struct notifier_block *block,
 				MSM89XX_CDC_CORE_RX2_B3_CTL, 0x80, 0x00);
 		break;
 	case DIG_CDC_EVENT_SSR_DOWN:
+<<<<<<< HEAD
 		regcache_cache_only(msm_dig_cdc->regmap, true);
 		break;
 	case DIG_CDC_EVENT_SSR_UP:
+=======
+		clear_bit(ADSP_UP, &msm_dig_cdc->status_mask);
+		regcache_cache_only(msm_dig_cdc->regmap, true);
+		break;
+	case DIG_CDC_EVENT_SSR_UP:
+		set_bit(ADSP_UP, &msm_dig_cdc->status_mask);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		regcache_cache_only(msm_dig_cdc->regmap, false);
 		regcache_mark_dirty(msm_dig_cdc->regmap);
 
@@ -2145,6 +2171,10 @@ static int msm_dig_cdc_probe(struct platform_device *pdev)
 				msm_codec_dais, ARRAY_SIZE(msm_codec_dais));
 	dev_dbg(&pdev->dev, "%s: registered DIG CODEC 0x%x\n",
 			__func__, dig_cdc_addr);
+<<<<<<< HEAD
+=======
+	set_bit(ADSP_UP, &msm_dig_cdc->status_mask);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 rtn:
 	return ret;
 }

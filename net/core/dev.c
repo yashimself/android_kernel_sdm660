@@ -185,7 +185,11 @@ EXPORT_SYMBOL(dev_base_lock);
 static DEFINE_SPINLOCK(napi_hash_lock);
 
 static unsigned int napi_gen_id = NR_CPUS;
+<<<<<<< HEAD
 static DEFINE_HASHTABLE(napi_hash, 8);
+=======
+static DEFINE_READ_MOSTLY_HASHTABLE(napi_hash, 8);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 static seqcount_t devnet_rename_seq;
 
@@ -4328,7 +4332,10 @@ static enum gro_result dev_gro_receive(struct napi_struct *napi, struct sk_buff 
 		NAPI_GRO_CB(skb)->free = 0;
 		NAPI_GRO_CB(skb)->encap_mark = 0;
 		NAPI_GRO_CB(skb)->recursion_counter = 0;
+<<<<<<< HEAD
 		NAPI_GRO_CB(skb)->is_fou = 0;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		NAPI_GRO_CB(skb)->gro_remcsum_start = 0;
 
 		/* Setup for GRO checksum validation */
@@ -6163,8 +6170,12 @@ static int __dev_set_mtu(struct net_device *dev, int new_mtu)
 	if (ops->ndo_change_mtu)
 		return ops->ndo_change_mtu(dev, new_mtu);
 
+<<<<<<< HEAD
 	/* Pairs with all the lockless reads of dev->mtu in the stack */
 	WRITE_ONCE(dev->mtu, new_mtu);
+=======
+	dev->mtu = new_mtu;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return 0;
 }
 

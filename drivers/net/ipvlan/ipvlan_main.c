@@ -145,6 +145,10 @@ static void ipvlan_uninit(struct net_device *dev)
 static int ipvlan_open(struct net_device *dev)
 {
 	struct ipvl_dev *ipvlan = netdev_priv(dev);
+<<<<<<< HEAD
+=======
+	struct net_device *phy_dev = ipvlan->phy_dev;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct ipvl_addr *addr;
 
 	if (ipvlan->port->mode == IPVLAN_MODE_L3)
@@ -155,7 +159,11 @@ static int ipvlan_open(struct net_device *dev)
 	list_for_each_entry(addr, &ipvlan->addrs, anode)
 		ipvlan_ht_addr_add(ipvlan, addr);
 
+<<<<<<< HEAD
 	return 0;
+=======
+	return dev_uc_add(phy_dev, phy_dev->dev_addr);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static int ipvlan_stop(struct net_device *dev)
@@ -167,6 +175,11 @@ static int ipvlan_stop(struct net_device *dev)
 	dev_uc_unsync(phy_dev, dev);
 	dev_mc_unsync(phy_dev, dev);
 
+<<<<<<< HEAD
+=======
+	dev_uc_del(phy_dev, phy_dev->dev_addr);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	list_for_each_entry(addr, &ipvlan->addrs, anode)
 		ipvlan_ht_addr_del(addr);
 

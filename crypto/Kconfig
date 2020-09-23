@@ -1390,6 +1390,7 @@ config CRYPTO_SERPENT_AVX2_X86_64
 	  See also:
 	  <http://www.cl.cam.ac.uk/~rja14/serpent.html>
 
+<<<<<<< HEAD
 config CRYPTO_SPECK
 	tristate "Speck cipher algorithm"
 	select CRYPTO_ALGAPI
@@ -1404,6 +1405,8 @@ config CRYPTO_SPECK
 
 	  If unsure, say N.
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 config CRYPTO_TEA
 	tristate "TEA, XTEA and XETA cipher algorithms"
 	select CRYPTO_ALGAPI

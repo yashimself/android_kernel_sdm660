@@ -2,6 +2,7 @@
 include include/uapi/asm-generic/Kbuild.asm
 
 generic-y += kvm_para.h
+<<<<<<< HEAD
 
 header-y += auxvec.h
 header-y += bitsperlong.h
@@ -47,3 +48,5 @@ header-y += types.h
 header-y += ucontext.h
 header-y += unistd.h
 header-y += ustack.h
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

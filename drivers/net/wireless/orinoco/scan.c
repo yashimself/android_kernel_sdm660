@@ -111,7 +111,11 @@ static void orinoco_add_hostscan_result(struct orinoco_private *priv,
 	}
 
 	freq = ieee80211_channel_to_frequency(
+<<<<<<< HEAD
 		le16_to_cpu(bss->a.channel), NL80211_BAND_2GHZ);
+=======
+		le16_to_cpu(bss->a.channel), IEEE80211_BAND_2GHZ);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	channel = ieee80211_get_channel(wiphy, freq);
 	if (!channel) {
 		printk(KERN_DEBUG "Invalid channel designation %04X(%04X)",
@@ -148,7 +152,11 @@ void orinoco_add_extscan_result(struct orinoco_private *priv,
 	ie_len = len - sizeof(*bss);
 	ie = cfg80211_find_ie(WLAN_EID_DS_PARAMS, bss->data, ie_len);
 	chan = ie ? ie[2] : 0;
+<<<<<<< HEAD
 	freq = ieee80211_channel_to_frequency(chan, NL80211_BAND_2GHZ);
+=======
+	freq = ieee80211_channel_to_frequency(chan, IEEE80211_BAND_2GHZ);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	channel = ieee80211_get_channel(wiphy, freq);
 
 	timestamp = le64_to_cpu(bss->timestamp);

@@ -961,11 +961,14 @@ static int spi_qup_suspend(struct device *device)
 	struct spi_qup *controller = spi_master_get_devdata(master);
 	int ret;
 
+<<<<<<< HEAD
 	if (pm_runtime_suspended(device)) {
 		ret = spi_qup_pm_resume_runtime(device);
 		if (ret)
 			return ret;
 	}
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	ret = spi_master_suspend(master);
 	if (ret)
 		return ret;

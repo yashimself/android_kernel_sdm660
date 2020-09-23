@@ -72,7 +72,11 @@ static struct sctp_transport *sctp_transport_init(struct net *net,
 	 */
 	peer->rto = msecs_to_jiffies(net->sctp.rto_initial);
 
+<<<<<<< HEAD
 	peer->last_time_heard = ktime_set(0, 0);
+=======
+	peer->last_time_heard = ktime_get();
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	peer->last_time_ecne_reduced = jiffies;
 
 	peer->param_flags = SPP_HB_DISABLE |

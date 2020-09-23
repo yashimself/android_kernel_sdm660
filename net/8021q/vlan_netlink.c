@@ -92,6 +92,7 @@ static int vlan_changelink(struct net_device *dev,
 	struct ifla_vlan_flags *flags;
 	struct ifla_vlan_qos_mapping *m;
 	struct nlattr *attr;
+<<<<<<< HEAD
 	int rem, err;
 
 	if (data[IFLA_VLAN_FLAGS]) {
@@ -99,6 +100,13 @@ static int vlan_changelink(struct net_device *dev,
 		err = vlan_dev_change_flags(dev, flags->flags, flags->mask);
 		if (err)
 			return err;
+=======
+	int rem;
+
+	if (data[IFLA_VLAN_FLAGS]) {
+		flags = nla_data(data[IFLA_VLAN_FLAGS]);
+		vlan_dev_change_flags(dev, flags->flags, flags->mask);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 	if (data[IFLA_VLAN_INGRESS_QOS]) {
 		nla_for_each_nested(attr, data[IFLA_VLAN_INGRESS_QOS], rem) {
@@ -109,9 +117,13 @@ static int vlan_changelink(struct net_device *dev,
 	if (data[IFLA_VLAN_EGRESS_QOS]) {
 		nla_for_each_nested(attr, data[IFLA_VLAN_EGRESS_QOS], rem) {
 			m = nla_data(attr);
+<<<<<<< HEAD
 			err = vlan_dev_set_egress_priority(dev, m->from, m->to);
 			if (err)
 				return err;
+=======
+			vlan_dev_set_egress_priority(dev, m->from, m->to);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 	}
 	return 0;
@@ -154,11 +166,18 @@ static int vlan_newlink(struct net *src_net, struct net_device *dev,
 		return -EINVAL;
 
 	err = vlan_changelink(dev, tb, data);
+<<<<<<< HEAD
 	if (!err)
 		err = register_vlan_dev(dev);
 	if (err)
 		vlan_dev_uninit(dev);
 	return err;
+=======
+	if (err < 0)
+		return err;
+
+	return register_vlan_dev(dev);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static inline size_t vlan_qos_map_size(unsigned int n)

@@ -38,11 +38,15 @@
 #include <linux/of_address.h>
 
 #define RAMOOPS_KERNMSG_HDR "===="
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_X00TD
 #define MIN_MEM_SIZE 262144UL /* 256 * 1024UL */
 #else
 #define MIN_MEM_SIZE 4096UL
 #endif
+=======
+#define MIN_MEM_SIZE 4096UL
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 static ulong record_size = MIN_MEM_SIZE;
 module_param(record_size, ulong, 0400);
@@ -61,20 +65,28 @@ static ulong ramoops_pmsg_size = MIN_MEM_SIZE;
 module_param_named(pmsg_size, ramoops_pmsg_size, ulong, 0400);
 MODULE_PARM_DESC(pmsg_size, "size of user space message log");
 
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_X00TD
 static ulong mem_address = 0x9ff00000;
 #else
 static ulong mem_address;
 #endif
+=======
+static ulong mem_address;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 module_param(mem_address, ulong, 0400);
 MODULE_PARM_DESC(mem_address,
 		"start of reserved RAM used to store oops/panic logs");
 
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_X00TD
 static ulong mem_size = 0x00100000;
 #else
 static ulong mem_size;
 #endif
+=======
+static ulong mem_size;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 module_param(mem_size, ulong, 0400);
 MODULE_PARM_DESC(mem_size,
 		"size of reserved RAM used to store oops/panic logs");
@@ -309,7 +321,10 @@ static int notrace ramoops_pstore_write_buf(enum pstore_type_id type,
 	if (type != PSTORE_TYPE_DMESG)
 		return -EINVAL;
 
+<<<<<<< HEAD
 #ifndef CONFIG_MACH_ASUS_X00TD
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* Out of the various dmesg dump types, ramoops is currently designed
 	 * to only store crash logs, rather than storing general kernel logs.
 	 */
@@ -320,7 +335,10 @@ static int notrace ramoops_pstore_write_buf(enum pstore_type_id type,
 	/* Skip Oopes when configured to do so. */
 	if (reason == KMSG_DUMP_OOPS && !cxt->dump_oops)
 		return -EINVAL;
+<<<<<<< HEAD
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* Explicitly only take the first part of any new crash.
 	 * If our buffer is larger than kmsg_bytes, this can never happen,
@@ -335,6 +353,7 @@ static int notrace ramoops_pstore_write_buf(enum pstore_type_id type,
 
 	prz = cxt->przs[cxt->dump_write_cnt];
 
+<<<<<<< HEAD
 	/*
 	 * Since this is a new crash dump, we need to reset the buffer in
 	 * case it still has an old dump present. Without this, the new dump
@@ -346,6 +365,8 @@ static int notrace ramoops_pstore_write_buf(enum pstore_type_id type,
 	 */
 	persistent_ram_zap(prz);
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	hlen = ramoops_write_kmsg_hdr(prz, compressed);
 	if (size + hlen > prz->buffer_size)
 		size = prz->buffer_size - hlen;

@@ -223,7 +223,11 @@ static int ovl_check_whiteouts(struct dentry *dir, struct ovl_readdir_data *rdd)
 		}
 		mutex_unlock(&dir->d_inode->i_mutex);
 	}
+<<<<<<< HEAD
 	revert_creds(old_cred);
+=======
+	ovl_revert_creds(old_cred);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	return err;
 }

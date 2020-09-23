@@ -393,7 +393,11 @@ int mlx5_core_xrcd_alloc(struct mlx5_core_dev *dev, u32 *xrcdn)
 	if (out.hdr.status)
 		err = mlx5_cmd_status_to_err(&out.hdr);
 	else
+<<<<<<< HEAD
 		*xrcdn = be32_to_cpu(out.xrcdn) & 0xffffff;
+=======
+		*xrcdn = be32_to_cpu(out.xrcdn);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	return err;
 }

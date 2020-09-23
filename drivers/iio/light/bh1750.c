@@ -62,9 +62,15 @@ struct bh1750_chip_info {
 
 	u16 int_time_low_mask;
 	u16 int_time_high_mask;
+<<<<<<< HEAD
 };
 
 static const struct bh1750_chip_info bh1750_chip_info_tbl[] = {
+=======
+}
+
+static const bh1750_chip_info_tbl[] = {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	[BH1710] = { 140, 1022, 300, 400,  250000000, 2, 0x001F, 0x03E0 },
 	[BH1721] = { 140, 1020, 300, 400,  250000000, 2, 0x0010, 0x03E0 },
 	[BH1750] = { 31,  254,  69,  1740, 57500000,  1, 0x001F, 0x00E0 },

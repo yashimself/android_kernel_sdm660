@@ -1513,11 +1513,17 @@ static int srpt_build_cmd_rsp(struct srpt_rdma_ch *ch,
 			      struct srpt_send_ioctx *ioctx, u64 tag,
 			      int status)
 {
+<<<<<<< HEAD
 	struct se_cmd *cmd = &ioctx->cmd;
 	struct srp_rsp *srp_rsp;
 	const u8 *sense_data;
 	int sense_data_len, max_sense_len;
 	u32 resid = cmd->residual_count;
+=======
+	struct srp_rsp *srp_rsp;
+	const u8 *sense_data;
+	int sense_data_len, max_sense_len;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/*
 	 * The lowest bit of all SAM-3 status codes is zero (see also
@@ -1539,6 +1545,7 @@ static int srpt_build_cmd_rsp(struct srpt_rdma_ch *ch,
 	srp_rsp->tag = tag;
 	srp_rsp->status = status;
 
+<<<<<<< HEAD
 	if (cmd->se_cmd_flags & SCF_UNDERFLOW_BIT) {
 		if (cmd->data_direction == DMA_TO_DEVICE) {
 			/* residual data from an underflow write */
@@ -1561,6 +1568,8 @@ static int srpt_build_cmd_rsp(struct srpt_rdma_ch *ch,
 		}
 	}
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (sense_data_len) {
 		BUILD_BUG_ON(MIN_MAX_RSP_SIZE <= sizeof(*srp_rsp));
 		max_sense_len = ch->max_ti_iu_len - sizeof(*srp_rsp);

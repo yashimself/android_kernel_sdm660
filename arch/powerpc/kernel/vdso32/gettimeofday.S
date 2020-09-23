@@ -160,15 +160,23 @@ V_FUNCTION_BEGIN(__kernel_clock_getres)
 	cror	cr0*4+eq,cr0*4+eq,cr1*4+eq
 	bne	cr0,99f
 
+<<<<<<< HEAD
 	mflr	r12
   .cfi_register lr,r12
 	bl	__get_datapage@local	/* get data page */
 	lwz	r5, CLOCK_HRTIMER_RES(r3)
 	mtlr	r12
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	li	r3,0
 	cmpli	cr0,r4,0
 	crclr	cr0*4+so
 	beqlr
+<<<<<<< HEAD
+=======
+	lis	r5,CLOCK_REALTIME_RES@h
+	ori	r5,r5,CLOCK_REALTIME_RES@l
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	stw	r3,TSPC32_TV_SEC(r4)
 	stw	r5,TSPC32_TV_NSEC(r4)
 	blr

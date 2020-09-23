@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2018, 2020, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -26,15 +30,19 @@
 #include "mdss_dsi.h"
 #include "mdss_dba_utils.h"
 #include "mdss_debug.h"
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 #include "mdss_panel.h"
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #define DT_CMD_HDR 6
 #define DEFAULT_MDP_TRANSFER_TIME 14000
 
 #define VSYNC_DELAY msecs_to_jiffies(17)
 
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 static char mdss_mdp_panel[MDSS_MAX_PANEL_LEN];
 #endif
@@ -42,6 +50,8 @@ static char mdss_mdp_panel[MDSS_MAX_PANEL_LEN];
 #ifdef CONFIG_MACH_ASUS_X01BD
 extern bool shutdown_flag;
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 DEFINE_LED_TRIGGER(bl_led_trigger);
 
 void mdss_dsi_panel_pwm_cfg(struct mdss_dsi_ctrl_pdata *ctrl)
@@ -190,10 +200,15 @@ static void mdss_dsi_panel_apply_settings(struct mdss_dsi_ctrl_pdata *ctrl,
 	mdss_dsi_cmdlist_put(ctrl, &cmdreq);
 }
 
+<<<<<<< HEAD
 #if !defined(CONFIG_MACH_ASUS_X00TD) || !defined(CONFIG_MACH_ASUS_X01BD)
 static
 #endif
 void mdss_dsi_panel_cmds_send(struct mdss_dsi_ctrl_pdata *ctrl,
+=======
+
+static void mdss_dsi_panel_cmds_send(struct mdss_dsi_ctrl_pdata *ctrl,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			struct dsi_panel_cmds *pcmds, u32 flags)
 {
 	struct dcs_cmd_req cmdreq;
@@ -246,7 +261,11 @@ static void mdss_dsi_panel_bklt_dcs(struct mdss_dsi_ctrl_pdata *ctrl, int level)
 	memset(&cmdreq, 0, sizeof(cmdreq));
 	cmdreq.cmds = &backlight_cmd;
 	cmdreq.cmds_cnt = 1;
+<<<<<<< HEAD
 	cmdreq.flags = CMD_REQ_COMMIT | CMD_CLK_CTRL;
+=======
+	cmdreq.flags = CMD_REQ_COMMIT | CMD_CLK_CTRL | CMD_REQ_DCS;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	cmdreq.rlen = 0;
 	cmdreq.cb = NULL;
 
@@ -384,9 +403,12 @@ ret:
 	return rc;
 }
 
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) && defined(CONFIG_TOUCHSCREEN_SYNAPTICS_DSX_v27)
 extern long syna_gesture_mode;
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 int mdss_dsi_panel_reset(struct mdss_panel_data *pdata, int enable)
 {
 	struct mdss_dsi_ctrl_pdata *ctrl_pdata = NULL;
@@ -511,6 +533,7 @@ int mdss_dsi_panel_reset(struct mdss_panel_data *pdata, int enable)
 			gpio_set_value((ctrl_pdata->disp_en_gpio), 0);
 			gpio_free(ctrl_pdata->disp_en_gpio);
 		}
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) && defined(CONFIG_TOUCHSCREEN_SYNAPTICS_DSX_v27)
 		if (strstr(mdss_mdp_panel,
 			"qcom,mdss_dsi_td4310_1080p_video_txd") &&
@@ -536,6 +559,9 @@ int mdss_dsi_panel_reset(struct mdss_panel_data *pdata, int enable)
 		}
 
 #endif
+=======
+		gpio_set_value((ctrl_pdata->rst_gpio), 0);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		gpio_free(ctrl_pdata->rst_gpio);
 		if (gpio_is_valid(ctrl_pdata->lcd_mode_sel_gpio)) {
 			gpio_set_value(ctrl_pdata->lcd_mode_sel_gpio, 0);
@@ -2067,12 +2093,16 @@ static void mdss_dsi_parse_esd_params(struct device_node *np,
 
 	pinfo->esd_check_enabled = of_property_read_bool(np,
 		"qcom,esd-check-enabled");
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_X01BD
 	if(strstr(mdss_mdp_panel, "esd_disabled")) {
 		pr_err("qimk no panel no esd\n");
 		pinfo->esd_check_enabled = 0;
 	}
 #endif
+=======
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!pinfo->esd_check_enabled)
 		return;
 
@@ -2981,10 +3011,14 @@ static int mdss_panel_parse_dt(struct device_node *np,
 
 	mdss_dsi_parse_dcs_cmds(np, &ctrl_pdata->off_cmds,
 		"qcom,mdss-dsi-off-command", "qcom,mdss-dsi-off-command-state");
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 	mdss_dsi_parse_dcs_cmds(np, &ctrl_pdata->esd_recover_cmds,
 		"qcom,mdss-dsi-esd-recover-command", "qcom,mdss-dsi-esd-recover-command-state");
 #endif
+=======
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	rc = of_property_read_u32(np, "qcom,adjust-timer-wakeup-ms", &tmp);
 	pinfo->adjust_timer_delay_ms = (!rc ? tmp : 0);
 

@@ -546,7 +546,11 @@ static void bdc_req_complete(struct bdc_ep *ep, struct bdc_req *req,
 {
 	struct bdc *bdc = ep->bdc;
 
+<<<<<<< HEAD
 	if (req == NULL)
+=======
+	if (req == NULL  || &req->queue == NULL || &req->usb_req == NULL)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return;
 
 	dev_dbg(bdc->dev, "%s ep:%s status:%d\n", __func__, ep->name, status);

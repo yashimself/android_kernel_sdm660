@@ -5910,16 +5910,24 @@ static void buffer_pipe_buf_release(struct pipe_inode_info *pipe,
 	buf->private = 0;
 }
 
+<<<<<<< HEAD
 static bool buffer_pipe_buf_get(struct pipe_inode_info *pipe,
+=======
+static void buffer_pipe_buf_get(struct pipe_inode_info *pipe,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				struct pipe_buffer *buf)
 {
 	struct buffer_ref *ref = (struct buffer_ref *)buf->private;
 
+<<<<<<< HEAD
 	if (ref->ref > INT_MAX/2)
 		return false;
 
 	ref->ref++;
 	return true;
+=======
+	ref->ref++;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /* Pipe buffer operations for a buffer. */

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2018, 2020, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -1091,6 +1095,18 @@ int msm_vidc_dqbuf(void *instance, struct v4l2_buffer *b)
 		b->m.planes[i].m.userptr = buffer_info->uvaddr[i];
 		b->m.planes[i].reserved[0] = buffer_info->fd[i];
 		b->m.planes[i].reserved[1] = buffer_info->buff_off[i];
+<<<<<<< HEAD
+=======
+
+		b->m.planes[i].reserved[2] = buffer_info->crop_data.nLeft;
+		b->m.planes[i].reserved[3] = buffer_info->crop_data.nTop;
+		b->m.planes[i].reserved[4] = buffer_info->crop_data.nWidth;
+		b->m.planes[i].reserved[5] = buffer_info->crop_data.nHeight;
+		b->m.planes[i].reserved[6] =
+				buffer_info->crop_data.width_height[0];
+		b->m.planes[i].reserved[7] =
+				buffer_info->crop_data.width_height[1];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (!(inst->flags & VIDC_SECURE) && !b->m.planes[i].m.userptr) {
 			dprintk(VIDC_ERR,
 			"%s: Failed to find user virtual address, %#lx, %d, %d\n",
@@ -1536,11 +1552,19 @@ int msm_vidc_destroy(struct msm_vidc_inst *inst)
 static void close_helper(struct kref *kref)
 {
 	struct msm_vidc_inst *inst = container_of(kref,
+<<<<<<< HEAD
 			struct msm_vidc_inst, kref);
+=======
+					struct msm_vidc_inst, kref);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	msm_vidc_destroy(inst);
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 int msm_vidc_close(void *instance)
 {
 	struct msm_vidc_inst *inst = instance;

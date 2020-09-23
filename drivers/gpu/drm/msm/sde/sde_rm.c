@@ -36,6 +36,10 @@
 #define RM_RQ_DSPP(r) ((r)->top_ctrl & BIT(SDE_RM_TOPCTL_DSPP))
 #define RM_RQ_PPSPLIT(r) ((r)->top_ctrl & BIT(SDE_RM_TOPCTL_PPSPLIT))
 #define RM_RQ_FORCE_TILING(r) ((r)->top_ctrl & BIT(SDE_RM_TOPCTL_FORCE_TILING))
+<<<<<<< HEAD
+=======
+#define RM_RQ_FORCE_MIXER(r) ((r)->top_ctrl & BIT(SDE_RM_TOPCTL_FORCE_MIXER))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 /**
  * struct sde_rm_requirements - Reservation requirements parameter bundle
@@ -685,7 +689,11 @@ static int _sde_rm_reserve_lms(
 	int i, rc = 0;
 
 	if (!reqs->num_lm) {
+<<<<<<< HEAD
 		SDE_ERROR("invalid number of lm: %d\n", reqs->num_lm);
+=======
+		SDE_DEBUG("invalid no of lm %d\n", reqs->num_lm);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return -EINVAL;
 	}
 
@@ -1192,6 +1200,11 @@ static int _sde_rm_populate_requirements(
 
 	reqs->top_ctrl = sde_connector_get_property(conn_state,
 			CONNECTOR_PROP_TOPOLOGY_CONTROL);
+<<<<<<< HEAD
+=======
+	SDE_DEBUG("%s reqs->top_ctrl = %llu\n", __func__, reqs->top_ctrl);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	sde_encoder_get_hw_resources(enc, &reqs->hw_res, conn_state);
 
 	/* Base assumption is LMs = h_tiles, conditions below may override */
@@ -1212,7 +1225,16 @@ static int _sde_rm_populate_requirements(
 		}
 
 	} else if (reqs->num_lm == 1) {
+<<<<<<< HEAD
 		if (mode->hdisplay > rm->lm_max_width) {
+=======
+		if (RM_RQ_FORCE_MIXER(reqs)) {
+			/* user request serving wide display with 1 lm */
+			reqs->top_name = SDE_RM_TOPOLOGY_SINGLEPIPE;
+			reqs->num_ctl = 1;
+			reqs->needs_split_display = false;
+		} else if (mode->hdisplay > rm->lm_max_width) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			/* wide display, must split across 2 lm and merge */
 			reqs->top_name = SDE_RM_TOPOLOGY_DUALPIPEMERGE;
 			reqs->num_lm = 2;
@@ -1441,6 +1463,10 @@ int sde_rm_reserve(
 	struct sde_rm_requirements reqs;
 	struct msm_drm_private *priv;
 	struct sde_kms *sde_kms;
+<<<<<<< HEAD
+=======
+	struct sde_connector *sde_conn;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int ret;
 
 	if (!rm || !enc || !crtc_state || !conn_state) {
@@ -1465,6 +1491,13 @@ int sde_rm_reserve(
 	if (!drm_atomic_crtc_needs_modeset(crtc_state))
 		return 0;
 
+<<<<<<< HEAD
+=======
+	sde_conn = to_sde_connector(conn_state->connector);
+	if (sde_conn->is_shared)
+		return 0;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	SDE_DEBUG("reserving hw for conn %d enc %d crtc %d test_only %d\n",
 			conn_state->connector->base.id, enc->base.id,
 			crtc_state->crtc->base.id, test_only);
@@ -1559,6 +1592,110 @@ end:
 	return ret;
 }
 
+<<<<<<< HEAD
+=======
+int sde_rm_ext_blk_create_reserve(struct sde_rm *rm,
+		enum sde_hw_blk_type type,
+		uint32_t id,
+		void *hw,
+		struct drm_encoder *enc)
+{
+	struct sde_rm_hw_blk *blk;
+	struct sde_rm_rsvp *rsvp;
+	int ret = 0;
+
+	if (!rm || !hw || !enc) {
+		SDE_ERROR("invalid parameters\n");
+		return -EINVAL;
+	}
+
+	if (type >= SDE_HW_BLK_MAX) {
+		SDE_ERROR("invalid HW type\n");
+		return -EINVAL;
+	}
+
+	blk = kzalloc(sizeof(*blk), GFP_KERNEL);
+	if (!blk) {
+		_sde_rm_hw_destroy(type, hw);
+		return -ENOMEM;
+	}
+
+	mutex_lock(&rm->rm_lock);
+
+	rsvp = _sde_rm_get_rsvp(rm, enc);
+	if (!rsvp) {
+		rsvp = kzalloc(sizeof(*rsvp), GFP_KERNEL);
+		if (!rsvp) {
+			ret = -ENOMEM;
+			kfree(blk);
+			goto end;
+		}
+
+		rsvp->seq = ++rm->rsvp_next_seq;
+		rsvp->enc_id = enc->base.id;
+		list_add_tail(&rsvp->list, &rm->rsvps);
+
+		SDE_DEBUG("create rsvp %d for enc %d\n",
+					rsvp->seq, rsvp->enc_id);
+	}
+
+	blk->type = type;
+	blk->id = id;
+	blk->hw = hw;
+	blk->rsvp = rsvp;
+	list_add_tail(&blk->list, &rm->hw_blks[type]);
+
+	SDE_DEBUG("create blk %d %d for rsvp %d enc %d\n", blk->type, blk->id,
+					rsvp->seq, rsvp->enc_id);
+
+end:
+	mutex_unlock(&rm->rm_lock);
+	return ret;
+}
+
+int sde_rm_ext_blk_destroy(struct sde_rm *rm,
+		struct drm_encoder *enc)
+{
+	struct sde_rm_hw_blk *blk = NULL, *p;
+	struct sde_rm_rsvp *rsvp;
+	enum sde_hw_blk_type type;
+	int ret = 0;
+
+	if (!rm || !enc) {
+		SDE_ERROR("invalid parameters\n");
+		return -EINVAL;
+	}
+
+	mutex_lock(&rm->rm_lock);
+
+	rsvp = _sde_rm_get_rsvp(rm, enc);
+	if (!rsvp) {
+		ret = -ENOENT;
+		SDE_ERROR("failed to find rsvp for enc %d\n", enc->base.id);
+		goto end;
+	}
+
+	for (type = 0; type < SDE_HW_BLK_MAX; type++) {
+		list_for_each_entry_safe(blk, p, &rm->hw_blks[type], list) {
+			if (blk->rsvp == rsvp) {
+				list_del(&blk->list);
+				SDE_DEBUG("del blk %d %d from rsvp %d enc %d\n",
+						blk->type, blk->id,
+						rsvp->seq, rsvp->enc_id);
+				kfree(blk);
+			}
+		}
+	}
+
+	SDE_DEBUG("del rsvp %d\n", rsvp->seq);
+	list_del(&rsvp->list);
+	kfree(rsvp);
+end:
+	mutex_unlock(&rm->rm_lock);
+	return ret;
+}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int _sde_rm_get_ctl_lm_for_splash(struct sde_hw_ctl *ctl,
 		int max_lm_cnt, u8 lm_cnt, u8 *lm_ids,
 		struct splash_ctl_top *top, int index)

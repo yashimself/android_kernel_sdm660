@@ -9942,6 +9942,7 @@ static void bnx2x_recovery_failed(struct bnx2x *bp)
  */
 static void bnx2x_parity_recover(struct bnx2x *bp)
 {
+<<<<<<< HEAD
 	u32 error_recovered, error_unrecovered;
 	bool is_parity, global = false;
 #ifdef CONFIG_BNX2X_SRIOV
@@ -9954,6 +9955,12 @@ static void bnx2x_parity_recover(struct bnx2x *bp)
 			vf->state = VF_LOST;
 	}
 #endif
+=======
+	bool global = false;
+	u32 error_recovered, error_unrecovered;
+	bool is_parity;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	DP(NETIF_MSG_HW, "Handling parity\n");
 	while (1) {
 		switch (bp->recovery_state) {

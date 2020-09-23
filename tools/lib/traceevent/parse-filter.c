@@ -1484,10 +1484,15 @@ static int copy_filter_type(struct event_filter *filter,
 	if (strcmp(str, "TRUE") == 0 || strcmp(str, "FALSE") == 0) {
 		/* Add trivial event */
 		arg = allocate_arg();
+<<<<<<< HEAD
 		if (arg == NULL) {
 			free(str);
 			return -1;
 		}
+=======
+		if (arg == NULL)
+			return -1;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		arg->type = FILTER_ARG_BOOLEAN;
 		if (strcmp(str, "TRUE") == 0)
@@ -1496,11 +1501,16 @@ static int copy_filter_type(struct event_filter *filter,
 			arg->boolean.value = 0;
 
 		filter_type = add_filter_type(filter, event->id);
+<<<<<<< HEAD
 		if (filter_type == NULL) {
 			free(str);
 			free_arg(arg);
 			return -1;
 		}
+=======
+		if (filter_type == NULL)
+			return -1;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		filter_type->filter = arg;
 

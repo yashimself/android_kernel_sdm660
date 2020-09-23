@@ -2321,7 +2321,11 @@ ahc_find_syncrate(struct ahc_softc *ahc, u_int *period,
 			 * At some speeds, we only support
 			 * ST transfers.
 			 */
+<<<<<<< HEAD
 			if ((syncrate->sxfr_u2 & ST_SXFR) != 0)
+=======
+		 	if ((syncrate->sxfr_u2 & ST_SXFR) != 0)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				*ppr_options &= ~MSG_EXT_PPR_DT_REQ;
 			break;
 		}

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2014-2016, 2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2014-2016, 2018, 2020, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -663,7 +667,11 @@ static void cpe_notify_cmi_client(struct cpe_info *t_info, u8 *payload,
 	hdr = CMI_GET_HEADER(payload);
 	service = CMI_HDR_GET_SERVICE(hdr);
 
+<<<<<<< HEAD
 	notif.event = CPE_SVC_CMI_MSG;
+=======
+	notif.event = (enum cmi_api_event)CPE_SVC_CMI_MSG;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	notif.result = result;
 	notif.message = payload;
 
@@ -1178,7 +1186,11 @@ static enum cpe_process_result cpe_boot_complete(
 	}
 
 	pr_debug("%s: boot complete\n", __func__);
+<<<<<<< HEAD
 	return CPE_SVC_SUCCESS;
+=======
+	return CPE_PROC_SUCCESS;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static enum cpe_process_result cpe_process_send_msg(

@@ -1528,8 +1528,11 @@ static int ravb_close(struct net_device *ndev)
 		priv->phydev = NULL;
 	}
 
+<<<<<<< HEAD
 	if (priv->chip_id == RCAR_GEN3)
 		free_irq(priv->emac_irq, ndev);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	free_irq(ndev->irq, ndev);
 
 	napi_disable(&priv->napi[RAVB_NC]);

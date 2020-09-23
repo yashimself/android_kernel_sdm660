@@ -387,6 +387,7 @@ do {									\
 #define __get_user_asm_byte(x, addr, err)			\
 	__get_user_asm(x, addr, err, ldrb)
 
+<<<<<<< HEAD
 #if __LINUX_ARM_ARCH__ >= 6
 
 #define __get_user_asm_half(x, addr, err)			\
@@ -394,6 +395,8 @@ do {									\
 
 #else
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #ifndef __ARMEB__
 #define __get_user_asm_half(x, __gu_addr, err)			\
 ({								\
@@ -412,8 +415,11 @@ do {									\
 })
 #endif
 
+<<<<<<< HEAD
 #endif /* __LINUX_ARM_ARCH__ >= 6 */
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #define __get_user_asm_word(x, addr, err)			\
 	__get_user_asm(x, addr, err, ldr)
 #endif
@@ -489,6 +495,7 @@ do {									\
 #define __put_user_asm_byte(x, __pu_addr, err)			\
 	__put_user_asm(x, __pu_addr, err, strb)
 
+<<<<<<< HEAD
 #if __LINUX_ARM_ARCH__ >= 6
 
 #define __put_user_asm_half(x, __pu_addr, err)			\
@@ -496,6 +503,8 @@ do {									\
 
 #else
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #ifndef __ARMEB__
 #define __put_user_asm_half(x, __pu_addr, err)			\
 ({								\
@@ -512,8 +521,11 @@ do {									\
 })
 #endif
 
+<<<<<<< HEAD
 #endif /* __LINUX_ARM_ARCH__ >= 6 */
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #define __put_user_asm_word(x, __pu_addr, err)			\
 	__put_user_asm(x, __pu_addr, err, str)
 

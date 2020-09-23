@@ -454,10 +454,15 @@ lpfc_rcv_plogi(struct lpfc_vport *vport, struct lpfc_nodelist *ndlp,
 	 * single discovery thread, this will cause a huge delay in
 	 * discovery. Also this will cause multiple state machines
 	 * running in parallel for this node.
+<<<<<<< HEAD
 	 * This only applies to a fabric environment.
 	 */
 	if ((ndlp->nlp_state == NLP_STE_PLOGI_ISSUE) &&
 	    (vport->fc_flag & FC_FABRIC)) {
+=======
+	 */
+	if (ndlp->nlp_state == NLP_STE_PLOGI_ISSUE) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		/* software abort outstanding PLOGI */
 		lpfc_els_abort(phba, ndlp);
 	}

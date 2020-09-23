@@ -235,12 +235,16 @@ int eth_header_cache(const struct neighbour *neigh, struct hh_cache *hh, __be16 
 	eth->h_proto = type;
 	memcpy(eth->h_source, dev->dev_addr, ETH_ALEN);
 	memcpy(eth->h_dest, neigh->ha, ETH_ALEN);
+<<<<<<< HEAD
 
 	/* Pairs with READ_ONCE() in neigh_resolve_output(),
 	 * neigh_hh_output() and neigh_update_hhs().
 	 */
 	smp_store_release(&hh->hh_len, ETH_HLEN);
 
+=======
+	hh->hh_len = ETH_HLEN;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return 0;
 }
 EXPORT_SYMBOL(eth_header_cache);

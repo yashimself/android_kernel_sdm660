@@ -63,11 +63,15 @@ static void atmel_hlcdc_crtc_mode_set_nofb(struct drm_crtc *c)
 	struct videomode vm;
 	unsigned long prate;
 	unsigned int cfg;
+<<<<<<< HEAD
 	int div, ret;
 
 	ret = clk_prepare_enable(crtc->dc->hlcdc->sys_clk);
 	if (ret)
 		return;
+=======
+	int div;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	vm.vfront_porch = adj->crtc_vsync_start - adj->crtc_vdisplay;
 	vm.vback_porch = adj->crtc_vtotal - adj->crtc_vsync_end;
@@ -123,8 +127,11 @@ static void atmel_hlcdc_crtc_mode_set_nofb(struct drm_crtc *c)
 			   ATMEL_HLCDC_VSPSU | ATMEL_HLCDC_VSPHO |
 			   ATMEL_HLCDC_GUARDTIME_MASK,
 			   cfg);
+<<<<<<< HEAD
 
 	clk_disable_unprepare(crtc->dc->hlcdc->sys_clk);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static bool atmel_hlcdc_crtc_mode_fixup(struct drm_crtc *crtc,

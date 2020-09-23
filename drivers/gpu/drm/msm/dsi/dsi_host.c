@@ -30,8 +30,11 @@
 #include "dsi.xml.h"
 #include "dsi_cfg.h"
 
+<<<<<<< HEAD
 #define DSI_RESET_TOGGLE_DELAY_MS 20
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int dsi_get_version(const void __iomem *base, u32 *major, u32 *minor)
 {
 	u32 ver;
@@ -597,7 +600,11 @@ static inline enum dsi_cmd_dst_format dsi_get_cmd_fmt(
 	switch (mipi_fmt) {
 	case MIPI_DSI_FMT_RGB888:	return CMD_DST_FORMAT_RGB888;
 	case MIPI_DSI_FMT_RGB666_PACKED:
+<<<<<<< HEAD
 	case MIPI_DSI_FMT_RGB666:	return VID_DST_FORMAT_RGB666;
+=======
+	case MIPI_DSI_FMT_RGB666:	return CMD_DST_FORMAT_RGB666;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	case MIPI_DSI_FMT_RGB565:	return CMD_DST_FORMAT_RGB565;
 	default:			return CMD_DST_FORMAT_RGB888;
 	}
@@ -766,7 +773,11 @@ static void dsi_sw_reset(struct msm_dsi_host *msm_host)
 	wmb(); /* clocks need to be enabled before reset */
 
 	dsi_write(msm_host, REG_DSI_RESET, 1);
+<<<<<<< HEAD
 	msleep(DSI_RESET_TOGGLE_DELAY_MS); /* make sure reset happen */
+=======
+	wmb(); /* make sure reset happen */
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	dsi_write(msm_host, REG_DSI_RESET, 0);
 }
 
@@ -1110,7 +1121,11 @@ static void dsi_sw_reset_restore(struct msm_dsi_host *msm_host)
 
 	/* dsi controller can only be reset while clocks are running */
 	dsi_write(msm_host, REG_DSI_RESET, 1);
+<<<<<<< HEAD
 	msleep(DSI_RESET_TOGGLE_DELAY_MS); /* make sure reset happen */
+=======
+	wmb();	/* make sure reset happen */
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	dsi_write(msm_host, REG_DSI_RESET, 0);
 	wmb();	/* controller out of reset */
 	dsi_write(msm_host, REG_DSI_CTRL, data0);

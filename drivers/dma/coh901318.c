@@ -1810,10 +1810,19 @@ static struct dma_chan *coh901318_xlate(struct of_phandle_args *dma_spec,
 static int coh901318_config(struct coh901318_chan *cohc,
 			    struct coh901318_params *param)
 {
+<<<<<<< HEAD
+=======
+	unsigned long flags;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	const struct coh901318_params *p;
 	int channel = cohc->id;
 	void __iomem *virtbase = cohc->base->virtbase;
 
+<<<<<<< HEAD
+=======
+	spin_lock_irqsave(&cohc->lock, flags);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (param)
 		p = param;
 	else
@@ -1833,6 +1842,11 @@ static int coh901318_config(struct coh901318_chan *cohc,
 	coh901318_set_conf(cohc, p->config);
 	coh901318_set_ctrl(cohc, p->ctrl_lli_last);
 
+<<<<<<< HEAD
+=======
+	spin_unlock_irqrestore(&cohc->lock, flags);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return 0;
 }
 
@@ -1960,6 +1974,11 @@ static void dma_tc_handle(struct coh901318_chan *cohc)
 		return;
 	}
 
+<<<<<<< HEAD
+=======
+	spin_lock(&cohc->lock);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/*
 	 * When we reach this point, at least one queue item
 	 * should have been moved over from cohc->queue to
@@ -1980,6 +1999,11 @@ static void dma_tc_handle(struct coh901318_chan *cohc)
 	if (coh901318_queue_start(cohc) == NULL)
 		cohc->busy = 0;
 
+<<<<<<< HEAD
+=======
+	spin_unlock(&cohc->lock);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/*
 	 * This tasklet will remove items from cohc->active
 	 * and thus terminates them.

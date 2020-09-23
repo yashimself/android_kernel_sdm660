@@ -663,7 +663,10 @@ static int snd_vt1724_set_pro_rate(struct snd_ice1712 *ice, unsigned int rate,
 	unsigned long flags;
 	unsigned char mclk_change;
 	unsigned int i, old_rate;
+<<<<<<< HEAD
 	bool call_set_rate = false;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (rate > ice->hw_rates->list[ice->hw_rates->count - 1])
 		return -EINVAL;
@@ -687,7 +690,11 @@ static int snd_vt1724_set_pro_rate(struct snd_ice1712 *ice, unsigned int rate,
 		 * setting clock rate for internal clock mode */
 		old_rate = ice->get_rate(ice);
 		if (force || (old_rate != rate))
+<<<<<<< HEAD
 			call_set_rate = true;
+=======
+			ice->set_rate(ice, rate);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		else if (rate == ice->cur_rate) {
 			spin_unlock_irqrestore(&ice->reg_lock, flags);
 			return 0;
@@ -695,14 +702,22 @@ static int snd_vt1724_set_pro_rate(struct snd_ice1712 *ice, unsigned int rate,
 	}
 
 	ice->cur_rate = rate;
+<<<<<<< HEAD
 	spin_unlock_irqrestore(&ice->reg_lock, flags);
 
 	if (call_set_rate)
 		ice->set_rate(ice, rate);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* setting master clock */
 	mclk_change = ice->set_mclk(ice, rate);
 
+<<<<<<< HEAD
+=======
+	spin_unlock_irqrestore(&ice->reg_lock, flags);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (mclk_change && ice->gpio.i2s_mclk_changed)
 		ice->gpio.i2s_mclk_changed(ice);
 	if (ice->gpio.set_pro_rate)

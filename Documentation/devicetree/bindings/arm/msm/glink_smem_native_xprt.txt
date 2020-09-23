@@ -11,6 +11,10 @@ Required properties:
 -label : the name of the subsystem this link connects to
 
 Optional properties:
+<<<<<<< HEAD
+=======
+-cpu-affinity: Cores to pin the interrupt and receiving work thread to.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 -qcom,qos-config: Reference to the qos configuration elements.It depends on
 		ramp-time.
 -qcom,ramp-time: Worst case time in microseconds to transition to this power
@@ -36,6 +40,10 @@ Example:
 		qcom,irq-mask = <0x1000>;
 		interrupts = <0 25 1>;
 		label = "lpass";
+<<<<<<< HEAD
+=======
+		cpu-affinity = <1 2>;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		qcom,qos-config = <&glink_qos_adsp>;
 		qcom,ramp-time = <0x10>,
 				     <0x20>,

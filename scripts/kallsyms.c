@@ -455,8 +455,11 @@ static void build_initial_tok_table(void)
 				table[pos] = table[i];
 			learn_symbol(table[pos].sym, table[pos].len);
 			pos++;
+<<<<<<< HEAD
 		} else {
 			free(table[i].sym);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 	}
 	table_cnt = pos;

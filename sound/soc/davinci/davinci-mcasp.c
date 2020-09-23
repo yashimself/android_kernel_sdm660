@@ -875,6 +875,7 @@ static int mcasp_i2s_hw_param(struct davinci_mcasp *mcasp, int stream,
 		active_slots = hweight32(mcasp->tdm_mask[stream]);
 		active_serializers = (channels + active_slots - 1) /
 			active_slots;
+<<<<<<< HEAD
 		if (active_serializers == 1)
 			active_slots = channels;
 		for (i = 0; i < total_slots; i++) {
@@ -882,6 +883,16 @@ static int mcasp_i2s_hw_param(struct davinci_mcasp *mcasp, int stream,
 				mask |= (1 << i);
 				if (--active_slots <= 0)
 					break;
+=======
+		if (active_serializers == 1) {
+			active_slots = channels;
+			for (i = 0; i < total_slots; i++) {
+				if ((1 << i) & mcasp->tdm_mask[stream]) {
+					mask |= (1 << i);
+					if (--active_slots <= 0)
+						break;
+				}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			}
 		}
 	} else {

@@ -875,6 +875,53 @@ static int ieee80211_stop_ap(struct wiphy *wiphy, struct net_device *dev)
 	return 0;
 }
 
+<<<<<<< HEAD
+=======
+/* Layer 2 Update frame (802.2 Type 1 LLC XID Update response) */
+struct iapp_layer2_update {
+	u8 da[ETH_ALEN];	/* broadcast */
+	u8 sa[ETH_ALEN];	/* STA addr */
+	__be16 len;		/* 6 */
+	u8 dsap;		/* 0 */
+	u8 ssap;		/* 0 */
+	u8 control;
+	u8 xid_info[3];
+} __packed;
+
+static void ieee80211_send_layer2_update(struct sta_info *sta)
+{
+	struct iapp_layer2_update *msg;
+	struct sk_buff *skb;
+
+	/* Send Level 2 Update Frame to update forwarding tables in layer 2
+	 * bridge devices */
+
+	skb = dev_alloc_skb(sizeof(*msg));
+	if (!skb)
+		return;
+	msg = (struct iapp_layer2_update *)skb_put(skb, sizeof(*msg));
+
+	/* 802.2 Type 1 Logical Link Control (LLC) Exchange Identifier (XID)
+	 * Update response frame; IEEE Std 802.2-1998, 5.4.1.2.1 */
+
+	eth_broadcast_addr(msg->da);
+	memcpy(msg->sa, sta->sta.addr, ETH_ALEN);
+	msg->len = htons(6);
+	msg->dsap = 0;
+	msg->ssap = 0x01;	/* NULL LSAP, CR Bit: Response */
+	msg->control = 0xaf;	/* XID response lsb.1111F101.
+				 * F=0 (no poll command; unsolicited frame) */
+	msg->xid_info[0] = 0x81;	/* XID format identifier */
+	msg->xid_info[1] = 1;	/* LLC types/classes: Type 1 LLC */
+	msg->xid_info[2] = 0;	/* XID sender's receive window size (RW) */
+
+	skb->dev = sta->sdata->dev;
+	skb->protocol = eth_type_trans(skb, sta->sdata->dev);
+	memset(skb->cb, 0, sizeof(skb->cb));
+	netif_rx_ni(skb);
+}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int sta_apply_auth_flags(struct ieee80211_local *local,
 				struct sta_info *sta,
 				u32 mask, u32 set)
@@ -1001,7 +1048,11 @@ static int sta_apply_parameters(struct ieee80211_local *local,
 	int ret = 0;
 	struct ieee80211_supported_band *sband;
 	struct ieee80211_sub_if_data *sdata = sta->sdata;
+<<<<<<< HEAD
 	enum nl80211_band band = ieee80211_get_sdata_band(sdata);
+=======
+	enum ieee80211_band band = ieee80211_get_sdata_band(sdata);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	u32 mask, set;
 
 	sband = local->hw.wiphy->bands[band];
@@ -1150,6 +1201,10 @@ static int ieee80211_add_station(struct wiphy *wiphy, struct net_device *dev,
 	struct sta_info *sta;
 	struct ieee80211_sub_if_data *sdata;
 	int err;
+<<<<<<< HEAD
+=======
+	int layer2_update;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (params->vlan) {
 		sdata = IEEE80211_DEV_TO_SUB_IF(params->vlan);
@@ -1203,12 +1258,24 @@ static int ieee80211_add_station(struct wiphy *wiphy, struct net_device *dev,
 	    test_sta_flag(sta, WLAN_STA_ASSOC))
 		rate_control_rate_init(sta);
 
+<<<<<<< HEAD
+=======
+	layer2_update = sdata->vif.type == NL80211_IFTYPE_AP_VLAN ||
+		sdata->vif.type == NL80211_IFTYPE_AP;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	err = sta_info_insert_rcu(sta);
 	if (err) {
 		rcu_read_unlock();
 		return err;
 	}
 
+<<<<<<< HEAD
+=======
+	if (layer2_update)
+		ieee80211_send_layer2_update(sta);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	rcu_read_unlock();
 
 	return 0;
@@ -1316,9 +1383,13 @@ static int ieee80211_change_station(struct wiphy *wiphy,
 				atomic_inc(&sta->sdata->bss->num_mcast_sta);
 		}
 
+<<<<<<< HEAD
 		if (sta->sta_state == IEEE80211_STA_AUTHORIZED)
 			cfg80211_send_layer2_update(sta->sdata->dev,
 						    sta->sta.addr);
+=======
+		ieee80211_send_layer2_update(sta);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	err = sta_apply_parameters(local, sta, params);
@@ -1777,7 +1848,11 @@ static int ieee80211_change_bss(struct wiphy *wiphy,
 				struct bss_parameters *params)
 {
 	struct ieee80211_sub_if_data *sdata = IEEE80211_DEV_TO_SUB_IF(dev);
+<<<<<<< HEAD
 	enum nl80211_band band;
+=======
+	enum ieee80211_band band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	u32 changed = 0;
 
 	if (!sdata_dereference(sdata->u.ap.beacon, sdata))
@@ -1796,7 +1871,11 @@ static int ieee80211_change_bss(struct wiphy *wiphy,
 	}
 
 	if (!sdata->vif.bss_conf.use_short_slot &&
+<<<<<<< HEAD
 	    band == NL80211_BAND_5GHZ) {
+=======
+	    band == IEEE80211_BAND_5GHZ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		sdata->vif.bss_conf.use_short_slot = true;
 		changed |= BSS_CHANGED_ERP_SLOT;
 	}
@@ -2020,12 +2099,20 @@ static int ieee80211_leave_ocb(struct wiphy *wiphy, struct net_device *dev)
 }
 
 static int ieee80211_set_mcast_rate(struct wiphy *wiphy, struct net_device *dev,
+<<<<<<< HEAD
 				    int rate[NUM_NL80211_BANDS])
+=======
+				    int rate[IEEE80211_NUM_BANDS])
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	struct ieee80211_sub_if_data *sdata = IEEE80211_DEV_TO_SUB_IF(dev);
 
 	memcpy(sdata->vif.bss_conf.mcast_rate, rate,
+<<<<<<< HEAD
 	       sizeof(int) * NUM_NL80211_BANDS);
+=======
+	       sizeof(int) * IEEE80211_NUM_BANDS);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	return 0;
 }
@@ -2430,7 +2517,11 @@ static int ieee80211_set_bitrate_mask(struct wiphy *wiphy,
 			return ret;
 	}
 
+<<<<<<< HEAD
 	for (i = 0; i < NUM_NL80211_BANDS; i++) {
+=======
+	for (i = 0; i < IEEE80211_NUM_BANDS; i++) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		struct ieee80211_supported_band *sband = wiphy->bands[i];
 		int j;
 
@@ -3531,7 +3622,11 @@ static int ieee80211_probe_client(struct wiphy *wiphy, struct net_device *dev,
 	struct ieee80211_tx_info *info;
 	struct sta_info *sta;
 	struct ieee80211_chanctx_conf *chanctx_conf;
+<<<<<<< HEAD
 	enum nl80211_band band;
+=======
+	enum ieee80211_band band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int ret;
 
 	/* the lock is needed to assign the cookie later */

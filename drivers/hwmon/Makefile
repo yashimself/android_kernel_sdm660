@@ -168,7 +168,10 @@ obj-$(CONFIG_PMBUS)		+= pmbus/
 
 ccflags-$(CONFIG_HWMON_DEBUG_CHIP) := -DDEBUG
 
+<<<<<<< HEAD
 #TODO: remove me b/62058353
 subdir-ccflags-y += \
 	-Wno-logical-not-parentheses \
 	-Wno-enum-conversion
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

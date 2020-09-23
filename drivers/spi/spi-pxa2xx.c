@@ -1425,6 +1425,7 @@ pxa2xx_spi_init_pdata(struct platform_device *pdev)
 	}
 
 	ssp->clk = devm_clk_get(&pdev->dev, NULL);
+<<<<<<< HEAD
 	if (IS_ERR(ssp->clk))
 		return NULL;
 
@@ -1432,6 +1433,9 @@ pxa2xx_spi_init_pdata(struct platform_device *pdev)
 	if (ssp->irq < 0)
 		return NULL;
 
+=======
+	ssp->irq = platform_get_irq(pdev, 0);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	ssp->type = type;
 	ssp->pdev = pdev;
 	ssp->port_id = pxa2xx_spi_get_port_id(adev);

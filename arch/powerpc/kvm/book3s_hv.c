@@ -1669,7 +1669,11 @@ static struct kvm_vcpu *kvmppc_core_vcpu_create_hv(struct kvm *kvm,
 	mutex_unlock(&kvm->lock);
 
 	if (!vcore)
+<<<<<<< HEAD
 		goto uninit_vcpu;
+=======
+		goto free_vcpu;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	spin_lock(&vcore->lock);
 	++vcore->num_threads;
@@ -1685,8 +1689,11 @@ static struct kvm_vcpu *kvmppc_core_vcpu_create_hv(struct kvm *kvm,
 
 	return vcpu;
 
+<<<<<<< HEAD
 uninit_vcpu:
 	kvm_vcpu_uninit(vcpu);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 free_vcpu:
 	kmem_cache_free(kvm_vcpu_cache, vcpu);
 out:

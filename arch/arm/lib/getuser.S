@@ -42,12 +42,15 @@ _ASM_NOKPROBE(__get_user_1)
 
 ENTRY(__get_user_2)
 	check_uaccess r0, 2, r1, r2, __get_user_bad
+<<<<<<< HEAD
 #if __LINUX_ARM_ARCH__ >= 6
 
 2: TUSER(ldrh)	r2, [r0]
 
 #else
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #ifdef CONFIG_CPU_USE_DOMAINS
 rb	.req	ip
 2:	ldrbt	r2, [r0], #1
@@ -62,9 +65,12 @@ rb	.req	r0
 #else
 	orr	r2, rb, r2, lsl #8
 #endif
+<<<<<<< HEAD
 
 #endif /* __LINUX_ARM_ARCH__ >= 6 */
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	mov	r0, #0
 	ret	lr
 ENDPROC(__get_user_2)
@@ -154,9 +160,13 @@ _ASM_NOKPROBE(__get_user_bad8)
 .pushsection __ex_table, "a"
 	.long	1b, __get_user_bad
 	.long	2b, __get_user_bad
+<<<<<<< HEAD
 #if __LINUX_ARM_ARCH__ < 6
 	.long	3b, __get_user_bad
 #endif
+=======
+	.long	3b, __get_user_bad
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.long	4b, __get_user_bad
 	.long	5b, __get_user_bad8
 	.long	6b, __get_user_bad8

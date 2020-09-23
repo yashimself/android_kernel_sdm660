@@ -456,15 +456,39 @@ static u32 elcr_ioport_read(void *opaque, u32 addr1)
 	return s->elcr;
 }
 
+<<<<<<< HEAD
+=======
+static int picdev_in_range(gpa_t addr)
+{
+	switch (addr) {
+	case 0x20:
+	case 0x21:
+	case 0xa0:
+	case 0xa1:
+	case 0x4d0:
+	case 0x4d1:
+		return 1;
+	default:
+		return 0;
+	}
+}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int picdev_write(struct kvm_pic *s,
 			 gpa_t addr, int len, const void *val)
 {
 	unsigned char data = *(unsigned char *)val;
+<<<<<<< HEAD
+=======
+	if (!picdev_in_range(addr))
+		return -EOPNOTSUPP;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (len != 1) {
 		pr_pic_unimpl("non byte write\n");
 		return 0;
 	}
+<<<<<<< HEAD
 	switch (addr) {
 	case 0x20:
 	case 0x21:
@@ -487,6 +511,22 @@ static int picdev_write(struct kvm_pic *s,
 	default:
 		return -EOPNOTSUPP;
 	}
+=======
+	pic_lock(s);
+	switch (addr) {
+	case 0x20:
+	case 0x21:
+	case 0xa0:
+	case 0xa1:
+		pic_ioport_write(&s->pics[addr >> 7], addr, data);
+		break;
+	case 0x4d0:
+	case 0x4d1:
+		elcr_ioport_write(&s->pics[addr & 1], addr, data);
+		break;
+	}
+	pic_unlock(s);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return 0;
 }
 
@@ -494,17 +534,27 @@ static int picdev_read(struct kvm_pic *s,
 		       gpa_t addr, int len, void *val)
 {
 	unsigned char data = 0;
+<<<<<<< HEAD
+=======
+	if (!picdev_in_range(addr))
+		return -EOPNOTSUPP;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (len != 1) {
 		memset(val, 0, len);
 		pr_pic_unimpl("non byte read\n");
 		return 0;
 	}
+<<<<<<< HEAD
+=======
+	pic_lock(s);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	switch (addr) {
 	case 0x20:
 	case 0x21:
 	case 0xa0:
 	case 0xa1:
+<<<<<<< HEAD
 		pic_lock(s);
 		data = pic_ioport_read(&s->pics[addr >> 7], addr);
 		pic_unlock(s);
@@ -519,6 +569,17 @@ static int picdev_read(struct kvm_pic *s,
 		return -EOPNOTSUPP;
 	}
 	*(unsigned char *)val = data;
+=======
+		data = pic_ioport_read(&s->pics[addr >> 7], addr);
+		break;
+	case 0x4d0:
+	case 0x4d1:
+		data = elcr_ioport_read(&s->pics[addr & 1], addr);
+		break;
+	}
+	*(unsigned char *)val = data;
+	pic_unlock(s);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return 0;
 }
 

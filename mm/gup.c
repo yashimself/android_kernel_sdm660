@@ -126,12 +126,17 @@ retry:
 		}
 	}
 
+<<<<<<< HEAD
 	if (flags & FOLL_GET) {
 		if (unlikely(!try_get_page_foll(page))) {
 			page = ERR_PTR(-ENOMEM);
 			goto out;
 		}
 	}
+=======
+	if (flags & FOLL_GET)
+		get_page_foll(page);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (flags & FOLL_TOUCH) {
 		if ((flags & FOLL_WRITE) &&
 		    !pte_dirty(pte) && !PageDirty(page))
@@ -293,10 +298,14 @@ static int get_gate_page(struct mm_struct *mm, unsigned long address,
 			goto unmap;
 		*page = pte_page(*pte);
 	}
+<<<<<<< HEAD
 	if (unlikely(!try_get_page(*page))) {
 		ret = -ENOMEM;
 		goto unmap;
 	}
+=======
+	get_page(*page);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 out:
 	ret = 0;
 unmap:
@@ -1060,6 +1069,7 @@ struct page *get_dump_page(unsigned long addr)
  */
 #ifdef CONFIG_HAVE_GENERIC_RCU_GUP
 
+<<<<<<< HEAD
 /*
  * Return the compund head page with ref appropriately incremented,
  * or NULL if that failed.
@@ -1074,6 +1084,8 @@ static inline struct page *try_get_compound_head(struct page *page, int refs)
 	return head;
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #ifdef __HAVE_ARCH_PTE_SPECIAL
 static int gup_pte_range(pmd_t pmd, unsigned long addr, unsigned long end,
 			 int write, struct page **pages, int *nr)
@@ -1104,9 +1116,12 @@ static int gup_pte_range(pmd_t pmd, unsigned long addr, unsigned long end,
 		VM_BUG_ON(!pfn_valid(pte_pfn(pte)));
 		page = pte_page(pte);
 
+<<<<<<< HEAD
 		if (WARN_ON_ONCE(page_ref_count(page) < 0))
 			goto pte_unmap;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (!page_cache_get_speculative(page))
 			goto pte_unmap;
 
@@ -1154,17 +1169,29 @@ static int gup_huge_pmd(pmd_t orig, pmd_t *pmdp, unsigned long addr,
 		return 0;
 
 	refs = 0;
+<<<<<<< HEAD
 	page = pmd_page(orig) + ((addr & ~PMD_MASK) >> PAGE_SHIFT);
 	tail = page;
 	do {
+=======
+	head = pmd_page(orig);
+	page = head + ((addr & ~PMD_MASK) >> PAGE_SHIFT);
+	tail = page;
+	do {
+		VM_BUG_ON_PAGE(compound_head(page) != head, page);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		pages[*nr] = page;
 		(*nr)++;
 		page++;
 		refs++;
 	} while (addr += PAGE_SIZE, addr != end);
 
+<<<<<<< HEAD
 	head = try_get_compound_head(pmd_page(orig), refs);
 	if (!head) {
+=======
+	if (!page_cache_add_speculative(head, refs)) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		*nr -= refs;
 		return 0;
 	}
@@ -1200,17 +1227,29 @@ static int gup_huge_pud(pud_t orig, pud_t *pudp, unsigned long addr,
 		return 0;
 
 	refs = 0;
+<<<<<<< HEAD
 	page = pud_page(orig) + ((addr & ~PUD_MASK) >> PAGE_SHIFT);
 	tail = page;
 	do {
+=======
+	head = pud_page(orig);
+	page = head + ((addr & ~PUD_MASK) >> PAGE_SHIFT);
+	tail = page;
+	do {
+		VM_BUG_ON_PAGE(compound_head(page) != head, page);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		pages[*nr] = page;
 		(*nr)++;
 		page++;
 		refs++;
 	} while (addr += PAGE_SIZE, addr != end);
 
+<<<<<<< HEAD
 	head = try_get_compound_head(pud_page(orig), refs);
 	if (!head) {
+=======
+	if (!page_cache_add_speculative(head, refs)) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		*nr -= refs;
 		return 0;
 	}
@@ -1242,17 +1281,29 @@ static int gup_huge_pgd(pgd_t orig, pgd_t *pgdp, unsigned long addr,
 		return 0;
 
 	refs = 0;
+<<<<<<< HEAD
 	page = pgd_page(orig) + ((addr & ~PGDIR_MASK) >> PAGE_SHIFT);
 	tail = page;
 	do {
+=======
+	head = pgd_page(orig);
+	page = head + ((addr & ~PGDIR_MASK) >> PAGE_SHIFT);
+	tail = page;
+	do {
+		VM_BUG_ON_PAGE(compound_head(page) != head, page);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		pages[*nr] = page;
 		(*nr)++;
 		page++;
 		refs++;
 	} while (addr += PAGE_SIZE, addr != end);
 
+<<<<<<< HEAD
 	head = try_get_compound_head(pgd_page(orig), refs);
 	if (!head) {
+=======
+	if (!page_cache_add_speculative(head, refs)) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		*nr -= refs;
 		return 0;
 	}

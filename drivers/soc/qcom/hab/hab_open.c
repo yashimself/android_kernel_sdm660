@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2016-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2016-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -32,7 +36,12 @@ int hab_open_request_send(struct hab_open_request *request)
 {
 	struct hab_header header = HAB_HEADER_INITIALIZER;
 
+<<<<<<< HEAD
 	HAB_HEADER_SET_SIZE(header, sizeof(struct hab_open_send_data));
+=======
+	HAB_HEADER_SET_SIZE(header,
+				(uint32_t)sizeof(struct hab_open_send_data));
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	HAB_HEADER_SET_TYPE(header, request->type);
 
 	return physical_channel_send(request->pchan, &header, &request->xdata);
@@ -42,10 +51,23 @@ int hab_open_request_send(struct hab_open_request *request)
 int hab_open_request_add(struct physical_channel *pchan,
 			size_t sizebytes, int request_type)
 {
+<<<<<<< HEAD
 	struct hab_open_node *node;
 	struct hab_device *dev = pchan->habdev;
 	struct hab_open_request *request;
 	struct timeval tv;
+=======
+	struct hab_open_node *node = NULL;
+	struct hab_device *dev = pchan->habdev;
+	struct hab_open_request *request = NULL;
+	struct timeval tv = {0};
+
+	if (sizebytes > sizeof(request->xdata)) {
+		pr_err("pchan %s request size too large %zd\n",
+			pchan->name, sizebytes);
+		return -EINVAL;
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	node = kzalloc(sizeof(*node), GFP_ATOMIC);
 	if (!node)
@@ -77,9 +99,15 @@ static int hab_open_request_find(struct uhab_context *ctx,
 		struct hab_open_request *listen,
 		struct hab_open_request **recv_request)
 {
+<<<<<<< HEAD
 	struct hab_open_node *node, *tmp;
 	struct hab_open_request *request;
 	struct timeval tv;
+=======
+	struct hab_open_node *node = NULL, *tmp = NULL;
+	struct hab_open_request *request = NULL;
+	struct timeval tv = {0};
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int ret = 0;
 
 	if (ctx->closing ||
@@ -120,6 +148,13 @@ static int hab_open_request_find(struct uhab_context *ctx,
 
 done:
 	spin_unlock_bh(&dev->openlock);
+<<<<<<< HEAD
+=======
+
+	if (hab_is_forbidden(ctx, dev, listen->xdata.sub_id))
+		ret = 1;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return ret;
 }
 
@@ -152,10 +187,23 @@ int hab_open_listen(struct uhab_context *ctx,
 		ret = wait_event_interruptible_timeout(dev->openq,
 			hab_open_request_find(ctx, dev, listen, recv_request),
 			ms_timeout);
+<<<<<<< HEAD
 		if (!ret || (-ERESTARTSYS == ret)) {
 			pr_warn("something failed in open listen ret %d\n",
 					ret);
 			ret = -EAGAIN; /* condition not met */
+=======
+		if (!ret) {
+			pr_debug("%s timeout in open listen\n", dev->name);
+			ret = -EAGAIN; /* condition not met */
+		} else if (-ERESTARTSYS == ret) {
+			pr_warn("something failed in open listen ret %d\n",
+					ret);
+			ret = -EINTR; /* condition not met */
+		} else if (hab_is_forbidden(ctx, dev, listen->xdata.sub_id)) {
+			pr_warn("local open cancelled ret %d\n", ret);
+			ret = -ENXIO;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		} else if (ret > 0)
 			ret = 0; /* condition met */
 	} else { /* fe case */
@@ -167,6 +215,12 @@ int hab_open_listen(struct uhab_context *ctx,
 		} else if (-ERESTARTSYS == ret) {
 			pr_warn("local interrupted ret %d\n", ret);
 			ret = -EINTR;
+<<<<<<< HEAD
+=======
+		} else if (hab_is_forbidden(ctx, dev, listen->xdata.sub_id)) {
+			pr_warn("local open cancelled ret %d\n", ret);
+			ret = -ENXIO;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 	}
 
@@ -178,11 +232,25 @@ int hab_open_receive_cancel(struct physical_channel *pchan,
 		size_t sizebytes)
 {
 	struct hab_device *dev = pchan->habdev;
+<<<<<<< HEAD
 	struct hab_open_send_data data;
 	struct hab_open_request *request;
 	struct hab_open_node *node, *tmp;
 	int bfound = 0;
 	struct timeval tv;
+=======
+	struct hab_open_send_data data = {0};
+	struct hab_open_request *request = NULL;
+	struct hab_open_node *node = NULL, *tmp = NULL;
+	int bfound = 0;
+	struct timeval tv = {0};
+
+	if (sizebytes > sizeof(data)) {
+		pr_err("pchan %s cancel size too large %zd header %zd\n",
+			pchan->name, sizebytes, sizeof(data));
+		return -EINVAL;
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (physical_channel_read(pchan, &data, sizebytes) != sizebytes)
 		return -EIO;
@@ -245,7 +313,12 @@ int hab_open_cancel_notify(struct hab_open_request *request)
 {
 	struct hab_header header = HAB_HEADER_INITIALIZER;
 
+<<<<<<< HEAD
 	HAB_HEADER_SET_SIZE(header, sizeof(struct hab_open_send_data));
+=======
+	HAB_HEADER_SET_SIZE(header,
+				(uint32_t)sizeof(struct hab_open_send_data));
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	HAB_HEADER_SET_TYPE(header, HAB_PAYLOAD_TYPE_INIT_CANCEL);
 
 	return physical_channel_send(request->pchan, &header, &request->xdata);
@@ -255,6 +328,10 @@ int hab_open_pending_enter(struct uhab_context *ctx,
 		struct physical_channel *pchan,
 		struct hab_open_node *pending)
 {
+<<<<<<< HEAD
+=======
+	(void)pchan;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	write_lock(&ctx->ctx_lock);
 	list_add_tail(&pending->node, &ctx->pending_open);
 	ctx->pending_cnt++;
@@ -267,9 +344,16 @@ int hab_open_pending_exit(struct uhab_context *ctx,
 		struct physical_channel *pchan,
 		struct hab_open_node *pending)
 {
+<<<<<<< HEAD
 	struct hab_open_node *node, *tmp;
 	int ret = -ENOENT;
 
+=======
+	struct hab_open_node *node = NULL, *tmp = NULL;
+	int ret = -ENOENT;
+
+	(void)pchan;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	write_lock(&ctx->ctx_lock);
 	list_for_each_entry_safe(node, tmp, &ctx->pending_open, node) {
 		if ((node->request.type == pending->request.type) &&

@@ -35,6 +35,10 @@ enum {
 	ND_OPT_ROUTE_INFO = 24,		/* RFC4191 */
 	ND_OPT_RDNSS = 25,		/* RFC5006 */
 	ND_OPT_DNSSL = 31,		/* RFC6106 */
+<<<<<<< HEAD
+=======
+	ND_OPT_CAPTIVE_PORTAL = 37,	/* RFC7710 */
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	__ND_OPT_MAX
 };
 

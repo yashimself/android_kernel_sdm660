@@ -1112,7 +1112,11 @@ static u8 ath_get_rate_txpower(struct ath_softc *sc, struct ath_buf *bf,
 				bool is_2ghz;
 				struct modal_eep_header *pmodal;
 
+<<<<<<< HEAD
 				is_2ghz = info->band == NL80211_BAND_2GHZ;
+=======
+				is_2ghz = info->band == IEEE80211_BAND_2GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				pmodal = &eep->modalHeader[is_2ghz];
 				power_ht40delta = pmodal->ht40PowerIncForPdadc;
 			} else {
@@ -1236,7 +1240,11 @@ static void ath_buf_set_rate(struct ath_softc *sc, struct ath_buf *bf,
 
 		/* legacy rates */
 		rate = &common->sbands[tx_info->band].bitrates[rates[i].idx];
+<<<<<<< HEAD
 		if ((tx_info->band == NL80211_BAND_2GHZ) &&
+=======
+		if ((tx_info->band == IEEE80211_BAND_2GHZ) &&
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		    !(rate->flags & IEEE80211_RATE_ERP_G))
 			phy = WLAN_RC_PHY_CCK;
 		else

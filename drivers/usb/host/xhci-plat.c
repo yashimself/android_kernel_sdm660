@@ -470,7 +470,10 @@ MODULE_DEVICE_TABLE(acpi, usb_xhci_acpi_match);
 static struct platform_driver usb_xhci_driver = {
 	.probe	= xhci_plat_probe,
 	.remove	= xhci_plat_remove,
+<<<<<<< HEAD
 	.shutdown = usb_hcd_platform_shutdown,
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.driver	= {
 		.name = "xhci-hcd",
 		.pm = DEV_PM_OPS,

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2013-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2013-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -416,6 +420,15 @@ enum msm_isp_comp_irq_types {
 
 #define MSM_VFE_REQUESTQ_SIZE 8
 
+<<<<<<< HEAD
+=======
+struct msm_isp_pending_buf_info {
+	uint32_t is_buf_done_pending;
+	struct msm_isp_buffer *buf;
+	uint32_t frame_id;
+};
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 struct msm_vfe_axi_stream {
 	uint32_t frame_id;
 	enum msm_vfe_axi_state state;
@@ -472,6 +485,10 @@ struct msm_vfe_axi_stream {
 	uint32_t vfe_mask;
 	uint32_t composite_irq[MSM_ISP_COMP_IRQ_MAX];
 	int lpm_mode;
+<<<<<<< HEAD
+=======
+	struct msm_isp_pending_buf_info pending_buf_info;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 struct msm_vfe_axi_composite_info {
@@ -762,11 +779,14 @@ struct msm_vfe_common_subdev {
 	struct msm_vfe_common_dev_data *common_data;
 };
 
+<<<<<<< HEAD
 struct isp_proc {
 	uint32_t  kernel_sofid;
 	uint32_t  vfeid;
 };
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 struct vfe_device {
 	/* Driver private data */
 	struct platform_device *pdev;
@@ -796,6 +816,10 @@ struct vfe_device {
 	enum cam_ahb_clk_vote ahb_vote;
 	enum cam_ahb_clk_vote user_requested_ahb_vote;
 	struct cx_ipeak_client *vfe_cx_ipeak;
+<<<<<<< HEAD
+=======
+	int cx_ipeak_bit;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* Sync variables*/
 	struct completion reset_complete;
@@ -851,7 +875,14 @@ struct vfe_device {
 	uint32_t recovery_irq1_mask;
 	/* total bandwidth per vfe */
 	uint64_t total_bandwidth;
+<<<<<<< HEAD
 	struct isp_proc *isp_page;
+=======
+	struct isp_kstate *isp_page;
+
+	/* irq info */
+	uint32_t irq_sof_id;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 struct vfe_parent_device {

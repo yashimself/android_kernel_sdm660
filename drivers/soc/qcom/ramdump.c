@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2011-2017, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2011-2018, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -411,6 +415,7 @@ static inline char *elf_str_table(struct elfhdr *hdr)
 }
 
 static inline unsigned int set_section_name(const char *name,
+<<<<<<< HEAD
 					    struct elfhdr *ehdr)
 {
 	char *strtab = elf_str_table(ehdr);
@@ -418,12 +423,25 @@ static inline unsigned int set_section_name(const char *name,
 	int idx, ret = 0;
 
 	idx = strtable_idx;
+=======
+					    struct elfhdr *ehdr,
+					    int *strtable_idx)
+{
+	char *strtab = elf_str_table(ehdr);
+	int idx, ret = 0;
+
+	idx = *strtable_idx;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if ((strtab == NULL) || (name == NULL))
 		return 0;
 
 	ret = idx;
 	idx += strlcpy((strtab + idx), name, MAX_NAME_LENGTH);
+<<<<<<< HEAD
 	strtable_idx = idx + 1;
+=======
+	*strtable_idx = idx + 1;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	return ret;
 }
@@ -436,6 +454,10 @@ static int _do_minidump(void *handle, struct ramdump_segment *segments,
 	struct elfhdr *ehdr;
 	struct elf_shdr *shdr;
 	unsigned long offset, strtbl_off;
+<<<<<<< HEAD
+=======
+	int strtable_idx = 1;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (!rd_dev->consumer_present) {
 		pr_err("Ramdump(%s): No consumers. Aborting..\n", rd_dev->name);
@@ -475,13 +497,22 @@ static int _do_minidump(void *handle, struct ramdump_segment *segments,
 	shdr->sh_size = MAX_STRTBL_SIZE;
 	shdr->sh_entsize = 0;
 	shdr->sh_flags = 0;
+<<<<<<< HEAD
 	shdr->sh_name = set_section_name("STR_TBL", ehdr);
+=======
+	shdr->sh_name = set_section_name("STR_TBL", ehdr, &strtable_idx);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	shdr++;
 
 	for (i = 0; i < nsegments; i++, shdr++) {
 		/* Update elf header */
 		shdr->sh_type = SHT_PROGBITS;
+<<<<<<< HEAD
 		shdr->sh_name = set_section_name(segments[i].name, ehdr);
+=======
+		shdr->sh_name = set_section_name(segments[i].name, ehdr,
+							&strtable_idx);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		shdr->sh_addr = (elf_addr_t)segments[i].address;
 		shdr->sh_size = segments[i].size;
 		shdr->sh_flags = SHF_WRITE;

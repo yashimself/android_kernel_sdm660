@@ -124,6 +124,19 @@ struct sde_connector_ops {
 	 */
 	int (*get_info)(struct msm_display_info *info, void *display);
 
+<<<<<<< HEAD
+=======
+	/**
+	 * set_topology_ctl - set sde display topology property
+	 * @connector: Pointer to drm connector structure
+	 * @adj_mode: adjusted mode
+	 * @display: Pointer to private display structure
+	 * Returns: Zero on success
+	 */
+	int (*set_topology_ctl)(struct drm_connector *connector,
+		struct drm_display_mode *adj_mode, void *display);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int (*set_backlight)(void *display, u32 bl_lvl);
 
 
@@ -192,6 +205,11 @@ struct sde_connector_ops {
  * @property_data: Array of private data for generic property handling
  * @blob_caps: Pointer to blob structure for 'capabilities' property
  * @blob_hdr: Pointer to blob structure for 'hdr_properties' property
+<<<<<<< HEAD
+=======
+ * @is_shared: connector is shared
+ * @shared_roi: roi of the shared display
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  */
 struct sde_connector {
 	struct drm_connector base;
@@ -218,6 +236,11 @@ struct sde_connector {
 	struct msm_property_data property_data[CONNECTOR_PROP_COUNT];
 	struct drm_property_blob *blob_caps;
 	struct drm_property_blob *blob_hdr;
+<<<<<<< HEAD
+=======
+	bool is_shared;
+	struct sde_rect shared_roi;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 /**

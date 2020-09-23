@@ -103,6 +103,10 @@ enum hdmi_tx_feature_type {
  * @display_lock:     Mutex for sde_hdmi interface.
  * @ctrl:             Controller information for HDMI display.
  * @non_pluggable:    If HDMI display is non pluggable
+<<<<<<< HEAD
+=======
+ * @display_topology: user requested display topology
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * @num_of_modes:     Number of modes supported by display if non pluggable.
  * @mode_list:        Mode list if non pluggable.
  * @mode:             Current display mode.
@@ -154,6 +158,10 @@ struct sde_hdmi {
 	struct sde_edid_ctrl *edid_ctrl;
 
 	bool non_pluggable;
+<<<<<<< HEAD
+=======
+	u32 display_topology;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	bool skip_ddc;
 	u32 num_of_modes;
 	struct list_head mode_list;
@@ -224,7 +232,11 @@ enum hdmi_tx_scdc_access_type {
 #define HDMI_YUV420_24BPP_PCLK_TMDS_CH_RATE_RATIO 2
 #define HDMI_RGB_24BPP_PCLK_TMDS_CH_RATE_RATIO 1
 
+<<<<<<< HEAD
 #define HDMI_GEN_PKT_CTRL_CLR_MASK 0x7
+=======
+#define HDMI_GEN_PKT_CTRL_CLR_MASK 0x3f0007
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 /* for AVI program */
 #define HDMI_AVI_INFOFRAME_BUFFER_SIZE \
@@ -280,6 +292,20 @@ int sde_hdmi_connector_pre_deinit(struct drm_connector *connector,
 		void *display);
 
 /**
+<<<<<<< HEAD
+=======
+ * sde_hdmi_set_top_ctl()- set display topology control property
+ * @connector: Pointer to drm connector structure
+ * @adj_mode: adjusted mode
+ * @display: Pointer to private display handle
+ *
+ * Return: error code
+ */
+int sde_hdmi_set_top_ctl(struct drm_connector *connector,
+			struct drm_display_mode *adj_mode, void *display);
+
+/**
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * sde_hdmi_connector_post_init()- perform additional initialization steps
  * @connector: Pointer to drm connector structure
  * @info: Pointer to sde connector info structure
@@ -570,6 +596,15 @@ static inline int sde_hdmi_connector_pre_deinit(struct drm_connector *connector,
 	return 0;
 }
 
+<<<<<<< HEAD
+=======
+static inline int sde_hdmi_set_top_ctl(struct drm_connector *connector,
+		struct drm_display_mode *adj_mode, void *display)
+{
+	return 0;
+}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static inline int sde_hdmi_connector_post_init(struct drm_connector *connector,
 		void *info,
 		void *display)

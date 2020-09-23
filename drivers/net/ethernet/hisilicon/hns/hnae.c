@@ -331,10 +331,15 @@ struct hnae_handle *hnae_get_handle(struct device *owner_dev,
 		return ERR_PTR(-ENODEV);
 
 	handle = dev->ops->get_handle(dev, port_id);
+<<<<<<< HEAD
 	if (IS_ERR(handle)) {
 		put_device(&dev->cls_dev);
 		return handle;
 	}
+=======
+	if (IS_ERR(handle))
+		return handle;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	handle->dev = dev;
 	handle->owner_dev = owner_dev;
@@ -357,8 +362,11 @@ out_when_init_queue:
 	for (j = i - 1; j >= 0; j--)
 		hnae_fini_queue(handle->qs[j]);
 
+<<<<<<< HEAD
 	put_device(&dev->cls_dev);
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return ERR_PTR(-ENOMEM);
 }
 EXPORT_SYMBOL(hnae_get_handle);
@@ -380,8 +388,11 @@ void hnae_put_handle(struct hnae_handle *h)
 		dev->ops->put_handle(h);
 
 	module_put(dev->owner);
+<<<<<<< HEAD
 
 	put_device(&dev->cls_dev);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 EXPORT_SYMBOL(hnae_put_handle);
 

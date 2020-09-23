@@ -322,9 +322,15 @@ mwifiex_get_cfp(struct mwifiex_private *priv, u8 band, u16 channel, u32 freq)
 		return cfp;
 
 	if (mwifiex_band_to_radio_type(band) == HostCmd_SCAN_RADIO_TYPE_BG)
+<<<<<<< HEAD
 		sband = priv->wdev.wiphy->bands[NL80211_BAND_2GHZ];
 	else
 		sband = priv->wdev.wiphy->bands[NL80211_BAND_5GHZ];
+=======
+		sband = priv->wdev.wiphy->bands[IEEE80211_BAND_2GHZ];
+	else
+		sband = priv->wdev.wiphy->bands[IEEE80211_BAND_5GHZ];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (!sband) {
 		mwifiex_dbg(priv->adapter, ERROR,
@@ -399,6 +405,7 @@ u32 mwifiex_get_rates_from_cfg80211(struct mwifiex_private *priv,
 	int i;
 
 	if (radio_type) {
+<<<<<<< HEAD
 		sband = wiphy->bands[NL80211_BAND_5GHZ];
 		if (WARN_ON_ONCE(!sband))
 			return 0;
@@ -408,6 +415,17 @@ u32 mwifiex_get_rates_from_cfg80211(struct mwifiex_private *priv,
 		if (WARN_ON_ONCE(!sband))
 			return 0;
 		rate_mask = request->rates[NL80211_BAND_2GHZ];
+=======
+		sband = wiphy->bands[IEEE80211_BAND_5GHZ];
+		if (WARN_ON_ONCE(!sband))
+			return 0;
+		rate_mask = request->rates[IEEE80211_BAND_5GHZ];
+	} else {
+		sband = wiphy->bands[IEEE80211_BAND_2GHZ];
+		if (WARN_ON_ONCE(!sband))
+			return 0;
+		rate_mask = request->rates[IEEE80211_BAND_2GHZ];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	num_rates = 0;

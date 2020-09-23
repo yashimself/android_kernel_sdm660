@@ -1312,7 +1312,10 @@ static int gen9_init_indirectctx_bb(struct intel_engine_cs *ring,
 	int ret;
 	struct drm_device *dev = ring->dev;
 	uint32_t index = wa_ctx_start(wa_ctx, *offset, CACHELINE_DWORDS);
+<<<<<<< HEAD
 	uint32_t scratch_addr;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* WaDisableCtxRestoreArbitration:skl,bxt */
 	if ((IS_SKYLAKE(dev) && (INTEL_REVID(dev) <= SKL_REVID_D0)) ||
@@ -1325,6 +1328,7 @@ static int gen9_init_indirectctx_bb(struct intel_engine_cs *ring,
 		return ret;
 	index = ret;
 
+<<<<<<< HEAD
 	/* WaClearSlmSpaceAtContextSwitch:skl,bxt,kbl,glk,cfl */
 	/* Actual scratch location is at 128 bytes offset */
 	scratch_addr = ring->scratch.gtt_offset + 2 * CACHELINE_BYTES;
@@ -1338,6 +1342,8 @@ static int gen9_init_indirectctx_bb(struct intel_engine_cs *ring,
 	wa_ctx_emit(batch, index, 0);
 	wa_ctx_emit(batch, index, 0);
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* Pad to end of cacheline */
 	while (index % CACHELINE_DWORDS)
 		wa_ctx_emit(batch, index, MI_NOOP);

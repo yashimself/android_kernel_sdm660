@@ -500,9 +500,12 @@ static asmlinkage void __exception_irq_entry gic_handle_irq(struct pt_regs *regs
 	do {
 		irqnr = gic_read_iar();
 
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_X00TD
 		uncached_logk(LOGK_IRQ, (void *)(uintptr_t)irqnr);
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (likely(irqnr > 15 && irqnr < 1020) || irqnr >= 8192) {
 			int err;
 			uncached_logk(LOGK_IRQ, (void *)(uintptr_t)irqnr);

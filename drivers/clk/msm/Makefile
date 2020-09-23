@@ -33,7 +33,10 @@ obj-$(CONFIG_COMMON_CLK_MSM)	+= mdss/
 obj-$(CONFIG_MSM_VIRTCLK_FRONTEND)	+= virtclk-front.o
 obj-$(CONFIG_MSM_VIRTCLK_FRONTEND)	+= virt-reset-front.o
 obj-$(CONFIG_MSM_VIRTCLK_FRONTEND_8996)	+= virtclk-front-8996.o
+<<<<<<< HEAD
 
 # TODO: remove me b/62058353
 subdir-ccflags-y += \
 	-Wno-literal-conversion
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

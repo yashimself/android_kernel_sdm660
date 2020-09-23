@@ -405,6 +405,7 @@ static int tipc_udp_enable(struct net *net, struct tipc_bearer *b,
 	tuncfg.encap_destroy = NULL;
 	setup_udp_tunnel_sock(net, ub->ubsock, &tuncfg);
 
+<<<<<<< HEAD
 	err = enable_mcast(ub, remote);
 	if (err)
 		goto err;
@@ -412,6 +413,12 @@ static int tipc_udp_enable(struct net *net, struct tipc_bearer *b,
 err:
 	if (ub->ubsock)
 		udp_tunnel_sock_release(ub->ubsock);
+=======
+	if (enable_mcast(ub, remote))
+		goto err;
+	return 0;
+err:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	kfree(ub);
 	return err;
 }

@@ -11,7 +11,11 @@
 int dvb_usb_generic_rw(struct dvb_usb_device *d, u8 *wbuf, u16 wlen, u8 *rbuf,
 	u16 rlen, int delay_ms)
 {
+<<<<<<< HEAD
 	int actlen = 0, ret = -ENOMEM;
+=======
+	int actlen,ret = -ENOMEM;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (!d || wbuf == NULL || wlen == 0)
 		return -EINVAL;

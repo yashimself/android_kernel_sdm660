@@ -47,6 +47,12 @@ struct tcm_qla2xxx_tpg {
 	struct tcm_qla2xxx_tpg_attrib tpg_attrib;
 	/* Returned by tcm_qla2xxx_make_tpg() */
 	struct se_portal_group se_tpg;
+<<<<<<< HEAD
+=======
+	/* Items for dealing with configfs_depend_item */
+	struct completion tpg_base_comp;
+	struct work_struct tpg_base_work;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 struct tcm_qla2xxx_fc_loopid {

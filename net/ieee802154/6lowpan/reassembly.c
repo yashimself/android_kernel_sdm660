@@ -634,7 +634,13 @@ err_sysctl:
 
 void lowpan_net_frag_exit(void)
 {
+<<<<<<< HEAD
 	lowpan_frags_sysctl_unregister();
 	unregister_pernet_subsys(&lowpan_frags_ops);
 	inet_frags_fini(&lowpan_frags);
+=======
+	inet_frags_fini(&lowpan_frags);
+	lowpan_frags_sysctl_unregister();
+	unregister_pernet_subsys(&lowpan_frags_ops);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }

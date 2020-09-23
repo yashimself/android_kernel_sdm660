@@ -6026,8 +6026,12 @@ qlt_enable_vha(struct scsi_qla_host *vha)
 	} else {
 		set_bit(ISP_ABORT_NEEDED, &base_vha->dpc_flags);
 		qla2xxx_wake_dpc(base_vha);
+<<<<<<< HEAD
 		WARN_ON_ONCE(qla2x00_wait_for_hba_online(base_vha) !=
 			     QLA_SUCCESS);
+=======
+		qla2x00_wait_for_hba_online(base_vha);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 }
 EXPORT_SYMBOL(qlt_enable_vha);
@@ -6057,9 +6061,13 @@ static void qlt_disable_vha(struct scsi_qla_host *vha)
 
 	set_bit(ISP_ABORT_NEEDED, &vha->dpc_flags);
 	qla2xxx_wake_dpc(vha);
+<<<<<<< HEAD
 	if (qla2x00_wait_for_hba_online(vha) != QLA_SUCCESS)
 		ql_dbg(ql_dbg_tgt, vha, 0xe081,
 		       "qla2x00_wait_for_hba_online() failed\n");
+=======
+	qla2x00_wait_for_hba_online(vha);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /*

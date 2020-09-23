@@ -305,7 +305,11 @@ struct iwl_lq_sta {
 	bool stbc_capable;      /* Tx STBC is supported by chip and Rx by STA */
 	bool bfer_capable;      /* Remote supports beamformee and we BFer */
 
+<<<<<<< HEAD
 	enum nl80211_band band;
+=======
+	enum ieee80211_band band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* The following are bitmaps of rates; IWL_RATE_6M_MASK, etc. */
 	unsigned long active_legacy_rate;
@@ -358,7 +362,11 @@ struct iwl_lq_sta {
 
 /* Initialize station's rate scaling information after adding station */
 void iwl_mvm_rs_rate_init(struct iwl_mvm *mvm, struct ieee80211_sta *sta,
+<<<<<<< HEAD
 			  enum nl80211_band band, bool init);
+=======
+			  enum ieee80211_band band, bool init);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 /* Notify RS about Tx status */
 void iwl_mvm_rs_tx_status(struct iwl_mvm *mvm, struct ieee80211_sta *sta,

@@ -369,7 +369,10 @@ static const struct pcr_ops rts522a_pcr_ops = {
 void rts522a_init_params(struct rtsx_pcr *pcr)
 {
 	rts5227_init_params(pcr);
+<<<<<<< HEAD
 	pcr->ops = &rts522a_pcr_ops;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	pcr->reg_pm_ctrl3 = RTS522A_PM_CTRL3;
 }

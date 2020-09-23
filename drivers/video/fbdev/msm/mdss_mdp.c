@@ -105,10 +105,14 @@ static struct mdss_panel_intf pan_types[] = {
 	{"edp", MDSS_PANEL_INTF_EDP},
 	{"hdmi", MDSS_PANEL_INTF_HDMI},
 };
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 static
 #endif
 char mdss_mdp_panel[MDSS_MAX_PANEL_LEN];
+=======
+static char mdss_mdp_panel[MDSS_MAX_PANEL_LEN];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 struct mdss_hw mdss_mdp_hw = {
 	.hw_ndx = MDSS_HW_MDP,
@@ -5632,10 +5636,13 @@ static int __init mdss_mdp_driver_init(void)
 
 }
 
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 EXPORT_SYMBOL(mdss_mdp_panel);
 #endif
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 module_param_string(panel, mdss_mdp_panel, MDSS_MAX_PANEL_LEN, 0);
 MODULE_PARM_DESC(panel,
 		"panel=<lk_cfg>:<pan_intf>:<pan_intf_cfg>:<panel_topology_cfg> "

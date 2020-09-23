@@ -79,7 +79,11 @@
 		};
 
 	lcd0: display {
+<<<<<<< HEAD
 		compatible = "osddisplays,osd070t1718-19ts", "panel-dpi";
+=======
+		compatible = "osddisplays,osd057T0559-34ts", "panel-dpi";
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		label = "lcd";
 
 		panel-timing {

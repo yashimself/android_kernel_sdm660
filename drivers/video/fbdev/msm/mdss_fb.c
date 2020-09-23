@@ -1,7 +1,11 @@
 /*
  * Core MDSS framebuffer driver.
  *
+<<<<<<< HEAD
  * Copyright (c) 2008-2018, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2008-2020, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * Copyright (C) 2007 Google Incorporated
  *
  * This software is licensed under the terms of the GNU General Public
@@ -56,9 +60,12 @@
 #include "mdss_smmu.h"
 #include "mdss_mdp.h"
 
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_X01BD
 #include <linux/wakelock.h>
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #ifdef CONFIG_FB_MSM_TRIPLE_BUFFER
 #define MDSS_FB_NUM 3
 #else
@@ -85,6 +92,7 @@
  */
 #define MDP_TIME_PERIOD_CALC_FPS_US	1000000
 
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_X01BD
 static int focal_detect_flag;
 extern bool lcd_suspend_flag;
@@ -92,6 +100,8 @@ static void asus_lcd_early_unblank_func(struct work_struct *);
 static struct workqueue_struct *asus_lcd_early_unblank_wq;
 extern int g_resume_from_fp;
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static struct fb_info *fbi_list[MAX_FBI_LIST];
 static int fbi_list_index;
 
@@ -103,9 +113,13 @@ static u32 mdss_fb_pseudo_palette[16] = {
 };
 
 static struct msm_mdp_interface *mdp_instance;
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_X01BD
 static struct wake_lock early_unblank_wakelock;
 #endif
+=======
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int mdss_fb_register(struct msm_fb_data_type *mfd);
 static int mdss_fb_open(struct fb_info *info, int user);
 static int mdss_fb_release(struct fb_info *info, int user);
@@ -115,9 +129,12 @@ static int mdss_fb_pan_display(struct fb_var_screeninfo *var,
 static int mdss_fb_check_var(struct fb_var_screeninfo *var,
 			     struct fb_info *info);
 static int mdss_fb_set_par(struct fb_info *info);
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_X01BD
 static int mdss_fb_blank(int blank_mode, struct fb_info *info);
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int mdss_fb_blank_sub(int blank_mode, struct fb_info *info,
 			     int op_enable);
 static int mdss_fb_suspend_sub(struct msm_fb_data_type *mfd);
@@ -985,18 +1002,27 @@ static void mdss_fb_remove_sysfs(struct msm_fb_data_type *mfd)
 {
 	sysfs_remove_group(&mfd->fbi->dev->kobj, &mdss_fb_attr_group);
 }
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_X01BD
 bool shutdown_flag = 0;
 #endif
+=======
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static void mdss_fb_shutdown(struct platform_device *pdev)
 {
 	struct msm_fb_data_type *mfd = platform_get_drvdata(pdev);
 
 	mfd->shutdown_pending = true;
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_X01BD
 	shutdown_flag = 1;
 #endif
 /* wake up threads waiting on idle or kickoff queues */
+=======
+
+	/* wake up threads waiting on idle or kickoff queues */
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	wake_up_all(&mfd->idle_wait_q);
 	wake_up_all(&mfd->kickoff_wait_q);
 
@@ -1415,10 +1441,14 @@ static int mdss_fb_probe(struct platform_device *pdev)
 			pr_err("failed to register input handler\n");
 
 	INIT_DELAYED_WORK(&mfd->idle_notify_work, __mdss_fb_idle_notify_work);
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_X01BD
 	INIT_DELAYED_WORK(&mfd->early_unblank_work, asus_lcd_early_unblank_func);
 	mfd->early_unblank_work_queued = false;
 #endif
+=======
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return rc;
 }
 
@@ -1628,6 +1658,7 @@ static int mdss_fb_resume(struct platform_device *pdev)
 #endif
 
 #ifdef CONFIG_PM_SLEEP
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_X01BD
 static void asus_lcd_early_unblank_func(struct work_struct *work)
 {
@@ -1653,10 +1684,13 @@ static void asus_lcd_early_unblank_func(struct work_struct *work)
 	mfd->early_unblank_work_queued = false;
 }
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int mdss_fb_pm_suspend(struct device *dev)
 {
 	struct msm_fb_data_type *mfd = dev_get_drvdata(dev);
 	int rc = 0;
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_X01BD
 	struct fb_info *fbi;
 #endif
@@ -1674,6 +1708,12 @@ static int mdss_fb_pm_suspend(struct device *dev)
 		}
 	}
 #endif
+=======
+
+	if (!mfd)
+		return -ENODEV;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	dev_dbg(dev, "display pm suspend\n");
 
 	rc = mdss_fb_suspend_sub(mfd);
@@ -1698,7 +1738,10 @@ static int mdss_fb_pm_suspend(struct device *dev)
 static int mdss_fb_pm_resume(struct device *dev)
 {
 	struct msm_fb_data_type *mfd = dev_get_drvdata(dev);
+<<<<<<< HEAD
 	int rc = 0;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!mfd)
 		return -ENODEV;
 
@@ -1716,6 +1759,7 @@ static int mdss_fb_pm_resume(struct device *dev)
 	if (mfd->mdp.footswitch_ctrl)
 		mfd->mdp.footswitch_ctrl(true);
 
+<<<<<<< HEAD
 	rc = mdss_fb_resume_sub(mfd);
 #ifdef CONFIG_MACH_ASUS_X01BD
 	if (focal_detect_flag == 0) {
@@ -1731,6 +1775,9 @@ static int mdss_fb_pm_resume(struct device *dev)
 	}
 #endif
 	return rc;
+=======
+	return mdss_fb_resume_sub(mfd);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 #endif
 
@@ -1941,11 +1988,19 @@ static int mdss_fb_blank_blank(struct msm_fb_data_type *mfd,
 
 	cur_power_state = mfd->panel_power_state;
 
+<<<<<<< HEAD
 	pr_debug("[Display] Transitioning from %d --> %d\n", cur_power_state,
 		req_power_state);
 
 	if (cur_power_state == req_power_state) {
 		pr_debug("[Display] No change in power state, return 0\n");
+=======
+	pr_debug("Transitioning from %d --> %d\n", cur_power_state,
+		req_power_state);
+
+	if (cur_power_state == req_power_state) {
+		pr_debug("No change in power state\n");
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return 0;
 	}
 
@@ -2118,7 +2173,11 @@ static int mdss_fb_blank_sub(int blank_mode, struct fb_info *info,
 
 	switch (blank_mode) {
 	case FB_BLANK_UNBLANK:
+<<<<<<< HEAD
 		pr_debug("[Display] unblank called. cur pwr state=%d\n", cur_power_state);
+=======
+		pr_debug("unblank called. cur pwr state=%d\n", cur_power_state);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		ret = mdss_fb_blank_unblank(mfd);
 		break;
 	case BLANK_FLAG_ULP:
@@ -2133,7 +2192,11 @@ static int mdss_fb_blank_sub(int blank_mode, struct fb_info *info,
 		break;
 	case BLANK_FLAG_LP:
 		req_power_state = MDSS_PANEL_POWER_LP1;
+<<<<<<< HEAD
 		pr_debug("[Display] low power mode requested\n");
+=======
+		pr_debug(" power mode requested\n");
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		/*
 		 * If low power mode is requested when panel is already off,
@@ -2152,7 +2215,11 @@ static int mdss_fb_blank_sub(int blank_mode, struct fb_info *info,
 	case FB_BLANK_POWERDOWN:
 	default:
 		req_power_state = MDSS_PANEL_POWER_OFF;
+<<<<<<< HEAD
 		pr_debug("[Display] blank powerdown called\n");
+=======
+		pr_debug("blank powerdown called\n");
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		ret = mdss_fb_blank_blank(mfd, req_power_state);
 		break;
 	}
@@ -3582,6 +3649,7 @@ static int mdss_fb_pan_display(struct fb_var_screeninfo *var,
 {
 	struct mdp_display_commit disp_commit;
 	struct msm_fb_data_type *mfd = (struct msm_fb_data_type *)info->par;
+<<<<<<< HEAD
 
 	/*
 	 * during mode switch through mode sysfs node, it will trigger a
@@ -3592,6 +3660,21 @@ static int mdss_fb_pan_display(struct fb_var_screeninfo *var,
 	 */
 	if (mfd->switch_state != MDSS_MDP_NO_UPDATE_REQUESTED) {
 		pr_debug("fb%d: pan_display skipped during switch\n",
+=======
+	struct mdss_data_type *mdata = mfd_to_mdata(mfd);
+
+	/*
+	 * Abort pan_display operations in following cases:
+	 * 1. during mode switch through mode sysfs node, it will trigger a
+	 *    pan_display after switch. This assumes that fb has been adjusted,
+	 *    however when using overlays we may not have the right size at this
+	 *    point, so it needs to go through PREPARE first.
+	 * 2. When the splash handoff is pending.
+	 */
+	if ((mfd->switch_state != MDSS_MDP_NO_UPDATE_REQUESTED) ||
+		(mdss_fb_is_hdmi_primary(mfd) && mdata->handoff_pending)) {
+		pr_debug("fb%d: pan_display skipped during switch or handoff\n",
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				mfd->index);
 		return 0;
 	}
@@ -4064,7 +4147,11 @@ static int mdss_fb_set_par(struct fb_info *info)
 {
 	struct msm_fb_data_type *mfd = (struct msm_fb_data_type *)info->par;
 	struct fb_var_screeninfo *var = &info->var;
+<<<<<<< HEAD
 	int old_imgType, old_format;
+=======
+	int old_imgType, old_format, out_format;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int ret = 0;
 
 	ret = mdss_fb_pan_idle(mfd);
@@ -4148,9 +4235,15 @@ static int mdss_fb_set_par(struct fb_info *info)
 				mfd->fbi->var.yres) * mfd->fb_page;
 
 	old_format = mfd->panel_info->out_format;
+<<<<<<< HEAD
 	mfd->panel_info->out_format =
 			mdss_grayscale_to_mdp_format(var->grayscale);
 	if (!IS_ERR_VALUE(mfd->panel_info->out_format)) {
+=======
+	out_format = mdss_grayscale_to_mdp_format(var->grayscale);
+	if (!IS_ERR_VALUE(out_format)) {
+		mfd->panel_info->out_format = out_format;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (old_format != mfd->panel_info->out_format)
 			mfd->panel_reconfig = true;
 	}
@@ -4743,6 +4836,10 @@ static int mdss_fb_atomic_commit_ioctl(struct fb_info *info,
 	struct mdp_destination_scaler_data __user *ds_data_user;
 	struct msm_fb_data_type *mfd;
 	struct mdss_overlay_private *mdp5_data = NULL;
+<<<<<<< HEAD
+=======
+	struct mdss_data_type *mdata;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	ret = copy_from_user(&commit, argp, sizeof(struct mdp_layer_commit));
 	if (ret) {
@@ -4768,9 +4865,13 @@ static int mdss_fb_atomic_commit_ioctl(struct fb_info *info,
 			mfd->mdp.signal_retire_fence && mdp5_data)
 			mfd->mdp.signal_retire_fence(mfd,
 						mdp5_data->retire_cnt);
+<<<<<<< HEAD
 #if !defined(CONFIG_MACH_ASUS_X00TD) || !defined(CONFIG_MACH_ASUS_X01BD)
 		return 0;
 #endif
+=======
+		return 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	output_layer_user = commit.commit_v1.output_layer;
@@ -4847,6 +4948,16 @@ static int mdss_fb_atomic_commit_ioctl(struct fb_info *info,
 	ds_data_user = commit.commit_v1.dest_scaler;
 	if ((ds_data_user) &&
 		(commit.commit_v1.dest_scaler_cnt)) {
+<<<<<<< HEAD
+=======
+		mdata = mfd_to_mdata(mfd);
+		if (!mdata || !mdata->scaler_off ||
+				 !mdata->scaler_off->has_dest_scaler) {
+			pr_err("dest scaler not supported\n");
+			ret = -EPERM;
+			goto err;
+		}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		ret = __mdss_fb_copy_destscaler_data(info, &commit);
 		if (ret) {
 			pr_err("copy dest scaler failed\n");
@@ -5294,11 +5405,16 @@ int __init mdss_fb_init(void)
 
 	if (platform_driver_register(&mdss_fb_driver))
 		return rc;
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_X01BD
 	asus_lcd_early_unblank_wq = create_singlethread_workqueue("display_early_wq");
 	wake_lock_init(&early_unblank_wakelock, WAKE_LOCK_SUSPEND, "early_unblank-update");
 	return 0;
 #endif
+=======
+
+	return 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 module_init(mdss_fb_init);

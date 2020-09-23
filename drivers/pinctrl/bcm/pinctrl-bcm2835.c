@@ -795,7 +795,11 @@ static int bcm2835_pctl_dt_node_to_map(struct pinctrl_dev *pctldev,
 	return 0;
 
 out:
+<<<<<<< HEAD
 	bcm2835_pctl_dt_free_map(pctldev, maps, num_pins * maps_per_pin);
+=======
+	kfree(maps);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return err;
 }
 

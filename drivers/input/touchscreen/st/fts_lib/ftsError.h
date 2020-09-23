@@ -11,6 +11,10 @@
 **************************************************************************
 */
 
+<<<<<<< HEAD
+=======
+#include <linux/types.h>
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 /*FIRST LEVEL ERROR CODE*/
 #define OK			((int)0x00000000)		/*No ERROR*/

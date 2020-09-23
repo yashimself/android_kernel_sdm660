@@ -187,12 +187,25 @@ entry_SYSCALL_64_fastpath:
 	sbb	%rcx, %rcx			/* array_index_mask_nospec() */
 	and	%rcx, %rax
 	movq	%r10, %rcx
+<<<<<<< HEAD
+=======
+
+	/*
+	 * This call instruction is handled specially in stub_ptregs_64.
+	 * It might end up jumping to the slow path.  If it jumps, RAX is
+	 * clobbered.
+	 */
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #ifdef CONFIG_RETPOLINE
 	movq	sys_call_table(, %rax, 8), %rax
 	call	__x86_indirect_thunk_rax
 #else
 	call	*sys_call_table(, %rax, 8)
 #endif
+<<<<<<< HEAD
+=======
+.Lentry_SYSCALL_64_after_fastpath_call:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	movq	%rax, RAX(%rsp)
 1:
@@ -218,8 +231,11 @@ entry_SYSCALL_64_fastpath:
 	testl	$_TIF_ALLWORK_MASK, ASM_THREAD_INFO(TI_flags, %rsp, SIZEOF_PTREGS)
 	jnz	int_ret_from_sys_call_irqs_off	/* Go to the slow path */
 
+<<<<<<< HEAD
 	call	mds_user_clear_buffers
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	movq	RIP(%rsp), %rcx
 	movq	EFLAGS(%rsp), %r11
 	RESTORE_C_REGS_EXCEPT_RCX_R11
@@ -256,6 +272,7 @@ GLOBAL(int_ret_from_sys_call_irqs_off)
 
 	/* Do syscall entry tracing */
 tracesys:
+<<<<<<< HEAD
 	movq	%rsp, %rdi
 	movl	$AUDIT_ARCH_X86_64, %esi
 	call	syscall_trace_enter_phase1
@@ -275,6 +292,15 @@ tracesys_phase2:
 	/*
 	 * Reload registers from stack in case ptrace changed them.
 	 * We don't reload %rax because syscall_trace_entry_phase2() returned
+=======
+	SAVE_EXTRA_REGS
+	movq	%rsp, %rdi
+	call	syscall_trace_enter
+
+	/*
+	 * Reload registers from stack in case ptrace changed them.
+	 * We don't reload %rax because syscall_trace_enter() returned
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	 * the value it wants us to use in the table lookup.
 	 */
 	RESTORE_C_REGS_EXCEPT_RAX
@@ -399,6 +425,41 @@ opportunistic_sysret_failed:
 	jmp	restore_c_regs_and_iret
 END(entry_SYSCALL_64)
 
+<<<<<<< HEAD
+=======
+ENTRY(stub_ptregs_64)
+	/*
+	 * Syscalls marked as needing ptregs land here.
+	 * If we are on the fast path, we need to save the extra regs.
+	 * If we are on the slow path, the extra regs are already saved.
+	 *
+	 * RAX stores a pointer to the C function implementing the syscall.
+	 */
+	cmpq	$.Lentry_SYSCALL_64_after_fastpath_call, (%rsp)
+	jne	1f
+
+	/* Called from fast path -- pop return address and jump to slow path */
+	popq	%rax
+	jmp	tracesys	/* called from fast path */
+
+1:
+	/* Called from C */
+	jmp	*%rax				/* called from C */
+END(stub_ptregs_64)
+
+.macro ptregs_stub func
+ENTRY(ptregs_\func)
+	leaq	\func(%rip), %rax
+	jmp	stub_ptregs_64
+END(ptregs_\func)
+.endm
+
+/* Instantiate ptregs_stub for each ptregs-using syscall */
+#define __SYSCALL_64_QUAL_(sym)
+#define __SYSCALL_64_QUAL_ptregs(sym) ptregs_stub sym
+#define __SYSCALL_64(nr, sym, qual) __SYSCALL_64_QUAL_##qual(sym)
+#include <asm/syscalls_64.h>
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	.macro FORK_LIKE func
 ENTRY(stub_\func)

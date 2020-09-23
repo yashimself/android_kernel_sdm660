@@ -84,12 +84,18 @@ int udp6_csum_init(struct sk_buff *skb, struct udphdr *uh, int proto)
 	 * we accept a checksum of zero here. When we find the socket
 	 * for the UDP packet we'll check if that socket allows zero checksum
 	 * for IPv6 (set by socket option).
+<<<<<<< HEAD
 	 *
 	 * Note, we are only interested in != 0 or == 0, thus the
 	 * force to int.
 	 */
 	return (__force int)skb_checksum_init_zero_check(skb, proto, uh->check,
 							 ip6_compute_pseudo);
+=======
+	 */
+	return skb_checksum_init_zero_check(skb, proto, uh->check,
+					   ip6_compute_pseudo);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 EXPORT_SYMBOL(udp6_csum_init);
 

@@ -951,6 +951,11 @@ static const struct file_operations snd_compr_file_ops = {
 		.unlocked_ioctl = snd_compr_ioctl,
 #ifdef CONFIG_COMPAT
 		.compat_ioctl = snd_compr_ioctl_compat,
+<<<<<<< HEAD
+=======
+#else
+		.compat_ioctl   = snd_compr_ioctl,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #endif
 		.mmap =           snd_compr_mmap,
 		.poll =           snd_compr_poll,

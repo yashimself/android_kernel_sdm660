@@ -1056,7 +1056,11 @@ static int btusb_open(struct hci_dev *hdev)
 	if (data->setup_on_usb) {
 		err = data->setup_on_usb(hdev);
 		if (err < 0)
+<<<<<<< HEAD
 			goto setup_fail;
+=======
+			return err;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	err = usb_autopm_get_interface(data->intf);
@@ -1092,7 +1096,10 @@ done:
 
 failed:
 	clear_bit(BTUSB_INTR_RUNNING, &data->flags);
+<<<<<<< HEAD
 setup_fail:
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	usb_autopm_put_interface(data->intf);
 	return err;
 }

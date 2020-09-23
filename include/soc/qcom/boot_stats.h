@@ -25,6 +25,12 @@ struct boot_stats {
 #ifdef CONFIG_MSM_BOOT_TIME_MARKER
 	uint32_t bootloader_early_domain_start;
 	uint32_t bootloader_checksum;
+<<<<<<< HEAD
+=======
+	uint32_t bootloader_checksum_start;
+	uint32_t bootloader_checksum_end;
+	uint32_t bootloader_early_camera_start;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #endif
 };
 

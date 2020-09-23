@@ -1881,11 +1881,15 @@ static int __xipram do_write_buffer(struct map_info *map, struct flchip *chip,
 			continue;
 		}
 
+<<<<<<< HEAD
 		/*
 		 * We check "time_after" and "!chip_good" before checking "chip_good" to avoid
 		 * the failure due to scheduling.
 		 */
 		if (time_after(jiffies, timeo) && !chip_good(map, adr, datum))
+=======
+		if (time_after(jiffies, timeo) && !chip_ready(map, adr))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			break;
 
 		if (chip_good(map, adr, datum)) {

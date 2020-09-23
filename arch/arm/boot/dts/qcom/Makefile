@@ -1,3 +1,33 @@
+<<<<<<< HEAD
+=======
+ifeq ($(CONFIG_BUILD_ARM64_DT_OVERLAY),y)
+dtbo-$(CONFIG_ARCH_MSM8996) += \
+	msm8996-mtp-overlay.dtbo \
+	msm8996-cdp-overlay.dtbo \
+	apq8096pro-v1.1-auto-adp-overlay.dtbo \
+	apq8096pro-v1.1-auto-adp-lite-overlay.dtbo \
+	msm8996pro-auto-adp-overlay.dtbo \
+	msm8996pro-auto-adp-lite-overlay.dtbo \
+	apq8096pro-auto-cdp-overlay.dtbo \
+	msm8996pro-v1.1-auto-cdp-overlay.dtbo
+
+msm8996-mtp-overlay.dtbo-base :=  msm8996pro-v1.1-pmi8996.dtb \
+				msm8996-v3-pmi8996.dtb \
+				msm8996pro-v1.1-pmi8994.dtb \
+				msm8996-v313-pmi8994.dtb \
+				msm8996-v30-pm8994-pmi8994-pm8004.dtb
+
+msm8996-cdp-overlay.dtbo-base :=  msm8996-v3-pmi8994.dtb \
+				 msm8996pro-pmi8994-pm8004.dtb
+
+apq8096pro-v1.1-auto-adp-overlay.dtbo-base := apq8096pro-v1.1-auto.dtb
+apq8096pro-v1.1-auto-adp-lite-overlay.dtbo-base := apq8096pro-v1.1-auto.dtb
+msm8996pro-auto-adp-overlay.dtbo-base := msm8996pro-auto.dtb
+msm8996pro-auto-adp-lite-overlay.dtbo-base := msm8996pro-auto.dtb
+apq8096pro-auto-cdp-overlay.dtbo-base := apq8096pro-auto.dtb
+msm8996pro-v1.1-auto-cdp-overlay.dtbo-base := msm8996pro-v1.1-auto.dtb
+else
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 dtb-$(CONFIG_ARCH_MSM8996) += msm8996-v2-pmi8994-cdp.dtb \
 	msm8996-v2-pmi8994-mtp.dtb \
 	msm8996-v2-pmi8994-pmk8001-cdp.dtb \
@@ -115,12 +145,20 @@ dtb-$(CONFIG_ARCH_MSM8996) += msm8996-v2-pmi8994-cdp.dtb \
 	apq8096-v3-pmi8996-mdm9x55-slimbus-mtp.dtb \
 	apq8096-v3-pmi8996-dragonboard.dtb \
 	msm8996-auto-mizar.dtb
+<<<<<<< HEAD
+=======
+endif
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 dtb-$(CONFIG_MSM_GVM_QUIN) += vplatform-lfv-msm8996-telematics.dtb \
 	vplatform-lfv-msm8996-ivi.dtb \
 	vplatform-lfv-msm8996-ivi_8GB.dtb \
 	vplatform-lfv-msm8996-baseline.dtb \
 	vplatform-lfv-msm8996-ivi-la.dtb \
+<<<<<<< HEAD
+=======
+	vplatform-lfv-msm8996-ivi-la-recovery.dtb \
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	vplatform-lfv-msm8996-ivi-lv-mt.dtb
 
 ifeq ($(CONFIG_BUILD_ARM64_DT_OVERLAY),y)
@@ -183,11 +221,14 @@ endif
 
 dtb-$(CONFIG_ARCH_MSMHAMSTER) += msmhamster-rumi.dtb
 
+<<<<<<< HEAD
 ifeq ($(CONFIG_MACH_ASUS_X00TD),y)
 dtb-$(CONFIG_ARCH_SDM660) += sdm636-qrd-X00TD.dtb
 else ifeq ($(CONFIG_MACH_ASUS_X01BD),y)
 dtb-$(CONFIG_ARCH_SDM660) += sdm660-qrd-X01BD.dtb
 else
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 dtb-$(CONFIG_ARCH_SDM660) += sdm660-sim.dtb \
 	sdm660-internal-codec-cdp.dtb \
 	sdm660-internal-codec-mtp.dtb \
@@ -266,7 +307,10 @@ dtb-$(CONFIG_ARCH_SDM660) += sdm660-sim.dtb \
 	sda636-pm660a-mtp.dtb \
 	sda636-pm660a-qrd-hdk.dtb \
 	sda636-pm660a-rcm.dtb
+<<<<<<< HEAD
 endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 dtb-$(CONFIG_ARCH_SDM630) += sdm630-rumi.dtb \
 	sdm630-pm660a-rumi.dtb \

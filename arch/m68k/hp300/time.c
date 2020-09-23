@@ -37,6 +37,7 @@
 
 static irqreturn_t hp300_tick(int irq, void *dev_id)
 {
+<<<<<<< HEAD
 	irq_handler_t timer_routine = dev_id;
 	unsigned long flags;
 	unsigned long tmp;
@@ -50,6 +51,15 @@ static irqreturn_t hp300_tick(int irq, void *dev_id)
 	/* Turn off the network and SCSI leds */
 	blinken_leds(0, 0xe0);
 	return IRQ_HANDLED;
+=======
+	unsigned long tmp;
+	irq_handler_t vector = dev_id;
+	in_8(CLOCKBASE + CLKSR);
+	asm volatile ("movpw %1@(5),%0" : "=d" (tmp) : "a" (CLOCKBASE));
+	/* Turn off the network and SCSI leds */
+	blinken_leds(0, 0xe0);
+	return vector(irq, NULL);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 u32 hp300_gettimeoffset(void)

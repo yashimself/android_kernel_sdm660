@@ -1283,7 +1283,11 @@ vhost_scsi_set_endpoint(struct vhost_scsi *vs,
 			vq = &vs->vqs[i].vq;
 			mutex_lock(&vq->mutex);
 			vq->private_data = vs_tpg;
+<<<<<<< HEAD
 			vhost_init_used(vq);
+=======
+			vhost_vq_init_access(vq);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			mutex_unlock(&vq->mutex);
 		}
 		ret = 0;

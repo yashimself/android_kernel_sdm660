@@ -556,9 +556,14 @@ out_notify:
 		__cpu_notify(CPU_UP_CANCELED | mod, hcpu, nr_calls, NULL);
 out:
 	cpu_hotplug_done();
+<<<<<<< HEAD
 	arch_smt_update();
 	trace_sched_cpu_hotplug(cpu, ret, 1);
 
+=======
+	trace_sched_cpu_hotplug(cpu, ret, 1);
+	arch_smt_update();
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return ret;
 }
 
@@ -915,6 +920,14 @@ void init_cpu_online(const struct cpumask *src)
 	cpumask_copy(to_cpumask(cpu_online_bits), src);
 }
 
+<<<<<<< HEAD
+=======
+void init_cpu_isolated(const struct cpumask *src)
+{
+	cpumask_copy(to_cpumask(cpu_isolated_bits), src);
+}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 enum cpu_mitigations cpu_mitigations = CPU_MITIGATIONS_AUTO;
 
 static int __init mitigations_parse_cmdline(char *arg)
@@ -931,11 +944,14 @@ static int __init mitigations_parse_cmdline(char *arg)
 }
 early_param("mitigations", mitigations_parse_cmdline);
 
+<<<<<<< HEAD
 void init_cpu_isolated(const struct cpumask *src)
 {
 	cpumask_copy(to_cpumask(cpu_isolated_bits), src);
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static ATOMIC_NOTIFIER_HEAD(idle_notifier);
 
 void idle_notifier_register(struct notifier_block *n)

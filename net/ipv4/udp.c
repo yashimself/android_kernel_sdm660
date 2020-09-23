@@ -1691,10 +1691,17 @@ static int __udp4_lib_mcast_deliver(struct net *net, struct sk_buff *skb,
 
 	if (use_hash2) {
 		hash2_any = udp4_portaddr_hash(net, htonl(INADDR_ANY), hnum) &
+<<<<<<< HEAD
 			    udptable->mask;
 		hash2 = udp4_portaddr_hash(net, daddr, hnum) & udptable->mask;
 start_lookup:
 		hslot = &udptable->hash2[hash2];
+=======
+			    udp_table.mask;
+		hash2 = udp4_portaddr_hash(net, daddr, hnum) & udp_table.mask;
+start_lookup:
+		hslot = &udp_table.hash2[hash2];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		offset = offsetof(typeof(*sk), __sk_common.skc_portaddr_node);
 	}
 
@@ -1760,11 +1767,16 @@ static inline int udp4_csum_init(struct sk_buff *skb, struct udphdr *uh,
 		}
 	}
 
+<<<<<<< HEAD
 	/* Note, we are only interested in != 0 or == 0, thus the
 	 * force to int.
 	 */
 	return (__force int)skb_checksum_init_zero_check(skb, proto, uh->check,
 							 inet_compute_pseudo);
+=======
+	return skb_checksum_init_zero_check(skb, proto, uh->check,
+					    inet_compute_pseudo);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /*

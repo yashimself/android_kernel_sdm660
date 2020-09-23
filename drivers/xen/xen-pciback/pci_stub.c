@@ -104,8 +104,12 @@ static void pcistub_device_release(struct kref *kref)
 	 * is called from "unbind" which takes a device_lock mutex.
 	 */
 	__pci_reset_function_locked(dev);
+<<<<<<< HEAD
 	if (dev_data &&
 	    pci_load_and_free_saved_state(dev, &dev_data->pci_saved_state))
+=======
+	if (pci_load_and_free_saved_state(dev, &dev_data->pci_saved_state))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		dev_info(&dev->dev, "Could not reload PCI state\n");
 	else
 		pci_restore_state(dev);

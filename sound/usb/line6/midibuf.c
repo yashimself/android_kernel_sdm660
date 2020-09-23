@@ -163,7 +163,11 @@ int line6_midibuf_read(struct midi_buffer *this, unsigned char *data,
 			int midi_length_prev =
 			    midibuf_message_length(this->command_prev);
 
+<<<<<<< HEAD
 			if (midi_length_prev > 1) {
+=======
+			if (midi_length_prev > 0) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				midi_length = midi_length_prev - 1;
 				repeat = 1;
 			} else

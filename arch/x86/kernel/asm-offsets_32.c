@@ -7,7 +7,11 @@
 #include <linux/lguest.h>
 #include "../../../drivers/lguest/lg.h"
 
+<<<<<<< HEAD
 #define __SYSCALL_I386(nr, sym, compat) [nr] = 1,
+=======
+#define __SYSCALL_I386(nr, sym, qual) [nr] = 1,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static char syscalls[] = {
 #include <asm/syscalls_32.h>
 };

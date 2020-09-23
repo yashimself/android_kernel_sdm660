@@ -883,7 +883,11 @@ static bool tipc_data_input(struct tipc_link *l, struct sk_buff *skb,
 	default:
 		pr_warn("Dropping received illegal msg type\n");
 		kfree_skb(skb);
+<<<<<<< HEAD
 		return true;
+=======
+		return false;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	};
 }
 

@@ -3119,6 +3119,10 @@ static const struct pid_entry tgid_base_stuff[] = {
 #ifdef CONFIG_PROC_PAGE_MONITOR
 	REG("clear_refs", S_IWUSR, proc_clear_refs_operations),
 	REG("smaps",      S_IRUGO, proc_pid_smaps_operations),
+<<<<<<< HEAD
+=======
+	REG("smaps_rollup", S_IRUGO, proc_pid_smaps_rollup_operations),
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	REG("pagemap",    S_IRUSR, proc_pagemap_operations),
 #endif
 #ifdef CONFIG_SECURITY
@@ -3513,6 +3517,10 @@ static const struct pid_entry tid_base_stuff[] = {
 #ifdef CONFIG_PROC_PAGE_MONITOR
 	REG("clear_refs", S_IWUSR, proc_clear_refs_operations),
 	REG("smaps",     S_IRUGO, proc_tid_smaps_operations),
+<<<<<<< HEAD
+=======
+	REG("smaps_rollup", S_IRUGO, proc_pid_smaps_rollup_operations),
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	REG("pagemap",    S_IRUSR, proc_pagemap_operations),
 #endif
 #ifdef CONFIG_SECURITY

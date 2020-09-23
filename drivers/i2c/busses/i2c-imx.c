@@ -1076,8 +1076,12 @@ static int i2c_imx_probe(struct platform_device *pdev)
 	/* Get I2C clock */
 	i2c_imx->clk = devm_clk_get(&pdev->dev, NULL);
 	if (IS_ERR(i2c_imx->clk)) {
+<<<<<<< HEAD
 		if (PTR_ERR(i2c_imx->clk) != -EPROBE_DEFER)
 			dev_err(&pdev->dev, "can't get I2C clock\n");
+=======
+		dev_err(&pdev->dev, "can't get I2C clock\n");
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return PTR_ERR(i2c_imx->clk);
 	}
 

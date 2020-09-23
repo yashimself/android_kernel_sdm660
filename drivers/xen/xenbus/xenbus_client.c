@@ -469,6 +469,7 @@ EXPORT_SYMBOL_GPL(xenbus_free_evtchn);
 int xenbus_map_ring_valloc(struct xenbus_device *dev, grant_ref_t *gnt_refs,
 			   unsigned int nr_grefs, void **vaddr)
 {
+<<<<<<< HEAD
 	int err;
 
 	err = ring_ops->map(dev, gnt_refs, nr_grefs, vaddr);
@@ -477,6 +478,9 @@ int xenbus_map_ring_valloc(struct xenbus_device *dev, grant_ref_t *gnt_refs,
 		err = GNTST_general_error;
 
 	return err;
+=======
+	return ring_ops->map(dev, gnt_refs, nr_grefs, vaddr);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 EXPORT_SYMBOL_GPL(xenbus_map_ring_valloc);
 

@@ -203,7 +203,11 @@ static void *ipq806x_gmac_of_parse(struct ipq806x_gmac *gmac)
 	struct device *dev = &gmac->pdev->dev;
 
 	gmac->phy_mode = of_get_phy_mode(dev->of_node);
+<<<<<<< HEAD
 	if ((int)gmac->phy_mode < 0) {
+=======
+	if (gmac->phy_mode < 0) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		dev_err(dev, "missing phy mode property\n");
 		return ERR_PTR(-EINVAL);
 	}

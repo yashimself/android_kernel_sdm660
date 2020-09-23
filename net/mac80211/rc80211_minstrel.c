@@ -436,7 +436,11 @@ minstrel_get_rate(void *priv, struct ieee80211_sta *sta,
 
 
 static void
+<<<<<<< HEAD
 calc_rate_durations(enum nl80211_band band,
+=======
+calc_rate_durations(enum ieee80211_band band,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		    struct minstrel_rate *d,
 		    struct ieee80211_rate *rate,
 		    struct cfg80211_chan_def *chandef)
@@ -579,7 +583,11 @@ minstrel_alloc_sta(void *priv, struct ieee80211_sta *sta, gfp_t gfp)
 	if (!mi)
 		return NULL;
 
+<<<<<<< HEAD
 	for (i = 0; i < NUM_NL80211_BANDS; i++) {
+=======
+	for (i = 0; i < IEEE80211_NUM_BANDS; i++) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		sband = hw->wiphy->bands[i];
 		if (sband && sband->n_bitrates > max_rates)
 			max_rates = sband->n_bitrates;
@@ -621,7 +629,11 @@ minstrel_init_cck_rates(struct minstrel_priv *mp)
 	u32 rate_flags = ieee80211_chandef_rate_flags(&mp->hw->conf.chandef);
 	int i, j;
 
+<<<<<<< HEAD
 	sband = mp->hw->wiphy->bands[NL80211_BAND_2GHZ];
+=======
+	sband = mp->hw->wiphy->bands[IEEE80211_BAND_2GHZ];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!sband)
 		return;
 

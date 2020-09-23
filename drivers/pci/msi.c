@@ -224,7 +224,11 @@ u32 __pci_msix_desc_mask_irq(struct msi_desc *desc, u32 flag)
 		return 0;
 
 	mask_bits &= ~PCI_MSIX_ENTRY_CTRL_MASKBIT;
+<<<<<<< HEAD
 	if (flag & PCI_MSIX_ENTRY_CTRL_MASKBIT)
+=======
+	if (flag)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		mask_bits |= PCI_MSIX_ENTRY_CTRL_MASKBIT;
 	writel(mask_bits, desc->mask_base + offset);
 

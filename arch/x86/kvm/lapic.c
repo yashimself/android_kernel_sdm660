@@ -36,7 +36,10 @@
 #include <asm/delay.h>
 #include <linux/atomic.h>
 #include <linux/jump_label.h>
+<<<<<<< HEAD
 #include <linux/nospec.h>
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #include "kvm_cache_regs.h"
 #include "irq.h"
 #include "trace.h"
@@ -536,11 +539,17 @@ static inline bool pv_eoi_enabled(struct kvm_vcpu *vcpu)
 static bool pv_eoi_get_pending(struct kvm_vcpu *vcpu)
 {
 	u8 val;
+<<<<<<< HEAD
 	if (pv_eoi_get_user(vcpu, &val) < 0) {
 		apic_debug("Can't read EOI MSR value: 0x%llx\n",
 			   (unsigned long long)vcpu->arch.pv_eoi.msr_val);
 		return false;
 	}
+=======
+	if (pv_eoi_get_user(vcpu, &val) < 0)
+		apic_debug("Can't read EOI MSR value: 0x%llx\n",
+			   (unsigned long long)vcpu->arch.pv_eoi.msr_val);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return val & 0x1;
 }
 
@@ -1435,6 +1444,7 @@ static int apic_reg_write(struct kvm_lapic *apic, u32 reg, u32 val)
 	case APIC_LVTTHMR:
 	case APIC_LVTPC:
 	case APIC_LVT1:
+<<<<<<< HEAD
 	case APIC_LVTERR: {
 		/* TODO: Check vector */
 		size_t size;
@@ -1450,6 +1460,17 @@ static int apic_reg_write(struct kvm_lapic *apic, u32 reg, u32 val)
 		apic_set_reg(apic, reg, val);
 		break;
 	}
+=======
+	case APIC_LVTERR:
+		/* TODO: Check vector */
+		if (!kvm_apic_sw_enabled(apic))
+			val |= APIC_LVT_MASKED;
+
+		val &= apic_lvt_mask[(reg - APIC_LVTT) >> 4];
+		apic_set_reg(apic, reg, val);
+
+		break;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	case APIC_LVTT:
 		if (!kvm_apic_sw_enabled(apic))

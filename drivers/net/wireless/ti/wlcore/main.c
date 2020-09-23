@@ -2007,7 +2007,11 @@ static void wlcore_op_stop_locked(struct wl1271 *wl)
 	if (test_and_clear_bit(WL1271_FLAG_RECOVERY_IN_PROGRESS, &wl->flags))
 		wlcore_enable_interrupts(wl);
 
+<<<<<<< HEAD
 	wl->band = NL80211_BAND_2GHZ;
+=======
+	wl->band = IEEE80211_BAND_2GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	wl->rx_counter = 0;
 	wl->power_level = WL1271_DEFAULT_POWER_LEVEL;
@@ -2317,8 +2321,13 @@ static int wl12xx_init_vif_data(struct wl1271 *wl, struct ieee80211_vif *vif)
 		wlvif->rate_set = CONF_TX_ENABLED_RATES;
 	}
 
+<<<<<<< HEAD
 	wlvif->bitrate_masks[NL80211_BAND_2GHZ] = wl->conf.tx.basic_rate;
 	wlvif->bitrate_masks[NL80211_BAND_5GHZ] = wl->conf.tx.basic_rate_5;
+=======
+	wlvif->bitrate_masks[IEEE80211_BAND_2GHZ] = wl->conf.tx.basic_rate;
+	wlvif->bitrate_masks[IEEE80211_BAND_5GHZ] = wl->conf.tx.basic_rate_5;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	wlvif->beacon_int = WL1271_DEFAULT_BEACON_INT;
 
 	/*
@@ -2407,7 +2416,11 @@ power_off:
 	 * 11a channels if not supported
 	 */
 	if (!wl->enable_11a)
+<<<<<<< HEAD
 		wiphy->bands[NL80211_BAND_5GHZ]->n_channels = 0;
+=======
+		wiphy->bands[IEEE80211_BAND_5GHZ]->n_channels = 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	wl1271_debug(DEBUG_MAC80211, "11a is %ssupported",
 		     wl->enable_11a ? "" : "not ");
@@ -5950,7 +5963,11 @@ static const struct ieee80211_ops wl1271_ops = {
 };
 
 
+<<<<<<< HEAD
 u8 wlcore_rate_to_idx(struct wl1271 *wl, u8 rate, enum nl80211_band band)
+=======
+u8 wlcore_rate_to_idx(struct wl1271 *wl, u8 rate, enum ieee80211_band band)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	u8 idx;
 
@@ -6175,6 +6192,7 @@ static int wl1271_init_ieee80211(struct wl1271 *wl)
 	 * We keep local copies of the band structs because we need to
 	 * modify them on a per-device basis.
 	 */
+<<<<<<< HEAD
 	memcpy(&wl->bands[NL80211_BAND_2GHZ], &wl1271_band_2ghz,
 	       sizeof(wl1271_band_2ghz));
 	memcpy(&wl->bands[NL80211_BAND_2GHZ].ht_cap,
@@ -6190,6 +6208,23 @@ static int wl1271_init_ieee80211(struct wl1271 *wl)
 		&wl->bands[NL80211_BAND_2GHZ];
 	wl->hw->wiphy->bands[NL80211_BAND_5GHZ] =
 		&wl->bands[NL80211_BAND_5GHZ];
+=======
+	memcpy(&wl->bands[IEEE80211_BAND_2GHZ], &wl1271_band_2ghz,
+	       sizeof(wl1271_band_2ghz));
+	memcpy(&wl->bands[IEEE80211_BAND_2GHZ].ht_cap,
+	       &wl->ht_cap[IEEE80211_BAND_2GHZ],
+	       sizeof(*wl->ht_cap));
+	memcpy(&wl->bands[IEEE80211_BAND_5GHZ], &wl1271_band_5ghz,
+	       sizeof(wl1271_band_5ghz));
+	memcpy(&wl->bands[IEEE80211_BAND_5GHZ].ht_cap,
+	       &wl->ht_cap[IEEE80211_BAND_5GHZ],
+	       sizeof(*wl->ht_cap));
+
+	wl->hw->wiphy->bands[IEEE80211_BAND_2GHZ] =
+		&wl->bands[IEEE80211_BAND_2GHZ];
+	wl->hw->wiphy->bands[IEEE80211_BAND_5GHZ] =
+		&wl->bands[IEEE80211_BAND_5GHZ];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/*
 	 * allow 4 queues per mac address we support +
@@ -6284,7 +6319,11 @@ struct ieee80211_hw *wlcore_alloc_hw(size_t priv_size, u32 aggr_buf_size,
 	wl->channel = 0;
 	wl->rx_counter = 0;
 	wl->power_level = WL1271_DEFAULT_POWER_LEVEL;
+<<<<<<< HEAD
 	wl->band = NL80211_BAND_2GHZ;
+=======
+	wl->band = IEEE80211_BAND_2GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	wl->channel_type = NL80211_CHAN_NO_HT;
 	wl->flags = 0;
 	wl->sg_enabled = true;

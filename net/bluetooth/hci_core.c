@@ -4459,6 +4459,7 @@ static void hci_rx_work(struct work_struct *work)
 			hci_send_to_sock(hdev, skb);
 		}
 
+<<<<<<< HEAD
 		/* If the device has been opened in HCI_USER_CHANNEL,
 		 * the userspace has exclusive access to device.
 		 * When device is HCI_INIT, we still need to process
@@ -4467,6 +4468,9 @@ static void hci_rx_work(struct work_struct *work)
 		 */
 		if (hci_dev_test_flag(hdev, HCI_USER_CHANNEL) &&
 		    !test_bit(HCI_INIT, &hdev->flags)) {
+=======
+		if (hci_dev_test_flag(hdev, HCI_USER_CHANNEL)) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			kfree_skb(skb);
 			continue;
 		}

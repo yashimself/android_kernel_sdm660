@@ -655,7 +655,11 @@ struct cld_net {
 struct cld_upcall {
 	struct list_head	 cu_list;
 	struct cld_net		*cu_net;
+<<<<<<< HEAD
 	struct completion	 cu_done;
+=======
+	struct task_struct	*cu_task;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct cld_msg		 cu_msg;
 };
 
@@ -664,18 +668,36 @@ __cld_pipe_upcall(struct rpc_pipe *pipe, struct cld_msg *cmsg)
 {
 	int ret;
 	struct rpc_pipe_msg msg;
+<<<<<<< HEAD
 	struct cld_upcall *cup = container_of(cmsg, struct cld_upcall, cu_msg);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	memset(&msg, 0, sizeof(msg));
 	msg.data = cmsg;
 	msg.len = sizeof(*cmsg);
 
+<<<<<<< HEAD
 	ret = rpc_queue_upcall(pipe, &msg);
 	if (ret < 0) {
 		goto out;
 	}
 
 	wait_for_completion(&cup->cu_done);
+=======
+	/*
+	 * Set task state before we queue the upcall. That prevents
+	 * wake_up_process in the downcall from racing with schedule.
+	 */
+	set_current_state(TASK_UNINTERRUPTIBLE);
+	ret = rpc_queue_upcall(pipe, &msg);
+	if (ret < 0) {
+		set_current_state(TASK_RUNNING);
+		goto out;
+	}
+
+	schedule();
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (msg.errno < 0)
 		ret = msg.errno;
@@ -742,7 +764,11 @@ cld_pipe_downcall(struct file *filp, const char __user *src, size_t mlen)
 	if (copy_from_user(&cup->cu_msg, src, mlen) != 0)
 		return -EFAULT;
 
+<<<<<<< HEAD
 	complete(&cup->cu_done);
+=======
+	wake_up_process(cup->cu_task);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return mlen;
 }
 
@@ -757,7 +783,11 @@ cld_pipe_destroy_msg(struct rpc_pipe_msg *msg)
 	if (msg->errno >= 0)
 		return;
 
+<<<<<<< HEAD
 	complete(&cup->cu_done);
+=======
+	wake_up_process(cup->cu_task);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static const struct rpc_pipe_ops cld_upcall_ops = {
@@ -888,7 +918,11 @@ restart_search:
 			goto restart_search;
 		}
 	}
+<<<<<<< HEAD
 	init_completion(&new->cu_done);
+=======
+	new->cu_task = current;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	new->cu_msg.cm_vers = CLD_UPCALL_VERSION;
 	put_unaligned(cn->cn_xid++, &new->cu_msg.cm_xid);
 	new->cu_net = cn;

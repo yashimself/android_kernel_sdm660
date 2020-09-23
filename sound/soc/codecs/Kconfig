@@ -994,10 +994,13 @@ config SND_SOC_MSM_HDMI_CODEC_RX
 	HDMI audio drivers should be built only if the platform
         supports hdmi panel.
 
+<<<<<<< HEAD
 config SND_SOC_TFA9874
 	tristate "NXP Semiconductors TFA9874 audio amplifier"
 	depends on I2C
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 source "sound/soc/codecs/sdm660_cdc/Kconfig"
 source "sound/soc/codecs/msm_sdw/Kconfig"
 

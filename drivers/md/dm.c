@@ -2202,7 +2202,11 @@ static void dm_request_fn(struct request_queue *q)
 	goto out;
 
 delay_and_out:
+<<<<<<< HEAD
 	blk_delay_queue(q, 10);
+=======
+	blk_delay_queue(q, HZ / 100);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 out:
 	dm_put_live_table(md, srcu_idx);
 }
@@ -2303,6 +2307,10 @@ static void dm_init_md_queue(struct mapped_device *md)
 	 * - must do so here (in alloc_dev callchain) before queue is used
 	 */
 	md->queue->queuedata = md;
+<<<<<<< HEAD
+=======
+	md->queue->backing_dev_info->congested_data = md;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static void dm_init_old_md_queue(struct mapped_device *md)
@@ -2313,7 +2321,10 @@ static void dm_init_old_md_queue(struct mapped_device *md)
 	/*
 	 * Initialize aspects of queue that aren't relevant for blk-mq
 	 */
+<<<<<<< HEAD
 	md->queue->backing_dev_info->congested_data = md;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	md->queue->backing_dev_info->congested_fn = dm_any_congested;
 	blk_queue_bounce_limit(md->queue, BLK_BOUNCE_ANY);
 }
@@ -2396,12 +2407,15 @@ static struct mapped_device *alloc_dev(int minor)
 		goto bad;
 
 	dm_init_md_queue(md);
+<<<<<<< HEAD
 	/*
 	 * default to bio-based required ->make_request_fn until DM
 	 * table is loaded and md->type established. If request-based
 	 * table is loaded: blk-mq will override accordingly.
 	 */
 	blk_queue_make_request(md->queue, dm_make_request);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	md->disk = alloc_disk(1);
 	if (!md->disk)
@@ -2865,6 +2879,10 @@ int dm_setup_md_queue(struct mapped_device *md)
 		break;
 	case DM_TYPE_BIO_BASED:
 		dm_init_old_md_queue(md);
+<<<<<<< HEAD
+=======
+		blk_queue_make_request(md->queue, dm_make_request);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		/*
 		 * DM handles splitting bios as needed.  Free the bio_split bioset
 		 * since it won't be used (saves 1 process per bio-based DM device).

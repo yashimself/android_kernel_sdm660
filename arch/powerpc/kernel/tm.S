@@ -352,6 +352,11 @@ _GLOBAL(__tm_recheckpoint)
 	 */
 	subi	r7, r7, STACK_FRAME_OVERHEAD
 
+<<<<<<< HEAD
+=======
+	SET_SCRATCH0(r1)
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	mfmsr	r6
 	/* R4 = original MSR to indicate whether thread used FP/Vector etc. */
 
@@ -480,7 +485,10 @@ restore_gprs:
 	 * until we turn MSR RI back on.
 	 */
 
+<<<<<<< HEAD
 	SET_SCRATCH0(r1)
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	ld	r5, -8(r1)
 	ld	r1, -16(r1)
 

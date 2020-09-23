@@ -127,7 +127,10 @@ static int fl_classify(struct sk_buff *skb, const struct tcf_proto *tp,
 	struct fl_flow_key skb_key;
 	struct fl_flow_key skb_mkey;
 
+<<<<<<< HEAD
 	flow_dissector_init_keys(&skb_key.control, &skb_key.basic);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	fl_clear_masked_range(&skb_key, &head->mask);
 	skb_key.indev_ifindex = skb->skb_iif;
 	/* skb_flow_dissect() does not set n_proto in case an unknown protocol,
@@ -351,10 +354,19 @@ static int fl_init_hashtable(struct cls_fl_head *head,
 
 #define FL_KEY_MEMBER_OFFSET(member) offsetof(struct fl_flow_key, member)
 #define FL_KEY_MEMBER_SIZE(member) (sizeof(((struct fl_flow_key *) 0)->member))
+<<<<<<< HEAD
 
 #define FL_KEY_IS_MASKED(mask, member)						\
 	memchr_inv(((char *)mask) + FL_KEY_MEMBER_OFFSET(member),		\
 		   0, FL_KEY_MEMBER_SIZE(member))				\
+=======
+#define FL_KEY_MEMBER_END_OFFSET(member)					\
+	(FL_KEY_MEMBER_OFFSET(member) + FL_KEY_MEMBER_SIZE(member))
+
+#define FL_KEY_IN_RANGE(mask, member)						\
+        (FL_KEY_MEMBER_OFFSET(member) <= (mask)->range.end &&			\
+         FL_KEY_MEMBER_END_OFFSET(member) >= (mask)->range.start)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #define FL_KEY_SET(keys, cnt, id, member)					\
 	do {									\
@@ -363,9 +375,15 @@ static int fl_init_hashtable(struct cls_fl_head *head,
 		cnt++;								\
 	} while(0);
 
+<<<<<<< HEAD
 #define FL_KEY_SET_IF_MASKED(mask, keys, cnt, id, member)			\
 	do {									\
 		if (FL_KEY_IS_MASKED(mask, member))				\
+=======
+#define FL_KEY_SET_IF_IN_RANGE(mask, keys, cnt, id, member)			\
+	do {									\
+		if (FL_KEY_IN_RANGE(mask, member))				\
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			FL_KEY_SET(keys, cnt, id, member);			\
 	} while(0);
 
@@ -377,6 +395,7 @@ static void fl_init_dissector(struct cls_fl_head *head,
 
 	FL_KEY_SET(keys, cnt, FLOW_DISSECTOR_KEY_CONTROL, control);
 	FL_KEY_SET(keys, cnt, FLOW_DISSECTOR_KEY_BASIC, basic);
+<<<<<<< HEAD
 	FL_KEY_SET_IF_MASKED(&mask->key, keys, cnt,
 			     FLOW_DISSECTOR_KEY_ETH_ADDRS, eth);
 	FL_KEY_SET_IF_MASKED(&mask->key, keys, cnt,
@@ -385,6 +404,16 @@ static void fl_init_dissector(struct cls_fl_head *head,
 			     FLOW_DISSECTOR_KEY_IPV6_ADDRS, ipv6);
 	FL_KEY_SET_IF_MASKED(&mask->key, keys, cnt,
 			     FLOW_DISSECTOR_KEY_PORTS, tp);
+=======
+	FL_KEY_SET_IF_IN_RANGE(mask, keys, cnt,
+			       FLOW_DISSECTOR_KEY_ETH_ADDRS, eth);
+	FL_KEY_SET_IF_IN_RANGE(mask, keys, cnt,
+			       FLOW_DISSECTOR_KEY_IPV4_ADDRS, ipv4);
+	FL_KEY_SET_IF_IN_RANGE(mask, keys, cnt,
+			       FLOW_DISSECTOR_KEY_IPV6_ADDRS, ipv6);
+	FL_KEY_SET_IF_IN_RANGE(mask, keys, cnt,
+			       FLOW_DISSECTOR_KEY_PORTS, tp);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	skb_flow_dissector_init(&head->dissector, keys, cnt);
 }

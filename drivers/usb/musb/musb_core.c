@@ -2132,9 +2132,12 @@ musb_init_controller(struct device *dev, int nIrq, void __iomem *ctrl)
 	musb_platform_disable(musb);
 	musb_generic_disable(musb);
 
+<<<<<<< HEAD
 	/* MUSB_POWER_SOFTCONN might be already set, JZ4740 does this. */
 	musb_writeb(musb->mregs, MUSB_POWER, 0);
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* Init IRQ workqueue before request_irq */
 	INIT_WORK(&musb->irq_work, musb_irq_work);
 	INIT_DELAYED_WORK(&musb->deassert_reset_work, musb_deassert_reset);

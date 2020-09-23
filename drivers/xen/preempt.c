@@ -37,9 +37,13 @@ asmlinkage __visible void xen_maybe_preempt_hcall(void)
 		 * cpu.
 		 */
 		__this_cpu_write(xen_in_preemptible_hcall, false);
+<<<<<<< HEAD
 		local_irq_enable();
 		cond_resched();
 		local_irq_disable();
+=======
+		_cond_resched();
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		__this_cpu_write(xen_in_preemptible_hcall, true);
 	}
 }

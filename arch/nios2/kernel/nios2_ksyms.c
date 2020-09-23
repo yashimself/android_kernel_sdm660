@@ -9,20 +9,26 @@
 #include <linux/export.h>
 #include <linux/string.h>
 
+<<<<<<< HEAD
 #include <asm/cacheflush.h>
 #include <asm/pgtable.h>
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /* string functions */
 
 EXPORT_SYMBOL(memcpy);
 EXPORT_SYMBOL(memset);
 EXPORT_SYMBOL(memmove);
 
+<<<<<<< HEAD
 /* memory management */
 
 EXPORT_SYMBOL(empty_zero_page);
 EXPORT_SYMBOL(flush_icache_range);
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /*
  * libgcc functions - functions that are used internally by the
  * compiler...  (prototypes are not correct though, but that
@@ -39,7 +45,10 @@ DECLARE_EXPORT(__udivsi3);
 DECLARE_EXPORT(__umoddi3);
 DECLARE_EXPORT(__umodsi3);
 DECLARE_EXPORT(__muldi3);
+<<<<<<< HEAD
 DECLARE_EXPORT(__ucmpdi2);
 DECLARE_EXPORT(__lshrdi3);
 DECLARE_EXPORT(__ashldi3);
 DECLARE_EXPORT(__ashrdi3);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

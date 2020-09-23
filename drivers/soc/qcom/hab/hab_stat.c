@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2018-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -32,21 +36,32 @@ int hab_stat_deinit(struct hab_driver *driver)
 static int hab_stat_buffer_print(char *dest,
 		int dest_size, const char *fmt, ...)
 {
+<<<<<<< HEAD
 	va_list args;
 	char line[MAX_LINE_SIZE];
 	int ret;
+=======
+	va_list args = {0};
+	char line[MAX_LINE_SIZE] = {0};
+	int ret = 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	va_start(args, fmt);
 	ret = vsnprintf(line, sizeof(line), fmt, args);
 	va_end(args);
 	if (ret > 0)
+<<<<<<< HEAD
 		ret = strlcat(dest, line, dest_size);
+=======
+		ret = (int)strlcat(dest, line, dest_size);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return ret;
 }
 
 int hab_stat_show_vchan(struct hab_driver *driver,
 		char *buf, int size)
 {
+<<<<<<< HEAD
 	int i, ret = 0;
 
 	ret = strlcpy(buf, "", size);
@@ -54,6 +69,15 @@ int hab_stat_show_vchan(struct hab_driver *driver,
 		struct hab_device *dev = &driver->devp[i];
 		struct physical_channel *pchan;
 		struct virtual_channel *vc;
+=======
+	int i = 0, ret = 0;
+
+	ret = (int)strlcpy(buf, "", size);
+	for (i = 0; i < driver->ndevices; i++) {
+		struct hab_device *dev = &driver->devp[i];
+		struct physical_channel *pchan = NULL;
+		struct virtual_channel *vc = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		spin_lock_bh(&dev->pchan_lock);
 		list_for_each_entry(pchan, &dev->pchannels, node) {
@@ -61,14 +85,27 @@ int hab_stat_show_vchan(struct hab_driver *driver,
 				continue;
 
 			ret = hab_stat_buffer_print(buf, size,
+<<<<<<< HEAD
 				"mmid %s role %d local %d remote %d vcnt %d:\n",
 				pchan->name, pchan->is_be, pchan->vmid_local,
 				pchan->vmid_remote, pchan->vcnt);
+=======
+				"nm %s r %d lc %d rm %d sq_t %d sq_r %d st 0x%x vn %d:\n",
+				pchan->name, pchan->is_be, pchan->vmid_local,
+				pchan->vmid_remote, pchan->sequence_tx,
+				pchan->sequence_rx, pchan->status, pchan->vcnt);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 			read_lock(&pchan->vchans_lock);
 			list_for_each_entry(vc, &pchan->vchannels, pnode) {
 				ret = hab_stat_buffer_print(buf, size,
+<<<<<<< HEAD
 						 "%08X ", vc->id);
+=======
+					"%08X(%d:%d) ", vc->id,
+					get_refcnt(vc->refcount),
+					vc->otherend_closed);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			}
 			ret = hab_stat_buffer_print(buf, size, "\n");
 			read_unlock(&pchan->vchans_lock);
@@ -83,9 +120,15 @@ int hab_stat_show_ctx(struct hab_driver *driver,
 		char *buf, int size)
 {
 	int ret = 0;
+<<<<<<< HEAD
 	struct uhab_context *ctx;
 
 	ret = strlcpy(buf, "", size);
+=======
+	struct uhab_context *ctx = NULL;
+
+	ret = (int)strlcpy(buf, "", size);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	spin_lock_bh(&hab_driver.drvlock);
 	ret = hab_stat_buffer_print(buf, size,
@@ -93,10 +136,18 @@ int hab_stat_show_ctx(struct hab_driver *driver,
 					driver->ctx_cnt);
 	list_for_each_entry(ctx, &hab_driver.uctx_list, node) {
 		ret = hab_stat_buffer_print(buf, size,
+<<<<<<< HEAD
 			"ctx %d K %d close %d vc %d exp %d imp %d open %d\n",
 			ctx->owner, ctx->kernel, ctx->closing,
 			ctx->vcnt, ctx->export_total,
 			ctx->import_total, ctx->pending_cnt);
+=======
+		"ctx %d K %d close %d vc %d exp %d imp %d open %d ref %d\n",
+			ctx->owner, ctx->kernel, ctx->closing,
+			ctx->vcnt, ctx->export_total,
+			ctx->import_total, ctx->pending_cnt,
+			get_refcnt(ctx->refcount));
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 	spin_unlock_bh(&hab_driver.drvlock);
 
@@ -105,7 +156,11 @@ int hab_stat_show_ctx(struct hab_driver *driver,
 
 static int get_pft_tbl_total_size(struct compressed_pfns *pfn_table)
 {
+<<<<<<< HEAD
 	int i, total_size = 0;
+=======
+	int i = 0, total_size = 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	for (i = 0; i < pfn_table->nregions; i++)
 		total_size += pfn_table->region[i].size * PAGE_SIZE;
@@ -116,6 +171,7 @@ static int get_pft_tbl_total_size(struct compressed_pfns *pfn_table)
 static int print_ctx_total_expimp(struct uhab_context *ctx,
 		char *buf, int size)
 {
+<<<<<<< HEAD
 	struct compressed_pfns *pfn_table;
 	int exp_total = 0, imp_total = 0;
 	int exp_cnt = 0, imp_cnt = 0;
@@ -137,6 +193,42 @@ static int print_ctx_total_expimp(struct uhab_context *ctx,
 			imp_cnt++;
 		}
 	}
+=======
+	struct compressed_pfns *pfn_table = NULL;
+	int exp_total = 0, imp_total = 0;
+	int exp_cnt = 0, imp_cnt = 0;
+	struct export_desc *exp = NULL;
+	int exim_size = 0;
+
+	read_lock(&ctx->exp_lock);
+	hab_stat_buffer_print(buf, size, "export[expid:vcid:size]: ");
+	list_for_each_entry(exp, &ctx->exp_whse, node) {
+		pfn_table =	(struct compressed_pfns *)exp->payload;
+		exim_size = get_pft_tbl_total_size(pfn_table);
+		exp_total += exim_size;
+		exp_cnt++;
+		hab_stat_buffer_print(buf, size,
+			"[%d:%x:%d] ", exp->export_id,
+			exp->vcid_local, exim_size);
+	}
+	hab_stat_buffer_print(buf, size, "\n");
+	read_unlock(&ctx->exp_lock);
+
+	spin_lock_bh(&ctx->imp_lock);
+	hab_stat_buffer_print(buf, size, "import[expid:vcid:size]: ");
+	list_for_each_entry(exp, &ctx->imp_whse, node) {
+		if (habmm_imp_hyp_map_check(ctx->import_ctx, exp)) {
+			pfn_table =	(struct compressed_pfns *)exp->payload;
+			exim_size = get_pft_tbl_total_size(pfn_table);
+			imp_total += exim_size;
+			imp_cnt++;
+			hab_stat_buffer_print(buf, size,
+				"[%d:%x:%d] ", exp->export_id,
+				exp->vcid_local, exim_size);
+		}
+	}
+	hab_stat_buffer_print(buf, size, "\n");
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	spin_unlock_bh(&ctx->imp_lock);
 
 	if (exp_cnt || exp_total || imp_cnt || imp_total)
@@ -151,10 +243,18 @@ static int print_ctx_total_expimp(struct uhab_context *ctx,
 int hab_stat_show_expimp(struct hab_driver *driver,
 		int pid, char *buf, int size)
 {
+<<<<<<< HEAD
 	struct uhab_context *ctx;
 	int ret;
 
 	ret = strlcpy(buf, "", size);
+=======
+	struct uhab_context *ctx = NULL;
+	int ret = 0;
+
+	(void)driver;
+	ret = (int)strlcpy(buf, "", size);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	spin_lock_bh(&hab_driver.drvlock);
 	list_for_each_entry(ctx, &hab_driver.uctx_list, node) {

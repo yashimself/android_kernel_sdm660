@@ -34,7 +34,11 @@
 }
 
 #define CHAN2G(_channel, _freq, _flags) {   \
+<<<<<<< HEAD
 	.band           = NL80211_BAND_2GHZ,  \
+=======
+	.band           = IEEE80211_BAND_2GHZ,  \
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.hw_value       = (_channel),           \
 	.center_freq    = (_freq),              \
 	.flags          = (_flags),             \
@@ -43,7 +47,11 @@
 }
 
 #define CHAN5G(_channel, _flags) {		    \
+<<<<<<< HEAD
 	.band           = NL80211_BAND_5GHZ,      \
+=======
+	.band           = IEEE80211_BAND_5GHZ,      \
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.hw_value       = (_channel),               \
 	.center_freq    = 5000 + (5 * (_channel)),  \
 	.flags          = (_flags),                 \
@@ -932,7 +940,11 @@ static int ath6kl_set_probed_ssids(struct ath6kl *ar,
 		else
 			ssid_list[i].flag = ANY_SSID_FLAG;
 
+<<<<<<< HEAD
 		if (ar->wiphy->max_match_sets != 0 && n_match_ssid == 0)
+=======
+		if (n_match_ssid == 0)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			ssid_list[i].flag |= MATCH_SSID_FLAG;
 	}
 
@@ -1083,7 +1095,11 @@ void ath6kl_cfg80211_scan_complete_event(struct ath6kl_vif *vif, bool aborted)
 	if (vif->scan_req->n_ssids && vif->scan_req->ssids[0].ssid_len) {
 		for (i = 0; i < vif->scan_req->n_ssids; i++) {
 			ath6kl_wmi_probedssid_cmd(ar->wmi, vif->fw_vif_idx,
+<<<<<<< HEAD
 						  i, DISABLE_SSID_FLAG,
+=======
+						  i + 1, DISABLE_SSID_FLAG,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 						  0, NULL);
 		}
 	}
@@ -2583,7 +2599,11 @@ void ath6kl_check_wow_status(struct ath6kl *ar)
 }
 #endif
 
+<<<<<<< HEAD
 static int ath6kl_set_htcap(struct ath6kl_vif *vif, enum nl80211_band band,
+=======
+static int ath6kl_set_htcap(struct ath6kl_vif *vif, enum ieee80211_band band,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			    bool ht_enable)
 {
 	struct ath6kl_htcap *htcap = &vif->htcap[band];
@@ -2594,7 +2614,11 @@ static int ath6kl_set_htcap(struct ath6kl_vif *vif, enum nl80211_band band,
 	if (ht_enable) {
 		/* Set default ht capabilities */
 		htcap->ht_enable = true;
+<<<<<<< HEAD
 		htcap->cap_info = (band == NL80211_BAND_2GHZ) ?
+=======
+		htcap->cap_info = (band == IEEE80211_BAND_2GHZ) ?
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				   ath6kl_g_htcap : ath6kl_a_htcap;
 		htcap->ampdu_factor = IEEE80211_HT_MAX_AMPDU_16K;
 	} else /* Disable ht */
@@ -2609,7 +2633,11 @@ static int ath6kl_restore_htcap(struct ath6kl_vif *vif)
 	struct wiphy *wiphy = vif->ar->wiphy;
 	int band, ret = 0;
 
+<<<<<<< HEAD
 	for (band = 0; band < NUM_NL80211_BANDS; band++) {
+=======
+	for (band = 0; band < IEEE80211_NUM_BANDS; band++) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (!wiphy->bands[band])
 			continue;
 
@@ -3530,7 +3558,11 @@ static void ath6kl_cfg80211_reg_notify(struct wiphy *wiphy,
 				       struct regulatory_request *request)
 {
 	struct ath6kl *ar = wiphy_priv(wiphy);
+<<<<<<< HEAD
 	u32 rates[NUM_NL80211_BANDS];
+=======
+	u32 rates[IEEE80211_NUM_BANDS];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int ret, i;
 
 	ath6kl_dbg(ATH6KL_DBG_WLAN_CFG,
@@ -3555,7 +3587,11 @@ static void ath6kl_cfg80211_reg_notify(struct wiphy *wiphy,
 	 * changed.
 	 */
 
+<<<<<<< HEAD
 	for (i = 0; i < NUM_NL80211_BANDS; i++)
+=======
+	for (i = 0; i < IEEE80211_NUM_BANDS; i++)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (wiphy->bands[i])
 			rates[i] = (1 << wiphy->bands[i]->n_bitrates) - 1;
 
@@ -3791,8 +3827,13 @@ struct wireless_dev *ath6kl_interface_add(struct ath6kl *ar, const char *name,
 	vif->listen_intvl_t = ATH6KL_DEFAULT_LISTEN_INTVAL;
 	vif->bmiss_time_t = ATH6KL_DEFAULT_BMISS_TIME;
 	vif->bg_scan_period = 0;
+<<<<<<< HEAD
 	vif->htcap[NL80211_BAND_2GHZ].ht_enable = true;
 	vif->htcap[NL80211_BAND_5GHZ].ht_enable = true;
+=======
+	vif->htcap[IEEE80211_BAND_2GHZ].ht_enable = true;
+	vif->htcap[IEEE80211_BAND_5GHZ].ht_enable = true;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	memcpy(ndev->dev_addr, ar->mac_addr, ETH_ALEN);
 	if (fw_vif_idx != 0) {
@@ -3943,9 +3984,15 @@ int ath6kl_cfg80211_init(struct ath6kl *ar)
 	wiphy->available_antennas_rx = ar->hw.rx_ant;
 
 	if (band_2gig)
+<<<<<<< HEAD
 		wiphy->bands[NL80211_BAND_2GHZ] = &ath6kl_band_2ghz;
 	if (band_5gig)
 		wiphy->bands[NL80211_BAND_5GHZ] = &ath6kl_band_5ghz;
+=======
+		wiphy->bands[IEEE80211_BAND_2GHZ] = &ath6kl_band_2ghz;
+	if (band_5gig)
+		wiphy->bands[IEEE80211_BAND_5GHZ] = &ath6kl_band_5ghz;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	wiphy->signal_type = CFG80211_SIGNAL_TYPE_MBM;
 

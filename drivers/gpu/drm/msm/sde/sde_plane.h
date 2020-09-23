@@ -102,4 +102,16 @@ int sde_plane_wait_input_fence(struct drm_plane *plane, uint32_t wait_ms);
 int sde_plane_color_fill(struct drm_plane *plane,
 		uint32_t color, uint32_t alpha);
 
+<<<<<<< HEAD
+=======
+/**
+ * sde_plane_update_blob_property - update plane blob property
+ * @plane:  Pointer to DRM plane object
+ * @key:    Pointer to key string
+ * @value:  Signed 32 bit integer value
+ */
+void sde_plane_update_blob_property(struct drm_plane *plane,
+				const char *key,
+				int32_t value);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #endif /* _SDE_PLANE_H_ */

@@ -1411,6 +1411,7 @@ static void sdma_add_scripts(struct sdma_engine *sdma,
 	if (!sdma->script_number)
 		sdma->script_number = SDMA_SCRIPT_ADDRS_ARRAY_SIZE_V1;
 
+<<<<<<< HEAD
 	if (sdma->script_number > sizeof(struct sdma_script_start_addrs)
 				  / sizeof(s32)) {
 		dev_err(sdma->dev,
@@ -1419,6 +1420,8 @@ static void sdma_add_scripts(struct sdma_engine *sdma,
 		return;
 	}
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	for (i = 0; i < sdma->script_number; i++)
 		if (addr_arr[i] > 0)
 			saddr_arr[i] = addr_arr[i];

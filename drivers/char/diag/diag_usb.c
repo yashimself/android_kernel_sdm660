@@ -219,6 +219,7 @@ static void usb_connect_work_fn(struct work_struct *work)
  */
 static void usb_disconnect(struct diag_usb_info *ch)
 {
+<<<<<<< HEAD
 	if (!ch)
 		return;
 
@@ -226,6 +227,8 @@ static void usb_disconnect(struct diag_usb_info *ch)
 		driver->usb_connected && diag_mask_param())
 		diag_clear_masks(0);
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (ch && ch->ops && ch->ops->close)
 		ch->ops->close(ch->ctxt, DIAG_USB_MODE);
 }
@@ -234,6 +237,17 @@ static void usb_disconnect_work_fn(struct work_struct *work)
 {
 	struct diag_usb_info *ch = container_of(work, struct diag_usb_info,
 						disconnect_work);
+<<<<<<< HEAD
+=======
+
+	if (!ch)
+		return;
+
+	if (!atomic_read(&ch->connected) &&
+		driver->usb_connected && diag_mask_param())
+		diag_clear_masks(0);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	usb_disconnect(ch);
 }
 

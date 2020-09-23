@@ -1698,8 +1698,13 @@ static void end_workqueue_fn(struct btrfs_work *work)
 	bio->bi_error = end_io_wq->error;
 	bio->bi_private = end_io_wq->private;
 	bio->bi_end_io = end_io_wq->end_io;
+<<<<<<< HEAD
 	bio_endio(bio);
 	kmem_cache_free(btrfs_end_io_wq_cache, end_io_wq);
+=======
+	kmem_cache_free(btrfs_end_io_wq_cache, end_io_wq);
+	bio_endio(bio);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static int cleaner_kthread(void *arg)
@@ -1750,7 +1755,11 @@ static int cleaner_kthread(void *arg)
 		 */
 		btrfs_delete_unused_bgs(root->fs_info);
 sleep:
+<<<<<<< HEAD
 		if (!again) {
+=======
+		if (!try_to_freeze() && !again) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			set_current_state(TASK_INTERRUPTIBLE);
 			if (!kthread_should_stop())
 				schedule();
@@ -2481,6 +2490,10 @@ int open_ctree(struct super_block *sb,
 	spin_lock_init(&fs_info->delayed_iput_lock);
 	spin_lock_init(&fs_info->defrag_inodes_lock);
 	spin_lock_init(&fs_info->free_chunk_lock);
+<<<<<<< HEAD
+=======
+	spin_lock_init(&fs_info->tree_mod_seq_lock);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	spin_lock_init(&fs_info->super_lock);
 	spin_lock_init(&fs_info->qgroup_op_lock);
 	spin_lock_init(&fs_info->buffer_lock);
@@ -2972,7 +2985,10 @@ retry_root_backup:
 
 	/* do not make disk changes in broken FS */
 	if (btrfs_super_log_root(disk_super) != 0) {
+<<<<<<< HEAD
 		btrfs_info(fs_info, "start tree-log replay");
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		ret = btrfs_replay_log(fs_info, fs_devices);
 		if (ret) {
 			err = ret;
@@ -3774,6 +3790,7 @@ void close_ctree(struct btrfs_root *root)
 		 */
 		btrfs_delete_unused_bgs(root->fs_info);
 
+<<<<<<< HEAD
 		/*
 		 * There might be existing delayed inode workers still running
 		 * and holding an empty delayed inode item. We must wait for
@@ -3787,6 +3804,8 @@ void close_ctree(struct btrfs_root *root)
 		 */
 		btrfs_flush_workqueue(fs_info->delayed_workers);
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		ret = btrfs_commit_super(root);
 		if (ret)
 			btrfs_err(fs_info, "commit super ret %d", ret);

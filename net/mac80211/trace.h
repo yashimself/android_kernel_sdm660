@@ -396,7 +396,11 @@ TRACE_EVENT(drv_bss_info_changed,
 		__field(u32, sync_device_ts)
 		__field(u8, sync_dtim_count)
 		__field(u32, basic_rates)
+<<<<<<< HEAD
 		__array(int, mcast_rate, NUM_NL80211_BANDS)
+=======
+		__array(int, mcast_rate, IEEE80211_NUM_BANDS)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		__field(u16, ht_operation_mode)
 		__field(s32, cqm_rssi_thold);
 		__field(s32, cqm_rssi_hyst);
@@ -1253,8 +1257,13 @@ TRACE_EVENT(drv_set_bitrate_mask,
 	TP_fast_assign(
 		LOCAL_ASSIGN;
 		VIF_ASSIGN;
+<<<<<<< HEAD
 		__entry->legacy_2g = mask->control[NL80211_BAND_2GHZ].legacy;
 		__entry->legacy_5g = mask->control[NL80211_BAND_5GHZ].legacy;
+=======
+		__entry->legacy_2g = mask->control[IEEE80211_BAND_2GHZ].legacy;
+		__entry->legacy_5g = mask->control[IEEE80211_BAND_5GHZ].legacy;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	),
 
 	TP_printk(

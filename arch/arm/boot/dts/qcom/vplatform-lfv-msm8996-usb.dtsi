@@ -88,7 +88,10 @@
 
 		resets = <&clock_virt USB_30_BCR>;
 		reset-names = "core_reset";
+<<<<<<< HEAD
 		qcom,disable-host-mode-pm;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		dwc3@6a00000 {
 			compatible = "snps,dwc3";

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2017, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2017-2018, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -321,11 +325,35 @@ int min_enc_lvl)
 
 	SDE_HDCP_DEBUG("enc level changed %d\n", min_enc_lvl);
 
+<<<<<<< HEAD
 	cdata.context = ctrl->lib_ctx;
 	sde_hdmi_hdcp2p2_wakeup_lib(ctrl, &cdata);
 
 	if (enc_notify && ctrl->init_data.notify_status)
 		ctrl->init_data.notify_status(ctrl->init_data.cb_data, enc_lvl);
+=======
+	/* notify the client first about the new level */
+	if (enc_notify && ctrl->init_data.notify_status)
+		ctrl->init_data.notify_status(ctrl->init_data.cb_data, enc_lvl);
+
+	cdata.context = ctrl->lib_ctx;
+	sde_hdmi_hdcp2p2_wakeup_lib(ctrl, &cdata);
+}
+
+static void sde_hdmi_hdcp2p2_mute_sink(void *client_ctx)
+{
+	struct sde_hdmi_hdcp2p2_ctrl *ctrl =
+		(struct sde_hdmi_hdcp2p2_ctrl *)client_ctx;
+
+	if (!ctrl) {
+		SDE_ERROR("invalid input\n");
+		return;
+	}
+
+	/* call into client to send avmute to the sink */
+	if (ctrl->init_data.avmute_sink)
+		ctrl->init_data.avmute_sink(ctrl->init_data.cb_data);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static void sde_hdmi_hdcp2p2_auth_failed(struct sde_hdmi_hdcp2p2_ctrl *ctrl)
@@ -930,6 +958,10 @@ void *sde_hdmi_hdcp2p2_init(struct sde_hdcp_init_data *init_data)
 		.wakeup = sde_hdmi_hdcp2p2_wakeup,
 		.notify_lvl_change = sde_hdmi_hdcp2p2_min_level_change,
 		.srm_cb = sde_hdmi_hdcp2p2_srm_cb,
+<<<<<<< HEAD
+=======
+		.mute_sink = sde_hdmi_hdcp2p2_mute_sink,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	};
 
 	static struct hdcp_txmtr_ops txmtr_ops;

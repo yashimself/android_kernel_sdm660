@@ -157,7 +157,11 @@ nouveau_fence_wait_uevent_handler(struct nvif_notify *notify)
 
 		fence = list_entry(fctx->pending.next, typeof(*fence), head);
 		chan = rcu_dereference_protected(fence->channel, lockdep_is_held(&fctx->lock));
+<<<<<<< HEAD
 		if (nouveau_fence_update(chan, fctx))
+=======
+		if (nouveau_fence_update(fence->channel, fctx))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			ret = NVIF_NOTIFY_DROP;
 	}
 	spin_unlock_irqrestore(&fctx->lock, flags);

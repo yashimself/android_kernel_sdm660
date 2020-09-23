@@ -202,9 +202,14 @@ static void __init axp_clk_init(struct device_node *np)
 
 	mvebu_coreclk_setup(np, &axp_coreclks);
 
+<<<<<<< HEAD
 	if (cgnp) {
 		mvebu_clk_gating_setup(cgnp, axp_gating_desc);
 		of_node_put(cgnp);
 	}
+=======
+	if (cgnp)
+		mvebu_clk_gating_setup(cgnp, axp_gating_desc);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 CLK_OF_DECLARE(axp_clk, "marvell,armada-xp-core-clock", axp_clk_init);

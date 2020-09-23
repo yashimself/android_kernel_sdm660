@@ -64,9 +64,15 @@ static void wl1271_rx_status(struct wl1271 *wl,
 	memset(status, 0, sizeof(struct ieee80211_rx_status));
 
 	if ((desc->flags & WL1271_RX_DESC_BAND_MASK) == WL1271_RX_DESC_BAND_BG)
+<<<<<<< HEAD
 		status->band = NL80211_BAND_2GHZ;
 	else
 		status->band = NL80211_BAND_5GHZ;
+=======
+		status->band = IEEE80211_BAND_2GHZ;
+	else
+		status->band = IEEE80211_BAND_5GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	status->rate_idx = wlcore_rate_to_idx(wl, desc->rate, status->band);
 

@@ -206,10 +206,13 @@ static u64 bpf_perf_event_read(u64 r1, u64 index, u64 r3, u64 r4, u64 r5)
 	    event->pmu->count)
 		return -EINVAL;
 
+<<<<<<< HEAD
 	if (unlikely(event->attr.type != PERF_TYPE_HARDWARE &&
 		     event->attr.type != PERF_TYPE_RAW))
 		return -EINVAL;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/*
 	 * we don't know if the function is run successfully by the
 	 * return value. It can be judged in other places, such as

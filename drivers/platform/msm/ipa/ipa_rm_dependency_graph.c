@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2013-2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2013-2017, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -88,7 +92,12 @@ int ipa_rm_dep_graph_get_resource(
 		goto bail;
 	}
 	resource_index = ipa_rm_dep_get_index(resource_name);
+<<<<<<< HEAD
 	if (resource_index == IPA_RM_INDEX_INVALID) {
+=======
+	if (resource_index == IPA_RM_INDEX_INVALID ||
+		resource_index >= IPA_RM_RESOURCE_MAX) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		result = -EINVAL;
 		goto bail;
 	}
@@ -120,7 +129,12 @@ int ipa_rm_dep_graph_add(struct ipa_rm_dep_graph *graph,
 		goto bail;
 	}
 	resource_index = ipa_rm_dep_get_index(resource->name);
+<<<<<<< HEAD
 	if (resource_index == IPA_RM_INDEX_INVALID) {
+=======
+	if (resource_index == IPA_RM_INDEX_INVALID ||
+		resource_index >= IPA_RM_RESOURCE_MAX) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		result = -EINVAL;
 		goto bail;
 	}

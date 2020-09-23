@@ -32,6 +32,7 @@
 #include <linux/regulator/of_regulator.h>
 #include <linux/input/qpnp-power-on.h>
 #include <linux/power_supply.h>
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 #include <linux/timer.h>
 
@@ -42,6 +43,8 @@ struct timer_data {
 	struct qpnp_pon_config *cfg;
 } timer_data;
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #define PMIC_VER_8941           0x01
 #define PMIC_VERSION_REG        0x0105
@@ -1281,6 +1284,7 @@ qpnp_pon_config_input(struct qpnp_pon *pon,  struct qpnp_pon_config *cfg)
 	return 0;
 }
 
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 static int
 qpnp_config_reset_reg(struct qpnp_pon *pon, struct qpnp_pon_config *cfg)
@@ -1371,6 +1375,8 @@ static void start_timer(struct qpnp_pon *pon,  struct qpnp_pon_config *cfg)
 }
 #endif /* CONFIG_MACH_ASUS_X00TD */
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int qpnp_pon_config_init(struct qpnp_pon *pon)
 {
 	int rc = 0, i = 0, pmic_wd_bark_irq;
@@ -1720,11 +1726,14 @@ static int qpnp_pon_config_init(struct qpnp_pon *pon)
 			dev_err(&pon->pdev->dev, "Unable to request-irq's\n");
 			goto unreg_input_dev;
 		}
+<<<<<<< HEAD
 
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 		if (cfg->pon_type == PON_KPDPWR)
 			start_timer(pon, cfg);
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	device_init_wakeup(&pon->pdev->dev, 1);

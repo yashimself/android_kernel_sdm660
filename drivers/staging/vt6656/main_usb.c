@@ -666,7 +666,11 @@ static int vnt_config(struct ieee80211_hw *hw, u32 changed)
 			(conf->flags & IEEE80211_CONF_OFFCHANNEL)) {
 		vnt_set_channel(priv, conf->chandef.chan->hw_value);
 
+<<<<<<< HEAD
 		if (conf->chandef.chan->band == NL80211_BAND_5GHZ)
+=======
+		if (conf->chandef.chan->band == IEEE80211_BAND_5GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			bb_type = BB_TYPE_11A;
 		else
 			bb_type = BB_TYPE_11G;
@@ -762,6 +766,7 @@ static void vnt_bss_info_changed(struct ieee80211_hw *hw,
 			vnt_mac_reg_bits_on(priv, MAC_REG_TFTCTL,
 					    TFTCTL_TSFCNTREN);
 
+<<<<<<< HEAD
 			vnt_mac_set_beacon_interval(priv, conf->beacon_int);
 
 			vnt_reset_next_tbtt(priv, conf->beacon_int);
@@ -771,6 +776,14 @@ static void vnt_bss_info_changed(struct ieee80211_hw *hw,
 
 			vnt_update_next_tbtt(priv,
 					     conf->sync_tsf, conf->beacon_int);
+=======
+			vnt_adjust_tsf(priv, conf->beacon_rate->hw_value,
+				       conf->sync_tsf, priv->current_tsf);
+
+			vnt_mac_set_beacon_interval(priv, conf->beacon_int);
+
+			vnt_reset_next_tbtt(priv, conf->beacon_int);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		} else {
 			vnt_clear_current_tsf(priv);
 
@@ -982,7 +995,10 @@ vt6656_probe(struct usb_interface *intf, const struct usb_device_id *id)
 	priv = hw->priv;
 	priv->hw = hw;
 	priv->usb = udev;
+<<<<<<< HEAD
 	priv->intf = intf;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	vnt_set_options(priv);
 
@@ -1005,7 +1021,10 @@ vt6656_probe(struct usb_interface *intf, const struct usb_device_id *id)
 	ieee80211_hw_set(priv->hw, RX_INCLUDES_FCS);
 	ieee80211_hw_set(priv->hw, REPORTS_TX_ACK_STATUS);
 	ieee80211_hw_set(priv->hw, SUPPORTS_PS);
+<<<<<<< HEAD
 	ieee80211_hw_set(priv->hw, PS_NULLFUNC_STACK);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	priv->hw->max_signal = 100;
 

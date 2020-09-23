@@ -200,10 +200,17 @@ void __init omap_check_revision(void)
 		printk(KERN_INFO "Unknown OMAP cpu type: 0x%02x\n", cpu_type);
 	}
 
+<<<<<<< HEAD
 	pr_info("OMAP%04x", omap_revision >> 16);
 	if ((omap_revision >> 8) & 0xff)
 		pr_cont("%x", (omap_revision >> 8) & 0xff);
 	pr_cont(" revision %i handled as %02xxx id: %08x%08x\n",
+=======
+	printk(KERN_INFO "OMAP%04x", omap_revision >> 16);
+	if ((omap_revision >> 8) & 0xff)
+		printk(KERN_INFO "%x", (omap_revision >> 8) & 0xff);
+	printk(KERN_INFO " revision %i handled as %02xxx id: %08x%08x\n",
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	       die_rev, omap_revision & 0xff, system_serial_low,
 	       system_serial_high);
 }

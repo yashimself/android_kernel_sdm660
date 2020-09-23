@@ -71,6 +71,11 @@ static void set_bootloader_stats(void)
 		readl_relaxed(&boot_stats->bootloader_display));
 	_create_boot_marker("M - APPSBL Early-Domain Start - ",
 		readl_relaxed(&boot_stats->bootloader_early_domain_start));
+<<<<<<< HEAD
+=======
+	_create_boot_marker("M - APPSBL Early-Camera Start - ",
+		readl_relaxed(&boot_stats->bootloader_early_camera_start));
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	_create_boot_marker("D - APPSBL Kernel Load Time - ",
 		readl_relaxed(&boot_stats->bootloader_load_kernel));
 	_create_boot_marker("D - APPSBL Kernel Auth Time - ",

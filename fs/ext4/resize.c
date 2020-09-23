@@ -16,6 +16,7 @@
 
 #include "ext4_jbd2.h"
 
+<<<<<<< HEAD
 struct ext4_rcu_ptr {
 	struct rcu_head rcu;
 	void *ptr;
@@ -43,6 +44,8 @@ void ext4_kvfree_array_rcu(void *to_free)
 	kvfree(to_free);
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 int ext4_resize_begin(struct super_block *sb)
 {
 	struct ext4_sb_info *sbi = EXT4_SB(sb);
@@ -568,8 +571,13 @@ static int setup_new_flex_group_blocks(struct super_block *sb,
 				brelse(gdb);
 				goto out;
 			}
+<<<<<<< HEAD
 			memcpy(gdb->b_data, sbi_array_rcu_deref(sbi,
 				s_group_desc, j)->b_data, gdb->b_size);
+=======
+			memcpy(gdb->b_data, sbi->s_group_desc[j]->b_data,
+			       gdb->b_size);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			set_buffer_uptodate(gdb);
 
 			err = ext4_handle_dirty_metadata(handle, NULL, gdb);
@@ -876,6 +884,7 @@ static int add_new_gdb(handle_t *handle, struct inode *inode,
 	}
 	brelse(dind);
 
+<<<<<<< HEAD
 	rcu_read_lock();
 	o_group_desc = rcu_dereference(EXT4_SB(sb)->s_group_desc);
 	memcpy(n_group_desc, o_group_desc,
@@ -885,6 +894,15 @@ static int add_new_gdb(handle_t *handle, struct inode *inode,
 	rcu_assign_pointer(EXT4_SB(sb)->s_group_desc, n_group_desc);
 	EXT4_SB(sb)->s_gdb_count++;
 	ext4_kvfree_array_rcu(o_group_desc);
+=======
+	o_group_desc = EXT4_SB(sb)->s_group_desc;
+	memcpy(n_group_desc, o_group_desc,
+	       EXT4_SB(sb)->s_gdb_count * sizeof(struct buffer_head *));
+	n_group_desc[gdb_num] = gdb_bh;
+	EXT4_SB(sb)->s_group_desc = n_group_desc;
+	EXT4_SB(sb)->s_gdb_count++;
+	kvfree(o_group_desc);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	le16_add_cpu(&es->s_reserved_gdt_blocks, -1);
 	err = ext4_handle_dirty_super(handle, sb);
@@ -932,11 +950,17 @@ static int add_new_gdb_meta_bg(struct super_block *sb,
 		return err;
 	}
 
+<<<<<<< HEAD
 	rcu_read_lock();
 	o_group_desc = rcu_dereference(EXT4_SB(sb)->s_group_desc);
 	memcpy(n_group_desc, o_group_desc,
 	       EXT4_SB(sb)->s_gdb_count * sizeof(struct buffer_head *));
 	rcu_read_unlock();
+=======
+	o_group_desc = EXT4_SB(sb)->s_group_desc;
+	memcpy(n_group_desc, o_group_desc,
+	       EXT4_SB(sb)->s_gdb_count * sizeof(struct buffer_head *));
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	n_group_desc[gdb_num] = gdb_bh;
 
 	BUFFER_TRACE(gdb_bh, "get_write_access");
@@ -947,9 +971,15 @@ static int add_new_gdb_meta_bg(struct super_block *sb,
 		return err;
 	}
 
+<<<<<<< HEAD
 	rcu_assign_pointer(EXT4_SB(sb)->s_group_desc, n_group_desc);
 	EXT4_SB(sb)->s_gdb_count++;
 	ext4_kvfree_array_rcu(o_group_desc);
+=======
+	EXT4_SB(sb)->s_group_desc = n_group_desc;
+	EXT4_SB(sb)->s_gdb_count++;
+	kvfree(o_group_desc);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return err;
 }
 
@@ -1211,8 +1241,12 @@ static int ext4_add_new_descs(handle_t *handle, struct super_block *sb,
 		 * use non-sparse filesystems anymore.  This is already checked above.
 		 */
 		if (gdb_off) {
+<<<<<<< HEAD
 			gdb_bh = sbi_array_rcu_deref(sbi, s_group_desc,
 						     gdb_num);
+=======
+			gdb_bh = sbi->s_group_desc[gdb_num];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			BUFFER_TRACE(gdb_bh, "get_write_access");
 			err = ext4_journal_get_write_access(handle, gdb_bh);
 
@@ -1294,7 +1328,11 @@ static int ext4_setup_new_descs(handle_t *handle, struct super_block *sb,
 		/*
 		 * get_write_access() has been called on gdb_bh by ext4_add_new_desc().
 		 */
+<<<<<<< HEAD
 		gdb_bh = sbi_array_rcu_deref(sbi, s_group_desc, gdb_num);
+=======
+		gdb_bh = sbi->s_group_desc[gdb_num];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		/* Update group descriptor block for new group */
 		gdp = (struct ext4_group_desc *)(gdb_bh->b_data +
 						 gdb_off * EXT4_DESC_SIZE(sb));
@@ -1422,6 +1460,7 @@ static void ext4_update_super(struct super_block *sb,
 		   percpu_counter_read(&sbi->s_freeclusters_counter));
 	if (ext4_has_feature_flex_bg(sb) && sbi->s_log_groups_per_flex) {
 		ext4_group_t flex_group;
+<<<<<<< HEAD
 		struct flex_groups *fg;
 
 		flex_group = ext4_flex_group(sbi, group_data[0].group);
@@ -1430,6 +1469,13 @@ static void ext4_update_super(struct super_block *sb,
 			     &fg->free_clusters);
 		atomic_add(EXT4_INODES_PER_GROUP(sb) * flex_gd->count,
 			   &fg->free_inodes);
+=======
+		flex_group = ext4_flex_group(sbi, group_data[0].group);
+		atomic64_add(EXT4_NUM_B2C(sbi, free_blocks),
+			     &sbi->s_flex_groups[flex_group].free_clusters);
+		atomic_add(EXT4_INODES_PER_GROUP(sb) * flex_gd->count,
+			   &sbi->s_flex_groups[flex_group].free_inodes);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	/*
@@ -1524,8 +1570,12 @@ exit_journal:
 		for (; gdb_num <= gdb_num_end; gdb_num++) {
 			struct buffer_head *gdb_bh;
 
+<<<<<<< HEAD
 			gdb_bh = sbi_array_rcu_deref(sbi, s_group_desc,
 						     gdb_num);
+=======
+			gdb_bh = sbi->s_group_desc[gdb_num];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			if (old_gdb == gdb_bh->b_blocknr)
 				continue;
 			update_backups(sb, gdb_bh->b_blocknr, gdb_bh->b_data,
@@ -1649,7 +1699,11 @@ int ext4_group_add(struct super_block *sb, struct ext4_new_group_data *input)
 				     "No reserved GDT blocks, can't resize");
 			return -EPERM;
 		}
+<<<<<<< HEAD
 		inode = ext4_iget(sb, EXT4_RESIZE_INO, EXT4_IGET_SPECIAL);
+=======
+		inode = ext4_iget(sb, EXT4_RESIZE_INO);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (IS_ERR(inode)) {
 			ext4_warning(sb, "Error opening resize inode");
 			return PTR_ERR(inode);
@@ -1977,8 +2031,12 @@ retry:
 		}
 
 		if (!resize_inode)
+<<<<<<< HEAD
 			resize_inode = ext4_iget(sb, EXT4_RESIZE_INO,
 						 EXT4_IGET_SPECIAL);
+=======
+			resize_inode = ext4_iget(sb, EXT4_RESIZE_INO);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (IS_ERR(resize_inode)) {
 			ext4_warning(sb, "Error opening resize inode");
 			return PTR_ERR(resize_inode);

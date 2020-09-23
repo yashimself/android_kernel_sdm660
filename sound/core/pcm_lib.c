@@ -1892,6 +1892,7 @@ void snd_pcm_period_elapsed(struct snd_pcm_substream *substream)
 	struct snd_pcm_runtime *runtime;
 	unsigned long flags;
 
+<<<<<<< HEAD
 	if (snd_BUG_ON(!substream))
 		return;
 
@@ -1900,6 +1901,13 @@ void snd_pcm_period_elapsed(struct snd_pcm_substream *substream)
 		goto _unlock;
 	runtime = substream->runtime;
 
+=======
+	if (PCM_RUNTIME_CHECK(substream))
+		return;
+	runtime = substream->runtime;
+
+	snd_pcm_stream_lock_irqsave(substream, flags);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!snd_pcm_running(substream) ||
 	    snd_pcm_update_hw_ptr0(substream, 1) < 0)
 		goto _end;
@@ -1910,7 +1918,10 @@ void snd_pcm_period_elapsed(struct snd_pcm_substream *substream)
 #endif
  _end:
 	kill_fasync(&runtime->fasync, SIGIO, POLL_IN);
+<<<<<<< HEAD
  _unlock:
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	snd_pcm_stream_unlock_irqrestore(substream, flags);
 }
 

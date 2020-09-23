@@ -187,7 +187,11 @@ static struct ieee80211_rate __b43_ratetable[] = {
 #define b43_g_ratetable_size	12
 
 #define CHAN2G(_channel, _freq, _flags) {			\
+<<<<<<< HEAD
 	.band			= NL80211_BAND_2GHZ,		\
+=======
+	.band			= IEEE80211_BAND_2GHZ,		\
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.center_freq		= (_freq),			\
 	.hw_value		= (_channel),			\
 	.flags			= (_flags),			\
@@ -216,7 +220,11 @@ static struct ieee80211_channel b43_2ghz_chantable[] = {
 #undef CHAN2G
 
 #define CHAN4G(_channel, _flags) {				\
+<<<<<<< HEAD
 	.band			= NL80211_BAND_5GHZ,		\
+=======
+	.band			= IEEE80211_BAND_5GHZ,		\
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.center_freq		= 4000 + (5 * (_channel)),	\
 	.hw_value		= (_channel),			\
 	.flags			= (_flags),			\
@@ -224,7 +232,11 @@ static struct ieee80211_channel b43_2ghz_chantable[] = {
 	.max_power		= 30,				\
 }
 #define CHAN5G(_channel, _flags) {				\
+<<<<<<< HEAD
 	.band			= NL80211_BAND_5GHZ,		\
+=======
+	.band			= IEEE80211_BAND_5GHZ,		\
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.center_freq		= 5000 + (5 * (_channel)),	\
 	.hw_value		= (_channel),			\
 	.flags			= (_flags),			\
@@ -323,7 +335,11 @@ static struct ieee80211_channel b43_5ghz_aphy_chantable[] = {
 #undef CHAN5G
 
 static struct ieee80211_supported_band b43_band_5GHz_nphy = {
+<<<<<<< HEAD
 	.band		= NL80211_BAND_5GHZ,
+=======
+	.band		= IEEE80211_BAND_5GHZ,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.channels	= b43_5ghz_nphy_chantable,
 	.n_channels	= ARRAY_SIZE(b43_5ghz_nphy_chantable),
 	.bitrates	= b43_a_ratetable,
@@ -331,7 +347,11 @@ static struct ieee80211_supported_band b43_band_5GHz_nphy = {
 };
 
 static struct ieee80211_supported_band b43_band_5GHz_nphy_limited = {
+<<<<<<< HEAD
 	.band		= NL80211_BAND_5GHZ,
+=======
+	.band		= IEEE80211_BAND_5GHZ,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.channels	= b43_5ghz_nphy_chantable_limited,
 	.n_channels	= ARRAY_SIZE(b43_5ghz_nphy_chantable_limited),
 	.bitrates	= b43_a_ratetable,
@@ -339,7 +359,11 @@ static struct ieee80211_supported_band b43_band_5GHz_nphy_limited = {
 };
 
 static struct ieee80211_supported_band b43_band_5GHz_aphy = {
+<<<<<<< HEAD
 	.band		= NL80211_BAND_5GHZ,
+=======
+	.band		= IEEE80211_BAND_5GHZ,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.channels	= b43_5ghz_aphy_chantable,
 	.n_channels	= ARRAY_SIZE(b43_5ghz_aphy_chantable),
 	.bitrates	= b43_a_ratetable,
@@ -347,7 +371,11 @@ static struct ieee80211_supported_band b43_band_5GHz_aphy = {
 };
 
 static struct ieee80211_supported_band b43_band_2GHz = {
+<<<<<<< HEAD
 	.band		= NL80211_BAND_2GHZ,
+=======
+	.band		= IEEE80211_BAND_2GHZ,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.channels	= b43_2ghz_chantable,
 	.n_channels	= ARRAY_SIZE(b43_2ghz_chantable),
 	.bitrates	= b43_g_ratetable,
@@ -355,7 +383,11 @@ static struct ieee80211_supported_band b43_band_2GHz = {
 };
 
 static struct ieee80211_supported_band b43_band_2ghz_limited = {
+<<<<<<< HEAD
 	.band		= NL80211_BAND_2GHZ,
+=======
+	.band		= IEEE80211_BAND_2GHZ,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.channels	= b43_2ghz_chantable,
 	.n_channels	= b43_2ghz_chantable_limited_size,
 	.bitrates	= b43_g_ratetable,
@@ -717,7 +749,11 @@ static void b43_set_slot_time(struct b43_wldev *dev, u16 slot_time)
 {
 	/* slot_time is in usec. */
 	/* This test used to exit for all but a G PHY. */
+<<<<<<< HEAD
 	if (b43_current_band(dev->wl) == NL80211_BAND_5GHZ)
+=======
+	if (b43_current_band(dev->wl) == IEEE80211_BAND_5GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return;
 	b43_write16(dev, B43_MMIO_IFSSLOT, 510 + slot_time);
 	/* Shared memory location 0x0010 is the slot time and should be
@@ -3880,12 +3916,21 @@ static void b43_op_set_tsf(struct ieee80211_hw *hw,
 	mutex_unlock(&wl->mutex);
 }
 
+<<<<<<< HEAD
 static const char *band_to_string(enum nl80211_band band)
 {
 	switch (band) {
 	case NL80211_BAND_5GHZ:
 		return "5";
 	case NL80211_BAND_2GHZ:
+=======
+static const char *band_to_string(enum ieee80211_band band)
+{
+	switch (band) {
+	case IEEE80211_BAND_5GHZ:
+		return "5";
+	case IEEE80211_BAND_2GHZ:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return "2.4";
 	default:
 		break;
@@ -3903,10 +3948,17 @@ static int b43_switch_band(struct b43_wldev *dev,
 	u32 tmp;
 
 	switch (chan->band) {
+<<<<<<< HEAD
 	case NL80211_BAND_5GHZ:
 		gmode = false;
 		break;
 	case NL80211_BAND_2GHZ:
+=======
+	case IEEE80211_BAND_5GHZ:
+		gmode = false;
+		break;
+	case IEEE80211_BAND_2GHZ:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		gmode = true;
 		break;
 	default:
@@ -5296,16 +5348,28 @@ static int b43_setup_bands(struct b43_wldev *dev,
 		     phy->radio_rev == 9;
 
 	if (have_2ghz_phy)
+<<<<<<< HEAD
 		hw->wiphy->bands[NL80211_BAND_2GHZ] = limited_2g ?
 			&b43_band_2ghz_limited : &b43_band_2GHz;
 	if (dev->phy.type == B43_PHYTYPE_N) {
 		if (have_5ghz_phy)
 			hw->wiphy->bands[NL80211_BAND_5GHZ] = limited_5g ?
+=======
+		hw->wiphy->bands[IEEE80211_BAND_2GHZ] = limited_2g ?
+			&b43_band_2ghz_limited : &b43_band_2GHz;
+	if (dev->phy.type == B43_PHYTYPE_N) {
+		if (have_5ghz_phy)
+			hw->wiphy->bands[IEEE80211_BAND_5GHZ] = limited_5g ?
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				&b43_band_5GHz_nphy_limited :
 				&b43_band_5GHz_nphy;
 	} else {
 		if (have_5ghz_phy)
+<<<<<<< HEAD
 			hw->wiphy->bands[NL80211_BAND_5GHZ] = &b43_band_5GHz_aphy;
+=======
+			hw->wiphy->bands[IEEE80211_BAND_5GHZ] = &b43_band_5GHz_aphy;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	dev->phy.supports_2ghz = have_2ghz_phy;

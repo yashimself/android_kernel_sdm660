@@ -509,7 +509,10 @@ static int rtentry_to_fib_config(struct net *net, int cmd, struct rtentry *rt,
 		if (!dev)
 			return -ENODEV;
 		cfg->fc_oif = dev->ifindex;
+<<<<<<< HEAD
 		cfg->fc_table = l3mdev_fib_table(dev);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (colon) {
 			struct in_ifaddr *ifa;
 			struct in_device *in_dev = __in_dev_get_rtnl(dev);
@@ -1036,7 +1039,11 @@ no_promotions:
 			 * First of all, we scan fib_info list searching
 			 * for stray nexthop entries, then ignite fib_flush.
 			 */
+<<<<<<< HEAD
 			if (fib_sync_down_addr(dev, ifa->ifa_local))
+=======
+			if (fib_sync_down_addr(dev_net(dev), ifa->ifa_local))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				fib_flush(dev_net(dev));
 		}
 	}

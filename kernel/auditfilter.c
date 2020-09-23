@@ -434,7 +434,10 @@ static struct audit_entry *audit_data_to_entry(struct audit_rule_data *data,
 	bufp = data->buf;
 	for (i = 0; i < data->field_count; i++) {
 		struct audit_field *f = &entry->rule.fields[i];
+<<<<<<< HEAD
 		u32 f_val;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		err = -EINVAL;
 
@@ -443,12 +446,21 @@ static struct audit_entry *audit_data_to_entry(struct audit_rule_data *data,
 			goto exit_free;
 
 		f->type = data->fields[i];
+<<<<<<< HEAD
 		f_val = data->values[i];
 
 		/* Support legacy tests for a valid loginuid */
 		if ((f->type == AUDIT_LOGINUID) && (f_val == AUDIT_UID_UNSET)) {
 			f->type = AUDIT_LOGINUID_SET;
 			f_val = 0;
+=======
+		f->val = data->values[i];
+
+		/* Support legacy tests for a valid loginuid */
+		if ((f->type == AUDIT_LOGINUID) && (f->val == AUDIT_UID_UNSET)) {
+			f->type = AUDIT_LOGINUID_SET;
+			f->val = 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			entry->rule.pflags |= AUDIT_LOGINUID_LEGACY;
 		}
 
@@ -464,7 +476,11 @@ static struct audit_entry *audit_data_to_entry(struct audit_rule_data *data,
 		case AUDIT_SUID:
 		case AUDIT_FSUID:
 		case AUDIT_OBJ_UID:
+<<<<<<< HEAD
 			f->uid = make_kuid(current_user_ns(), f_val);
+=======
+			f->uid = make_kuid(current_user_ns(), f->val);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			if (!uid_valid(f->uid))
 				goto exit_free;
 			break;
@@ -473,12 +489,19 @@ static struct audit_entry *audit_data_to_entry(struct audit_rule_data *data,
 		case AUDIT_SGID:
 		case AUDIT_FSGID:
 		case AUDIT_OBJ_GID:
+<<<<<<< HEAD
 			f->gid = make_kgid(current_user_ns(), f_val);
+=======
+			f->gid = make_kgid(current_user_ns(), f->val);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			if (!gid_valid(f->gid))
 				goto exit_free;
 			break;
 		case AUDIT_ARCH:
+<<<<<<< HEAD
 			f->val = f_val;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			entry->rule.arch_f = f;
 			break;
 		case AUDIT_SUBJ_USER:
@@ -491,6 +514,7 @@ static struct audit_entry *audit_data_to_entry(struct audit_rule_data *data,
 		case AUDIT_OBJ_TYPE:
 		case AUDIT_OBJ_LEV_LOW:
 		case AUDIT_OBJ_LEV_HIGH:
+<<<<<<< HEAD
 			str = audit_unpack_string(&bufp, &remain, f_val);
 			if (IS_ERR(str)) {
 				err = PTR_ERR(str);
@@ -498,6 +522,13 @@ static struct audit_entry *audit_data_to_entry(struct audit_rule_data *data,
 			}
 			entry->rule.buflen += f_val;
 			f->lsm_str = str;
+=======
+			str = audit_unpack_string(&bufp, &remain, f->val);
+			if (IS_ERR(str))
+				goto exit_free;
+			entry->rule.buflen += f->val;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			err = security_audit_rule_init(f->type, f->op, str,
 						       (void **)&f->lsm_rule);
 			/* Keep currently invalid fields around in case they
@@ -506,6 +537,7 @@ static struct audit_entry *audit_data_to_entry(struct audit_rule_data *data,
 				pr_warn("audit rule for LSM \'%s\' is invalid\n",
 					str);
 				err = 0;
+<<<<<<< HEAD
 			} else if (err)
 				goto exit_free;
 			break;
@@ -516,10 +548,27 @@ static struct audit_entry *audit_data_to_entry(struct audit_rule_data *data,
 				goto exit_free;
 			}
 			err = audit_to_watch(&entry->rule, str, f_val, f->op);
+=======
+			}
+			if (err) {
+				kfree(str);
+				goto exit_free;
+			} else
+				f->lsm_str = str;
+			break;
+		case AUDIT_WATCH:
+			str = audit_unpack_string(&bufp, &remain, f->val);
+			if (IS_ERR(str))
+				goto exit_free;
+			entry->rule.buflen += f->val;
+
+			err = audit_to_watch(&entry->rule, str, f->val, f->op);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			if (err) {
 				kfree(str);
 				goto exit_free;
 			}
+<<<<<<< HEAD
 			entry->rule.buflen += f_val;
 			break;
 		case AUDIT_DIR:
@@ -528,19 +577,34 @@ static struct audit_entry *audit_data_to_entry(struct audit_rule_data *data,
 				err = PTR_ERR(str);
 				goto exit_free;
 			}
+=======
+			break;
+		case AUDIT_DIR:
+			str = audit_unpack_string(&bufp, &remain, f->val);
+			if (IS_ERR(str))
+				goto exit_free;
+			entry->rule.buflen += f->val;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			err = audit_make_tree(&entry->rule, str, f->op);
 			kfree(str);
 			if (err)
 				goto exit_free;
+<<<<<<< HEAD
 			entry->rule.buflen += f_val;
 			break;
 		case AUDIT_INODE:
 			f->val = f_val;
+=======
+			break;
+		case AUDIT_INODE:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			err = audit_to_inode(&entry->rule, f);
 			if (err)
 				goto exit_free;
 			break;
 		case AUDIT_FILTERKEY:
+<<<<<<< HEAD
 			if (entry->rule.filterkey || f_val > AUDIT_MAX_KEY_LEN)
 				goto exit_free;
 			str = audit_unpack_string(&bufp, &remain, f_val);
@@ -555,22 +619,47 @@ static struct audit_entry *audit_data_to_entry(struct audit_rule_data *data,
 			if (entry->rule.exe || f_val > PATH_MAX)
 				goto exit_free;
 			str = audit_unpack_string(&bufp, &remain, f_val);
+=======
+			if (entry->rule.filterkey || f->val > AUDIT_MAX_KEY_LEN)
+				goto exit_free;
+			str = audit_unpack_string(&bufp, &remain, f->val);
+			if (IS_ERR(str))
+				goto exit_free;
+			entry->rule.buflen += f->val;
+			entry->rule.filterkey = str;
+			break;
+		case AUDIT_EXE:
+			if (entry->rule.exe || f->val > PATH_MAX)
+				goto exit_free;
+			str = audit_unpack_string(&bufp, &remain, f->val);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			if (IS_ERR(str)) {
 				err = PTR_ERR(str);
 				goto exit_free;
 			}
+<<<<<<< HEAD
 			audit_mark = audit_alloc_mark(&entry->rule, str, f_val);
+=======
+			entry->rule.buflen += f->val;
+
+			audit_mark = audit_alloc_mark(&entry->rule, str, f->val);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			if (IS_ERR(audit_mark)) {
 				kfree(str);
 				err = PTR_ERR(audit_mark);
 				goto exit_free;
 			}
+<<<<<<< HEAD
 			entry->rule.buflen += f_val;
 			entry->rule.exe = audit_mark;
 			break;
 		default:
 			f->val = f_val;
 			break;
+=======
+			entry->rule.exe = audit_mark;
+			break;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 	}
 

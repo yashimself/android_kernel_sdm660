@@ -1,8 +1,12 @@
 /*
  * Device Tree file for Buffalo Linkstation LS-WTGL
  *
+<<<<<<< HEAD
  * Copyright (C) 2015, 2016
  * Roger Shimizu <rogershimizu@gmail.com>
+=======
+ * Copyright (C) 2015, Roger Shimizu <rogershimizu@gmail.com>
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This file is dual-licensed: you can use it either under the terms
  * of the GPL or the X11 license, at your option. Note that this dual
@@ -70,6 +74,11 @@
 
 		internal-regs {
 			pinctrl: pinctrl@10000 {
+<<<<<<< HEAD
+=======
+				pinctrl-0 = <&pmx_usb_power &pmx_power_hdd
+					&pmx_fan_low &pmx_fan_high &pmx_fan_lock>;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				pinctrl-names = "default";
 
 				pmx_led_power: pmx-leds {
@@ -161,7 +170,10 @@
 		led@1 {
 			label = "lswtgl:blue:power";
 			gpios = <&gpio0 0 GPIO_ACTIVE_LOW>;
+<<<<<<< HEAD
 			default-state = "keep";
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		};
 
 		led@2 {
@@ -188,7 +200,11 @@
 				3250 1
 				5000 0>;
 
+<<<<<<< HEAD
 		alarm-gpios = <&gpio0 6 GPIO_ACTIVE_HIGH>;
+=======
+		alarm-gpios = <&gpio0 2 GPIO_ACTIVE_HIGH>;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	};
 
 	restart_poweroff {
@@ -228,6 +244,7 @@
 	};
 };
 
+<<<<<<< HEAD
 &devbus_bootcs {
 	status = "okay";
 	devbus,keep-config;
@@ -259,6 +276,8 @@
 	};
 };
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 &mdio {
 	status = "okay";
 

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2013-2017, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2013-2018, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -375,6 +379,10 @@ static int modem_notifier_cb(struct notifier_block *this, unsigned long code,
 				if (memblock[i].peripheral ==
 					DHMS_MEM_PROC_MPSS_V01 &&
 					!memblock[i].guarantee &&
+<<<<<<< HEAD
+=======
+					!memblock[i].client_request &&
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 					memblock[i].alloted) {
 					pr_debug("memshare: Freeing memory for client id: %d\n",
 						memblock[i].client_id);
@@ -630,12 +638,19 @@ static int handle_free_generic_req(void *req_h, void *req, void *conn_h)
 					__func__);
 		flag = 1;
 	} else if (!memblock[client_id].guarantee &&
+<<<<<<< HEAD
 					memblock[client_id].alloted) {
 		pr_debug("In %s: pblk->virtual_addr :%lx, pblk->phy_addr: %lx\n,size: %d",
 				__func__,
 				(unsigned long int)
 				memblock[client_id].virtual_addr,
 				(unsigned long int)memblock[client_id].phy_addr,
+=======
+				memblock[client_id].client_request &&
+					memblock[client_id].alloted) {
+		pr_debug("memshare: %s: client_id:%d, size: %d",
+				__func__, client_id,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				memblock[client_id].size);
 		dma_free_attrs(memsh_drv->dev, memblock[client_id].size,
 			memblock[client_id].virtual_addr,
@@ -643,8 +658,13 @@ static int handle_free_generic_req(void *req_h, void *req, void *conn_h)
 			&attrs);
 		free_client(client_id);
 	} else {
+<<<<<<< HEAD
 		pr_err("In %s, Request came for a guaranteed client cannot free up the memory\n",
 						__func__);
+=======
+		pr_err("In %s, Request came for a guaranteed client(client_id: %d) cannot free up the memory\n",
+						__func__, client_id);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	if (flag) {
@@ -947,6 +967,13 @@ static int memshare_child_probe(struct platform_device *pdev)
 							pdev->dev.of_node,
 							"qcom,allocate-boot-time");
 
+<<<<<<< HEAD
+=======
+	memblock[num_clients].client_request = of_property_read_bool(
+							pdev->dev.of_node,
+							"qcom,allocate-on-request");
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	rc = of_property_read_string(pdev->dev.of_node, "label",
 						&name);
 	if (rc) {

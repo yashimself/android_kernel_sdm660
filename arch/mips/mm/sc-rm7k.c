@@ -161,7 +161,11 @@ static void rm7k_tc_disable(void)
 	local_irq_save(flags);
 	blast_rm7k_tcache();
 	clear_c0_config(RM7K_CONF_TE);
+<<<<<<< HEAD
 	local_irq_restore(flags);
+=======
+	local_irq_save(flags);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static void rm7k_sc_disable(void)

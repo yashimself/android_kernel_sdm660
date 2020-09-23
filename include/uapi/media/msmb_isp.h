@@ -25,9 +25,24 @@
 #define ISP_STATS_STREAM_BIT  0x80000000
 
 #define VFE_HW_LIMIT 1
+<<<<<<< HEAD
 
 struct msm_vfe_cfg_cmd_list;
 
+=======
+#define ISP_KERNEL_STATE 1
+
+struct msm_vfe_cfg_cmd_list;
+
+struct isp_kstate {
+	uint32_t kernel_sofid;
+	uint32_t drop_reconfig;
+	uint32_t vfeid;
+	uint32_t dual_cam_drop_detected;
+	uint32_t dual_cam_drop;
+};
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 enum ISP_START_PIXEL_PATTERN {
 	ISP_BAYER_RGRGRG,
 	ISP_BAYER_GRGRGR,

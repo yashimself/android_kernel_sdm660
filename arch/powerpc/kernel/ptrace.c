@@ -1783,7 +1783,11 @@ static int do_seccomp(struct pt_regs *regs)
 	 * have already loaded -ENOSYS into r3, or seccomp has put
 	 * something else in r3 (via SECCOMP_RET_ERRNO/TRACE).
 	 */
+<<<<<<< HEAD
 	if (__secure_computing())
+=======
+	if (__secure_computing(NULL))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return -1;
 
 	/*

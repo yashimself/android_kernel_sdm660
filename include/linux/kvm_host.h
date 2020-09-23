@@ -934,7 +934,11 @@ search_memslots(struct kvm_memslots *slots, gfn_t gfn)
 			start = slot + 1;
 	}
 
+<<<<<<< HEAD
 	if (start < slots->used_slots && gfn >= memslots[start].base_gfn &&
+=======
+	if (gfn >= memslots[start].base_gfn &&
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	    gfn < memslots[start].base_gfn + memslots[start].npages) {
 		atomic_set(&slots->lru_slot, start);
 		return &memslots[start];

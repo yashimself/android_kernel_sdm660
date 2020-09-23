@@ -478,9 +478,13 @@ static void atl1e_mdio_write(struct net_device *netdev, int phy_id,
 {
 	struct atl1e_adapter *adapter = netdev_priv(netdev);
 
+<<<<<<< HEAD
 	if (atl1e_write_phy_reg(&adapter->hw,
 				reg_num & MDIO_REG_ADDR_MASK, val))
 		netdev_err(netdev, "write phy register failed\n");
+=======
+	atl1e_write_phy_reg(&adapter->hw, reg_num & MDIO_REG_ADDR_MASK, val);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static int atl1e_mii_ioctl(struct net_device *netdev,

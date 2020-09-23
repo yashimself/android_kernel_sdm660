@@ -256,12 +256,15 @@ SECTIONS
 		*(.branch_lt)
 	}
 
+<<<<<<< HEAD
 #ifdef CONFIG_DEBUG_INFO_BTF
 	.BTF : AT(ADDR(.BTF) - LOAD_OFFSET) {
 		*(.BTF)
 	}
 #endif
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.opd : AT(ADDR(.opd) - LOAD_OFFSET) {
 		*(.opd)
 	}

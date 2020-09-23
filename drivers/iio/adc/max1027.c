@@ -470,6 +470,7 @@ static int max1027_probe(struct spi_device *spi)
 		goto fail_dev_register;
 	}
 
+<<<<<<< HEAD
 	/* Internal reset */
 	st->reg = MAX1027_RST_REG;
 	ret = spi_write(st->spi, &st->reg, 1);
@@ -478,6 +479,8 @@ static int max1027_probe(struct spi_device *spi)
 		return ret;
 	}
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* Disable averaging */
 	st->reg = MAX1027_AVG_REG;
 	ret = spi_write(st->spi, &st->reg, 1);

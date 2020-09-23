@@ -597,17 +597,37 @@ static int convert_to_trace_point(Dwarf_Die *sp_die, Dwfl_Module *mod,
 				  const char *function,
 				  struct probe_trace_point *tp)
 {
+<<<<<<< HEAD
 	Dwarf_Addr eaddr;
+=======
+	Dwarf_Addr eaddr, highaddr;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	GElf_Sym sym;
 	const char *symbol;
 
 	/* Verify the address is correct */
+<<<<<<< HEAD
 	if (!dwarf_haspc(sp_die, paddr)) {
 		pr_warning("Specified offset is out of %s\n",
+=======
+	if (dwarf_entrypc(sp_die, &eaddr) != 0) {
+		pr_warning("Failed to get entry address of %s\n",
+			   dwarf_diename(sp_die));
+		return -ENOENT;
+	}
+	if (dwarf_highpc(sp_die, &highaddr) != 0) {
+		pr_warning("Failed to get end address of %s\n",
+			   dwarf_diename(sp_die));
+		return -ENOENT;
+	}
+	if (paddr > highaddr) {
+		pr_warning("Offset specified is greater than size of %s\n",
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			   dwarf_diename(sp_die));
 		return -EINVAL;
 	}
 
+<<<<<<< HEAD
 	if (dwarf_entrypc(sp_die, &eaddr) == 0) {
 		/* If the DIE has entrypc, use it. */
 		symbol = dwarf_diename(sp_die);
@@ -622,6 +642,19 @@ static int convert_to_trace_point(Dwarf_Die *sp_die, Dwfl_Module *mod,
 		return -ENOENT;
 	}
 
+=======
+	symbol = dwarf_diename(sp_die);
+	if (!symbol) {
+		/* Try to get the symbol name from symtab */
+		symbol = dwfl_module_addrsym(mod, paddr, &sym, NULL);
+		if (!symbol) {
+			pr_warning("Failed to find symbol at 0x%lx\n",
+				   (unsigned long)paddr);
+			return -ENOENT;
+		}
+		eaddr = sym.st_value;
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	tp->offset = (unsigned long)(paddr - eaddr);
 	tp->address = (unsigned long)paddr;
 	tp->symbol = strdup(symbol);
@@ -739,6 +772,7 @@ static int find_best_scope_cb(Dwarf_Die *fn_die, void *data)
 	return 0;
 }
 
+<<<<<<< HEAD
 /* Return innermost DIE */
 static int find_inner_scope_cb(Dwarf_Die *fn_die, void *data)
 {
@@ -749,6 +783,8 @@ static int find_inner_scope_cb(Dwarf_Die *fn_die, void *data)
 	return 1;
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /* Find an appropriate scope fits to given conditions */
 static Dwarf_Die *find_best_scope(struct probe_finder *pf, Dwarf_Die *die_mem)
 {
@@ -760,6 +796,7 @@ static Dwarf_Die *find_best_scope(struct probe_finder *pf, Dwarf_Die *die_mem)
 		.die_mem = die_mem,
 		.found = false,
 	};
+<<<<<<< HEAD
 	int ret;
 
 	ret = cu_walk_functions_at(&pf->cu_die, pf->addr, find_best_scope_cb,
@@ -767,6 +804,10 @@ static Dwarf_Die *find_best_scope(struct probe_finder *pf, Dwarf_Die *die_mem)
 	if (!ret && !fsp.found)
 		cu_walk_functions_at(&pf->cu_die, pf->addr,
 				     find_inner_scope_cb, &fsp);
+=======
+
+	cu_walk_functions_at(&pf->cu_die, pf->addr, find_best_scope_cb, &fsp);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	return fsp.found ? die_mem : NULL;
 }
@@ -908,7 +949,11 @@ static int probe_point_inline_cb(Dwarf_Die *in_die, void *data)
 		ret = find_probe_point_lazy(in_die, pf);
 	else {
 		/* Get probe address */
+<<<<<<< HEAD
 		if (die_entrypc(in_die, &addr) != 0) {
+=======
+		if (dwarf_entrypc(in_die, &addr) != 0) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			pr_warning("Failed to get entry address of %s.\n",
 				   dwarf_diename(in_die));
 			return -ENOENT;
@@ -1339,6 +1384,7 @@ static int collect_variables_cb(Dwarf_Die *die_mem, void *data)
 		return DIE_FIND_CB_SIBLING;
 }
 
+<<<<<<< HEAD
 static bool available_var_finder_overlap(struct available_var_finder *af)
 {
 	int i;
@@ -1351,6 +1397,8 @@ static bool available_var_finder_overlap(struct available_var_finder *af)
 
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /* Add a found vars into available variables list */
 static int add_available_vars(Dwarf_Die *sc_die, struct probe_finder *pf)
 {
@@ -1361,6 +1409,7 @@ static int add_available_vars(Dwarf_Die *sc_die, struct probe_finder *pf)
 	Dwarf_Die die_mem;
 	int ret;
 
+<<<<<<< HEAD
 	/*
 	 * For some reason (e.g. different column assigned to same address),
 	 * this callback can be called with the address which already passed.
@@ -1369,6 +1418,8 @@ static int add_available_vars(Dwarf_Die *sc_die, struct probe_finder *pf)
 	if (available_var_finder_overlap(af))
 		return 0;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* Check number of tevs */
 	if (af->nvls == af->max_vls) {
 		pr_warning("Too many( > %d) probe point found.\n", af->max_vls);
@@ -1509,7 +1560,11 @@ int debuginfo__find_probe_point(struct debuginfo *dbg, unsigned long addr,
 		/* Get function entry information */
 		func = basefunc = dwarf_diename(&spdie);
 		if (!func ||
+<<<<<<< HEAD
 		    die_entrypc(&spdie, &baseaddr) != 0 ||
+=======
+		    dwarf_entrypc(&spdie, &baseaddr) != 0 ||
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		    dwarf_decl_line(&spdie, &baseline) != 0) {
 			lineno = 0;
 			goto post;
@@ -1526,7 +1581,11 @@ int debuginfo__find_probe_point(struct debuginfo *dbg, unsigned long addr,
 		while (die_find_top_inlinefunc(&spdie, (Dwarf_Addr)addr,
 						&indie)) {
 			/* There is an inline function */
+<<<<<<< HEAD
 			if (die_entrypc(&indie, &_addr) == 0 &&
+=======
+			if (dwarf_entrypc(&indie, &_addr) == 0 &&
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			    _addr == addr) {
 				/*
 				 * addr is at an inline function entry.

@@ -637,7 +637,12 @@ static int function_stat_show(struct seq_file *m, void *v)
 	}
 
 #ifdef CONFIG_FUNCTION_GRAPH_TRACER
+<<<<<<< HEAD
 	avg = div64_ul(rec->time, rec->counter);
+=======
+	avg = rec->time;
+	do_div(avg, rec->counter);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (tracing_thresh && (avg < tracing_thresh))
 		goto out;
 #endif
@@ -663,8 +668,12 @@ static int function_stat_show(struct seq_file *m, void *v)
 		 * Divide only 1000 for ns^2 -> us^2 conversion.
 		 * trace_print_graph_duration will divide 1000 again.
 		 */
+<<<<<<< HEAD
 		stddev = div64_ul(stddev,
 				  rec->counter * (rec->counter - 1) * 1000);
+=======
+		do_div(stddev, rec->counter * (rec->counter - 1) * 1000);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	trace_seq_init(&s);

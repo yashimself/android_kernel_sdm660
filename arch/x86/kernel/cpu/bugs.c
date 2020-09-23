@@ -263,11 +263,14 @@ static int __init mds_cmdline(char *str)
 }
 early_param("mds", mds_cmdline);
 
+<<<<<<< HEAD
 void mds_user_clear_buffers(void)
 {
 	mds_user_clear_cpu_buffers();
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #undef pr_fmt
 #define pr_fmt(fmt)	"TAA: " fmt
 

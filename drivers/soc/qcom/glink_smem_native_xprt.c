@@ -33,6 +33,10 @@
 #include <linux/spinlock.h>
 #include <linux/srcu.h>
 #include <linux/wait.h>
+<<<<<<< HEAD
+=======
+#include <linux/cpumask.h>
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #include <soc/qcom/smem.h>
 #include <soc/qcom/tracer_pkt.h>
 #include "glink_core_if.h"
@@ -939,6 +943,10 @@ static void __rx_worker(struct edge_info *einfo, bool atomic_ctx)
 			cmd_data = d_cmd->data;
 			kfree(d_cmd);
 		} else {
+<<<<<<< HEAD
+=======
+			memset(&cmd, 0, sizeof(cmd));
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			fifo_read(einfo, &cmd, sizeof(cmd));
 			cmd_data = NULL;
 		}
@@ -1041,6 +1049,10 @@ static void __rx_worker(struct edge_info *einfo, bool atomic_ctx)
 								cmd_data)->size;
 					kfree(cmd_data);
 				} else {
+<<<<<<< HEAD
+=======
+					memset(&intent, 0, sizeof(intent));
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 					fifo_read(einfo, &intent,
 								sizeof(intent));
 				}
@@ -2305,17 +2317,50 @@ static int subsys_name_to_id(const char *name)
 	return -ENODEV;
 }
 
+<<<<<<< HEAD
+=======
+static void glink_set_affinity(struct edge_info *einfo, u32 *arr, size_t size)
+{
+	struct cpumask cpumask;
+	pid_t pid;
+	int i;
+
+	cpumask_clear(&cpumask);
+	for (i = 0; i < size; i++) {
+		if (arr[i] < num_possible_cpus())
+			cpumask_set_cpu(arr[i], &cpumask);
+	}
+	if (irq_set_affinity(einfo->irq_line, &cpumask))
+		pr_err("%s: Failed to set irq affinity\n", __func__);
+
+	if (sched_setaffinity(einfo->task->pid, &cpumask))
+		pr_err("%s: Failed to set rx cpu affinity\n", __func__);
+
+	pid = einfo->xprt_cfg.tx_task->pid;
+	if (sched_setaffinity(pid, &cpumask))
+		pr_err("%s: Failed to set tx cpu affinity\n", __func__);
+}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int glink_smem_native_probe(struct platform_device *pdev)
 {
 	struct device_node *node;
 	struct device_node *phandle_node;
 	struct edge_info *einfo;
+<<<<<<< HEAD
 	int rc;
+=======
+	int rc, cpu_size;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	char *key;
 	const char *subsys_name;
 	uint32_t irq_line;
 	uint32_t irq_mask;
 	struct resource *r;
+<<<<<<< HEAD
+=======
+	u32 *cpu_array;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	node = pdev->dev.of_node;
 
@@ -2448,6 +2493,10 @@ static int glink_smem_native_probe(struct platform_device *pdev)
 	}
 
 	einfo->irq_line = irq_line;
+<<<<<<< HEAD
+=======
+	einfo->in_ssr = true;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	rc = request_irq(irq_line, irq_handler,
 			IRQF_TRIGGER_RISING | IRQF_NO_SUSPEND | IRQF_SHARED,
 			node->name, einfo);
@@ -2456,12 +2505,32 @@ static int glink_smem_native_probe(struct platform_device *pdev)
 									rc);
 		goto request_irq_fail;
 	}
+<<<<<<< HEAD
 	einfo->in_ssr = true;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	rc = enable_irq_wake(irq_line);
 	if (rc < 0)
 		pr_err("%s: enable_irq_wake() failed on %d\n", __func__,
 								irq_line);
 
+<<<<<<< HEAD
+=======
+	key = "cpu-affinity";
+	cpu_size = of_property_count_u32_elems(node, key);
+	if (cpu_size > 0) {
+		cpu_array = kmalloc_array(cpu_size, sizeof(u32), GFP_KERNEL);
+		if (!cpu_array) {
+			rc = -ENOMEM;
+			goto request_irq_fail;
+		}
+		rc = of_property_read_u32_array(node, key, cpu_array, cpu_size);
+		if (!rc)
+			glink_set_affinity(einfo, cpu_array, cpu_size);
+		kfree(cpu_array);
+	}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	register_debugfs_info(einfo);
 	/* fake an interrupt on this edge to see if the remote side is up */
 	irq_handler(0, einfo);

@@ -74,10 +74,15 @@ static int onyx_read_register(struct onyx *onyx, u8 reg, u8 *value)
 		return 0;
 	}
 	v = i2c_smbus_read_byte_data(onyx->i2c, reg);
+<<<<<<< HEAD
 	if (v < 0) {
 		*value = 0;
 		return -1;
 	}
+=======
+	if (v < 0)
+		return -1;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	*value = (u8)v;
 	onyx->cache[ONYX_REG_CONTROL-FIRSTREGISTER] = *value;
 	return 0;

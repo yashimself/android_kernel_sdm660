@@ -429,12 +429,15 @@ static int qla25xx_setup_mode(struct scsi_qla_host *vha)
 		goto fail;
 	}
 	if (ql2xmultique_tag) {
+<<<<<<< HEAD
 		ha->wq = alloc_workqueue("qla2xxx_wq", WQ_MEM_RECLAIM, 1);
 		if (unlikely(!ha->wq)) {
 			ql_log(ql_log_warn, vha, 0x01e0,
 			    "Failed to alloc workqueue.\n");
 			goto fail;
 		}
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		/* create a request queue for IO */
 		options |= BIT_7;
 		req = qla25xx_create_req_que(ha, options, 0, 0, -1,
@@ -442,8 +445,14 @@ static int qla25xx_setup_mode(struct scsi_qla_host *vha)
 		if (!req) {
 			ql_log(ql_log_warn, vha, 0x00e0,
 			    "Failed to create request queue.\n");
+<<<<<<< HEAD
 			goto fail2;
 		}
+=======
+			goto fail;
+		}
+		ha->wq = alloc_workqueue("qla2xxx_wq", WQ_MEM_RECLAIM, 1);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		vha->req = ha->req_q_map[req];
 		options |= BIT_1;
 		for (ques = 1; ques < ha->max_rsp_queues; ques++) {
@@ -451,7 +460,11 @@ static int qla25xx_setup_mode(struct scsi_qla_host *vha)
 			if (!ret) {
 				ql_log(ql_log_warn, vha, 0x00e8,
 				    "Failed to create response queue.\n");
+<<<<<<< HEAD
 				goto fail3;
+=======
+				goto fail2;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			}
 		}
 		ha->flags.cpu_affinity_enabled = 1;
@@ -465,6 +478,7 @@ static int qla25xx_setup_mode(struct scsi_qla_host *vha)
 		    ha->max_rsp_queues, ha->max_req_queues);
 	}
 	return 0;
+<<<<<<< HEAD
 
 fail3:
 	qla25xx_delete_queues(vha);
@@ -472,6 +486,13 @@ fail3:
 fail2:
         destroy_workqueue(ha->wq);
         ha->wq = NULL;
+=======
+fail2:
+	qla25xx_delete_queues(vha);
+	destroy_workqueue(ha->wq);
+	ha->wq = NULL;
+	vha->req = ha->req_q_map[0];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 fail:
 	ha->mqenable = 0;
 	kfree(ha->req_q_map);
@@ -5787,7 +5808,12 @@ qla2x00_module_init(void)
 	/* Initialize target kmem_cache and mem_pools */
 	ret = qlt_init();
 	if (ret < 0) {
+<<<<<<< HEAD
 		goto destroy_cache;
+=======
+		kmem_cache_destroy(srb_cachep);
+		return ret;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	} else if (ret > 0) {
 		/*
 		 * If initiator mode is explictly disabled by qlt_init(),
@@ -5806,10 +5832,18 @@ qla2x00_module_init(void)
 	qla2xxx_transport_template =
 	    fc_attach_transport(&qla2xxx_transport_functions);
 	if (!qla2xxx_transport_template) {
+<<<<<<< HEAD
 		ql_log(ql_log_fatal, NULL, 0x0002,
 		    "fc_attach_transport failed...Failing load!.\n");
 		ret = -ENODEV;
 		goto qlt_exit;
+=======
+		kmem_cache_destroy(srb_cachep);
+		ql_log(ql_log_fatal, NULL, 0x0002,
+		    "fc_attach_transport failed...Failing load!.\n");
+		qlt_exit();
+		return -ENODEV;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	apidev_major = register_chrdev(0, QLA2XXX_APIDEV, &apidev_fops);
@@ -5821,16 +5855,26 @@ qla2x00_module_init(void)
 	qla2xxx_transport_vport_template =
 	    fc_attach_transport(&qla2xxx_transport_vport_functions);
 	if (!qla2xxx_transport_vport_template) {
+<<<<<<< HEAD
 		ql_log(ql_log_fatal, NULL, 0x0004,
 		    "fc_attach_transport vport failed...Failing load!.\n");
 		ret = -ENODEV;
 		goto unreg_chrdev;
+=======
+		kmem_cache_destroy(srb_cachep);
+		qlt_exit();
+		fc_release_transport(qla2xxx_transport_template);
+		ql_log(ql_log_fatal, NULL, 0x0004,
+		    "fc_attach_transport vport failed...Failing load!.\n");
+		return -ENODEV;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 	ql_log(ql_log_info, NULL, 0x0005,
 	    "QLogic Fibre Channel HBA Driver: %s.\n",
 	    qla2x00_version_str);
 	ret = pci_register_driver(&qla2xxx_pci_driver);
 	if (ret) {
+<<<<<<< HEAD
 		ql_log(ql_log_fatal, NULL, 0x0006,
 		    "pci_register_driver failed...ret=%d Failing load!.\n",
 		    ret);
@@ -5852,6 +5896,17 @@ qlt_exit:
 destroy_cache:
 	kmem_cache_destroy(srb_cachep);
 	return ret;
+=======
+		kmem_cache_destroy(srb_cachep);
+		qlt_exit();
+		fc_release_transport(qla2xxx_transport_template);
+		fc_release_transport(qla2xxx_transport_vport_template);
+		ql_log(ql_log_fatal, NULL, 0x0006,
+		    "pci_register_driver failed...ret=%d Failing load!.\n",
+		    ret);
+	}
+	return ret;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /**

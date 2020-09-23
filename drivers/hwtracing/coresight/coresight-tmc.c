@@ -182,7 +182,11 @@ struct tmc_drvdata {
 	bool			aborting;
 	char			*buf;
 	dma_addr_t		paddr;
+<<<<<<< HEAD
 	void __iomem		*vaddr;
+=======
+	void			*vaddr;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	u32			size;
 	struct mutex		mem_lock;
 	u32			mem_size;
@@ -1446,6 +1450,7 @@ static int tmc_etr_bam_init(struct amba_device *adev,
 	return sps_register_bam_device(&bamdata->props, &bamdata->handle);
 }
 
+<<<<<<< HEAD
 static void tmc_etr_bam_exit(struct tmc_drvdata *drvdata)
 {
 	struct tmc_etr_bam_data *bamdata = drvdata->bamdata;
@@ -1455,6 +1460,8 @@ static void tmc_etr_bam_exit(struct tmc_drvdata *drvdata)
 	sps_deregister_bam_device(bamdata->handle);
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static const struct file_operations tmc_fops = {
 	.owner		= THIS_MODULE,
 	.open		= tmc_open,
@@ -2000,6 +2007,7 @@ err_misc_register:
 	return ret;
 }
 
+<<<<<<< HEAD
 static int tmc_remove(struct amba_device *adev)
 {
 	struct tmc_drvdata *drvdata = amba_get_drvdata(adev);
@@ -2013,6 +2021,8 @@ static int tmc_remove(struct amba_device *adev)
 	return 0;
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static struct amba_id tmc_ids[] = {
 	{
 		.id     = 0x0003b961,
@@ -2025,9 +2035,15 @@ static struct amba_driver tmc_driver = {
 	.drv = {
 		.name   = "coresight-tmc",
 		.owner  = THIS_MODULE,
+<<<<<<< HEAD
 	},
 	.probe		= tmc_probe,
 	.remove		= tmc_remove,
+=======
+		.suppress_bind_attrs = true,
+	},
+	.probe		= tmc_probe,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.id_table	= tmc_ids,
 };
 

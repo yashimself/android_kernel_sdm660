@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2014-2018, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2014-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * Copyright (C) 2013 Red Hat
  * Author: Rob Clark <robdclark@gmail.com>
  *
@@ -28,6 +32,10 @@
 #include "dsi_drm.h"
 #include "sde_wb.h"
 #include "sde_hdmi.h"
+<<<<<<< HEAD
+=======
+#include "sde_shd.h"
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #include "sde_kms.h"
 #include "sde_core_irq.h"
@@ -358,12 +366,22 @@ static void sde_kms_prepare_commit(struct msm_kms *kms,
 	struct drm_device *dev = sde_kms->dev;
 	struct msm_drm_private *priv = dev->dev_private;
 
+<<<<<<< HEAD
+=======
+	sde_power_resource_enable(&priv->phandle,
+			sde_kms->core_client, true);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (sde_kms->splash_info.handoff &&
 		sde_kms->splash_info.display_splash_enabled)
 		sde_splash_lk_stop_splash(kms, state);
 
+<<<<<<< HEAD
 	sde_power_resource_enable(&priv->phandle,
 			sde_kms->core_client, true);
+=======
+	shd_display_prepare_commit(sde_kms, state);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static void sde_kms_commit(struct msm_kms *kms,
@@ -393,6 +411,12 @@ static void sde_kms_complete_commit(struct msm_kms *kms,
 
 	for_each_crtc_in_state(old_state, crtc, old_crtc_state, i)
 		sde_crtc_complete_commit(crtc, old_crtc_state);
+<<<<<<< HEAD
+=======
+
+	shd_display_complete_commit(sde_kms, old_state);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	sde_power_resource_enable(&priv->phandle, sde_kms->core_client, false);
 
 	SDE_EVT32(SDE_EVTLOG_FUNC_EXIT);
@@ -534,8 +558,30 @@ static int _sde_kms_get_displays(struct sde_kms *sde_kms)
 				sde_kms->hdmi_display_count);
 	}
 
+<<<<<<< HEAD
 	return 0;
 
+=======
+	/* shd */
+	sde_kms->shd_displays = NULL;
+	sde_kms->shd_display_count = shd_display_get_num_of_displays();
+	if (sde_kms->shd_display_count) {
+		sde_kms->shd_displays = kcalloc(sde_kms->shd_display_count,
+				sizeof(void *), GFP_KERNEL);
+		if (!sde_kms->shd_displays)
+			goto exit_deinit_shd;
+		sde_kms->shd_display_count =
+			shd_display_get_displays(sde_kms->shd_displays,
+					sde_kms->shd_display_count);
+	}
+
+	return 0;
+
+exit_deinit_shd:
+	kfree(sde_kms->shd_displays);
+	sde_kms->shd_display_count = 0;
+	sde_kms->shd_displays = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 exit_deinit_hdmi:
 	sde_kms->hdmi_display_count = 0;
 	sde_kms->hdmi_displays = NULL;
@@ -593,7 +639,12 @@ static int _sde_kms_setup_displays(struct drm_device *dev,
 		.get_modes =  dsi_connector_get_modes,
 		.mode_valid = dsi_conn_mode_valid,
 		.get_info =   dsi_display_get_info,
+<<<<<<< HEAD
 		.set_backlight = dsi_display_set_backlight
+=======
+		.set_backlight = dsi_display_set_backlight,
+		.set_topology_ctl = dsi_display_set_top_ctl,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	};
 	static const struct sde_connector_ops wb_ops = {
 		.post_init =    sde_wb_connector_post_init,
@@ -613,7 +664,19 @@ static int _sde_kms_setup_displays(struct drm_device *dev,
 		.get_property = sde_hdmi_get_property,
 		.pre_kickoff = sde_hdmi_pre_kickoff,
 		.mode_needs_full_range = sde_hdmi_mode_needs_full_range,
+<<<<<<< HEAD
 		.get_csc_type = sde_hdmi_get_csc_type
+=======
+		.get_csc_type = sde_hdmi_get_csc_type,
+		.set_topology_ctl = sde_hdmi_set_top_ctl,
+	};
+	static const struct sde_connector_ops shd_ops = {
+		.post_init =    shd_connector_post_init,
+		.detect =       shd_connector_detect,
+		.get_modes =    shd_connector_get_modes,
+		.mode_valid =   shd_connector_mode_valid,
+		.get_info =     shd_connector_get_info,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	};
 	struct msm_display_info info = {0};
 	struct drm_encoder *encoder;
@@ -629,7 +692,12 @@ static int _sde_kms_setup_displays(struct drm_device *dev,
 
 	max_encoders = sde_kms->dsi_display_count +
 		sde_kms->wb_display_count +
+<<<<<<< HEAD
 		sde_kms->hdmi_display_count;
+=======
+		sde_kms->hdmi_display_count +
+		sde_kms->shd_display_count;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (max_encoders > ARRAY_SIZE(priv->encoders)) {
 		max_encoders = ARRAY_SIZE(priv->encoders);
@@ -656,7 +724,11 @@ static int _sde_kms_setup_displays(struct drm_device *dev,
 		}
 
 		rc = sde_splash_setup_display_resource(&sde_kms->splash_info,
+<<<<<<< HEAD
 					display, DRM_MODE_CONNECTOR_DSI);
+=======
+					display, DRM_MODE_CONNECTOR_DSI, false);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (rc) {
 			SDE_ERROR("dsi %d splash resource setup failed %d\n",
 									i, rc);
@@ -757,7 +829,11 @@ static int _sde_kms_setup_displays(struct drm_device *dev,
 		}
 
 		rc = sde_splash_setup_display_resource(&sde_kms->splash_info,
+<<<<<<< HEAD
 				display, DRM_MODE_CONNECTOR_HDMIA);
+=======
+				display, DRM_MODE_CONNECTOR_HDMIA, false);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (rc) {
 			SDE_ERROR("hdmi %d splash resource setup failed %d\n",
 									i, rc);
@@ -789,6 +865,60 @@ static int _sde_kms_setup_displays(struct drm_device *dev,
 		}
 	}
 
+<<<<<<< HEAD
+=======
+	/* shd */
+	for (i = 0; i < sde_kms->shd_display_count &&
+			priv->num_encoders < max_encoders; ++i) {
+		display = sde_kms->shd_displays[i];
+		encoder = NULL;
+
+		memset(&info, 0x0, sizeof(info));
+		rc = shd_connector_get_info(&info, display);
+		if (rc) {
+			SDE_ERROR("shd get_info %d failed\n", i);
+			continue;
+		}
+
+		encoder = sde_encoder_init(dev, &info);
+		if (IS_ERR_OR_NULL(encoder)) {
+			SDE_ERROR("shd encoder init failed %d\n", i);
+			continue;
+		}
+
+		rc = sde_splash_setup_display_resource(&sde_kms->splash_info,
+			display, info.intf_type, true);
+		if (rc) {
+			SDE_ERROR("shared %d splash res setup failed %d\n",
+					i, rc);
+			sde_encoder_destroy(encoder);
+			continue;
+		}
+
+		rc = shd_drm_bridge_init(display, encoder);
+		if (rc) {
+			SDE_ERROR("shd bridge %d init failed, %d\n", i, rc);
+			sde_encoder_destroy(encoder);
+			continue;
+		}
+
+		connector = sde_connector_init(dev,
+					encoder,
+					NULL,
+					display,
+					&shd_ops,
+					DRM_CONNECTOR_POLL_HPD,
+					info.intf_type);
+		if (connector) {
+			priv->encoders[priv->num_encoders++] = encoder;
+			priv->connectors[priv->num_connectors++] = connector;
+		} else {
+			SDE_ERROR("shd %d connector init failed\n", i);
+			shd_drm_bridge_deinit(display);
+			sde_encoder_destroy(encoder);
+		}
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return 0;
 }
 
@@ -981,6 +1111,11 @@ static int sde_kms_postinit(struct msm_kms *kms)
 	 */
 	dev->vblank_disable_allowed = true;
 
+<<<<<<< HEAD
+=======
+	shd_display_post_init(sde_kms);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return 0;
 }
 
@@ -1094,6 +1229,16 @@ static void sde_kms_preclose(struct msm_kms *kms, struct drm_file *file)
 		sde_crtc_cancel_pending_flip(priv->crtcs[i], file);
 }
 
+<<<<<<< HEAD
+=======
+static bool sde_kms_early_display_status(struct msm_kms *kms)
+{
+	struct sde_kms *sde_kms = to_sde_kms(kms);
+
+	return sde_kms->splash_info.handoff;
+}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static const struct msm_kms_funcs kms_funcs = {
 	.hw_init         = sde_kms_hw_init,
 	.postinit        = sde_kms_postinit,
@@ -1113,6 +1258,10 @@ static const struct msm_kms_funcs kms_funcs = {
 	.get_format      = sde_get_msm_format,
 	.round_pixclk    = sde_kms_round_pixclk,
 	.destroy         = sde_kms_destroy,
+<<<<<<< HEAD
+=======
+	.early_display_status = sde_kms_early_display_status,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 /* the caller api needs to turn on clock before calling it */
@@ -1423,7 +1572,11 @@ static int sde_kms_hw_init(struct msm_kms *kms)
 			goto power_error;
 		}
 
+<<<<<<< HEAD
 		rc = sde_splash_parse_reserved_plane_dt(sinfo,
+=======
+		rc = sde_splash_parse_reserved_plane_dt(dev, sinfo,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 							sde_kms->catalog);
 		if (rc)
 			SDE_ERROR("parse reserved plane dt failed: %d\n", rc);

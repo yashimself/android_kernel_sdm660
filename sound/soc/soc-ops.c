@@ -838,7 +838,11 @@ int snd_soc_get_xr_sx(struct snd_kcontrol *kcontrol,
 	unsigned int regbase = mc->regbase;
 	unsigned int regcount = mc->regcount;
 	unsigned int regwshift = component->val_bytes * BITS_PER_BYTE;
+<<<<<<< HEAD
 	unsigned int regwmask = (1UL<<regwshift)-1;
+=======
+	unsigned int regwmask = (1<<regwshift)-1;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	unsigned int invert = mc->invert;
 	unsigned long mask = (1UL<<mc->nbits)-1;
 	long min = mc->min;
@@ -887,7 +891,11 @@ int snd_soc_put_xr_sx(struct snd_kcontrol *kcontrol,
 	unsigned int regbase = mc->regbase;
 	unsigned int regcount = mc->regcount;
 	unsigned int regwshift = component->val_bytes * BITS_PER_BYTE;
+<<<<<<< HEAD
 	unsigned int regwmask = (1UL<<regwshift)-1;
+=======
+	unsigned int regwmask = (1<<regwshift)-1;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	unsigned int invert = mc->invert;
 	unsigned long mask = (1UL<<mc->nbits)-1;
 	long max = mc->max;

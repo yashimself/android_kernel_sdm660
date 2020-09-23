@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -323,6 +327,10 @@ static struct platform_driver msm_jpeg_driver = {
 		.name = "msm_jpeg",
 		.owner = THIS_MODULE,
 		.of_match_table = msm_jpeg_dt_match,
+<<<<<<< HEAD
+=======
+		.suppress_bind_attrs = true,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	},
 };
 

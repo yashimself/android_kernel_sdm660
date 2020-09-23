@@ -2645,9 +2645,13 @@ get_guid(ipmi_smi_t intf)
 	if (rv)
 		/* Send failed, no GUID available. */
 		intf->bmc->guid_set = 0;
+<<<<<<< HEAD
 	else
 		wait_event(intf->waitq, intf->bmc->guid_set != 2);
 
+=======
+	wait_event(intf->waitq, intf->bmc->guid_set != 2);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	intf->null_user_handler = NULL;
 }
 

@@ -37,7 +37,10 @@
 #include <linux/sched.h>
 #include <linux/cpu_pm.h>
 #include <linux/arm-smccc.h>
+<<<<<<< HEAD
 #include <linux/psci.h>
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #include <soc/qcom/spm.h>
 #include <soc/qcom/pm.h>
 #include <soc/qcom/rpm-notifier.h>

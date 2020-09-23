@@ -158,9 +158,12 @@ struct cci_device {
 	uint8_t ref_count;
 	enum msm_cci_state_t cci_state;
 	size_t num_clk;
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 	struct mutex mutex;
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	size_t num_clk_cases;
 	struct clk **cci_clk;
 	uint32_t **cci_clk_rates;

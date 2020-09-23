@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2018-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -20,29 +24,65 @@ int physical_channel_read(struct physical_channel *pchan,
 {
 	struct ghs_vdev *dev  = (struct ghs_vdev *)pchan->hyp_data;
 
+<<<<<<< HEAD
 	/* size in header is only for payload excluding the header itself */
 	if (dev->read_size < read_size + sizeof(struct hab_header)) {
 		pr_warn("read %zd is less than requested %zd plus header %zd\n",
 			dev->read_size, read_size, sizeof(struct hab_header));
 		read_size = dev->read_size;
+=======
+	if (!payload || !dev->read_data) {
+		pr_err("invalid parameters %pK %pK offset %d read %zd\n",
+			payload, dev->read_data, dev->read_offset, read_size);
+		return 0;
+	}
+
+	/* size in header is only for payload excluding the header itself */
+	if (dev->read_size < read_size + sizeof(struct hab_header) +
+		dev->read_offset) {
+		pr_warn("read %zd is less than requested %zd header %zd offset %d\n",
+				dev->read_size, read_size,
+				sizeof(struct hab_header), dev->read_offset);
+		read_size = dev->read_size - dev->read_offset -
+					sizeof(struct hab_header);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	/* always skip the header */
 	memcpy(payload, (unsigned char *)dev->read_data +
 		sizeof(struct hab_header) + dev->read_offset, read_size);
+<<<<<<< HEAD
 	dev->read_offset += read_size;
 
 	return read_size;
+=======
+	dev->read_offset += (int)read_size;
+
+	return (int)read_size;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 int physical_channel_send(struct physical_channel *pchan,
 		struct hab_header *header,
 		void *payload)
 {
+<<<<<<< HEAD
 	int sizebytes = HAB_HEADER_GET_SIZE(*header);
 	struct ghs_vdev *dev  = (struct ghs_vdev *)pchan->hyp_data;
 	GIPC_Result result;
 	uint8_t *msg;
+=======
+	size_t sizebytes = HAB_HEADER_GET_SIZE(*header);
+	struct ghs_vdev *dev  = (struct ghs_vdev *)pchan->hyp_data;
+	GIPC_Result result = GIPC_Success;
+	uint8_t *msg = NULL;
+
+	if (!dev) {
+		pr_err("no send pchan %s has been de-alloced msg for %zd bytes\n",
+			pchan->name);
+		return -ENODEV;
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	spin_lock_bh(&dev->io_lock);
 
@@ -61,7 +101,11 @@ int physical_channel_send(struct physical_channel *pchan,
 	}
 
 	if (HAB_HEADER_GET_TYPE(*header) == HAB_PAYLOAD_TYPE_PROFILE) {
+<<<<<<< HEAD
 		struct timeval tv;
+=======
+		struct timeval tv = {0};
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		struct habmm_xing_vm_stat *pstat =
 					(struct habmm_xing_vm_stat *)payload;
 
@@ -90,6 +134,7 @@ int physical_channel_send(struct physical_channel *pchan,
 
 void physical_channel_rx_dispatch(unsigned long physical_channel)
 {
+<<<<<<< HEAD
 	struct hab_header header;
 	struct physical_channel *pchan =
 		(struct physical_channel *)physical_channel;
@@ -99,6 +144,22 @@ void physical_channel_rx_dispatch(unsigned long physical_channel)
 	uint32_t events;
 	unsigned long flags;
 
+=======
+	struct hab_header header = {0};
+	struct physical_channel *pchan =
+		(struct physical_channel *)physical_channel;
+	struct ghs_vdev *dev = (struct ghs_vdev *)pchan->hyp_data;
+	GIPC_Result result = GIPC_Success;
+	uint32_t events;
+	unsigned long flags;
+
+	if (!dev) {
+		pr_err("no recv pchan %s has been de-alloced msg for %zd bytes\n",
+			pchan->name);
+		return;
+	}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	spin_lock_irqsave(&pchan->rxbuf_lock, flags);
 	events = kgipc_dequeue_events(dev->endpoint);
 	spin_unlock_irqrestore(&pchan->rxbuf_lock, flags);
@@ -119,7 +180,11 @@ void physical_channel_rx_dispatch(unsigned long physical_channel)
 					dev->read_data,
 					GIPC_RECV_BUFF_SIZE_BYTES,
 					&dev->read_size,
+<<<<<<< HEAD
 					&header.id_type_size);
+=======
+					(uint32_t *)&header.id_type_size);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 			if (result == GIPC_Success || dev->read_size > 0) {
 				 /* handle corrupted msg? */

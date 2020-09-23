@@ -17,8 +17,17 @@
 
 	memory@70000000 {
 		device_type = "memory";
+<<<<<<< HEAD
 		reg = <0x70000000 0x20000000>,
 		      <0xb0000000 0x20000000>;
+=======
+		reg = <0x70000000 0x20000000>;
+	};
+
+	memory@b0000000 {
+		device_type = "memory";
+		reg = <0xb0000000 0x20000000>;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	};
 
 	regulators {

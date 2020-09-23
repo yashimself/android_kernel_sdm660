@@ -5,6 +5,7 @@
 # Heavily based on the vDSO Makefiles for other archs.
 #
 
+<<<<<<< HEAD
 obj-vdso-s := note.o sigreturn.o
 obj-vdso-c := vgettimeofday.o
 
@@ -31,6 +32,20 @@ GCOV_PROFILE := n
 KASAN_SANITIZE := n
 UBSAN_SANITIZE := n
 KCOV_INSTRUMENT := n
+=======
+obj-vdso := gettimeofday.o note.o sigreturn.o
+
+# Build rules
+targets := $(obj-vdso) vdso.so vdso.so.dbg
+obj-vdso := $(addprefix $(obj)/, $(obj-vdso))
+
+ccflags-y := -shared -fno-common -fno-builtin
+ccflags-y += -nostdlib -Wl,-soname=linux-vdso.so.1 \
+		$(call cc-ldoption, -Wl$(comma)--hash-style=sysv)
+
+# Disable gcov profiling for VDSO code
+GCOV_PROFILE := n
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 # Workaround for bare-metal (ELF) toolchains that neglect to pass -shared
 # down to collect2, resulting in silent corruption of the vDSO image.
@@ -63,6 +78,7 @@ include/generated/vdso-offsets.h: $(obj)/vdso.so.dbg FORCE
 	$(call if_changed,vdsosym)
 
 # Assembly rules for the .S files
+<<<<<<< HEAD
 $(obj-vdso-s): %.o: %.S FORCE
 	$(call if_changed_dep,vdsoas)
 
@@ -74,6 +90,14 @@ quiet_cmd_vdsold = VDSOL   $@
       cmd_vdsold = $(CC) $(c_flags) -Wl,-n -Wl,-T $^ -o $@
 quiet_cmd_vdsocc = VDSOC   $@
       cmd_vdsocc = ${CC} $(c_flags) -c -o $@ $<
+=======
+$(obj-vdso): %.o: %.S FORCE
+	$(call if_changed_dep,vdsoas)
+
+# Actual build commands
+quiet_cmd_vdsold = VDSOL   $@
+      cmd_vdsold = $(CC) $(c_flags) -Wl,-n -Wl,-T $^ -o $@
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 quiet_cmd_vdsoas = VDSOA   $@
       cmd_vdsoas = $(CC) $(a_flags) -c -o $@ $<
 

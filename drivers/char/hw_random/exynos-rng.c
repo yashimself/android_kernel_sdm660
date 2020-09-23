@@ -155,6 +155,7 @@ static int exynos_rng_probe(struct platform_device *pdev)
 	return ret;
 }
 
+<<<<<<< HEAD
 static int exynos_rng_remove(struct platform_device *pdev)
 {
 	pm_runtime_dont_use_autosuspend(&pdev->dev);
@@ -163,6 +164,8 @@ static int exynos_rng_remove(struct platform_device *pdev)
 	return 0;
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int __maybe_unused exynos_rng_runtime_suspend(struct device *dev)
 {
 	struct platform_device *pdev = to_platform_device(dev);
@@ -220,7 +223,10 @@ static struct platform_driver exynos_rng_driver = {
 		.of_match_table = exynos_rng_dt_match,
 	},
 	.probe		= exynos_rng_probe,
+<<<<<<< HEAD
 	.remove		= exynos_rng_remove,
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 module_platform_driver(exynos_rng_driver);

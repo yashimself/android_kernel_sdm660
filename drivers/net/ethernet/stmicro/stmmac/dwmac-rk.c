@@ -600,6 +600,7 @@ static int rk_gmac_probe(struct platform_device *pdev)
 	if (ret)
 		return ret;
 
+<<<<<<< HEAD
 	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
 	if (ret)
 		goto err_gmac_exit;
@@ -610,6 +611,9 @@ err_gmac_exit:
 	rk_gmac_exit(pdev, plat_dat->bsp_priv);
 
 	return ret;
+=======
+	return stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static const struct of_device_id rk_gmac_dwmac_match[] = {

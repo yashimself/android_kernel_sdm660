@@ -26,7 +26,10 @@
 #include <linux/if.h>
 #include <linux/kernel.h>
 #include <linux/list.h>
+<<<<<<< HEAD
 #include <linux/mutex.h>
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #include <linux/netdevice.h>
 #include <linux/printk.h>
 #include <linux/rculist.h>
@@ -46,6 +49,7 @@
 #include "sysfs.h"
 #include "translation-table.h"
 
+<<<<<<< HEAD
 /**
  * batadv_hardif_release - release hard interface from lists and queue for
  *  free after rcu grace period
@@ -56,6 +60,15 @@ void batadv_hardif_release(struct batadv_hard_iface *hard_iface)
 	dev_put(hard_iface->net_dev);
 
 	kfree_rcu(hard_iface, rcu);
+=======
+void batadv_hardif_free_rcu(struct rcu_head *rcu)
+{
+	struct batadv_hard_iface *hard_iface;
+
+	hard_iface = container_of(rcu, struct batadv_hard_iface, rcu);
+	dev_put(hard_iface->net_dev);
+	kfree(hard_iface);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 struct batadv_hard_iface *
@@ -78,6 +91,7 @@ out:
 }
 
 /**
+<<<<<<< HEAD
  * batadv_mutual_parents - check if two devices are each others parent
  * @dev1: 1st net_device
  * @dev2: 2nd net_device
@@ -100,6 +114,8 @@ static bool batadv_mutual_parents(const struct net_device *dev1,
 }
 
 /**
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * batadv_is_on_batman_iface - check if a device is a batman iface descendant
  * @net_dev: the device to check
  *
@@ -134,9 +150,12 @@ static bool batadv_is_on_batman_iface(const struct net_device *net_dev)
 		return false;
 	}
 
+<<<<<<< HEAD
 	if (batadv_mutual_parents(net_dev, parent_dev))
 		return false;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	ret = batadv_is_on_batman_iface(parent_dev);
 
 	return ret;
@@ -494,11 +513,14 @@ int batadv_hardif_enable_interface(struct batadv_hard_iface *hard_iface,
 	hard_iface->soft_iface = soft_iface;
 	bat_priv = netdev_priv(hard_iface->soft_iface);
 
+<<<<<<< HEAD
 	if (bat_priv->num_ifaces >= UINT_MAX) {
 		ret = -ENOSPC;
 		goto err_dev;
 	}
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	ret = netdev_master_upper_dev_link(hard_iface->net_dev, soft_iface);
 	if (ret)
 		goto err_dev;
@@ -571,7 +593,12 @@ void batadv_hardif_disable_interface(struct batadv_hard_iface *hard_iface,
 	struct batadv_priv *bat_priv = netdev_priv(hard_iface->soft_iface);
 	struct batadv_hard_iface *primary_if = NULL;
 
+<<<<<<< HEAD
 	batadv_hardif_deactivate_interface(hard_iface);
+=======
+	if (hard_iface->if_status == BATADV_IF_ACTIVE)
+		batadv_hardif_deactivate_interface(hard_iface);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (hard_iface->if_status != BATADV_IF_INACTIVE)
 		goto out;
@@ -606,7 +633,11 @@ void batadv_hardif_disable_interface(struct batadv_hard_iface *hard_iface,
 	batadv_hardif_recalc_extra_skbroom(hard_iface->soft_iface);
 
 	/* nobody uses this interface anymore */
+<<<<<<< HEAD
 	if (bat_priv->num_ifaces == 0) {
+=======
+	if (!bat_priv->num_ifaces) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		batadv_gw_check_client_stop(bat_priv);
 
 		if (autodel == BATADV_IF_CLEANUP_AUTO)
@@ -662,7 +693,11 @@ batadv_hardif_add_interface(struct net_device *net_dev)
 	if (ret)
 		goto free_if;
 
+<<<<<<< HEAD
 	hard_iface->if_num = 0;
+=======
+	hard_iface->if_num = -1;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	hard_iface->net_dev = net_dev;
 	hard_iface->soft_iface = NULL;
 	hard_iface->if_status = BATADV_IF_NOT_IN_USE;
@@ -672,7 +707,10 @@ batadv_hardif_add_interface(struct net_device *net_dev)
 		goto free_sysfs;
 
 	INIT_LIST_HEAD(&hard_iface->list);
+<<<<<<< HEAD
 	mutex_init(&hard_iface->bat_iv.ogm_buff_mutex);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	INIT_WORK(&hard_iface->cleanup_work,
 		  batadv_hardif_remove_interface_finish);
 
@@ -727,6 +765,7 @@ void batadv_hardif_remove_interfaces(void)
 	rtnl_unlock();
 }
 
+<<<<<<< HEAD
 /**
  * batadv_hard_if_event_softif() - Handle events for soft interfaces
  * @event: NETDEV_* event to handle
@@ -753,6 +792,8 @@ static int batadv_hard_if_event_softif(unsigned long event,
 	return NOTIFY_DONE;
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int batadv_hard_if_event(struct notifier_block *this,
 				unsigned long event, void *ptr)
 {
@@ -761,8 +802,17 @@ static int batadv_hard_if_event(struct notifier_block *this,
 	struct batadv_hard_iface *primary_if = NULL;
 	struct batadv_priv *bat_priv;
 
+<<<<<<< HEAD
 	if (batadv_softif_is_valid(net_dev))
 		return batadv_hard_if_event_softif(event, net_dev);
+=======
+	if (batadv_softif_is_valid(net_dev) && event == NETDEV_REGISTER) {
+		batadv_sysfs_add_meshif(net_dev);
+		bat_priv = netdev_priv(net_dev);
+		batadv_softif_create_vlan(bat_priv, BATADV_NO_FLAGS);
+		return NOTIFY_DONE;
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	hard_iface = batadv_hardif_get_by_netdev(net_dev);
 	if (!hard_iface && event == NETDEV_REGISTER)
@@ -804,9 +854,12 @@ static int batadv_hard_if_event(struct notifier_block *this,
 		if (hard_iface == primary_if)
 			batadv_primary_if_update_addr(bat_priv, NULL);
 		break;
+<<<<<<< HEAD
 	case NETDEV_CHANGENAME:
 		batadv_debugfs_rename_hardif(hard_iface);
 		break;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	default:
 		break;
 	}

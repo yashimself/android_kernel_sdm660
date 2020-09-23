@@ -107,3 +107,13 @@ config VIDEOBUF2_DMA_SG
 config VIDEOBUF2_DVB
 	tristate
 	select VIDEOBUF2_CORE
+<<<<<<< HEAD
+=======
+
+config  V4L2_LOOPBACK
+	tristate "v4l2loopback driver"
+	---help---
+	Enable v4l2loopback support, it allows to create
+	"virtual video devices". Normal (v4l2) applications will
+	read these devices as if they were ordinary video devices.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

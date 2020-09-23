@@ -1300,14 +1300,23 @@ struct scp_msg {
 
 static void dspio_clear_response_queue(struct hda_codec *codec)
 {
+<<<<<<< HEAD
 	unsigned long timeout = jiffies + msecs_to_jiffies(1000);
 	unsigned int dummy = 0;
 	int status;
+=======
+	unsigned int dummy = 0;
+	int status = -1;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* clear all from the response queue */
 	do {
 		status = dspio_read(codec, &dummy);
+<<<<<<< HEAD
 	} while (status == 0 && time_before(jiffies, timeout));
+=======
+	} while (status == 0);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static int dspio_get_response_data(struct hda_codec *codec)
@@ -4425,14 +4434,20 @@ static void ca0132_process_dsp_response(struct hda_codec *codec,
 	struct ca0132_spec *spec = codec->spec;
 
 	codec_dbg(codec, "ca0132_process_dsp_response\n");
+<<<<<<< HEAD
 	snd_hda_power_up_pm(codec);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (spec->wait_scp) {
 		if (dspio_get_response_data(codec) >= 0)
 			spec->wait_scp = 0;
 	}
 
 	dspio_clear_response_queue(codec);
+<<<<<<< HEAD
 	snd_hda_power_down_pm(codec);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static void hp_callback(struct hda_codec *codec, struct hda_jack_callback *cb)

@@ -641,6 +641,12 @@ int qla4xxx_initialize_fw_cb(struct scsi_qla_host * ha)
 
 	if (qla4xxx_get_ifcb(ha, &mbox_cmd[0], &mbox_sts[0], init_fw_cb_dma) !=
 	    QLA_SUCCESS) {
+<<<<<<< HEAD
+=======
+		dma_free_coherent(&ha->pdev->dev,
+				  sizeof(struct addr_ctrl_blk),
+				  init_fw_cb, init_fw_cb_dma);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		goto exit_init_fw_cb;
 	}
 

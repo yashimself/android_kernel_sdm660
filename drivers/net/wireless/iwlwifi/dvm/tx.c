@@ -81,7 +81,11 @@ static void iwlagn_tx_cmd_build_basic(struct iwl_priv *priv,
 		tx_flags |= TX_CMD_FLG_TSF_MSK;
 	else if (ieee80211_is_back_req(fc))
 		tx_flags |= TX_CMD_FLG_ACK_MSK | TX_CMD_FLG_IMM_BA_RSP_MASK;
+<<<<<<< HEAD
 	else if (info->band == NL80211_BAND_2GHZ &&
+=======
+	else if (info->band == IEEE80211_BAND_2GHZ &&
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		 priv->lib->bt_params &&
 		 priv->lib->bt_params->advanced_bt_coexist &&
 		 (ieee80211_is_auth(fc) || ieee80211_is_assoc_req(fc) ||
@@ -177,7 +181,11 @@ static void iwlagn_tx_cmd_build_rate(struct iwl_priv *priv,
 		rate_idx = rate_lowest_index(
 				&priv->nvm_data->bands[info->band], sta);
 	/* For 5 GHZ band, remap mac80211 rate indices into driver indices */
+<<<<<<< HEAD
 	if (info->band == NL80211_BAND_5GHZ)
+=======
+	if (info->band == IEEE80211_BAND_5GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		rate_idx += IWL_FIRST_OFDM_RATE;
 	/* Get PLCP rate for tx_cmd->rate_n_flags */
 	rate_plcp = iwl_rates[rate_idx].plcp;

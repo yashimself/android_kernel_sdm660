@@ -1265,11 +1265,17 @@ unsigned long lockdep_count_forward_deps(struct lock_class *class)
 	this.class = class;
 
 	raw_local_irq_save(flags);
+<<<<<<< HEAD
 	current->lockdep_recursion = 1;
 	arch_spin_lock(&lockdep_lock);
 	ret = __lockdep_count_forward_deps(&this);
 	arch_spin_unlock(&lockdep_lock);
 	current->lockdep_recursion = 0;
+=======
+	arch_spin_lock(&lockdep_lock);
+	ret = __lockdep_count_forward_deps(&this);
+	arch_spin_unlock(&lockdep_lock);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	raw_local_irq_restore(flags);
 
 	return ret;
@@ -1294,11 +1300,17 @@ unsigned long lockdep_count_backward_deps(struct lock_class *class)
 	this.class = class;
 
 	raw_local_irq_save(flags);
+<<<<<<< HEAD
 	current->lockdep_recursion = 1;
 	arch_spin_lock(&lockdep_lock);
 	ret = __lockdep_count_backward_deps(&this);
 	arch_spin_unlock(&lockdep_lock);
 	current->lockdep_recursion = 0;
+=======
+	arch_spin_lock(&lockdep_lock);
+	ret = __lockdep_count_backward_deps(&this);
+	arch_spin_unlock(&lockdep_lock);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	raw_local_irq_restore(flags);
 
 	return ret;

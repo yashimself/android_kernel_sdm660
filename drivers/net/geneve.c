@@ -1340,7 +1340,10 @@ struct net_device *geneve_dev_create_fb(struct net *net, const char *name,
 {
 	struct nlattr *tb[IFLA_MAX + 1];
 	struct net_device *dev;
+<<<<<<< HEAD
 	LIST_HEAD(list_kill);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int err;
 
 	memset(tb, 0, sizeof(tb));
@@ -1351,10 +1354,15 @@ struct net_device *geneve_dev_create_fb(struct net *net, const char *name,
 
 	err = geneve_configure(net, dev, &geneve_remote_unspec,
 			       0, 0, 0, htons(dst_port), true);
+<<<<<<< HEAD
 	if (err) {
 		free_netdev(dev);
 		return ERR_PTR(err);
 	}
+=======
+	if (err)
+		goto err;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* openvswitch users expect packet sizes to be unrestricted,
 	 * so set the largest MTU we can.
@@ -1363,6 +1371,7 @@ struct net_device *geneve_dev_create_fb(struct net *net, const char *name,
 	if (err)
 		goto err;
 
+<<<<<<< HEAD
 	err = rtnl_configure_link(dev, NULL);
 	if (err < 0)
 		goto err;
@@ -1372,6 +1381,12 @@ struct net_device *geneve_dev_create_fb(struct net *net, const char *name,
  err:
 	geneve_dellink(dev, &list_kill);
 	unregister_netdevice_many(&list_kill);
+=======
+	return dev;
+
+ err:
+	free_netdev(dev);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return ERR_PTR(err);
 }
 EXPORT_SYMBOL_GPL(geneve_dev_create_fb);

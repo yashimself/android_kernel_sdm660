@@ -88,7 +88,12 @@ enum kgsl_event_results {
 	{ KGSL_CONTEXT_TYPE_GL, "GL" }, \
 	{ KGSL_CONTEXT_TYPE_CL, "CL" }, \
 	{ KGSL_CONTEXT_TYPE_C2D, "C2D" }, \
+<<<<<<< HEAD
 	{ KGSL_CONTEXT_TYPE_RS, "RS" }
+=======
+	{ KGSL_CONTEXT_TYPE_RS, "RS" }, \
+	{ KGSL_CONTEXT_TYPE_VK, "VK" }
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #define KGSL_CONTEXT_ID(_context) \
 	((_context != NULL) ? (_context)->id : KGSL_MEMSTORE_GLOBAL)
@@ -419,7 +424,10 @@ struct kgsl_context {
  * @kobj: Pointer to a kobj for the sysfs directory for this process
  * @debug_root: Pointer to the debugfs root for this process
  * @stats: Memory allocation statistics for this process
+<<<<<<< HEAD
  * @gpumem_mapped: KGSL memory mapped in the process address space
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * @syncsource_idr: sync sources created by this process
  * @syncsource_lock: Spinlock to protect the syncsource idr
  * @fd_count: Counter for the number of FDs for this process
@@ -441,7 +449,10 @@ struct kgsl_process_private {
 		uint64_t cur;
 		uint64_t max;
 	} stats[KGSL_MEM_ENTRY_MAX];
+<<<<<<< HEAD
 	uint64_t gpumem_mapped;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct idr syncsource_idr;
 	spinlock_t syncsource_lock;
 	int fd_count;

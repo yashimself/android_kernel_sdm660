@@ -945,7 +945,11 @@ static void smc911x_phy_configure(struct work_struct *work)
 	if (lp->ctl_rspeed != 100)
 		my_ad_caps &= ~(ADVERTISE_100BASE4|ADVERTISE_100FULL|ADVERTISE_100HALF);
 
+<<<<<<< HEAD
 	if (!lp->ctl_rfduplx)
+=======
+	 if (!lp->ctl_rfduplx)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		my_ad_caps &= ~(ADVERTISE_100FULL|ADVERTISE_10FULL);
 
 	/* Update our Auto-Neg Advertisement Register */

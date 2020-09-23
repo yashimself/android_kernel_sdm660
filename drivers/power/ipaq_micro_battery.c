@@ -261,7 +261,11 @@ static int micro_batt_probe(struct platform_device *pdev)
 	return 0;
 
 ac_err:
+<<<<<<< HEAD
 	power_supply_unregister(micro_batt_power);
+=======
+	power_supply_unregister(micro_ac_power);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 batt_err:
 	cancel_delayed_work_sync(&mb->update);
 	destroy_workqueue(mb->wq);

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2011-2014, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2011-2014, 2020, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -24,9 +28,18 @@ static struct snd_soc_dai_driver msm_stub_dais[] = {
 		.playback = { /* Support maximum range */
 			.stream_name = "Playback",
 			.channels_min = 1,
+<<<<<<< HEAD
 			.channels_max = 8,
 			.rates = SNDRV_PCM_RATE_8000_48000,
 			.formats = SNDRV_PCM_FMTBIT_S16_LE,
+=======
+			.channels_max = 16,
+			.rates = SNDRV_PCM_RATE_8000_384000,
+			.formats = (SNDRV_PCM_FMTBIT_S16_LE |
+						SNDRV_PCM_FMTBIT_S24_LE |
+						SNDRV_PCM_FMTBIT_S24_3LE |
+						SNDRV_PCM_FMTBIT_S32_LE),
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		},
 	},
 	{
@@ -34,10 +47,19 @@ static struct snd_soc_dai_driver msm_stub_dais[] = {
 		.capture = { /* Support maximum range */
 			.stream_name = "Record",
 			.channels_min = 1,
+<<<<<<< HEAD
 			.channels_max = 8,
 			.rates = SNDRV_PCM_RATE_8000_48000,
 			.formats = (SNDRV_PCM_FMTBIT_S16_LE |
 				    SNDRV_PCM_FMTBIT_S24_LE),
+=======
+			.channels_max = 16,
+			.rates = SNDRV_PCM_RATE_8000_48000,
+			.formats = (SNDRV_PCM_FMTBIT_S16_LE |
+					SNDRV_PCM_FMTBIT_S24_LE |
+					SNDRV_PCM_FMTBIT_S24_3LE |
+					SNDRV_PCM_FMTBIT_S32_LE),
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		},
 	},
 };

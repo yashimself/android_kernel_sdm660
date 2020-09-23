@@ -1090,9 +1090,13 @@ fb_blank(struct fb_info *info, int blank)
  	return ret;
 }
 EXPORT_SYMBOL(fb_blank);
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_X01BD
 bool lcd_suspend_flag = false;
 #endif
+=======
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static long do_fb_ioctl(struct fb_info *info, unsigned int cmd,
 			unsigned long arg, struct file *file)
 {
@@ -1141,7 +1145,11 @@ static long do_fb_ioctl(struct fb_info *info, unsigned int cmd,
 	case FBIOGET_FSCREENINFO:
 		if (!lock_fb_info(info))
 			return -ENODEV;
+<<<<<<< HEAD
 		memcpy(&fix, &info->fix, sizeof(fix));
+=======
+		fix = info->fix;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		unlock_fb_info(info);
 
 		ret = copy_to_user(argp, &fix, sizeof(fix)) ? -EFAULT : 0;
@@ -1222,12 +1230,15 @@ static long do_fb_ioctl(struct fb_info *info, unsigned int cmd,
 			return -ENODEV;
 		}
 		info->flags |= FBINFO_MISC_USEREVENT;
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_X01BD
 		if (arg == FB_BLANK_POWERDOWN) {
 			lcd_suspend_flag = true;
 			printk("[Display] FB_BLANK_POWERDOWN\n");
 		}
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		ret = fb_blank(info, arg);
 		info->flags &= ~FBINFO_MISC_USEREVENT;
 		unlock_fb_info(info);

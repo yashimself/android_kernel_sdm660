@@ -169,6 +169,7 @@ static ssize_t ieee80211_if_write_##name(struct file *file,		\
 	IEEE80211_IF_FILE_R(name)
 
 /* common attributes */
+<<<<<<< HEAD
 IEEE80211_IF_FILE(rc_rateidx_mask_2ghz, rc_rateidx_mask[NL80211_BAND_2GHZ],
 		  HEX);
 IEEE80211_IF_FILE(rc_rateidx_mask_5ghz, rc_rateidx_mask[NL80211_BAND_5GHZ],
@@ -177,13 +178,27 @@ IEEE80211_IF_FILE(rc_rateidx_mcs_mask_2ghz,
 		  rc_rateidx_mcs_mask[NL80211_BAND_2GHZ], HEXARRAY);
 IEEE80211_IF_FILE(rc_rateidx_mcs_mask_5ghz,
 		  rc_rateidx_mcs_mask[NL80211_BAND_5GHZ], HEXARRAY);
+=======
+IEEE80211_IF_FILE(rc_rateidx_mask_2ghz, rc_rateidx_mask[IEEE80211_BAND_2GHZ],
+		  HEX);
+IEEE80211_IF_FILE(rc_rateidx_mask_5ghz, rc_rateidx_mask[IEEE80211_BAND_5GHZ],
+		  HEX);
+IEEE80211_IF_FILE(rc_rateidx_mcs_mask_2ghz,
+		  rc_rateidx_mcs_mask[IEEE80211_BAND_2GHZ], HEXARRAY);
+IEEE80211_IF_FILE(rc_rateidx_mcs_mask_5ghz,
+		  rc_rateidx_mcs_mask[IEEE80211_BAND_5GHZ], HEXARRAY);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 static ssize_t ieee80211_if_fmt_rc_rateidx_vht_mcs_mask_2ghz(
 				const struct ieee80211_sub_if_data *sdata,
 				char *buf, int buflen)
 {
 	int i, len = 0;
+<<<<<<< HEAD
 	const u16 *mask = sdata->rc_rateidx_vht_mcs_mask[NL80211_BAND_2GHZ];
+=======
+	const u16 *mask = sdata->rc_rateidx_vht_mcs_mask[IEEE80211_BAND_2GHZ];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	for (i = 0; i < NL80211_VHT_NSS_MAX; i++)
 		len += scnprintf(buf + len, buflen - len, "%04x ", mask[i]);
@@ -199,7 +214,11 @@ static ssize_t ieee80211_if_fmt_rc_rateidx_vht_mcs_mask_5ghz(
 				char *buf, int buflen)
 {
 	int i, len = 0;
+<<<<<<< HEAD
 	const u16 *mask = sdata->rc_rateidx_vht_mcs_mask[NL80211_BAND_5GHZ];
+=======
+	const u16 *mask = sdata->rc_rateidx_vht_mcs_mask[IEEE80211_BAND_5GHZ];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	for (i = 0; i < NL80211_VHT_NSS_MAX; i++)
 		len += scnprintf(buf + len, buflen - len, "%04x ", mask[i]);

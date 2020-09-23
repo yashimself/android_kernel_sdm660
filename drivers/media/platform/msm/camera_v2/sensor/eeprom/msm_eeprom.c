@@ -55,12 +55,16 @@ static int msm_get_read_mem_size
 		}
 		for (i = 0; i < eeprom_map->memory_map_size; i++) {
 			if (eeprom_map->mem_settings[i].i2c_operation ==
+<<<<<<< HEAD
 				MSM_CAM_READ
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 				|| eeprom_map->mem_settings[i].i2c_operation ==
 				MSM_CAM_SINGLE_LOOP_READ
 #endif
 				) {
+=======
+				MSM_CAM_READ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				size += eeprom_map->mem_settings[i].reg_data;
 			}
 		}
@@ -411,6 +415,7 @@ static int eeprom_parse_memory_map(struct msm_eeprom_ctrl_t *e_ctrl,
 				memptr += eeprom_map->mem_settings[i].reg_data;
 			}
 			break;
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 			case MSM_CAM_SINGLE_LOOP_READ: {
 				uint16_t m;
@@ -438,6 +443,8 @@ static int eeprom_parse_memory_map(struct msm_eeprom_ctrl_t *e_ctrl,
 			}
 			break;
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			default:
 				pr_err("%s: %d Invalid i2c operation LC:%d\n",
 					__func__, __LINE__, i);

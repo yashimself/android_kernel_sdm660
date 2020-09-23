@@ -843,6 +843,7 @@ u32 rtl92de_get_desc(u8 *p_desc, bool istx, u8 desc_name)
 			break;
 		}
 	} else {
+<<<<<<< HEAD
 		switch (desc_name) {
 		case HW_DESC_OWN:
 			ret = GET_RX_DESC_OWN(p_desc);
@@ -852,6 +853,15 @@ u32 rtl92de_get_desc(u8 *p_desc, bool istx, u8 desc_name)
 			break;
 		case HW_DESC_RXBUFF_ADDR:
 			ret = GET_RX_DESC_BUFF_ADDR(p_desc);
+=======
+		struct rx_desc_92c *pdesc = (struct rx_desc_92c *)p_desc;
+		switch (desc_name) {
+		case HW_DESC_OWN:
+			ret = GET_RX_DESC_OWN(pdesc);
+			break;
+		case HW_DESC_RXPKT_LEN:
+			ret = GET_RX_DESC_PKT_LEN(pdesc);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			break;
 		default:
 			RT_ASSERT(false, "ERR rxdesc :%d not process\n",
@@ -862,6 +872,7 @@ u32 rtl92de_get_desc(u8 *p_desc, bool istx, u8 desc_name)
 	return ret;
 }
 
+<<<<<<< HEAD
 bool rtl92de_is_tx_desc_closed(struct ieee80211_hw *hw,
 			       u8 hw_queue, u16 index)
 {
@@ -879,6 +890,8 @@ bool rtl92de_is_tx_desc_closed(struct ieee80211_hw *hw,
 	return true;
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 void rtl92de_tx_polling(struct ieee80211_hw *hw, u8 hw_queue)
 {
 	struct rtl_priv *rtlpriv = rtl_priv(hw);

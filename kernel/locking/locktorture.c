@@ -655,10 +655,17 @@ static void __torture_print_stats(char *page,
 		if (statp[i].n_lock_fail)
 			fail = true;
 		sum += statp[i].n_lock_acquired;
+<<<<<<< HEAD
 		if (max < statp[i].n_lock_acquired)
 			max = statp[i].n_lock_acquired;
 		if (min > statp[i].n_lock_acquired)
 			min = statp[i].n_lock_acquired;
+=======
+		if (max < statp[i].n_lock_fail)
+			max = statp[i].n_lock_fail;
+		if (min > statp[i].n_lock_fail)
+			min = statp[i].n_lock_fail;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 	page += sprintf(page,
 			"%s:  Total: %lld  Max/Min: %ld/%ld %s  Fail: %d %s\n",

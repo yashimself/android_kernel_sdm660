@@ -399,11 +399,15 @@ static netdev_tx_t mlxsw_sp_port_xmit(struct sk_buff *skb,
 	}
 
 	mlxsw_sp_txhdr_construct(skb, &tx_info);
+<<<<<<< HEAD
 	/* TX header is consumed by HW on the way so we shouldn't count its
 	 * bytes as being sent.
 	 */
 	len = skb->len - MLXSW_TXHDR_LEN;
 
+=======
+	len = skb->len;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* Due to a race we might fail here because of a full queue. In that
 	 * unlikely case we simply drop the packet.
 	 */
@@ -1104,8 +1108,12 @@ static int mlxsw_sp_port_get_settings(struct net_device *dev,
 
 	cmd->supported = mlxsw_sp_from_ptys_supported_port(eth_proto_cap) |
 			 mlxsw_sp_from_ptys_supported_link(eth_proto_cap) |
+<<<<<<< HEAD
 			 SUPPORTED_Pause | SUPPORTED_Asym_Pause |
 			 SUPPORTED_Autoneg;
+=======
+			 SUPPORTED_Pause | SUPPORTED_Asym_Pause;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	cmd->advertising = mlxsw_sp_from_ptys_advert_link(eth_proto_admin);
 	mlxsw_sp_from_ptys_speed_duplex(netif_carrier_ok(dev),
 					eth_proto_oper, cmd);
@@ -1261,7 +1269,11 @@ static int mlxsw_sp_port_create(struct mlxsw_sp *mlxsw_sp, u8 local_port)
 	/* Each packet needs to have a Tx header (metadata) on top all other
 	 * headers.
 	 */
+<<<<<<< HEAD
 	dev->needed_headroom = MLXSW_TXHDR_LEN;
+=======
+	dev->hard_header_len += MLXSW_TXHDR_LEN;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	err = mlxsw_sp_port_module_check(mlxsw_sp_port, &usable);
 	if (err) {

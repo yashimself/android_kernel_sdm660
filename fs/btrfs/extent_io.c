@@ -4153,6 +4153,7 @@ retry:
 		 */
 		scanned = 1;
 		index = 0;
+<<<<<<< HEAD
 
 		/*
 		 * If we're looping we could run into a page that is locked by a
@@ -4161,6 +4162,8 @@ retry:
 		 * write bio here.
 		 */
 		flush_write_bio(data);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		goto retry;
 	}
 	btrfs_add_delayed_iput(inode);
@@ -4945,6 +4948,7 @@ struct extent_buffer *alloc_test_extent_buffer(struct btrfs_fs_info *fs_info,
 		return eb;
 	eb = alloc_dummy_extent_buffer(fs_info, start);
 	if (!eb)
+<<<<<<< HEAD
 		return ERR_PTR(-ENOMEM);
 	eb->fs_info = fs_info;
 again:
@@ -4953,6 +4957,14 @@ again:
 		exists = ERR_PTR(ret);
 		goto free_eb;
 	}
+=======
+		return NULL;
+	eb->fs_info = fs_info;
+again:
+	ret = radix_tree_preload(GFP_NOFS & ~__GFP_HIGHMEM);
+	if (ret)
+		goto free_eb;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	spin_lock(&fs_info->buffer_lock);
 	ret = radix_tree_insert(&fs_info->buffer_radix,
 				start >> PAGE_CACHE_SHIFT, eb);

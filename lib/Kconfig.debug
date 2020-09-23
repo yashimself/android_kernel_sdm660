@@ -588,6 +588,17 @@ config DEBUG_VM_RB
 
 	  If unsure, say N.
 
+<<<<<<< HEAD
+=======
+config DEBUG_VM_PGFLAGS
+	bool "Debug page-flags operations"
+	depends on DEBUG_VM
+	help
+	  Enables extra validation on page flags operations.
+
+	  If unsure, say N.
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 config DEBUG_VIRTUAL
 	bool "Debug VM translations"
 	depends on DEBUG_KERNEL && X86
@@ -2010,6 +2021,7 @@ config PANIC_ON_DATA_CORRUPTION
 	 recoverable data corruption scenarios to system-halting panics,
 	 for easier detection and debug.
 
+<<<<<<< HEAD
 config CC_WERROR
 	bool "Treat all compile warnings as errors"
 	default n
@@ -2019,6 +2031,17 @@ config CC_WERROR
 	 the codebase.
 
 	 If unsure, say N.
+=======
+config BUG_ON_DATA_CORRUPTION
+	bool "Trigger a BUG when data corruption is detected"
+	select CONFIG_DEBUG_LIST
+	help
+	  Select this option if the kernel should BUG when it encounters
+	  data corruption in kernel memory structures when they get checked
+	  for validity.
+
+	  If unsure, say N.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 source "samples/Kconfig"
 

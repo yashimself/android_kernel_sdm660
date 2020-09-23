@@ -139,16 +139,25 @@ static ssize_t
 efivar_attr_read(struct efivar_entry *entry, char *buf)
 {
 	struct efi_variable *var = &entry->var;
+<<<<<<< HEAD
 	unsigned long size = sizeof(var->Data);
 	char *str = buf;
 	int ret;
+=======
+	char *str = buf;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (!entry || !buf)
 		return -EINVAL;
 
+<<<<<<< HEAD
 	ret = efivar_entry_get(entry, &var->Attributes, &size, var->Data);
 	var->DataSize = size;
 	if (ret)
+=======
+	var->DataSize = 1024;
+	if (efivar_entry_get(entry, &var->Attributes, &var->DataSize, var->Data))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return -EIO;
 
 	if (var->Attributes & EFI_VARIABLE_NON_VOLATILE)
@@ -175,16 +184,25 @@ static ssize_t
 efivar_size_read(struct efivar_entry *entry, char *buf)
 {
 	struct efi_variable *var = &entry->var;
+<<<<<<< HEAD
 	unsigned long size = sizeof(var->Data);
 	char *str = buf;
 	int ret;
+=======
+	char *str = buf;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (!entry || !buf)
 		return -EINVAL;
 
+<<<<<<< HEAD
 	ret = efivar_entry_get(entry, &var->Attributes, &size, var->Data);
 	var->DataSize = size;
 	if (ret)
+=======
+	var->DataSize = 1024;
+	if (efivar_entry_get(entry, &var->Attributes, &var->DataSize, var->Data))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return -EIO;
 
 	str += sprintf(str, "0x%lx\n", var->DataSize);
@@ -195,15 +213,23 @@ static ssize_t
 efivar_data_read(struct efivar_entry *entry, char *buf)
 {
 	struct efi_variable *var = &entry->var;
+<<<<<<< HEAD
 	unsigned long size = sizeof(var->Data);
 	int ret;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (!entry || !buf)
 		return -EINVAL;
 
+<<<<<<< HEAD
 	ret = efivar_entry_get(entry, &var->Attributes, &size, var->Data);
 	var->DataSize = size;
 	if (ret)
+=======
+	var->DataSize = 1024;
+	if (efivar_entry_get(entry, &var->Attributes, &var->DataSize, var->Data))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return -EIO;
 
 	memcpy(buf, var->Data, var->DataSize);
@@ -272,9 +298,12 @@ efivar_store_raw(struct efivar_entry *entry, const char *buf, size_t count)
 	u8 *data;
 	int err;
 
+<<<<<<< HEAD
 	if (!entry || !buf)
 		return -EINVAL;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (is_compat()) {
 		struct compat_efi_variable *compat;
 
@@ -326,16 +355,26 @@ efivar_show_raw(struct efivar_entry *entry, char *buf)
 {
 	struct efi_variable *var = &entry->var;
 	struct compat_efi_variable *compat;
+<<<<<<< HEAD
 	unsigned long datasize = sizeof(var->Data);
 	size_t size;
 	int ret;
+=======
+	size_t size;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (!entry || !buf)
 		return 0;
 
+<<<<<<< HEAD
 	ret = efivar_entry_get(entry, &var->Attributes, &datasize, var->Data);
 	var->DataSize = datasize;
 	if (ret)
+=======
+	var->DataSize = 1024;
+	if (efivar_entry_get(entry, &entry->var.Attributes,
+			     &entry->var.DataSize, entry->var.Data))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return -EIO;
 
 	if (is_compat()) {

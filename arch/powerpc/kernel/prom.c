@@ -125,7 +125,11 @@ static void __init move_device_tree(void)
 		p = __va(memblock_alloc(size, PAGE_SIZE));
 		memcpy(p, initial_boot_params, size);
 		initial_boot_params = p;
+<<<<<<< HEAD
 		DBG("Moved device tree to 0x%px\n", p);
+=======
+		DBG("Moved device tree to 0x%p\n", p);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	DBG("<- move_device_tree\n");
@@ -647,7 +651,11 @@ void __init early_init_devtree(void *params)
 {
 	phys_addr_t limit;
 
+<<<<<<< HEAD
 	DBG(" -> early_init_devtree(%px)\n", params);
+=======
+	DBG(" -> early_init_devtree(%p)\n", params);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* Too early to BUG_ON(), do it by hand */
 	if (!early_init_dt_verify(params))
@@ -707,7 +715,11 @@ void __init early_init_devtree(void *params)
 	memblock_allow_resize();
 	memblock_dump_all();
 
+<<<<<<< HEAD
 	DBG("Phys. mem: %llx\n", (unsigned long long)memblock_phys_mem_size());
+=======
+	DBG("Phys. mem: %llx\n", memblock_phys_mem_size());
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* We may need to relocate the flat tree, do it now.
 	 * FIXME .. and the initrd too? */

@@ -531,7 +531,11 @@ void iwl_mvm_mac_ctxt_release(struct iwl_mvm *mvm, struct ieee80211_vif *vif)
 
 static void iwl_mvm_ack_rates(struct iwl_mvm *mvm,
 			      struct ieee80211_vif *vif,
+<<<<<<< HEAD
 			      enum nl80211_band band,
+=======
+			      enum ieee80211_band band,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			      u8 *cck_rates, u8 *ofdm_rates)
 {
 	struct ieee80211_supported_band *sband;
@@ -702,7 +706,11 @@ static void iwl_mvm_mac_ctxt_cmd_common(struct iwl_mvm *mvm,
 	rcu_read_lock();
 	chanctx = rcu_dereference(vif->chanctx_conf);
 	iwl_mvm_ack_rates(mvm, vif, chanctx ? chanctx->def.chan->band
+<<<<<<< HEAD
 					    : NL80211_BAND_2GHZ,
+=======
+					    : IEEE80211_BAND_2GHZ,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			  &cck_ack_rates, &ofdm_ack_rates);
 	rcu_read_unlock();
 
@@ -1007,7 +1015,11 @@ static int iwl_mvm_mac_ctxt_send_beacon(struct iwl_mvm *mvm,
 		cpu_to_le32(BIT(mvm->mgmt_last_antenna_idx) <<
 			    RATE_MCS_ANT_POS);
 
+<<<<<<< HEAD
 	if (info->band == NL80211_BAND_5GHZ || vif->p2p) {
+=======
+	if (info->band == IEEE80211_BAND_5GHZ || vif->p2p) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		rate = IWL_FIRST_OFDM_RATE;
 	} else {
 		rate = IWL_FIRST_CCK_RATE;

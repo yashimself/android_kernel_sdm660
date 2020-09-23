@@ -301,9 +301,12 @@ static ssize_t qib_portattr_show(struct kobject *kobj,
 	struct qib_pportdata *ppd =
 		container_of(kobj, struct qib_pportdata, pport_kobj);
 
+<<<<<<< HEAD
 	if (!pattr->show)
 		return -EIO;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return pattr->show(ppd, buf);
 }
 
@@ -315,9 +318,12 @@ static ssize_t qib_portattr_store(struct kobject *kobj,
 	struct qib_pportdata *ppd =
 		container_of(kobj, struct qib_pportdata, pport_kobj);
 
+<<<<<<< HEAD
 	if (!pattr->store)
 		return -EIO;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return pattr->store(ppd, buf, len);
 }
 

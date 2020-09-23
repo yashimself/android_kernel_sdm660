@@ -616,7 +616,11 @@ static struct undef_hook setend_hooks[] = {
 	},
 	{
 		/* Thumb mode */
+<<<<<<< HEAD
 		.instr_mask	= 0xfffffff7,
+=======
+		.instr_mask	= 0x0000fff7,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		.instr_val	= 0x0000b650,
 		.pstate_mask	= (COMPAT_PSR_T_BIT | COMPAT_PSR_MODE_MASK),
 		.pstate_val	= (COMPAT_PSR_T_BIT | COMPAT_PSR_MODE_USR),

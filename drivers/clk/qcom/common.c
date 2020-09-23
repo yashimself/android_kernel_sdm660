@@ -40,9 +40,12 @@ struct freq_tbl *qcom_find_freq(const struct freq_tbl *f, unsigned long rate)
 	if (!f)
 		return NULL;
 
+<<<<<<< HEAD
 	if (!f->freq)
 		return f;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	for (; f->freq; f++)
 		if (rate <= f->freq)
 			return f;

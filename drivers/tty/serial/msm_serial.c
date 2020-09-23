@@ -992,7 +992,10 @@ static unsigned int msm_get_mctrl(struct uart_port *port)
 static void msm_reset(struct uart_port *port)
 {
 	struct msm_port *msm_port = UART_TO_MSM(port);
+<<<<<<< HEAD
 	unsigned int mr;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* reset everything */
 	msm_write(port, UART_CR_CMD_RESET_RX, UART_CR);
@@ -1000,10 +1003,14 @@ static void msm_reset(struct uart_port *port)
 	msm_write(port, UART_CR_CMD_RESET_ERR, UART_CR);
 	msm_write(port, UART_CR_CMD_RESET_BREAK_INT, UART_CR);
 	msm_write(port, UART_CR_CMD_RESET_CTS, UART_CR);
+<<<<<<< HEAD
 	msm_write(port, UART_CR_CMD_RESET_RFR, UART_CR);
 	mr = msm_read(port, UART_MR1);
 	mr &= ~UART_MR1_RX_RDY_CTL;
 	msm_write(port, mr, UART_MR1);
+=======
+	msm_write(port, UART_CR_CMD_SET_RFR, UART_CR);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* Disable DM modes */
 	if (msm_port->is_uartdm)
@@ -1606,7 +1613,10 @@ static void __msm_console_write(struct uart_port *port, const char *s,
 	int num_newlines = 0;
 	bool replaced = false;
 	void __iomem *tf;
+<<<<<<< HEAD
 	int locked = 1;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (is_uartdm)
 		tf = port->membase + UARTDM_TF;
@@ -1619,6 +1629,7 @@ static void __msm_console_write(struct uart_port *port, const char *s,
 			num_newlines++;
 	count += num_newlines;
 
+<<<<<<< HEAD
 	if (port->sysrq)
 		locked = 0;
 	else if (oops_in_progress)
@@ -1626,6 +1637,9 @@ static void __msm_console_write(struct uart_port *port, const char *s,
 	else
 		spin_lock(&port->lock);
 
+=======
+	spin_lock(&port->lock);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (is_uartdm)
 		msm_reset_dm_count(port, count);
 
@@ -1663,9 +1677,13 @@ static void __msm_console_write(struct uart_port *port, const char *s,
 		writel_relaxed_no_log(*buffer, tf);
 		i += num_chars;
 	}
+<<<<<<< HEAD
 
 	if (locked)
 		spin_unlock(&port->lock);
+=======
+	spin_unlock(&port->lock);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static void msm_console_write(struct console *co, const char *s,

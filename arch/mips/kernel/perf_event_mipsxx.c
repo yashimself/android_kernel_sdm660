@@ -825,6 +825,7 @@ static const struct mips_perf_event mipsxxcore_event_map2
 	[PERF_COUNT_HW_BRANCH_MISSES] = { 0x27, CNTR_ODD, T },
 };
 
+<<<<<<< HEAD
 static const struct mips_perf_event i6400_event_map[PERF_COUNT_HW_MAX] = {
 	[PERF_COUNT_HW_CPU_CYCLES]          = { 0x00, CNTR_EVEN | CNTR_ODD },
 	[PERF_COUNT_HW_INSTRUCTIONS]        = { 0x01, CNTR_EVEN | CNTR_ODD },
@@ -835,6 +836,8 @@ static const struct mips_perf_event i6400_event_map[PERF_COUNT_HW_MAX] = {
 	[PERF_COUNT_HW_BRANCH_MISSES]       = { 0x16, CNTR_EVEN | CNTR_ODD },
 };
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static const struct mips_perf_event loongson3_event_map[PERF_COUNT_HW_MAX] = {
 	[PERF_COUNT_HW_CPU_CYCLES] = { 0x00, CNTR_EVEN },
 	[PERF_COUNT_HW_INSTRUCTIONS] = { 0x00, CNTR_ODD },
@@ -1025,6 +1028,7 @@ static const struct mips_perf_event mipsxxcore_cache_map2
 },
 };
 
+<<<<<<< HEAD
 static const struct mips_perf_event i6400_cache_map
 				[PERF_COUNT_HW_CACHE_MAX]
 				[PERF_COUNT_HW_CACHE_OP_MAX]
@@ -1065,6 +1069,8 @@ static const struct mips_perf_event i6400_cache_map
 },
 };
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static const struct mips_perf_event loongson3_cache_map
 				[PERF_COUNT_HW_CACHE_MAX]
 				[PERF_COUNT_HW_CACHE_OP_MAX]
@@ -1606,6 +1612,10 @@ static const struct mips_perf_event *mipsxx_pmu_map_raw_event(u64 config)
 #endif
 		break;
 	case CPU_P5600:
+<<<<<<< HEAD
+=======
+	case CPU_I6400:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		/* 8-bit event numbers */
 		raw_id = config & 0x1ff;
 		base_id = raw_id & 0xff;
@@ -1618,11 +1628,14 @@ static const struct mips_perf_event *mipsxx_pmu_map_raw_event(u64 config)
 		raw_event.range = P;
 #endif
 		break;
+<<<<<<< HEAD
 	case CPU_I6400:
 		/* 8-bit event numbers */
 		base_id = config & 0xff;
 		raw_event.cntr_mask = CNTR_EVEN | CNTR_ODD;
 		break;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	case CPU_1004K:
 		if (IS_BOTH_COUNTERS_1004K_EVENT(base_id))
 			raw_event.cntr_mask = CNTR_EVEN | CNTR_ODD;
@@ -1774,8 +1787,13 @@ init_hw_perf_events(void)
 		break;
 	case CPU_I6400:
 		mipspmu.name = "mips/I6400";
+<<<<<<< HEAD
 		mipspmu.general_event_map = &i6400_event_map;
 		mipspmu.cache_event_map = &i6400_cache_map;
+=======
+		mipspmu.general_event_map = &mipsxxcore_event_map2;
+		mipspmu.cache_event_map = &mipsxxcore_cache_map2;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case CPU_1004K:
 		mipspmu.name = "mips/1004K";

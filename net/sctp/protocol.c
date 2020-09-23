@@ -255,7 +255,10 @@ static void sctp_v4_from_sk(union sctp_addr *addr, struct sock *sk)
 	addr->v4.sin_family = AF_INET;
 	addr->v4.sin_port = 0;
 	addr->v4.sin_addr.s_addr = inet_sk(sk)->inet_rcv_saddr;
+<<<<<<< HEAD
 	memset(addr->v4.sin_zero, 0, sizeof(addr->v4.sin_zero));
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /* Initialize sk->sk_rcv_saddr from sctp_addr. */
@@ -278,7 +281,10 @@ static void sctp_v4_from_addr_param(union sctp_addr *addr,
 	addr->v4.sin_family = AF_INET;
 	addr->v4.sin_port = port;
 	addr->v4.sin_addr.s_addr = param->v4.addr.s_addr;
+<<<<<<< HEAD
 	memset(addr->v4.sin_zero, 0, sizeof(addr->v4.sin_zero));
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /* Initialize an address parameter from a sctp_addr and return the length
@@ -303,7 +309,10 @@ static void sctp_v4_dst_saddr(union sctp_addr *saddr, struct flowi4 *fl4,
 	saddr->v4.sin_family = AF_INET;
 	saddr->v4.sin_port = port;
 	saddr->v4.sin_addr.s_addr = fl4->saddr;
+<<<<<<< HEAD
 	memset(saddr->v4.sin_zero, 0, sizeof(saddr->v4.sin_zero));
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /* Compare two addresses exactly. */
@@ -326,7 +335,10 @@ static void sctp_v4_inaddr_any(union sctp_addr *addr, __be16 port)
 	addr->v4.sin_family = AF_INET;
 	addr->v4.sin_addr.s_addr = htonl(INADDR_ANY);
 	addr->v4.sin_port = port;
+<<<<<<< HEAD
 	memset(addr->v4.sin_zero, 0, sizeof(addr->v4.sin_zero));
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /* Is this a wildcard address? */
@@ -428,15 +440,23 @@ static void sctp_v4_get_dst(struct sctp_transport *t, union sctp_addr *saddr,
 {
 	struct sctp_association *asoc = t->asoc;
 	struct rtable *rt;
+<<<<<<< HEAD
 	struct flowi _fl;
 	struct flowi4 *fl4 = &_fl.u.ip4;
+=======
+	struct flowi4 *fl4 = &fl->u.ip4;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct sctp_bind_addr *bp;
 	struct sctp_sockaddr_entry *laddr;
 	struct dst_entry *dst = NULL;
 	union sctp_addr *daddr = &t->ipaddr;
 	union sctp_addr dst_saddr;
 
+<<<<<<< HEAD
 	memset(&_fl, 0x0, sizeof(_fl));
+=======
+	memset(fl4, 0x0, sizeof(struct flowi4));
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	fl4->daddr  = daddr->v4.sin_addr.s_addr;
 	fl4->fl4_dport = daddr->v4.sin_port;
 	fl4->flowi4_proto = IPPROTO_SCTP;
@@ -454,11 +474,16 @@ static void sctp_v4_get_dst(struct sctp_transport *t, union sctp_addr *saddr,
 		 &fl4->saddr);
 
 	rt = ip_route_output_key(sock_net(sk), fl4);
+<<<<<<< HEAD
 	if (!IS_ERR(rt)) {
 		dst = &rt->dst;
 		t->dst = dst;
 		memcpy(fl, &_fl, sizeof(_fl));
 	}
+=======
+	if (!IS_ERR(rt))
+		dst = &rt->dst;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* If there is no association or if a source address is passed, no
 	 * more validation is required.
@@ -521,6 +546,7 @@ static void sctp_v4_get_dst(struct sctp_transport *t, union sctp_addr *saddr,
 		odev = __ip_dev_find(sock_net(sk), laddr->a.v4.sin_addr.s_addr,
 				     false);
 		if (!odev || odev->ifindex != fl4->flowi4_oif) {
+<<<<<<< HEAD
 			if (!dst) {
 				dst = &rt->dst;
 				t->dst = dst;
@@ -528,19 +554,29 @@ static void sctp_v4_get_dst(struct sctp_transport *t, union sctp_addr *saddr,
 			} else {
 				dst_release(&rt->dst);
 			}
+=======
+			if (!dst)
+				dst = &rt->dst;
+			else
+				dst_release(&rt->dst);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			continue;
 		}
 
 		dst_release(dst);
 		dst = &rt->dst;
+<<<<<<< HEAD
 		t->dst = dst;
 		memcpy(fl, &_fl, sizeof(_fl));
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	}
 
 out_unlock:
 	rcu_read_unlock();
 out:
+<<<<<<< HEAD
 	if (dst) {
 		pr_debug("rt_dst:%pI4, rt_src:%pI4\n",
 			 &fl->u.ip4.daddr, &fl->u.ip4.saddr);
@@ -548,6 +584,14 @@ out:
 		t->dst = NULL;
 		pr_debug("no route\n");
 	}
+=======
+	t->dst = dst;
+	if (dst)
+		pr_debug("rt_dst:%pI4, rt_src:%pI4\n",
+			 &fl4->daddr, &fl4->saddr);
+	else
+		pr_debug("no route\n");
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /* For v4, the source address is cached in the route entry(dst). So no need

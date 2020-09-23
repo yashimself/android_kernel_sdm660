@@ -36,7 +36,10 @@
 #include <linux/io.h>
 #include <linux/slab.h>
 #include <linux/export.h>
+<<<<<<< HEAD
 #include <linux/nospec.h>
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #include <asm/processor.h>
 #include <asm/page.h>
 #include <asm/current.h>
@@ -74,6 +77,7 @@ static unsigned long ioapic_read_indirect(struct kvm_ioapic *ioapic,
 	default:
 		{
 			u32 redir_index = (ioapic->ioregsel - 0x10) >> 1;
+<<<<<<< HEAD
 			u64 redir_content = ~0ULL;
 
 			if (redir_index < IOAPIC_NUM_PINS) {
@@ -82,6 +86,15 @@ static unsigned long ioapic_read_indirect(struct kvm_ioapic *ioapic,
 
 				redir_content = ioapic->redirtbl[index].bits;
 			}
+=======
+			u64 redir_content;
+
+			if (redir_index < IOAPIC_NUM_PINS)
+				redir_content =
+					ioapic->redirtbl[redir_index].bits;
+			else
+				redir_content = ~0ULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 			result = (ioapic->ioregsel & 0x1) ?
 			    (redir_content >> 32) & 0xffffffff :
@@ -291,7 +304,10 @@ static void ioapic_write_indirect(struct kvm_ioapic *ioapic, u32 val)
 		ioapic_debug("change redir index %x val %x\n", index, val);
 		if (index >= IOAPIC_NUM_PINS)
 			return;
+<<<<<<< HEAD
 		index = array_index_nospec(index, IOAPIC_NUM_PINS);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		e = &ioapic->redirtbl[index];
 		mask_before = e->fields.mask;
 		/* Preserve read-only fields */

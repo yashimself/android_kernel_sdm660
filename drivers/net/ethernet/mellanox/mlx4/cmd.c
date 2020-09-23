@@ -2451,7 +2451,10 @@ err_comm_admin:
 	kfree(priv->mfunc.master.slave_state);
 err_comm:
 	iounmap(priv->mfunc.comm);
+<<<<<<< HEAD
 	priv->mfunc.comm = NULL;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 err_vhcr:
 	dma_free_coherent(&dev->persist->pdev->dev, PAGE_SIZE,
 			  priv->mfunc.vhcr,
@@ -2519,6 +2522,7 @@ void mlx4_report_internal_err_comm_event(struct mlx4_dev *dev)
 	int slave;
 	u32 slave_read;
 
+<<<<<<< HEAD
 	/* If the comm channel has not yet been initialized,
 	 * skip reporting the internal error event to all
 	 * the communication channels.
@@ -2526,6 +2530,8 @@ void mlx4_report_internal_err_comm_event(struct mlx4_dev *dev)
 	if (!priv->mfunc.comm)
 		return;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* Report an internal error event to all
 	 * communication channels.
 	 */
@@ -2560,7 +2566,10 @@ void mlx4_multi_func_cleanup(struct mlx4_dev *dev)
 	}
 
 	iounmap(priv->mfunc.comm);
+<<<<<<< HEAD
 	priv->mfunc.comm = NULL;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 void mlx4_cmd_cleanup(struct mlx4_dev *dev, int cleanup_mask)

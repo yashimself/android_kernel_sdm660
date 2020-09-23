@@ -1290,7 +1290,11 @@ static struct sctp_transport *sctp_trans_elect_best(struct sctp_transport *curr,
 	if (score_curr > score_best)
 		return curr;
 	else if (score_curr == score_best)
+<<<<<<< HEAD
 		return sctp_trans_elect_tie(best, curr);
+=======
+		return sctp_trans_elect_tie(curr, best);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	else
 		return best;
 }

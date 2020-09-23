@@ -56,7 +56,10 @@ struct f_ecm {
 	struct usb_ep			*notify;
 	struct usb_request		*notify_req;
 	u8				notify_state;
+<<<<<<< HEAD
 	atomic_t			notify_count;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	bool				is_open;
 
 	/* FIXME is_open needs some irq-ish locking
@@ -385,7 +388,11 @@ static void ecm_do_notify(struct f_ecm *ecm)
 	int				status;
 
 	/* notification already in flight? */
+<<<<<<< HEAD
 	if (atomic_read(&ecm->notify_count))
+=======
+	if (!req)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return;
 
 	event = req->buf;
@@ -425,10 +432,17 @@ static void ecm_do_notify(struct f_ecm *ecm)
 	event->bmRequestType = 0xA1;
 	event->wIndex = cpu_to_le16(ecm->ctrl_id);
 
+<<<<<<< HEAD
 	atomic_inc(&ecm->notify_count);
 	status = usb_ep_queue(ecm->notify, req, GFP_ATOMIC);
 	if (status < 0) {
 		atomic_dec(&ecm->notify_count);
+=======
+	ecm->notify_req = NULL;
+	status = usb_ep_queue(ecm->notify, req, GFP_ATOMIC);
+	if (status < 0) {
+		ecm->notify_req = req;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		DBG(cdev, "notify --> %d\n", status);
 	}
 }
@@ -453,19 +467,31 @@ static void ecm_notify_complete(struct usb_ep *ep, struct usb_request *req)
 	switch (req->status) {
 	case 0:
 		/* no fault */
+<<<<<<< HEAD
 		atomic_dec(&ecm->notify_count);
 		break;
 	case -ECONNRESET:
 	case -ESHUTDOWN:
 		atomic_set(&ecm->notify_count, 0);
+=======
+		break;
+	case -ECONNRESET:
+	case -ESHUTDOWN:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		ecm->notify_state = ECM_NOTIFY_NONE;
 		break;
 	default:
 		DBG(cdev, "event %02x --> %d\n",
 			event->bNotificationType, req->status);
+<<<<<<< HEAD
 		atomic_dec(&ecm->notify_count);
 		break;
 	}
+=======
+		break;
+	}
+	ecm->notify_req = req;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	ecm_do_notify(ecm);
 }
 
@@ -628,12 +654,17 @@ static void ecm_disable(struct usb_function *f)
 
 	DBG(cdev, "ecm deactivated\n");
 
+<<<<<<< HEAD
 	if (ecm->port.in_ep->enabled) {
 		gether_disconnect(&ecm->port);
 	} else {
 		ecm->port.in_ep->desc = NULL;
 		ecm->port.out_ep->desc = NULL;
 	}
+=======
+	if (ecm->port.in_ep->enabled)
+		gether_disconnect(&ecm->port);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	usb_ep_disable(ecm->notify);
 	ecm->notify->desc = NULL;
@@ -912,11 +943,14 @@ static void ecm_unbind(struct usb_configuration *c, struct usb_function *f)
 
 	usb_free_all_descriptors(f);
 
+<<<<<<< HEAD
 	if (atomic_read(&ecm->notify_count)) {
 		usb_ep_dequeue(ecm->notify, ecm->notify_req);
 		atomic_set(&ecm->notify_count, 0);
 	}
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	kfree(ecm->notify_req->buf);
 	usb_ep_free_request(ecm->notify, ecm->notify_req);
 }

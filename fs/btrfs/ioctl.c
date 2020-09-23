@@ -594,18 +594,26 @@ static noinline int create_subvol(struct inode *dir,
 
 	btrfs_i_size_write(dir, dir->i_size + namelen * 2);
 	ret = btrfs_update_inode(trans, root, dir);
+<<<<<<< HEAD
 	if (ret) {
 		btrfs_abort_transaction(trans, root, ret);
 		goto fail;
 	}
+=======
+	BUG_ON(ret);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	ret = btrfs_add_root_ref(trans, root->fs_info->tree_root,
 				 objectid, root->root_key.objectid,
 				 btrfs_ino(dir), index, name, namelen);
+<<<<<<< HEAD
 	if (ret) {
 		btrfs_abort_transaction(trans, root, ret);
 		goto fail;
 	}
+=======
+	BUG_ON(ret);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	ret = btrfs_uuid_tree_add(trans, root->fs_info->uuid_root,
 				  root_item.uuid, BTRFS_UUID_KEY_SUBVOL,

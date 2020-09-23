@@ -225,7 +225,11 @@
 	pinctrl-0 = <&mmc1_pins>;
 	vmmc-supply = <&vmmc1>;
 	vmmc_aux-supply = <&vsim>;
+<<<<<<< HEAD
 	cd-gpios = <&twl_gpio 0 GPIO_ACTIVE_LOW>;
+=======
+	cd-gpios = <&twl_gpio 0 GPIO_ACTIVE_HIGH>;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	bus-width = <8>;
 };
 

@@ -426,7 +426,11 @@ static int ADT7462_REG_VOLT(struct adt7462_data *data, int which)
 			return 0x95;
 		break;
 	}
+<<<<<<< HEAD
 	return 0;
+=======
+	return -ENODEV;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /* Provide labels for sysfs */

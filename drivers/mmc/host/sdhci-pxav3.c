@@ -307,6 +307,7 @@ static void pxav3_set_uhs_signaling(struct sdhci_host *host, unsigned int uhs)
 		__func__, uhs, ctrl_2);
 }
 
+<<<<<<< HEAD
 static void pxav3_set_power(struct sdhci_host *host, unsigned char mode,
 			    unsigned short vdd)
 {
@@ -331,6 +332,10 @@ static void pxav3_set_power(struct sdhci_host *host, unsigned char mode,
 static const struct sdhci_ops pxav3_sdhci_ops = {
 	.set_clock = sdhci_set_clock,
 	.set_power = pxav3_set_power,
+=======
+static const struct sdhci_ops pxav3_sdhci_ops = {
+	.set_clock = sdhci_set_clock,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.platform_send_init_74_clocks = pxav3_gen_init_74_clocks,
 	.get_max_clock = sdhci_pltfm_clk_get_max_clock,
 	.set_bus_width = sdhci_set_bus_width,

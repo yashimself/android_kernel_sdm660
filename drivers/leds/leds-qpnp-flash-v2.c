@@ -1248,7 +1248,11 @@ static int qpnp_flash_led_switch_set(struct flash_switch_data *snode, bool on)
 	return 0;
 }
 
+<<<<<<< HEAD
 int qpnp_flash_led_prepare(struct led_trigger *trig, int options,
+=======
+static int qpnp_flash_led_prepare_v2(struct led_trigger *trig, int options,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 					int *max_current)
 {
 	struct led_classdev *led_cdev;
@@ -2249,6 +2253,10 @@ static int qpnp_flash_led_probe(struct platform_device *pdev)
 	if (!led->pdata)
 		return -ENOMEM;
 
+<<<<<<< HEAD
+=======
+	qpnp_flash_led_prepare = qpnp_flash_led_prepare_v2;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	rc = qpnp_flash_led_parse_common_dt(led, node);
 	if (rc < 0) {
 		pr_err("Failed to parse common flash LED device tree\n");

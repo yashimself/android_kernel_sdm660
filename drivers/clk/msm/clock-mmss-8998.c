@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2016-2017, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2016-2017, 2020, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -51,7 +55,11 @@ static void __iomem *virt_base;
 #define ext_dp_phy_pll_link_mm_source_val	1
 #define ext_dp_phy_pll_vco_mm_source_val	2
 
+<<<<<<< HEAD
 #define FIXDIV(div) (div ? (2 * (div) - 1) : (0))
+=======
+#define FIXDIV(div) ((int)div ? (2 * (div) - 1) : (0))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #define F_MM(f, s, div, m, n) \
 	{ \

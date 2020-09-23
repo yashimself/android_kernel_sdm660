@@ -783,10 +783,17 @@ static void mkiss_close(struct tty_struct *tty)
 {
 	struct mkiss *ax;
 
+<<<<<<< HEAD
 	write_lock_irq(&disc_data_lock);
 	ax = tty->disc_data;
 	tty->disc_data = NULL;
 	write_unlock_irq(&disc_data_lock);
+=======
+	write_lock_bh(&disc_data_lock);
+	ax = tty->disc_data;
+	tty->disc_data = NULL;
+	write_unlock_bh(&disc_data_lock);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (!ax)
 		return;

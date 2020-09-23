@@ -54,7 +54,11 @@ enum {
 	/* one minute for the sake of bringup. Generally, commands must always
 	 * complete and we may need to increase this timeout value
 	 */
+<<<<<<< HEAD
 	MLX5_CMD_TIMEOUT_MSEC	= 60 * 1000,
+=======
+	MLX5_CMD_TIMEOUT_MSEC	= 7200 * 1000,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	MLX5_CMD_WQ_MAX_NAME	= 32,
 };
 
@@ -566,7 +570,10 @@ struct mlx5_cmd_work_ent {
 	void		       *uout;
 	int			uout_size;
 	mlx5_cmd_cbk_t		callback;
+<<<<<<< HEAD
 	struct delayed_work	cb_timeout_work;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	void		       *context;
 	int			idx;
 	struct completion	done;

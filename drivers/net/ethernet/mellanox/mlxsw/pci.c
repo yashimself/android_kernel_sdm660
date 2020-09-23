@@ -215,7 +215,11 @@ mlxsw_pci_queue_elem_info_producer_get(struct mlxsw_pci_queue *q)
 {
 	int index = q->producer_counter & (q->count - 1);
 
+<<<<<<< HEAD
 	if ((u16) (q->producer_counter - q->consumer_counter) == q->count)
+=======
+	if ((q->producer_counter - q->consumer_counter) == q->count)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return NULL;
 	return mlxsw_pci_queue_elem_info_get(q, index);
 }

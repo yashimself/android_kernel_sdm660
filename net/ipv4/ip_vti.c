@@ -195,6 +195,7 @@ static netdev_tx_t vti_xmit(struct sk_buff *skb, struct net_device *dev,
 	int err;
 
 	if (!dst) {
+<<<<<<< HEAD
 		switch (skb->protocol) {
 		case htons(ETH_P_IP): {
 			struct rtable *rt;
@@ -228,6 +229,10 @@ static netdev_tx_t vti_xmit(struct sk_buff *skb, struct net_device *dev,
 			dev->stats.tx_carrier_errors++;
 			goto tx_error_icmp;
 		}
+=======
+		dev->stats.tx_carrier_errors++;
+		goto tx_error_icmp;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	dst_hold(dst);
@@ -666,8 +671,15 @@ static int __init vti_init(void)
 
 	msg = "ipip tunnel";
 	err = xfrm4_tunnel_register(&ipip_handler, AF_INET);
+<<<<<<< HEAD
 	if (err < 0)
 		goto xfrm_tunnel_failed;
+=======
+	if (err < 0) {
+		pr_info("%s: cant't register tunnel\n",__func__);
+		goto xfrm_tunnel_failed;
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	msg = "netlink interface";
 	err = rtnl_link_register(&vti_link_ops);

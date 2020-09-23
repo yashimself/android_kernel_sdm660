@@ -201,11 +201,14 @@ static int __init sun5i_setup_clocksource(struct device_node *node,
 	}
 
 	rate = clk_get_rate(clk);
+<<<<<<< HEAD
 	if (!rate) {
 		pr_err("Couldn't get parent clock rate\n");
 		ret = -EINVAL;
 		goto err_disable_clk;
 	}
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	cs->timer.base = base;
 	cs->timer.clk = clk;
@@ -279,11 +282,14 @@ static int __init sun5i_setup_clockevent(struct device_node *node, void __iomem 
 	}
 
 	rate = clk_get_rate(clk);
+<<<<<<< HEAD
 	if (!rate) {
 		pr_err("Couldn't get parent clock rate\n");
 		ret = -EINVAL;
 		goto err_disable_clk;
 	}
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	ce->timer.base = base;
 	ce->timer.ticks_per_jiffy = DIV_ROUND_UP(rate, HZ);

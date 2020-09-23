@@ -408,6 +408,10 @@ static int fsl_spi_do_one_msg(struct spi_master *master,
 	}
 
 	m->status = status;
+<<<<<<< HEAD
+=======
+	spi_finalize_current_message(master);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (status || !cs_change) {
 		ndelay(nsecs);
@@ -415,7 +419,10 @@ static int fsl_spi_do_one_msg(struct spi_master *master,
 	}
 
 	fsl_spi_setup_transfer(spi, NULL);
+<<<<<<< HEAD
 	spi_finalize_current_message(master);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return 0;
 }
 

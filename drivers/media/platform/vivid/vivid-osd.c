@@ -167,7 +167,11 @@ static int _vivid_fb_check_var(struct fb_var_screeninfo *var, struct vivid_dev *
 	var->nonstd = 0;
 
 	var->vmode &= ~FB_VMODE_MASK;
+<<<<<<< HEAD
 	var->vmode |= FB_VMODE_NONINTERLACED;
+=======
+	var->vmode = FB_VMODE_NONINTERLACED;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* Dummy values */
 	var->hsync_len = 24;

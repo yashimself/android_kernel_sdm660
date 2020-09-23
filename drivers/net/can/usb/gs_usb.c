@@ -847,7 +847,11 @@ static int gs_usb_probe(struct usb_interface *intf, const struct usb_device_id *
 			     GS_USB_BREQ_HOST_FORMAT,
 			     USB_DIR_OUT|USB_TYPE_VENDOR|USB_RECIP_INTERFACE,
 			     1,
+<<<<<<< HEAD
 			     intf->cur_altsetting->desc.bInterfaceNumber,
+=======
+			     intf->altsetting[0].desc.bInterfaceNumber,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			     hconf,
 			     sizeof(*hconf),
 			     1000);
@@ -870,7 +874,11 @@ static int gs_usb_probe(struct usb_interface *intf, const struct usb_device_id *
 			     GS_USB_BREQ_DEVICE_CONFIG,
 			     USB_DIR_IN|USB_TYPE_VENDOR|USB_RECIP_INTERFACE,
 			     1,
+<<<<<<< HEAD
 			     intf->cur_altsetting->desc.bInterfaceNumber,
+=======
+			     intf->altsetting[0].desc.bInterfaceNumber,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			     dconf,
 			     sizeof(*dconf),
 			     1000);

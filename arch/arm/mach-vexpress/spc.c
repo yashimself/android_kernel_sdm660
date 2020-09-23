@@ -555,9 +555,14 @@ static struct clk *ve_spc_clk_register(struct device *cpu_dev)
 
 static int __init ve_spc_clk_init(void)
 {
+<<<<<<< HEAD
 	int cpu, cluster;
 	struct clk *clk;
 	bool init_opp_table[MAX_CLUSTERS] = { false };
+=======
+	int cpu;
+	struct clk *clk;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (!info)
 		return 0; /* Continue only if SPC is initialised */
@@ -583,6 +588,7 @@ static int __init ve_spc_clk_init(void)
 			continue;
 		}
 
+<<<<<<< HEAD
 		cluster = topology_physical_package_id(cpu_dev->id);
 		if (init_opp_table[cluster])
 			continue;
@@ -594,6 +600,10 @@ static int __init ve_spc_clk_init(void)
 			pr_warn("failed to mark OPPs shared for cpu%d\n", cpu);
 		else
 			init_opp_table[cluster] = true;
+=======
+		if (ve_init_opp_table(cpu_dev))
+			pr_warn("failed to initialise cpu%d opp table\n", cpu);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	platform_device_register_simple("vexpress-spc-cpufreq", -1, NULL, 0);

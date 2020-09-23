@@ -126,7 +126,11 @@ extern enum drbd_state_rv __drbd_set_state(struct drbd_device *, union drbd_stat
 					   enum chg_state_flags,
 					   struct completion *done);
 extern void print_st_err(struct drbd_device *, union drbd_state,
+<<<<<<< HEAD
 			union drbd_state, enum drbd_state_rv);
+=======
+			union drbd_state, int);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 enum drbd_state_rv
 _conn_request_state(struct drbd_connection *connection, union drbd_state mask, union drbd_state val,

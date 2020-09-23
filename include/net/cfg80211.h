@@ -27,6 +27,15 @@
 /* Indicate backport support for external authentication*/
 #define CFG80211_EXTERNAL_AUTH_SUPPORT 1
 
+<<<<<<< HEAD
+=======
+/* Indicate backport support for external authentication in AP mode */
+#define CFG80211_EXTERNAL_AUTH_AP_SUPPORT 1
+
+/* Indicate backport support for DH IE creation/update*/
+#define CFG80211_EXTERNAL_DH_UPDATE_SUPPORT 1
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /**
  * DOC: Introduction
  *
@@ -93,6 +102,29 @@ struct wiphy;
  */
 
 /**
+<<<<<<< HEAD
+=======
+ * enum ieee80211_band - supported frequency bands
+ *
+ * The bands are assigned this way because the supported
+ * bitrates differ in these bands.
+ *
+ * @IEEE80211_BAND_2GHZ: 2.4GHz ISM band
+ * @IEEE80211_BAND_5GHZ: around 5GHz band (4.9-5.7)
+ * @IEEE80211_BAND_60GHZ: around 60 GHz band (58.32 - 64.80 GHz)
+ * @IEEE80211_NUM_BANDS: number of defined bands
+ */
+enum ieee80211_band {
+	IEEE80211_BAND_2GHZ = NL80211_BAND_2GHZ,
+	IEEE80211_BAND_5GHZ = NL80211_BAND_5GHZ,
+	IEEE80211_BAND_60GHZ = NL80211_BAND_60GHZ,
+
+	/* keep last */
+	IEEE80211_NUM_BANDS
+};
+
+/**
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * enum ieee80211_channel_flags - channel flags
  *
  * Channel flags set by the regulatory control code.
@@ -172,7 +204,11 @@ enum ieee80211_channel_flags {
  * @dfs_cac_ms: DFS CAC time in milliseconds, this is valid for DFS channels.
  */
 struct ieee80211_channel {
+<<<<<<< HEAD
 	enum nl80211_band band;
+=======
+	enum ieee80211_band band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	u16 center_freq;
 	u16 hw_value;
 	u32 flags;
@@ -329,7 +365,11 @@ struct ieee80211_sta_vht_cap {
 struct ieee80211_supported_band {
 	struct ieee80211_channel *channels;
 	struct ieee80211_rate *bitrates;
+<<<<<<< HEAD
 	enum nl80211_band band;
+=======
+	enum ieee80211_band band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int n_channels;
 	int n_bitrates;
 	struct ieee80211_sta_ht_cap ht_cap;
@@ -704,7 +744,22 @@ struct cfg80211_bitrate_mask {
 		u8 ht_mcs[IEEE80211_HT_MCS_MASK_LEN];
 		u16 vht_mcs[NL80211_VHT_NSS_MAX];
 		enum nl80211_txrate_gi gi;
+<<<<<<< HEAD
 	} control[NUM_NL80211_BANDS];
+=======
+	} control[IEEE80211_NUM_BANDS];
+};
+
+/**
+ * enum cfg80211_ap_settings_flags - AP settings flags
+ *
+ * Used by cfg80211_ap_settings
+ *
+ * @AP_SETTINGS_EXTERNAL_AUTH_SUPPORT: AP supports external authentication
+ */
+enum cfg80211_ap_settings_flags {
+	AP_SETTINGS_EXTERNAL_AUTH_SUPPORT = BIT(0),
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 /**
@@ -732,6 +787,10 @@ struct cfg80211_bitrate_mask {
  * @pbss: If set, start as a PCP instead of AP. Relevant for DMG
  *	networks.
  * @beacon_rate: bitrate to be used for beacons
+<<<<<<< HEAD
+=======
+ * @flags: flags, as defined in enum cfg80211_ap_settings_flags
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  */
 struct cfg80211_ap_settings {
 	struct cfg80211_chan_def chandef;
@@ -752,6 +811,10 @@ struct cfg80211_ap_settings {
 	const struct cfg80211_acl_data *acl;
 	bool pbss;
 	struct cfg80211_bitrate_mask beacon_rate;
+<<<<<<< HEAD
+=======
+	u32 flags;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 /**
@@ -1412,7 +1475,11 @@ struct mesh_setup {
 	bool user_mpm;
 	u8 dtim_period;
 	u16 beacon_interval;
+<<<<<<< HEAD
 	int mcast_rate[NUM_NL80211_BANDS];
+=======
+	int mcast_rate[IEEE80211_NUM_BANDS];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	u32 basic_rates;
 	struct cfg80211_bitrate_mask beacon_rate;
 };
@@ -1511,7 +1578,11 @@ struct cfg80211_scan_request {
 	size_t ie_len;
 	u32 flags;
 
+<<<<<<< HEAD
 	u32 rates[NUM_NL80211_BANDS];
+=======
+	u32 rates[IEEE80211_NUM_BANDS];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	struct wireless_dev *wdev;
 
@@ -1939,7 +2010,11 @@ struct cfg80211_ibss_params {
 	bool privacy;
 	bool control_port;
 	bool userspace_handles_dfs;
+<<<<<<< HEAD
 	int mcast_rate[NUM_NL80211_BANDS];
+=======
+	int mcast_rate[IEEE80211_NUM_BANDS];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct ieee80211_ht_cap ht_capa;
 	struct ieee80211_ht_cap ht_capa_mask;
 };
@@ -1955,7 +2030,11 @@ struct cfg80211_ibss_params {
 struct cfg80211_bss_selection {
 	enum nl80211_bss_select_attr behaviour;
 	union {
+<<<<<<< HEAD
 		enum nl80211_band band_pref;
+=======
+		enum ieee80211_band band_pref;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		struct cfg80211_bss_select_adjust adjust;
 	} param;
 };
@@ -2396,6 +2475,10 @@ struct cfg80211_qos_map {
  *	use %WLAN_STATUS_UNSPECIFIED_FAILURE if user space cannot give you
  *	the real status code for failures. Used only for the authentication
  *	response command interface (user space to driver).
+<<<<<<< HEAD
+=======
+ * @pmkid: The identifier to refer a PMKSA.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  */
 struct cfg80211_external_auth_params {
 	enum nl80211_external_auth_action action;
@@ -2403,6 +2486,36 @@ struct cfg80211_external_auth_params {
 	struct cfg80211_ssid ssid;
 	unsigned int key_mgmt_suite;
 	u16 status;
+<<<<<<< HEAD
+=======
+	const u8 *pmkid;
+};
+
+/**
+ * struct cfg80211_update_owe_info - OWE Information
+ *
+ * This structure provides information needed for the drivers to offload OWE
+ * (Opportunistic Wireless Encryption) processing to the user space.
+ *
+ * Commonly used across update_owe_info request and event interfaces.
+ *
+ * @peer: MAC address of the peer device for which the OWE processing
+ *	has to be done.
+ * @status: status code, %WLAN_STATUS_SUCCESS for successful OWE info
+ *	processing, use %WLAN_STATUS_UNSPECIFIED_FAILURE if user space
+ *	cannot give you the real status code for failures. Used only for
+ *	OWE update request command interface (user space to driver).
+ * @ie: IEs obtained from the peer or constructed by the user space. These are
+ *	the IEs of the remote peer in the event from the host driver and
+ *	the constructed IEs by the user space in the request interface.
+ * @ie_len: Length of IEs in octets.
+ */
+struct cfg80211_update_owe_info {
+	u8 peer[ETH_ALEN] __aligned(2);
+	u16 status;
+	const u8 *ie;
+	size_t ie_len;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 /**
@@ -2703,6 +2816,13 @@ struct cfg80211_external_auth_params {
  *
  * @external_auth: indicates result of offloaded authentication processing from
  *     user space
+<<<<<<< HEAD
+=======
+ *
+ * @update_owe_info: Provide updated OWE info to driver. Driver implementing SME
+ *	but offloading OWE processing to the user space will get the updated
+ *	DH IE through this interface.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  */
 struct cfg80211_ops {
 	int	(*suspend)(struct wiphy *wiphy, struct cfg80211_wowlan *wow);
@@ -2829,7 +2949,11 @@ struct cfg80211_ops {
 	int	(*leave_ibss)(struct wiphy *wiphy, struct net_device *dev);
 
 	int	(*set_mcast_rate)(struct wiphy *wiphy, struct net_device *dev,
+<<<<<<< HEAD
 				  int rate[NUM_NL80211_BANDS]);
+=======
+				  int rate[IEEE80211_NUM_BANDS]);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	int	(*set_wiphy_params)(struct wiphy *wiphy, u32 changed);
 
@@ -2974,6 +3098,11 @@ struct cfg80211_ops {
 					      const u8 *addr);
 	int     (*external_auth)(struct wiphy *wiphy, struct net_device *dev,
 				 struct cfg80211_external_auth_params *params);
+<<<<<<< HEAD
+=======
+	int	(*update_owe_info)(struct wiphy *wiphy, struct net_device *dev,
+				   struct cfg80211_update_owe_info *owe_info);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 /*
@@ -3515,7 +3644,11 @@ struct wiphy {
 	 * help determine whether you own this wiphy or not. */
 	const void *privid;
 
+<<<<<<< HEAD
 	struct ieee80211_supported_band *bands[NUM_NL80211_BANDS];
+=======
+	struct ieee80211_supported_band *bands[IEEE80211_NUM_BANDS];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* Lets us get back the wiphy on the callback */
 	void (*reg_notifier)(struct wiphy *wiphy,
@@ -3859,7 +3992,11 @@ static inline void *wdev_priv(struct wireless_dev *wdev)
  * @band: band, necessary due to channel number overlap
  * Return: The corresponding frequency (in MHz), or 0 if the conversion failed.
  */
+<<<<<<< HEAD
 int ieee80211_channel_to_frequency(int chan, enum nl80211_band band);
+=======
+int ieee80211_channel_to_frequency(int chan, enum ieee80211_band band);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 /**
  * ieee80211_frequency_to_channel - convert frequency to channel number
@@ -4128,6 +4265,7 @@ const u8 *cfg80211_find_vendor_ie(unsigned int oui, u8 oui_type,
 				  const u8 *ies, int len);
 
 /**
+<<<<<<< HEAD
  * cfg80211_send_layer2_update - send layer 2 update frame
  *
  * @dev: network device
@@ -4139,6 +4277,8 @@ const u8 *cfg80211_find_vendor_ie(unsigned int oui, u8 oui_type,
 void cfg80211_send_layer2_update(struct net_device *dev, const u8 *addr);
 
 /**
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * DOC: Regulatory enforcement infrastructure
  *
  * TODO
@@ -5502,7 +5642,11 @@ void cfg80211_ch_switch_started_notify(struct net_device *dev,
  * Returns %true if the conversion was successful, %false otherwise.
  */
 bool ieee80211_operating_class_to_band(u8 operating_class,
+<<<<<<< HEAD
 				       enum nl80211_band *band);
+=======
+				       enum ieee80211_band *band);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 /**
  * ieee80211_chandef_to_operating_class - convert chandef to operation class
@@ -5869,11 +6013,23 @@ int cfg80211_external_auth_request(struct net_device *netdev,
 #define wiphy_WARN(wiphy, format, args...)			\
 	WARN(1, "wiphy: %s\n" format, wiphy_name(wiphy), ##args);
 
+<<<<<<< HEAD
 /* Due to our tree having a backport of
  * 57fbcce37be7c1d2622b56587c10ade00e96afa3, this allows QC to support 4.7+
  * kernels that use the newer NL80211_BAND_* and older kernels that use the
  * older IEEE80211_BAND_* enums.
  */
 #define CFG80211_REMOVE_IEEE80211_BACKPORT 1
+=======
+/**
+ * cfg80211_update_owe_info_event - Notify the peer's OWE info to user space
+ * @netdev: network device
+ * @owe_info: peer's owe info
+ * @gfp: allocation flags
+ */
+void cfg80211_update_owe_info_event(struct net_device *netdev,
+				    struct cfg80211_update_owe_info *owe_info,
+				    gfp_t gfp);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #endif /* __NET_CFG80211_H */

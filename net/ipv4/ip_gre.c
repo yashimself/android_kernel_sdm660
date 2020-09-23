@@ -520,8 +520,12 @@ static struct rtable *gre_get_rt(struct sk_buff *skb,
 	return ip_route_output_key(net, fl);
 }
 
+<<<<<<< HEAD
 static void gre_fb_xmit(struct sk_buff *skb, struct net_device *dev,
 			__be16 proto)
+=======
+static void gre_fb_xmit(struct sk_buff *skb, struct net_device *dev)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	struct ip_tunnel_info *tun_info;
 	const struct ip_tunnel_key *key;
@@ -564,7 +568,11 @@ static void gre_fb_xmit(struct sk_buff *skb, struct net_device *dev,
 	}
 
 	flags = tun_info->key.tun_flags & (TUNNEL_CSUM | TUNNEL_KEY);
+<<<<<<< HEAD
 	build_header(skb, tunnel_hlen, flags, proto,
+=======
+	build_header(skb, tunnel_hlen, flags, htons(ETH_P_TEB),
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		     tunnel_id_to_key(tun_info->key.tun_id), 0);
 
 	df = key->tun_flags & TUNNEL_DONT_FRAGMENT ?  htons(IP_DF) : 0;
@@ -606,7 +614,11 @@ static netdev_tx_t ipgre_xmit(struct sk_buff *skb,
 	const struct iphdr *tnl_params;
 
 	if (tunnel->collect_md) {
+<<<<<<< HEAD
 		gre_fb_xmit(skb, dev, skb->protocol);
+=======
+		gre_fb_xmit(skb, dev);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return NETDEV_TX_OK;
 	}
 
@@ -650,7 +662,11 @@ static netdev_tx_t gre_tap_xmit(struct sk_buff *skb,
 	struct ip_tunnel *tunnel = netdev_priv(dev);
 
 	if (tunnel->collect_md) {
+<<<<<<< HEAD
 		gre_fb_xmit(skb, dev, htons(ETH_P_TEB));
+=======
+		gre_fb_xmit(skb, dev);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return NETDEV_TX_OK;
 	}
 
@@ -852,6 +868,7 @@ static void __gre_tunnel_init(struct net_device *dev)
 	dev->hw_features	|= GRE_FEATURES;
 
 	if (!(tunnel->parms.o_flags & TUNNEL_SEQ)) {
+<<<<<<< HEAD
 		/* TCP offload with GRE SEQ is not supported, nor
 		 * can we support 2 levels of outer headers requiring
 		 * an update.
@@ -862,6 +879,11 @@ static void __gre_tunnel_init(struct net_device *dev)
 			dev->hw_features |= NETIF_F_GSO_SOFTWARE;
 		}
 
+=======
+		/* TCP offload with GRE SEQ is not supported. */
+		dev->features    |= NETIF_F_GSO_SOFTWARE;
+		dev->hw_features |= NETIF_F_GSO_SOFTWARE;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		/* Can use a lockless transmit, unless we generate
 		 * output sequences
 		 */
@@ -883,7 +905,11 @@ static int ipgre_tunnel_init(struct net_device *dev)
 	netif_keep_dst(dev);
 	dev->addr_len		= 4;
 
+<<<<<<< HEAD
 	if (iph->daddr && !tunnel->collect_md) {
+=======
+	if (iph->daddr) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #ifdef CONFIG_NET_IPGRE_BROADCAST
 		if (ipv4_is_multicast(iph->daddr)) {
 			if (!iph->saddr)
@@ -892,9 +918,14 @@ static int ipgre_tunnel_init(struct net_device *dev)
 			dev->header_ops = &ipgre_header_ops;
 		}
 #endif
+<<<<<<< HEAD
 	} else if (!tunnel->collect_md) {
 		dev->header_ops = &ipgre_header_ops;
 	}
+=======
+	} else
+		dev->header_ops = &ipgre_header_ops;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	return ip_tunnel_init(dev);
 }
@@ -937,11 +968,14 @@ static int ipgre_tunnel_validate(struct nlattr *tb[], struct nlattr *data[])
 	if (flags & (GRE_VERSION|GRE_ROUTING))
 		return -EINVAL;
 
+<<<<<<< HEAD
 	if (data[IFLA_GRE_COLLECT_METADATA] &&
 	    data[IFLA_GRE_ENCAP_TYPE] &&
 	    nla_get_u16(data[IFLA_GRE_ENCAP_TYPE]) != TUNNEL_ENCAP_NONE)
 		return -EINVAL;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return 0;
 }
 
@@ -1244,7 +1278,10 @@ struct net_device *gretap_fb_dev_create(struct net *net, const char *name,
 {
 	struct nlattr *tb[IFLA_MAX + 1];
 	struct net_device *dev;
+<<<<<<< HEAD
 	LIST_HEAD(list_kill);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct ip_tunnel *t;
 	int err;
 
@@ -1260,10 +1297,15 @@ struct net_device *gretap_fb_dev_create(struct net *net, const char *name,
 	t->collect_md = true;
 
 	err = ipgre_newlink(net, dev, tb, NULL);
+<<<<<<< HEAD
 	if (err < 0) {
 		free_netdev(dev);
 		return ERR_PTR(err);
 	}
+=======
+	if (err < 0)
+		goto out;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* openvswitch users expect packet sizes to be unrestricted,
 	 * so set the largest MTU we can.
@@ -1272,6 +1314,7 @@ struct net_device *gretap_fb_dev_create(struct net *net, const char *name,
 	if (err)
 		goto out;
 
+<<<<<<< HEAD
 	err = rtnl_configure_link(dev, NULL);
 	if (err < 0)
 		goto out;
@@ -1280,6 +1323,11 @@ struct net_device *gretap_fb_dev_create(struct net *net, const char *name,
 out:
 	ip_tunnel_dellink(dev, &list_kill);
 	unregister_netdevice_many(&list_kill);
+=======
+	return dev;
+out:
+	free_netdev(dev);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return ERR_PTR(err);
 }
 EXPORT_SYMBOL_GPL(gretap_fb_dev_create);

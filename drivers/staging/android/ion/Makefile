@@ -11,8 +11,11 @@ obj-$(CONFIG_ION_DUMMY) += ion_dummy_driver.o
 obj-$(CONFIG_ION_TEGRA) += tegra/
 obj-$(CONFIG_ION_MSM) += msm/
 obj-$(CONFIG_ION_MSM) += ion_system_secure_heap.o
+<<<<<<< HEAD
 
 #TODO: remove me b/62058353
 # WE SHOULD FIX THIS ONE
 subdir-ccflags-y += \
 	-Wno-enum-conversion
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

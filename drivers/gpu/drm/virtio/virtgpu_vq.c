@@ -681,11 +681,19 @@ int virtio_gpu_cmd_get_capset(struct virtio_gpu_device *vgdev,
 {
 	struct virtio_gpu_get_capset *cmd_p;
 	struct virtio_gpu_vbuffer *vbuf;
+<<<<<<< HEAD
 	int max_size;
 	struct virtio_gpu_drv_cap_cache *cache_ent;
 	void *resp_buf;
 
 	if (idx >= vgdev->num_capsets)
+=======
+	int max_size = vgdev->capsets[idx].max_size;
+	struct virtio_gpu_drv_cap_cache *cache_ent;
+	void *resp_buf;
+
+	if (idx > vgdev->num_capsets)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return -EINVAL;
 
 	if (version > vgdev->capsets[idx].max_version)
@@ -695,7 +703,10 @@ int virtio_gpu_cmd_get_capset(struct virtio_gpu_device *vgdev,
 	if (!cache_ent)
 		return -ENOMEM;
 
+<<<<<<< HEAD
 	max_size = vgdev->capsets[idx].max_size;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	cache_ent->caps_cache = kmalloc(max_size, GFP_KERNEL);
 	if (!cache_ent->caps_cache) {
 		kfree(cache_ent);

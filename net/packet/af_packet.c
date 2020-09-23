@@ -587,8 +587,12 @@ static int prb_calc_retire_blk_tmo(struct packet_sock *po,
 			msec = 1;
 			div = speed / 1000;
 		}
+<<<<<<< HEAD
 	} else
 		return DEFAULT_PRB_RETIRE_TOV;
+=======
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	mbits = (blk_size_in_bytes * 8) / (1024 * 1024);
 
@@ -1332,12 +1336,17 @@ static void packet_sock_destruct(struct sock *sk)
 
 static bool fanout_flow_is_huge(struct packet_sock *po, struct sk_buff *skb)
 {
+<<<<<<< HEAD
 	u32 *history = po->rollover->history;
 	u32 victim, rxhash;
+=======
+	u32 rxhash;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int i, count = 0;
 
 	rxhash = skb_get_hash(skb);
 	for (i = 0; i < ROLLOVER_HLEN; i++)
+<<<<<<< HEAD
 		if (READ_ONCE(history[i]) == rxhash)
 			count++;
 
@@ -1347,6 +1356,12 @@ static bool fanout_flow_is_huge(struct packet_sock *po, struct sk_buff *skb)
 	if (READ_ONCE(history[victim]) != rxhash)
 		WRITE_ONCE(history[victim], rxhash);
 
+=======
+		if (po->rollover->history[i] == rxhash)
+			count++;
+
+	po->rollover->history[prandom_u32() % ROLLOVER_HLEN] = rxhash;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return count > (ROLLOVER_HLEN >> 1);
 }
 
@@ -3315,20 +3330,27 @@ static int packet_recvmsg(struct socket *sock, struct msghdr *msg, size_t len,
 	sock_recv_ts_and_drops(msg, sk, skb);
 
 	if (msg->msg_name) {
+<<<<<<< HEAD
 		int copy_len;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		/* If the address length field is there to be filled
 		 * in, we fill it in now.
 		 */
 		if (sock->type == SOCK_PACKET) {
 			__sockaddr_check_size(sizeof(struct sockaddr_pkt));
 			msg->msg_namelen = sizeof(struct sockaddr_pkt);
+<<<<<<< HEAD
 			copy_len = msg->msg_namelen;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		} else {
 			struct sockaddr_ll *sll = &PACKET_SKB_CB(skb)->sa.ll;
 
 			msg->msg_namelen = sll->sll_halen +
 				offsetof(struct sockaddr_ll, sll_addr);
+<<<<<<< HEAD
 			copy_len = msg->msg_namelen;
 			if (msg->msg_namelen < sizeof(struct sockaddr_ll)) {
 				memset(msg->msg_name +
@@ -3338,6 +3360,11 @@ static int packet_recvmsg(struct socket *sock, struct msghdr *msg, size_t len,
 			}
 		}
 		memcpy(msg->msg_name, &PACKET_SKB_CB(skb)->sa, copy_len);
+=======
+		}
+		memcpy(msg->msg_name, &PACKET_SKB_CB(skb)->sa,
+		       msg->msg_namelen);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	if (pkt_sk(sk)->auxdata) {

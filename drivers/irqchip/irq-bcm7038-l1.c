@@ -283,10 +283,13 @@ static int __init bcm7038_l1_init_one(struct device_node *dn,
 		pr_err("failed to map parent interrupt %d\n", parent_irq);
 		return -EINVAL;
 	}
+<<<<<<< HEAD
 
 	if (of_property_read_bool(dn, "brcm,irq-can-wake"))
 		enable_irq_wake(parent_irq);
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	irq_set_chained_handler_and_data(parent_irq, bcm7038_l1_irq_handle,
 					 intc);
 

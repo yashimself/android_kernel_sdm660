@@ -97,7 +97,10 @@ struct qcaspi {
 
 	unsigned int intr_req;
 	unsigned int intr_svc;
+<<<<<<< HEAD
 	u16 reset_count;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #ifdef CONFIG_DEBUG_FS
 	struct dentry *device_root;

@@ -49,10 +49,16 @@ static int buffer_size;
 static int xbof = -1;
 
 static int  ir_startup (struct usb_serial *serial);
+<<<<<<< HEAD
 static int ir_write(struct tty_struct *tty, struct usb_serial_port *port,
 		const unsigned char *buf, int count);
 static int ir_write_room(struct tty_struct *tty);
 static void ir_write_bulk_callback(struct urb *urb);
+=======
+static int  ir_open(struct tty_struct *tty, struct usb_serial_port *port);
+static int ir_prepare_write_buffer(struct usb_serial_port *port,
+						void *dest, size_t size);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static void ir_process_read_urb(struct urb *urb);
 static void ir_set_termios(struct tty_struct *tty,
 		struct usb_serial_port *port, struct ktermios *old_termios);
@@ -82,9 +88,14 @@ static struct usb_serial_driver ir_device = {
 	.num_ports		= 1,
 	.set_termios		= ir_set_termios,
 	.attach			= ir_startup,
+<<<<<<< HEAD
 	.write			= ir_write,
 	.write_room		= ir_write_room,
 	.write_bulk_callback	= ir_write_bulk_callback,
+=======
+	.open			= ir_open,
+	.prepare_write_buffer	= ir_prepare_write_buffer,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.process_read_urb	= ir_process_read_urb,
 };
 
@@ -200,9 +211,12 @@ static int ir_startup(struct usb_serial *serial)
 {
 	struct usb_irda_cs_descriptor *irda_desc;
 
+<<<<<<< HEAD
 	if (serial->num_bulk_in < 1 || serial->num_bulk_out < 1)
 		return -ENODEV;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	irda_desc = irda_usb_find_class_desc(serial, 0);
 	if (!irda_desc) {
 		dev_err(&serial->dev->dev,
@@ -257,6 +271,7 @@ static int ir_startup(struct usb_serial *serial)
 	return 0;
 }
 
+<<<<<<< HEAD
 static int ir_write(struct tty_struct *tty, struct usb_serial_port *port,
 		const unsigned char *buf, int count)
 {
@@ -285,10 +300,33 @@ static int ir_write(struct tty_struct *tty, struct usb_serial_port *port,
 	/*
 	 * The first byte of the packet we send to the device contains an
 	 * outbound header which indicates an additional number of BOFs and
+=======
+static int ir_open(struct tty_struct *tty, struct usb_serial_port *port)
+{
+	int i;
+
+	for (i = 0; i < ARRAY_SIZE(port->write_urbs); ++i)
+		port->write_urbs[i]->transfer_flags = URB_ZERO_PACKET;
+
+	/* Start reading from the device */
+	return usb_serial_generic_open(tty, port);
+}
+
+static int ir_prepare_write_buffer(struct usb_serial_port *port,
+						void *dest, size_t size)
+{
+	unsigned char *buf = dest;
+	int count;
+
+	/*
+	 * The first byte of the packet we send to the device contains an
+	 * inbound header which indicates an additional number of BOFs and
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	 * a baud rate change.
 	 *
 	 * See section 5.4.2.2 of the USB IrDA spec.
 	 */
+<<<<<<< HEAD
 	*(u8 *)urb->transfer_buffer = ir_xbof | ir_baud;
 
 	memcpy(urb->transfer_buffer + 1, buf, count);
@@ -353,6 +391,13 @@ static int ir_write_room(struct tty_struct *tty)
 		count = port->bulk_out_size - 1;
 
 	return count;
+=======
+	*buf = ir_xbof | ir_baud;
+
+	count = kfifo_out_locked(&port->write_fifo, buf + 1, size - 1,
+								&port->lock);
+	return count + 1;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static void ir_process_read_urb(struct urb *urb)
@@ -405,6 +450,7 @@ static void ir_set_termios(struct tty_struct *tty,
 
 	switch (baud) {
 	case 2400:
+<<<<<<< HEAD
 		ir_baud = USB_IRDA_LS_2400;
 		break;
 	case 9600:
@@ -433,6 +479,36 @@ static void ir_set_termios(struct tty_struct *tty,
 		break;
 	default:
 		ir_baud = USB_IRDA_LS_9600;
+=======
+		ir_baud = USB_IRDA_BR_2400;
+		break;
+	case 9600:
+		ir_baud = USB_IRDA_BR_9600;
+		break;
+	case 19200:
+		ir_baud = USB_IRDA_BR_19200;
+		break;
+	case 38400:
+		ir_baud = USB_IRDA_BR_38400;
+		break;
+	case 57600:
+		ir_baud = USB_IRDA_BR_57600;
+		break;
+	case 115200:
+		ir_baud = USB_IRDA_BR_115200;
+		break;
+	case 576000:
+		ir_baud = USB_IRDA_BR_576000;
+		break;
+	case 1152000:
+		ir_baud = USB_IRDA_BR_1152000;
+		break;
+	case 4000000:
+		ir_baud = USB_IRDA_BR_4000000;
+		break;
+	default:
+		ir_baud = USB_IRDA_BR_9600;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		baud = 9600;
 	}
 

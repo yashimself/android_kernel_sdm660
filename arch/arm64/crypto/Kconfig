@@ -58,6 +58,7 @@ config CRYPTO_CRC32_ARM64
 	tristate "CRC32 and CRC32C using optional ARMv8 instructions"
 	depends on ARM64
 	select CRYPTO_HASH
+<<<<<<< HEAD
 
 config CRYPTO_SPECK_NEON
 	tristate "NEON accelerated Speck cipher algorithms"
@@ -65,4 +66,6 @@ config CRYPTO_SPECK_NEON
 	select CRYPTO_BLKCIPHER
 	select CRYPTO_GF128MUL
 	select CRYPTO_SPECK
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 endif

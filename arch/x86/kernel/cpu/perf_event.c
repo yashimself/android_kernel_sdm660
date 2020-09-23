@@ -1550,7 +1550,10 @@ static void __init filter_events(struct attribute **attrs)
 {
 	struct device_attribute *d;
 	struct perf_pmu_events_attr *pmu_attr;
+<<<<<<< HEAD
 	int offset = 0;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int i, j;
 
 	for (i = 0; attrs[i]; i++) {
@@ -1559,7 +1562,11 @@ static void __init filter_events(struct attribute **attrs)
 		/* str trumps id */
 		if (pmu_attr->event_str)
 			continue;
+<<<<<<< HEAD
 		if (x86_pmu.event_map(i + offset))
+=======
+		if (x86_pmu.event_map(i))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			continue;
 
 		for (j = i; attrs[j]; j++)
@@ -1567,6 +1574,7 @@ static void __init filter_events(struct attribute **attrs)
 
 		/* Check the shifted attr. */
 		i--;
+<<<<<<< HEAD
 
 		/*
 		 * event_map() is index based, the attrs array is organized
@@ -1575,6 +1583,8 @@ static void __init filter_events(struct attribute **attrs)
 		 * we are looking up the wrong event in the map
 		 */
 		offset++;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 }
 

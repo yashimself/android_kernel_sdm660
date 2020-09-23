@@ -419,9 +419,16 @@ int enclosure_remove_device(struct enclosure_device *edev, struct device *dev)
 		cdev = &edev->component[i];
 		if (cdev->dev == dev) {
 			enclosure_remove_links(cdev);
+<<<<<<< HEAD
 			put_device(dev);
 			cdev->dev = NULL;
 			return 0;
+=======
+			device_del(&cdev->cdev);
+			put_device(dev);
+			cdev->dev = NULL;
+			return device_add(&cdev->cdev);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 	}
 	return -ENODEV;

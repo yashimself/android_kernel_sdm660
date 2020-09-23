@@ -29,6 +29,10 @@ static int cistpl_vers_1(struct mmc_card *card, struct sdio_func *func,
 {
 	unsigned i, nr_strings;
 	char **buffer, *string;
+<<<<<<< HEAD
+=======
+	size_t buf_size = 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* Find all null-terminated (including zero length) strings in
 	   the TPLLV1_INFO field. Trailing garbage is ignored. */
@@ -55,7 +59,12 @@ static int cistpl_vers_1(struct mmc_card *card, struct sdio_func *func,
 
 	for (i = 0; i < nr_strings; i++) {
 		buffer[i] = string;
+<<<<<<< HEAD
 		strlcpy(string, buf, strlen(string) + 1);
+=======
+		buf_size = strlen(buf);
+		strlcpy(string, buf, buf_size + 1);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		string += strlen(string) + 1;
 		buf += strlen(buf) + 1;
 	}

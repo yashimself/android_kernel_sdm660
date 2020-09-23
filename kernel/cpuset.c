@@ -419,14 +419,28 @@ static struct cpuset *alloc_trial_cpuset(struct cpuset *cs)
 
 	if (!alloc_cpumask_var(&trial->cpus_allowed, GFP_KERNEL))
 		goto free_cs;
+<<<<<<< HEAD
+=======
+	if (!alloc_cpumask_var(&trial->cpus_requested, GFP_KERNEL))
+		goto free_allowed;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!alloc_cpumask_var(&trial->effective_cpus, GFP_KERNEL))
 		goto free_cpus;
 
 	cpumask_copy(trial->cpus_allowed, cs->cpus_allowed);
+<<<<<<< HEAD
+=======
+	cpumask_copy(trial->cpus_requested, cs->cpus_requested);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	cpumask_copy(trial->effective_cpus, cs->effective_cpus);
 	return trial;
 
 free_cpus:
+<<<<<<< HEAD
+=======
+	free_cpumask_var(trial->cpus_requested);
+free_allowed:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	free_cpumask_var(trial->cpus_allowed);
 free_cs:
 	kfree(trial);
@@ -440,6 +454,10 @@ free_cs:
 static void free_trial_cpuset(struct cpuset *trial)
 {
 	free_cpumask_var(trial->effective_cpus);
+<<<<<<< HEAD
+=======
+	free_cpumask_var(trial->cpus_requested);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	free_cpumask_var(trial->cpus_allowed);
 	kfree(trial);
 }
@@ -948,23 +966,40 @@ static int update_cpumask(struct cpuset *cs, struct cpuset *trialcs,
 		return -EACCES;
 
 	/*
+<<<<<<< HEAD
 	 * An empty cpus_allowed is ok only if the cpuset has no tasks.
+=======
+	 * An empty cpus_requested is ok only if the cpuset has no tasks.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	 * Since cpulist_parse() fails on an empty mask, we special case
 	 * that parsing.  The validate_change() call ensures that cpusets
 	 * with tasks have cpus.
 	 */
 	if (!*buf) {
+<<<<<<< HEAD
 		cpumask_clear(trialcs->cpus_allowed);
+=======
+		cpumask_clear(trialcs->cpus_requested);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	} else {
 		retval = cpulist_parse(buf, trialcs->cpus_requested);
 		if (retval < 0)
 			return retval;
+<<<<<<< HEAD
 
 		if (!cpumask_subset(trialcs->cpus_requested, cpu_present_mask))
 			return -EINVAL;
 
 		cpumask_and(trialcs->cpus_allowed, trialcs->cpus_requested, cpu_active_mask);
 	}
+=======
+	}
+
+	if (!cpumask_subset(trialcs->cpus_requested, cpu_present_mask))
+		return -EINVAL;
+
+	cpumask_and(trialcs->cpus_allowed, trialcs->cpus_requested, cpu_active_mask);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* Nothing to do if the cpus didn't change */
 	if (cpumask_equal(cs->cpus_requested, trialcs->cpus_requested))

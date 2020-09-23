@@ -182,7 +182,11 @@ int rsi_send_mgmt_pkt(struct rsi_common *common,
 	if (wh->addr1[0] & BIT(0))
 		msg[3] |= cpu_to_le16(RSI_BROADCAST_PKT);
 
+<<<<<<< HEAD
 	if (common->band == NL80211_BAND_2GHZ)
+=======
+	if (common->band == IEEE80211_BAND_2GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		msg[4] = cpu_to_le16(RSI_11B_MODE);
 	else
 		msg[4] = cpu_to_le16((RSI_RATE_6 & 0x0f) | RSI_11G_MODE);

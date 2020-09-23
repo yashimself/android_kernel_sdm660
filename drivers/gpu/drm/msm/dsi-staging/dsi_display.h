@@ -123,6 +123,10 @@ struct dsi_display_clk_info {
  * @root:                 Debugfs root directory
  * @cont_splash_enabled:  Early splash status.
  * @dsi_split_swap:       Swap dsi output in split mode.
+<<<<<<< HEAD
+=======
+ * @display_topology: user requested display topology
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  */
 struct dsi_display {
 	struct platform_device *pdev;
@@ -163,6 +167,10 @@ struct dsi_display {
 
 	bool cont_splash_enabled;
 	bool dsi_split_swap;
+<<<<<<< HEAD
+=======
+	u32 display_topology;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 int dsi_display_dev_probe(struct platform_device *pdev);

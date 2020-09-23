@@ -33,8 +33,11 @@ MODULE_ALIAS("prism54usb");
 MODULE_FIRMWARE("isl3886usb");
 MODULE_FIRMWARE("isl3887usb");
 
+<<<<<<< HEAD
 static struct usb_driver p54u_driver;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /*
  * Note:
  *
@@ -923,9 +926,15 @@ static void p54u_load_firmware_cb(const struct firmware *firmware,
 {
 	struct p54u_priv *priv = context;
 	struct usb_device *udev = priv->udev;
+<<<<<<< HEAD
 	struct usb_interface *intf = priv->intf;
 	int err;
 
+=======
+	int err;
+
+	complete(&priv->fw_wait_load);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (firmware) {
 		priv->fw = firmware;
 		err = p54u_start_ops(priv);
@@ -934,6 +943,7 @@ static void p54u_load_firmware_cb(const struct firmware *firmware,
 		dev_err(&udev->dev, "Firmware not found.\n");
 	}
 
+<<<<<<< HEAD
 	complete(&priv->fw_wait_load);
 	/*
 	 * At this point p54u_disconnect may have already freed
@@ -950,6 +960,28 @@ static void p54u_load_firmware_cb(const struct firmware *firmware,
 	}
 
 	usb_put_intf(intf);
+=======
+	if (err) {
+		struct device *parent = priv->udev->dev.parent;
+
+		dev_err(&udev->dev, "failed to initialize device (%d)\n", err);
+
+		if (parent)
+			device_lock(parent);
+
+		device_release_driver(&udev->dev);
+		/*
+		 * At this point p54u_disconnect has already freed
+		 * the "priv" context. Do not use it anymore!
+		 */
+		priv = NULL;
+
+		if (parent)
+			device_unlock(parent);
+	}
+
+	usb_put_dev(udev);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static int p54u_load_firmware(struct ieee80211_hw *dev,
@@ -970,14 +1002,22 @@ static int p54u_load_firmware(struct ieee80211_hw *dev,
 	dev_info(&priv->udev->dev, "Loading firmware file %s\n",
 	       p54u_fwlist[i].fw);
 
+<<<<<<< HEAD
 	usb_get_intf(intf);
+=======
+	usb_get_dev(udev);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	err = request_firmware_nowait(THIS_MODULE, 1, p54u_fwlist[i].fw,
 				      device, GFP_KERNEL, priv,
 				      p54u_load_firmware_cb);
 	if (err) {
 		dev_err(&priv->udev->dev, "(p54usb) cannot load firmware %s "
 					  "(%d)!\n", p54u_fwlist[i].fw, err);
+<<<<<<< HEAD
 		usb_put_intf(intf);
+=======
+		usb_put_dev(udev);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	return err;
@@ -1009,6 +1049,11 @@ static int p54u_probe(struct usb_interface *intf,
 	skb_queue_head_init(&priv->rx_queue);
 	init_usb_anchor(&priv->submitted);
 
+<<<<<<< HEAD
+=======
+	usb_get_dev(udev);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* really lazy and simple way of figuring out if we're a 3887 */
 	/* TODO: should just stick the identification in the device table */
 	i = intf->altsetting->desc.bNumEndpoints;
@@ -1049,8 +1094,15 @@ static int p54u_probe(struct usb_interface *intf,
 		priv->upload_fw = p54u_upload_firmware_net2280;
 	}
 	err = p54u_load_firmware(dev, intf);
+<<<<<<< HEAD
 	if (err)
 		p54_free_common(dev);
+=======
+	if (err) {
+		usb_put_dev(udev);
+		p54_free_common(dev);
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return err;
 }
 
@@ -1066,6 +1118,10 @@ static void p54u_disconnect(struct usb_interface *intf)
 	wait_for_completion(&priv->fw_wait_load);
 	p54_unregister_common(dev);
 
+<<<<<<< HEAD
+=======
+	usb_put_dev(interface_to_usbdev(intf));
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	release_firmware(priv->fw);
 	p54_free_common(dev);
 }

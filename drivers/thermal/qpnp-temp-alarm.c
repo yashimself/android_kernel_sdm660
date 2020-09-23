@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2011-2017, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2011-2017, 2020, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -544,12 +548,15 @@ static int qpnp_tm_probe(struct platform_device *pdev)
 	int rc = 0;
 	u8 raw_type[2], type, subtype;
 
+<<<<<<< HEAD
 	if (!pdev || !(&pdev->dev) || !pdev->dev.of_node) {
 		dev_err(&pdev->dev, "%s: device tree node not found\n",
 			__func__);
 		return -EINVAL;
 	}
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	node = pdev->dev.of_node;
 
 	chip = kzalloc(sizeof(struct qpnp_tm_chip), GFP_KERNEL);

@@ -209,9 +209,12 @@ struct sdm660_cdc_priv {
 	struct fw_info *fw_data;
 	struct notifier_block audio_ssr_nb;
 	int (*codec_spk_ext_pa_cb)(struct snd_soc_codec *codec, int enable);
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_SDM660
 	int (*codec_hph_ext_sw_cb)(struct snd_soc_codec *codec, int enable);
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	unsigned long status_mask;
 	struct wcd_imped_i_ref imped_i_ref;
 	enum wcd_mbhc_imp_det_pin imped_det_pin;
@@ -239,6 +242,7 @@ extern void sdm660_cdc_update_int_spk_boost(bool enable);
 extern void msm_anlg_cdc_spk_ext_pa_cb(
 		int (*codec_spk_ext_pa)(struct snd_soc_codec *codec,
 		int enable), struct snd_soc_codec *codec);
+<<<<<<< HEAD
 
 #ifdef CONFIG_MACH_ASUS_SDM660
 extern void msm_anlg_cdc_hph_ext_sw_cb(
@@ -246,6 +250,8 @@ extern void msm_anlg_cdc_hph_ext_sw_cb(
 		int enable), struct snd_soc_codec *codec);
 #endif
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 int msm_anlg_codec_info_create_codec_entry(struct snd_info_entry *codec_root,
 					   struct snd_soc_codec *codec);
 #endif

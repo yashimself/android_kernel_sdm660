@@ -185,7 +185,11 @@ struct ath_common {
 	bool bt_ant_diversity;
 
 	int last_rssi;
+<<<<<<< HEAD
 	struct ieee80211_supported_band sbands[NUM_NL80211_BANDS];
+=======
+	struct ieee80211_supported_band sbands[IEEE80211_NUM_BANDS];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 static inline const struct ath_ps_ops *ath_ps_ops(struct ath_common *common)

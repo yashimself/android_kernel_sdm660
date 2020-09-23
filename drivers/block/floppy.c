@@ -848,6 +848,7 @@ static void reset_fdc_info(int mode)
 /* selects the fdc and drive, and enables the fdc's input/dma. */
 static void set_fdc(int drive)
 {
+<<<<<<< HEAD
 	unsigned int new_fdc = fdc;
 
 	if (drive >= 0 && drive < N_DRIVE) {
@@ -859,6 +860,16 @@ static void set_fdc(int drive)
 		return;
 	}
 	fdc = new_fdc;
+=======
+	if (drive >= 0 && drive < N_DRIVE) {
+		fdc = FDC(drive);
+		current_drive = drive;
+	}
+	if (fdc != 1 && fdc != 0) {
+		pr_info("bad fdc value\n");
+		return;
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	set_dor(fdc, ~0, 8);
 #if N_FDC > 1
 	set_dor(1 - fdc, ~8, 0);

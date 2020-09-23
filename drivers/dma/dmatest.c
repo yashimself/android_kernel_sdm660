@@ -491,8 +491,13 @@ static int dmatest_func(void *data)
 	flags = DMA_CTRL_ACK | DMA_PREP_INTERRUPT;
 
 	ktime = ktime_get();
+<<<<<<< HEAD
 	while (!(kthread_should_stop() ||
 	       (params->iterations && total_tests >= params->iterations))) {
+=======
+	while (!kthread_should_stop()
+	       && !(params->iterations && total_tests >= params->iterations)) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		struct dma_async_tx_descriptor *tx = NULL;
 		struct dmaengine_unmap_data *um;
 		dma_addr_t srcs[src_cnt];

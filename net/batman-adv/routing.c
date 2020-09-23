@@ -359,7 +359,10 @@ int batadv_recv_icmp_packet(struct sk_buff *skb,
 		if (skb_cow(skb, ETH_HLEN) < 0)
 			goto out;
 
+<<<<<<< HEAD
 		ethhdr = eth_hdr(skb);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		icmph = (struct batadv_icmp_header *)skb->data;
 		icmp_packet_rr = (struct batadv_icmp_packet_rr *)icmph;
 		if (icmp_packet_rr->rr_cur >= BATADV_RR_LEN)
@@ -440,6 +443,7 @@ static int batadv_check_unicast_packet(struct batadv_priv *bat_priv,
 }
 
 /**
+<<<<<<< HEAD
  * batadv_last_bonding_get - Get last_bonding_candidate of orig_node
  * @orig_node: originator node whose last bonding candidate should be retrieved
  *
@@ -486,6 +490,8 @@ batadv_last_bonding_replace(struct batadv_orig_node *orig_node,
 }
 
 /**
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * batadv_find_router - find a suitable router for this originator
  * @bat_priv: the bat priv with all the soft interface information
  * @orig_node: the destination node
@@ -532,7 +538,11 @@ batadv_find_router(struct batadv_priv *bat_priv,
 	 * router - obviously there are no other candidates.
 	 */
 	rcu_read_lock();
+<<<<<<< HEAD
 	last_candidate = batadv_last_bonding_get(orig_node);
+=======
+	last_candidate = orig_node->last_bonding_candidate;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (last_candidate)
 		last_cand_router = rcu_dereference(last_candidate->router);
 
@@ -592,6 +602,13 @@ next:
 	}
 	rcu_read_unlock();
 
+<<<<<<< HEAD
+=======
+	/* last_bonding_candidate is reset below, remove the old reference. */
+	if (orig_node->last_bonding_candidate)
+		batadv_orig_ifinfo_free_ref(orig_node->last_bonding_candidate);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* After finding candidates, handle the three cases:
 	 * 1) there is a next candidate, use that
 	 * 2) there is no next candidate, use the first of the list
@@ -600,6 +617,7 @@ next:
 	if (next_candidate) {
 		batadv_neigh_node_free_ref(router);
 
+<<<<<<< HEAD
 		atomic_inc(&next_candidate_router->refcount);
 		router = next_candidate_router;
 		batadv_last_bonding_replace(orig_node, next_candidate);
@@ -627,6 +645,25 @@ next:
 	if (last_candidate)
 		batadv_orig_ifinfo_free_ref(last_candidate);
 
+=======
+		/* remove references to first candidate, we don't need it. */
+		if (first_candidate) {
+			batadv_neigh_node_free_ref(first_candidate_router);
+			batadv_orig_ifinfo_free_ref(first_candidate);
+		}
+		router = next_candidate_router;
+		orig_node->last_bonding_candidate = next_candidate;
+	} else if (first_candidate) {
+		batadv_neigh_node_free_ref(router);
+
+		/* refcounting has already been done in the loop above. */
+		router = first_candidate_router;
+		orig_node->last_bonding_candidate = first_candidate;
+	} else {
+		orig_node->last_bonding_candidate = NULL;
+	}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return router;
 }
 
@@ -638,7 +675,10 @@ static int batadv_route_unicast_packet(struct sk_buff *skb,
 	struct batadv_unicast_packet *unicast_packet;
 	struct ethhdr *ethhdr = eth_hdr(skb);
 	int res, hdr_len, ret = NET_RX_DROP;
+<<<<<<< HEAD
 	unsigned int len;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	unicast_packet = (struct batadv_unicast_packet *)skb->data;
 
@@ -679,7 +719,10 @@ static int batadv_route_unicast_packet(struct sk_buff *skb,
 	if (hdr_len > 0)
 		batadv_skb_set_priority(skb, hdr_len);
 
+<<<<<<< HEAD
 	len = skb->len;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	res = batadv_send_skb_to_orig(skb, orig_node, recv_if);
 
 	/* translate transmit result into receive result */
@@ -687,7 +730,11 @@ static int batadv_route_unicast_packet(struct sk_buff *skb,
 		/* skb was transmitted and consumed */
 		batadv_inc_counter(bat_priv, BATADV_CNT_FORWARD);
 		batadv_add_counter(bat_priv, BATADV_CNT_FORWARD_BYTES,
+<<<<<<< HEAD
 				   len + ETH_HLEN);
+=======
+				   skb->len + ETH_HLEN);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		ret = NET_RX_SUCCESS;
 	} else if (res == NET_XMIT_POLICED) {
@@ -704,7 +751,10 @@ out:
 /**
  * batadv_reroute_unicast_packet - update the unicast header for re-routing
  * @bat_priv: the bat priv with all the soft interface information
+<<<<<<< HEAD
  * @skb: unicast packet to process
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * @unicast_packet: the unicast header to be updated
  * @dst_addr: the payload destination
  * @vid: VLAN identifier
@@ -716,7 +766,11 @@ out:
  * Returns true if the packet header has been updated, false otherwise
  */
 static bool
+<<<<<<< HEAD
 batadv_reroute_unicast_packet(struct batadv_priv *bat_priv, struct sk_buff *skb,
+=======
+batadv_reroute_unicast_packet(struct batadv_priv *bat_priv,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			      struct batadv_unicast_packet *unicast_packet,
 			      u8 *dst_addr, unsigned short vid)
 {
@@ -745,10 +799,15 @@ batadv_reroute_unicast_packet(struct batadv_priv *bat_priv, struct sk_buff *skb,
 	}
 
 	/* update the packet header */
+<<<<<<< HEAD
 	skb_postpull_rcsum(skb, unicast_packet, sizeof(*unicast_packet));
 	ether_addr_copy(unicast_packet->dest, orig_addr);
 	unicast_packet->ttvn = orig_ttvn;
 	skb_postpush_rcsum(skb, unicast_packet, sizeof(*unicast_packet));
+=======
+	ether_addr_copy(unicast_packet->dest, orig_addr);
+	unicast_packet->ttvn = orig_ttvn;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	ret = true;
 out:
@@ -788,7 +847,11 @@ static int batadv_check_unicast_ttvn(struct batadv_priv *bat_priv,
 	 * the packet to
 	 */
 	if (batadv_tt_local_client_is_roaming(bat_priv, ethhdr->h_dest, vid)) {
+<<<<<<< HEAD
 		if (batadv_reroute_unicast_packet(bat_priv, skb, unicast_packet,
+=======
+		if (batadv_reroute_unicast_packet(bat_priv, unicast_packet,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 						  ethhdr->h_dest, vid))
 			batadv_dbg_ratelimited(BATADV_DBG_TT,
 					       bat_priv,
@@ -834,7 +897,11 @@ static int batadv_check_unicast_ttvn(struct batadv_priv *bat_priv,
 	 * destination can possibly be updated and forwarded towards the new
 	 * target host
 	 */
+<<<<<<< HEAD
 	if (batadv_reroute_unicast_packet(bat_priv, skb, unicast_packet,
+=======
+	if (batadv_reroute_unicast_packet(bat_priv, unicast_packet,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 					  ethhdr->h_dest, vid)) {
 		batadv_dbg_ratelimited(BATADV_DBG_TT, bat_priv,
 				       "Rerouting unicast packet to %pM (dst=%pM): TTVN mismatch old_ttvn=%u new_ttvn=%u\n",
@@ -857,6 +924,7 @@ static int batadv_check_unicast_ttvn(struct batadv_priv *bat_priv,
 	if (!primary_if)
 		return 0;
 
+<<<<<<< HEAD
 	/* update the packet header */
 	skb_postpull_rcsum(skb, unicast_packet, sizeof(*unicast_packet));
 	ether_addr_copy(unicast_packet->dest, primary_if->net_dev->dev_addr);
@@ -865,6 +933,14 @@ static int batadv_check_unicast_ttvn(struct batadv_priv *bat_priv,
 
 	batadv_hardif_free_ref(primary_if);
 
+=======
+	ether_addr_copy(unicast_packet->dest, primary_if->net_dev->dev_addr);
+
+	batadv_hardif_free_ref(primary_if);
+
+	unicast_packet->ttvn = curr_ttvn;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return 1;
 }
 
@@ -909,6 +985,10 @@ int batadv_recv_unicast_packet(struct sk_buff *skb,
 	bool is4addr;
 
 	unicast_packet = (struct batadv_unicast_packet *)skb->data;
+<<<<<<< HEAD
+=======
+	unicast_4addr_packet = (struct batadv_unicast_4addr_packet *)skb->data;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	is4addr = unicast_packet->packet_type == BATADV_UNICAST_4ADDR;
 	/* the caller function should have already pulled 2 bytes */
@@ -929,6 +1009,7 @@ int batadv_recv_unicast_packet(struct sk_buff *skb,
 	if (!batadv_check_unicast_ttvn(bat_priv, skb, hdr_size))
 		return NET_RX_DROP;
 
+<<<<<<< HEAD
 	unicast_packet = (struct batadv_unicast_packet *)skb->data;
 
 	/* packet for me */
@@ -936,6 +1017,11 @@ int batadv_recv_unicast_packet(struct sk_buff *skb,
 		if (is4addr) {
 			unicast_4addr_packet =
 				(struct batadv_unicast_4addr_packet *)skb->data;
+=======
+	/* packet for me */
+	if (batadv_is_my_mac(bat_priv, unicast_packet->dest)) {
+		if (is4addr) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			subtype = unicast_4addr_packet->subtype;
 			batadv_dat_inc_counter(bat_priv, subtype);
 
@@ -1061,12 +1147,15 @@ int batadv_recv_frag_packet(struct sk_buff *skb,
 	batadv_inc_counter(bat_priv, BATADV_CNT_FRAG_RX);
 	batadv_add_counter(bat_priv, BATADV_CNT_FRAG_RX_BYTES, skb->len);
 
+<<<<<<< HEAD
 	/* batadv_frag_skb_buffer will always consume the skb and
 	 * the caller should therefore never try to free the
 	 * skb after this point
 	 */
 	ret = NET_RX_SUCCESS;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* Add fragment to buffer and merge if possible. */
 	if (!batadv_frag_skb_buffer(&skb, orig_node_src))
 		goto out;

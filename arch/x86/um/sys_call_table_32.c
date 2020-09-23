@@ -25,11 +25,19 @@
 
 #define old_mmap sys_old_mmap
 
+<<<<<<< HEAD
 #define __SYSCALL_I386(nr, sym, compat) extern asmlinkage long sym(unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, unsigned long) ;
 #include <asm/syscalls_32.h>
 
 #undef __SYSCALL_I386
 #define __SYSCALL_I386(nr, sym, compat) [ nr ] = sym,
+=======
+#define __SYSCALL_I386(nr, sym, qual) extern asmlinkage long sym(unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, unsigned long) ;
+#include <asm/syscalls_32.h>
+
+#undef __SYSCALL_I386
+#define __SYSCALL_I386(nr, sym, qual) [ nr ] = sym,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 extern asmlinkage long sys_ni_syscall(unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, unsigned long);
 

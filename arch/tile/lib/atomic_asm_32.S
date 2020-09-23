@@ -24,7 +24,12 @@
  * has an opportunity to return -EFAULT to the user if needed.
  * The 64-bit routines just return a "long long" with the value,
  * since they are only used from kernel space and don't expect to fault.
+<<<<<<< HEAD
  * Support for 16-bit ops is included in the framework but we don't provide any.
+=======
+ * Support for 16-bit ops is included in the framework but we don't provide
+ * any (x86_64 has an atomic_inc_short(), so we might want to some day).
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * Note that the caller is advised to issue a suitable L1 or L2
  * prefetch on the address being manipulated to avoid extra stalls.

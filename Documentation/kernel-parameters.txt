@@ -948,7 +948,11 @@ bytes respectively. Such letter suffixes can also be entirely omitted.
 			The filter can be disabled or changed to another
 			driver later using sysfs.
 
+<<<<<<< HEAD
 	drm_kms_helper.edid_firmware=[<connector>:]<file>[,[<connector>:]<file>]
+=======
+	drm.edid_firmware=[<connector>:]<file>[,[<connector>:]<file>]
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			Broken monitors, graphic adapters, KVMs and EDIDless
 			panels may send no or incorrect EDID data sets.
 			This parameter allows to specify an EDID data sets

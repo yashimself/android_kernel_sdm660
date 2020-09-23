@@ -1276,12 +1276,16 @@ static pci_ers_result_t mlx5_pci_err_detected(struct pci_dev *pdev,
 	dev_info(&pdev->dev, "%s was called\n", __func__);
 	mlx5_enter_error_state(dev);
 	mlx5_unload_one(dev, priv);
+<<<<<<< HEAD
 	pci_save_state(pdev);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	mlx5_pci_disable_device(dev);
 	return state == pci_channel_io_perm_failure ?
 		PCI_ERS_RESULT_DISCONNECT : PCI_ERS_RESULT_NEED_RESET;
 }
 
+<<<<<<< HEAD
 /* wait for the device to show vital signs by waiting
  * for the health counter to start counting.
  */
@@ -1313,6 +1317,12 @@ static pci_ers_result_t mlx5_pci_slot_reset(struct pci_dev *pdev)
 {
 	struct mlx5_core_dev *dev = pci_get_drvdata(pdev);
 	int err;
+=======
+static pci_ers_result_t mlx5_pci_slot_reset(struct pci_dev *pdev)
+{
+	struct mlx5_core_dev *dev = pci_get_drvdata(pdev);
+	int err = 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	dev_info(&pdev->dev, "%s was called\n", __func__);
 
@@ -1322,6 +1332,7 @@ static pci_ers_result_t mlx5_pci_slot_reset(struct pci_dev *pdev)
 			, __func__, err);
 		return PCI_ERS_RESULT_DISCONNECT;
 	}
+<<<<<<< HEAD
 
 	pci_set_master(pdev);
 	pci_restore_state(pdev);
@@ -1332,6 +1343,13 @@ static pci_ers_result_t mlx5_pci_slot_reset(struct pci_dev *pdev)
 	}
 
 	return PCI_ERS_RESULT_RECOVERED;
+=======
+	pci_set_master(pdev);
+	pci_set_power_state(pdev, PCI_D0);
+	pci_restore_state(pdev);
+
+	return err ? PCI_ERS_RESULT_DISCONNECT : PCI_ERS_RESULT_RECOVERED;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 void mlx5_disable_device(struct mlx5_core_dev *dev)
@@ -1339,6 +1357,51 @@ void mlx5_disable_device(struct mlx5_core_dev *dev)
 	mlx5_pci_err_detected(dev->pdev, 0);
 }
 
+<<<<<<< HEAD
+=======
+/* wait for the device to show vital signs. For now we check
+ * that we can read the device ID and that the health buffer
+ * shows a non zero value which is different than 0xffffffff
+ */
+static void wait_vital(struct pci_dev *pdev)
+{
+	struct mlx5_core_dev *dev = pci_get_drvdata(pdev);
+	struct mlx5_core_health *health = &dev->priv.health;
+	const int niter = 100;
+	u32 count;
+	u16 did;
+	int i;
+
+	/* Wait for firmware to be ready after reset */
+	msleep(1000);
+	for (i = 0; i < niter; i++) {
+		if (pci_read_config_word(pdev, 2, &did)) {
+			dev_warn(&pdev->dev, "failed reading config word\n");
+			break;
+		}
+		if (did == pdev->device) {
+			dev_info(&pdev->dev, "device ID correctly read after %d iterations\n", i);
+			break;
+		}
+		msleep(50);
+	}
+	if (i == niter)
+		dev_warn(&pdev->dev, "%s-%d: could not read device ID\n", __func__, __LINE__);
+
+	for (i = 0; i < niter; i++) {
+		count = ioread32be(health->health_counter);
+		if (count && count != 0xffffffff) {
+			dev_info(&pdev->dev, "Counter value 0x%x after %d iterations\n", count, i);
+			break;
+		}
+		msleep(50);
+	}
+
+	if (i == niter)
+		dev_warn(&pdev->dev, "%s-%d: could not read device ID\n", __func__, __LINE__);
+}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static void mlx5_pci_resume(struct pci_dev *pdev)
 {
 	struct mlx5_core_dev *dev = pci_get_drvdata(pdev);
@@ -1347,6 +1410,12 @@ static void mlx5_pci_resume(struct pci_dev *pdev)
 
 	dev_info(&pdev->dev, "%s was called\n", __func__);
 
+<<<<<<< HEAD
+=======
+	pci_save_state(pdev);
+	wait_vital(pdev);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	err = mlx5_load_one(dev, priv);
 	if (err)
 		dev_err(&pdev->dev, "%s: mlx5_load_one failed with error code: %d\n"

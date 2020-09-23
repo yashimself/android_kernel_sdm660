@@ -33,12 +33,24 @@ Required properties:
 -type: file system type of vendor partition
 -mnt_flags: mount flags
 -fsmgr_flags: fsmgr flags
+<<<<<<< HEAD
+=======
+-"android,firmware" for firmware image
+-"android,vbmeta" for setting system properties for verified boot
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 Example:
 
 	firmware: firmware {
 		android {
 			compatible = "android,firmware";
+<<<<<<< HEAD
+=======
+			vbmeta {
+				compatible = "android,vbmeta";
+				parts = "vbmeta,boot,system,vendor,dtbo,recovery";
+			};
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			fstab {
 				compatible = "android,fstab";
 				vendor {
@@ -46,7 +58,11 @@ Example:
 					dev = "/dev/block/platform/soc/1da4000.ufshc/by-name/vendor";
 					type = "ext4";
 					mnt_flags = "ro,barrier=1,discard";
+<<<<<<< HEAD
 					fsmgr_flags = "wait,slotselect";
+=======
+					fsmgr_flags = "wait,slotselect,avb";
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 					status = "ok";
 				};
 			};

@@ -552,7 +552,11 @@ NOKPROBE_SYMBOL(notify_die);
 
 int register_die_notifier(struct notifier_block *nb)
 {
+<<<<<<< HEAD
 	vmalloc_sync_mappings();
+=======
+	vmalloc_sync_all();
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return atomic_notifier_chain_register(&die_chain, nb);
 }
 EXPORT_SYMBOL_GPL(register_die_notifier);

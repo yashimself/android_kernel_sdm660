@@ -865,7 +865,11 @@ static int avc_update_node(u32 event, u32 perms, u8 driver, u8 xperm, u32 ssid,
 	if (orig->ae.xp_node) {
 		rc = avc_xperms_populate(node, orig->ae.xp_node);
 		if (rc) {
+<<<<<<< HEAD
 			avc_node_kill(node);
+=======
+			kmem_cache_free(avc_node_cachep, node);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			goto out_unlock;
 		}
 	}

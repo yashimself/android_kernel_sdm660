@@ -901,8 +901,11 @@ void fuse_ctl_remove_conn(struct fuse_conn *fc);
  */
 int fuse_valid_type(int m);
 
+<<<<<<< HEAD
 bool fuse_invalid_attr(struct fuse_attr *attr);
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /**
  * Is current process allowed to perform filesystem operation?
  */

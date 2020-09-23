@@ -1,4 +1,5 @@
 # UAPI Header export list
+<<<<<<< HEAD
 header-y += ipset/
 header-y += nf_conntrack_common.h
 header-y += nf_conntrack_ftp.h
@@ -85,3 +86,7 @@ header-y += xt_tcpmss.h
 header-y += xt_tcpudp.h
 header-y += xt_time.h
 header-y += xt_u32.h
+=======
+no-export-headers += xt_HARDIDLETIMER.h
+no-export-headers += xt_SYNPROXY.h
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

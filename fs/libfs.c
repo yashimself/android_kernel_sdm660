@@ -761,7 +761,11 @@ int simple_attr_open(struct inode *inode, struct file *file,
 {
 	struct simple_attr *attr;
 
+<<<<<<< HEAD
 	attr = kzalloc(sizeof(*attr), GFP_KERNEL);
+=======
+	attr = kmalloc(sizeof(*attr), GFP_KERNEL);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!attr)
 		return -ENOMEM;
 
@@ -801,11 +805,17 @@ ssize_t simple_attr_read(struct file *file, char __user *buf,
 	if (ret)
 		return ret;
 
+<<<<<<< HEAD
 	if (*ppos && attr->get_buf[0]) {
 		/* continued read */
 		size = strlen(attr->get_buf);
 	} else {
 		/* first read */
+=======
+	if (*ppos) {		/* continued read */
+		size = strlen(attr->get_buf);
+	} else {		/* first read */
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		u64 val;
 		ret = attr->get(attr->data, &val);
 		if (ret)

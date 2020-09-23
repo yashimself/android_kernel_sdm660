@@ -689,7 +689,10 @@ struct inode {
 		struct rcu_head		i_rcu;
 	};
 	u64			i_version;
+<<<<<<< HEAD
 	atomic64_t		i_sequence; /* see futex */
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	atomic_t		i_count;
 	atomic_t		i_dio_count;
 	atomic_t		i_writecount;
@@ -3142,4 +3145,10 @@ static inline bool dir_relax(struct inode *inode)
 extern bool path_noexec(const struct path *path);
 extern void inode_nohighmem(struct inode *inode);
 
+<<<<<<< HEAD
+=======
+int vfs_ioc_setflags_prepare(struct inode *inode, unsigned int oldflags,
+			     unsigned int flags);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #endif /* _LINUX_FS_H */

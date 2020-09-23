@@ -1104,7 +1104,11 @@ static irqreturn_t macb_interrupt(int irq, void *dev_id)
 			macb_writel(bp, NCR, ctrl | MACB_BIT(RE));
 
 			if (bp->caps & MACB_CAPS_ISR_CLEAR_ON_WRITE)
+<<<<<<< HEAD
 				queue_writel(queue, ISR, MACB_BIT(RXUBR));
+=======
+				macb_writel(bp, ISR, MACB_BIT(RXUBR));
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 
 		if (status & MACB_BIT(ISR_ROVR)) {
@@ -2275,14 +2279,22 @@ static int macb_clk_init(struct platform_device *pdev, struct clk **pclk,
 	*pclk = devm_clk_get(&pdev->dev, "pclk");
 	if (IS_ERR(*pclk)) {
 		err = PTR_ERR(*pclk);
+<<<<<<< HEAD
 		dev_err(&pdev->dev, "failed to get macb_clk (%d)\n", err);
+=======
+		dev_err(&pdev->dev, "failed to get macb_clk (%u)\n", err);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return err;
 	}
 
 	*hclk = devm_clk_get(&pdev->dev, "hclk");
 	if (IS_ERR(*hclk)) {
 		err = PTR_ERR(*hclk);
+<<<<<<< HEAD
 		dev_err(&pdev->dev, "failed to get hclk (%d)\n", err);
+=======
+		dev_err(&pdev->dev, "failed to get hclk (%u)\n", err);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return err;
 	}
 
@@ -2292,19 +2304,31 @@ static int macb_clk_init(struct platform_device *pdev, struct clk **pclk,
 
 	err = clk_prepare_enable(*pclk);
 	if (err) {
+<<<<<<< HEAD
 		dev_err(&pdev->dev, "failed to enable pclk (%d)\n", err);
+=======
+		dev_err(&pdev->dev, "failed to enable pclk (%u)\n", err);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return err;
 	}
 
 	err = clk_prepare_enable(*hclk);
 	if (err) {
+<<<<<<< HEAD
 		dev_err(&pdev->dev, "failed to enable hclk (%d)\n", err);
+=======
+		dev_err(&pdev->dev, "failed to enable hclk (%u)\n", err);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		goto err_disable_pclk;
 	}
 
 	err = clk_prepare_enable(*tx_clk);
 	if (err) {
+<<<<<<< HEAD
 		dev_err(&pdev->dev, "failed to enable tx_clk (%d)\n", err);
+=======
+		dev_err(&pdev->dev, "failed to enable tx_clk (%u)\n", err);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		goto err_disable_hclk;
 	}
 
@@ -2704,7 +2728,11 @@ static int at91ether_clk_init(struct platform_device *pdev, struct clk **pclk,
 
 	err = clk_prepare_enable(*pclk);
 	if (err) {
+<<<<<<< HEAD
 		dev_err(&pdev->dev, "failed to enable pclk (%d)\n", err);
+=======
+		dev_err(&pdev->dev, "failed to enable pclk (%u)\n", err);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return err;
 	}
 
@@ -2904,7 +2932,11 @@ static int macb_probe(struct platform_device *pdev)
 	dev->irq = platform_get_irq(pdev, 0);
 	if (dev->irq < 0) {
 		err = dev->irq;
+<<<<<<< HEAD
 		goto err_out_free_netdev;
+=======
+		goto err_disable_clocks;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	mac = of_get_mac_address(np);

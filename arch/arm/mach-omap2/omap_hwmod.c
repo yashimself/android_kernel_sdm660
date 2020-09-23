@@ -2207,15 +2207,24 @@ static int _idle(struct omap_hwmod *oh)
 
 	pr_debug("omap_hwmod: %s: idling\n", oh->name);
 
+<<<<<<< HEAD
 	if (_are_all_hardreset_lines_asserted(oh))
 		return 0;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (oh->_state != _HWMOD_STATE_ENABLED) {
 		WARN(1, "omap_hwmod: %s: idle state can only be entered from enabled state\n",
 			oh->name);
 		return -EINVAL;
 	}
 
+<<<<<<< HEAD
+=======
+	if (_are_all_hardreset_lines_asserted(oh))
+		return 0;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (oh->class->sysc)
 		_idle_sysc(oh);
 	_del_initiator_dep(oh, mpu_oh);
@@ -2262,9 +2271,12 @@ static int _shutdown(struct omap_hwmod *oh)
 	int ret, i;
 	u8 prev_state;
 
+<<<<<<< HEAD
 	if (_are_all_hardreset_lines_asserted(oh))
 		return 0;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (oh->_state != _HWMOD_STATE_IDLE &&
 	    oh->_state != _HWMOD_STATE_ENABLED) {
 		WARN(1, "omap_hwmod: %s: disabled state can only be entered from idle, or enabled state\n",
@@ -2272,6 +2284,12 @@ static int _shutdown(struct omap_hwmod *oh)
 		return -EINVAL;
 	}
 
+<<<<<<< HEAD
+=======
+	if (_are_all_hardreset_lines_asserted(oh))
+		return 0;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	pr_debug("omap_hwmod: %s: disabling\n", oh->name);
 
 	if (oh->class->pre_shutdown) {
@@ -2563,7 +2581,11 @@ static void _setup_iclk_autoidle(struct omap_hwmod *oh)
  */
 static int _setup_reset(struct omap_hwmod *oh)
 {
+<<<<<<< HEAD
 	int r = 0;
+=======
+	int r;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (oh->_state != _HWMOD_STATE_INITIALIZED)
 		return -EINVAL;

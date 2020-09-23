@@ -93,10 +93,13 @@ static inline bool fscrypt_valid_enc_modes(u32 contents_mode,
 	    filenames_mode == FS_ENCRYPTION_MODE_AES_256_CTS)
 		return true;
 
+<<<<<<< HEAD
 	if (contents_mode == FS_ENCRYPTION_MODE_SPECK128_256_XTS &&
 	    filenames_mode == FS_ENCRYPTION_MODE_SPECK128_256_CTS)
 		return true;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return false;
 }
 

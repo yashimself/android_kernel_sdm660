@@ -539,7 +539,10 @@ struct mlx5_modify_qp_mbox_in {
 	__be32			optparam;
 	u8			rsvd1[4];
 	struct mlx5_qp_context	ctx;
+<<<<<<< HEAD
 	u8			rsvd2[16];
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 struct mlx5_modify_qp_mbox_out {

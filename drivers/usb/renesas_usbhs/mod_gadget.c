@@ -467,6 +467,7 @@ static int usbhsg_irq_dev_state(struct usbhs_priv *priv,
 {
 	struct usbhsg_gpriv *gpriv = usbhsg_priv_to_gpriv(priv);
 	struct device *dev = usbhsg_gpriv_to_dev(gpriv);
+<<<<<<< HEAD
 	int state = usbhs_status_get_device_state(irq_state);
 
 	gpriv->gadget.speed = usbhs_bus_get_speed(priv);
@@ -479,6 +480,14 @@ static int usbhsg_irq_dev_state(struct usbhs_priv *priv,
 			gpriv->driver->suspend(&gpriv->gadget);
 		usb_gadget_set_state(&gpriv->gadget, USB_STATE_SUSPENDED);
 	}
+=======
+
+	gpriv->gadget.speed = usbhs_bus_get_speed(priv);
+
+	dev_dbg(dev, "state = %x : speed : %d\n",
+		usbhs_status_get_device_state(irq_state),
+		gpriv->gadget.speed);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	return 0;
 }

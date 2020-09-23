@@ -82,6 +82,7 @@ static void of_pci_parse_addrs(struct device_node *node, struct pci_dev *dev)
 	const __be32 *addrs;
 	u32 i;
 	int proplen;
+<<<<<<< HEAD
 	bool mark_unset = false;
 
 	addrs = of_get_property(node, "assigned-addresses", &proplen);
@@ -92,6 +93,12 @@ static void of_pci_parse_addrs(struct device_node *node, struct pci_dev *dev)
 		mark_unset = true;
 	}
 
+=======
+
+	addrs = of_get_property(node, "assigned-addresses", &proplen);
+	if (!addrs)
+		return;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	pr_debug("    parse addresses (%d bytes) @ %p\n", proplen, addrs);
 	for (; proplen >= 20; proplen -= 20, addrs += 5) {
 		flags = pci_parse_of_flags(of_read_number(addrs, 1), 0);
@@ -116,8 +123,11 @@ static void of_pci_parse_addrs(struct device_node *node, struct pci_dev *dev)
 			continue;
 		}
 		res->flags = flags;
+<<<<<<< HEAD
 		if (mark_unset)
 			res->flags |= IORESOURCE_UNSET;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		res->name = pci_name(dev);
 		region.start = base;
 		region.end = base + size - 1;

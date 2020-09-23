@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2016-2018, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2016-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * Copyright (C) 2013 Red Hat
  * Author: Rob Clark <robdclark@gmail.com>
  *
@@ -47,6 +51,12 @@
 #include "msm_gem.h"
 #include "msm_mmu.h"
 
+<<<<<<< HEAD
+=======
+static struct completion wait_display_completion;
+static bool msm_drm_probed;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static void msm_drm_helper_hotplug_event(struct drm_device *dev)
 {
 	struct drm_connector *connector;
@@ -2134,10 +2144,157 @@ static int msm_pm_resume(struct device *dev)
 
 	return 0;
 }
+<<<<<<< HEAD
 #endif
 
 static const struct dev_pm_ops msm_pm_ops = {
 	SET_SYSTEM_SLEEP_PM_OPS(msm_pm_suspend, msm_pm_resume)
+=======
+
+static int msm_pm_freeze(struct device *dev)
+{
+	struct drm_device *ddev;
+	struct drm_crtc *crtc;
+	struct drm_modeset_acquire_ctx *ctx;
+	struct drm_atomic_state *state;
+	struct msm_drm_private *priv;
+	struct msm_kms *kms;
+	int early_display = 0;
+	int ret = 0;
+
+	if (!dev)
+		return -EINVAL;
+
+	ddev = dev_get_drvdata(dev);
+	if (!ddev || !ddev->dev_private)
+		return -EINVAL;
+
+	priv = ddev->dev_private;
+
+	kms = priv->kms;
+	if (kms && kms->funcs && kms->funcs->early_display_status)
+		early_display = kms->funcs->early_display_status(kms);
+
+	SDE_EVT32(0);
+
+	if (early_display) {
+		/* acquire modeset lock(s) */
+		drm_modeset_lock_all(ddev);
+		ctx = ddev->mode_config.acquire_ctx;
+
+		/* save current state for restore */
+		if (priv->suspend_state)
+			drm_atomic_state_free(priv->suspend_state);
+
+		priv->suspend_state =
+			drm_atomic_helper_duplicate_state(ddev, ctx);
+
+		if (IS_ERR_OR_NULL(priv->suspend_state)) {
+			DRM_ERROR("failed to back up suspend state\n");
+			priv->suspend_state = NULL;
+			goto unlock;
+		}
+
+		/* create atomic null state to idle CRTCs */
+		state = drm_atomic_state_alloc(ddev);
+		if (IS_ERR_OR_NULL(state)) {
+			DRM_ERROR("failed to allocate null atomic state\n");
+			goto unlock;
+		}
+
+		state->acquire_ctx = ctx;
+
+		/* commit the null state */
+		ret = drm_atomic_commit(state);
+		if (ret < 0) {
+			DRM_ERROR("failed to commit null state, %d\n", ret);
+			drm_atomic_state_free(state);
+		}
+
+		drm_for_each_crtc(crtc, ddev)
+			drm_crtc_vblank_off(crtc);
+
+unlock:
+		drm_modeset_unlock_all(ddev);
+	} else {
+		ret = msm_pm_suspend(dev);
+		if (ret)
+			return ret;
+	}
+	return 0;
+}
+
+static int msm_pm_restore(struct device *dev)
+{
+	struct drm_device *ddev;
+	struct drm_crtc *crtc;
+	struct msm_drm_private *priv;
+	struct msm_kms *kms;
+	int early_display = 0;
+	int ret;
+
+	if (!dev)
+		return -EINVAL;
+
+	ddev = dev_get_drvdata(dev);
+	if (!ddev || !ddev->dev_private)
+		return -EINVAL;
+
+	priv = ddev->dev_private;
+
+	kms = priv->kms;
+	if (kms && kms->funcs && kms->funcs->early_display_status)
+		early_display = kms->funcs->early_display_status(kms);
+
+
+	SDE_EVT32(priv->suspend_state != NULL);
+
+	if (early_display) {
+		drm_mode_config_reset(ddev);
+
+		drm_modeset_lock_all(ddev);
+
+		drm_for_each_crtc(crtc, ddev)
+			drm_crtc_vblank_on(crtc);
+
+		if (priv->suspend_state) {
+			priv->suspend_state->acquire_ctx =
+				ddev->mode_config.acquire_ctx;
+
+			ret = drm_atomic_commit(priv->suspend_state);
+			if (ret < 0) {
+				DRM_ERROR("failed to restore state, %d\n", ret);
+				drm_atomic_state_free(priv->suspend_state);
+			}
+
+			priv->suspend_state = NULL;
+		}
+
+		drm_modeset_unlock_all(ddev);
+	} else {
+		ret = msm_pm_resume(dev);
+		if (ret)
+			return ret;
+	}
+
+	return 0;
+}
+
+static int msm_pm_thaw(struct device *dev)
+{
+	msm_pm_restore(dev);
+
+	return 0;
+}
+#endif
+
+static const struct dev_pm_ops msm_pm_ops = {
+	.suspend = msm_pm_suspend,
+	.resume = msm_pm_resume,
+	.freeze = msm_pm_freeze,
+	.restore = msm_pm_restore,
+	.thaw = msm_pm_thaw,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 static int msm_drm_bind(struct device *dev)
@@ -2227,6 +2384,11 @@ static int msm_pdev_probe(struct platform_device *pdev)
 	int ret;
 	struct component_match *match = NULL;
 
+<<<<<<< HEAD
+=======
+	msm_drm_probed = true;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #ifdef CONFIG_OF
 	add_components(&pdev->dev, &match, "connectors");
 #ifndef CONFIG_QCOM_KGSL
@@ -2266,6 +2428,10 @@ static int msm_pdev_probe(struct platform_device *pdev)
 		return ret;
 
 	ret = msm_add_master_component(&pdev->dev, match);
+<<<<<<< HEAD
+=======
+	complete(&wait_display_completion);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	return ret;
 }
@@ -2311,6 +2477,23 @@ static const struct of_device_id dt_match[] = {
 };
 MODULE_DEVICE_TABLE(of, dt_match);
 
+<<<<<<< HEAD
+=======
+static int find_match(struct device *dev, void *data)
+{
+	struct device_driver *drv = data;
+
+	return drv->bus->match(dev, drv);
+}
+
+static bool find_device(struct platform_driver *pdrv)
+{
+	struct device_driver *drv = &pdrv->driver;
+
+	return bus_for_each_dev(drv->bus, NULL, drv, find_match);
+}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static struct platform_driver msm_platform_driver = {
 	.probe      = msm_pdev_probe,
 	.remove     = msm_pdev_remove,
@@ -2342,6 +2525,10 @@ static int __init msm_drm_register(void)
 	msm_edp_register();
 	hdmi_register();
 	adreno_register();
+<<<<<<< HEAD
+=======
+	init_completion(&wait_display_completion);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return platform_driver_register(&msm_platform_driver);
 }
 
@@ -2356,8 +2543,27 @@ static void __exit msm_drm_unregister(void)
 	msm_smmu_driver_cleanup();
 }
 
+<<<<<<< HEAD
 module_init(msm_drm_register);
 module_exit(msm_drm_unregister);
+=======
+static int __init msm_drm_late_register(void)
+{
+	struct platform_driver *pdrv;
+
+	pdrv = &msm_platform_driver;
+	if (msm_drm_probed || find_device(pdrv)) {
+		pr_debug("wait for display probe completion\n");
+		wait_for_completion(&wait_display_completion);
+	}
+	return 0;
+}
+
+module_init(msm_drm_register);
+module_exit(msm_drm_unregister);
+/* init level 7 */
+late_initcall(msm_drm_late_register);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 MODULE_AUTHOR("Rob Clark <robdclark@gmail.com");
 MODULE_DESCRIPTION("MSM DRM Driver");

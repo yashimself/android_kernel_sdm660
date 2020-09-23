@@ -918,6 +918,7 @@ static int handle_existing_counter(struct mlx4_dev *dev, u8 slave, int port,
 
 	spin_lock_irq(mlx4_tlock(dev));
 	r = find_res(dev, counter_index, RES_COUNTER);
+<<<<<<< HEAD
 	if (!r || r->owner != slave) {
 		ret = -EINVAL;
 	} else {
@@ -925,6 +926,13 @@ static int handle_existing_counter(struct mlx4_dev *dev, u8 slave, int port,
 		if (!counter->port)
 			counter->port = port;
 	}
+=======
+	if (!r || r->owner != slave)
+		ret = -EINVAL;
+	counter = container_of(r, struct res_counter, com);
+	if (!counter->port)
+		counter->port = port;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	spin_unlock_irq(mlx4_tlock(dev));
 	return ret;

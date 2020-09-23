@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2016-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2016-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -648,7 +652,11 @@
 			compatible = "qcom,memshare-peripheral";
 			qcom,peripheral-size = <0x0>;
 			qcom,client-id = <1>;
+<<<<<<< HEAD
 			qcom,allocate-boot-time;
+=======
+			qcom,allocate-on-request;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			label = "modem";
 		};
 	};
@@ -1732,6 +1740,10 @@
 		qcom,irq-mask = <0x200>;
 		interrupts = <0 157 1>;
 		label = "lpass";
+<<<<<<< HEAD
+=======
+		cpu-affinity = <1 2>;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		qcom,qos-config = <&glink_qos_adsp>;
 		qcom,ramp-time = <0xaf>;
 	};
@@ -2412,6 +2424,13 @@
 		"HS_RB_G1_L1", "HS_RB_G2_L1", "HS_RB_G3_L1",
 		"MAX";
 
+<<<<<<< HEAD
+=======
+		pinctrl-names = "dev-reset-assert", "dev-reset-deassert";
+		pinctrl-0 = <&ufs_dev_reset_assert>;
+		pinctrl-1 = <&ufs_dev_reset_deassert>;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		resets = <&clock_gcc GCC_UFS_BCR>;
 		reset-names = "core_reset";
 

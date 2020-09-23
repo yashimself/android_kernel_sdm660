@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2017, 2019 The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -694,6 +698,7 @@ static int qpnp_lpg_save_pwm_value(struct qpnp_pwm_chip *chip)
 	if (pwm_config->pwm_value > max_pwm_value)
 		pwm_config->pwm_value = max_pwm_value;
 
+<<<<<<< HEAD
 	value = pwm_config->pwm_value;
 	mask = QPNP_PWM_VALUE_LSB_MASK;
 
@@ -705,6 +710,8 @@ static int qpnp_lpg_save_pwm_value(struct qpnp_pwm_chip *chip)
 	if (rc)
 		return rc;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	value = (pwm_config->pwm_value >> QPNP_PWM_VALUE_MSB_SHIFT) &
 					QPNP_PWM_VALUE_MSB_MASK;
 
@@ -718,6 +725,20 @@ static int qpnp_lpg_save_pwm_value(struct qpnp_pwm_chip *chip)
 	if (rc)
 		return rc;
 
+<<<<<<< HEAD
+=======
+	value = pwm_config->pwm_value;
+	mask = QPNP_PWM_VALUE_LSB_MASK;
+
+	pr_debug("pwm_lsb value:%d\n", value & mask);
+	rc = qpnp_lpg_save_and_write(value, mask,
+			&chip->qpnp_lpg_registers[QPNP_PWM_VALUE_LSB],
+			SPMI_LPG_REG_ADDR(lpg_config->base_addr,
+			QPNP_PWM_VALUE_LSB), 1, chip);
+	if (rc)
+		return rc;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (chip->sub_type == QPNP_PWM_MODE_ONLY_SUB_TYPE ||
 		chip->sub_type == QPNP_LPG_S_CHAN_SUB_TYPE) {
 		value = QPNP_PWM_SYNC_VALUE & QPNP_PWM_SYNC_MASK;
@@ -1508,9 +1529,12 @@ int pwm_change_mode(struct pwm_device *pwm, enum pm_pwm_mode mode)
 			goto unlock;
 		}
 		chip->pwm_mode = mode;
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_X00TD
 	}
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (chip->enabled) {
 			rc = _pwm_enable(chip);
 			if (rc) {
@@ -1518,9 +1542,13 @@ int pwm_change_mode(struct pwm_device *pwm, enum pm_pwm_mode mode)
 				goto unlock;
 			}
 		}
+<<<<<<< HEAD
 #ifndef CONFIG_MACH_ASUS_X00TD
 	}
 #endif
+=======
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 unlock:
 	spin_unlock_irqrestore(&chip->lpg_lock, flags);
 

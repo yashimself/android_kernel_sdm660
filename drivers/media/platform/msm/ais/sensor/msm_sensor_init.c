@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2013-2017, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2013-2018, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -23,9 +27,12 @@
 #undef CDBG
 #define CDBG(fmt, args...) pr_debug(fmt, ##args)
 
+<<<<<<< HEAD
 #define EARLY_CAMERA_SIGNAL_DONE 0xa5a5a5a5
 #define EARLY_CAMERA_SIGNAL_DISABLED 0
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static bool early_camera_clock_off;
 static struct msm_sensor_init_t *s_init;
 
@@ -48,14 +55,20 @@ static int msm_sensor_wait_for_probe_done(struct msm_sensor_init_t *s_init)
 	return rc;
 }
 
+<<<<<<< HEAD
 #define MMSS_A_VFE_0_SPARE 0xC84
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /* Static function definition */
 int32_t msm_sensor_driver_cmd(struct msm_sensor_init_t *s_init, void *arg)
 {
 	int32_t                      rc = 0;
+<<<<<<< HEAD
 	u32 val = 0;
 	void __iomem *base;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct sensor_init_cfg_data *cfg = (struct sensor_init_cfg_data *)arg;
 
 	/* Validate input parameters */
@@ -64,6 +77,11 @@ int32_t msm_sensor_driver_cmd(struct msm_sensor_init_t *s_init, void *arg)
 		return -EINVAL;
 	}
 
+<<<<<<< HEAD
+=======
+	/* Postpone hardware changes until early camera is complete */
+	msm_early_camera_wait();
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	pr_debug("%s : %d", __func__, cfg->cfgtype);
 	switch (cfg->cfgtype) {
 	case CFG_SINIT_PROBE:
@@ -79,6 +97,7 @@ int32_t msm_sensor_driver_cmd(struct msm_sensor_init_t *s_init, void *arg)
 
 	case CFG_SINIT_PROBE_DONE:
 		if (early_camera_clock_off == false) {
+<<<<<<< HEAD
 			base = ioremap(0x00A10000, 0x1000);
 			val = msm_camera_io_r_mb(base + MMSS_A_VFE_0_SPARE);
 			while (val != EARLY_CAMERA_SIGNAL_DONE) {
@@ -90,6 +109,9 @@ int32_t msm_sensor_driver_cmd(struct msm_sensor_init_t *s_init, void *arg)
 				pr_err("Waiting for signal from LK val = %u\n",
 					val);
 			}
+=======
+			msm_early_camera_wait();
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			rc = msm_early_cam_disable_clocks();
 			if (rc < 0) {
 				pr_err("Failed to disable early camera :%d\n",

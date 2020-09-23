@@ -652,7 +652,12 @@ static int bdisp_release(struct file *file)
 
 	dev_dbg(bdisp->dev, "%s\n", __func__);
 
+<<<<<<< HEAD
 	mutex_lock(&bdisp->lock);
+=======
+	if (mutex_lock_interruptible(&bdisp->lock))
+		return -ERESTARTSYS;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	v4l2_m2m_ctx_release(ctx->fh.m2m_ctx);
 

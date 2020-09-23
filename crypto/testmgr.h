@@ -12631,6 +12631,7 @@ static struct cipher_testvec serpent_xts_dec_tv_template[] = {
 	},
 };
 
+<<<<<<< HEAD
 /*
  * Speck test vectors taken from the original paper:
  * "The Simon and Speck Families of Lightweight Block Ciphers"
@@ -14117,6 +14118,8 @@ static struct cipher_testvec speck64_xts_dec_tv_template[] = {
 	}
 };
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /* Cast6 test vectors from RFC 2612 */
 #define CAST6_ENC_TEST_VECTORS		4
 #define CAST6_DEC_TEST_VECTORS		4

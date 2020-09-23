@@ -107,9 +107,14 @@ static int cls_bpf_classify(struct sk_buff *skb, const struct tcf_proto *tp,
 		}
 
 		if (prog->exts_integrated) {
+<<<<<<< HEAD
 			res->class   = 0;
 			res->classid = TC_H_MAJ(prog->res.classid) |
 				       qdisc_skb_cb(skb)->tc_classid;
+=======
+			res->class = prog->res.class;
+			res->classid = qdisc_skb_cb(skb)->tc_classid;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 			ret = cls_bpf_exec_opcode(filter_res);
 			if (ret == TC_ACT_UNSPEC)
@@ -119,12 +124,19 @@ static int cls_bpf_classify(struct sk_buff *skb, const struct tcf_proto *tp,
 
 		if (filter_res == 0)
 			continue;
+<<<<<<< HEAD
 		if (filter_res != -1) {
 			res->class   = 0;
 			res->classid = filter_res;
 		} else {
 			*res = prog->res;
 		}
+=======
+
+		*res = prog->res;
+		if (filter_res != -1)
+			res->classid = filter_res;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		ret = tcf_exts_exec(skb, &prog->exts, res);
 		if (ret < 0)

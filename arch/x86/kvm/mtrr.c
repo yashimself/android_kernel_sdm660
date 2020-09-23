@@ -17,7 +17,10 @@
  */
 
 #include <linux/kvm_host.h>
+<<<<<<< HEAD
 #include <linux/nospec.h>
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #include <asm/mtrr.h>
 
 #include "cpuid.h"
@@ -203,6 +206,7 @@ static bool fixed_msr_to_seg_unit(u32 msr, int *seg, int *unit)
 		break;
 	case MSR_MTRRfix16K_80000 ... MSR_MTRRfix16K_A0000:
 		*seg = 1;
+<<<<<<< HEAD
 		*unit = array_index_nospec(
 			msr - MSR_MTRRfix16K_80000,
 			MSR_MTRRfix16K_A0000 - MSR_MTRRfix16K_80000 + 1);
@@ -212,6 +216,13 @@ static bool fixed_msr_to_seg_unit(u32 msr, int *seg, int *unit)
 		*unit = array_index_nospec(
 			msr - MSR_MTRRfix4K_C0000,
 			MSR_MTRRfix4K_F8000 - MSR_MTRRfix4K_C0000 + 1);
+=======
+		*unit = msr - MSR_MTRRfix16K_80000;
+		break;
+	case MSR_MTRRfix4K_C0000 ... MSR_MTRRfix4K_F8000:
+		*seg = 2;
+		*unit = msr - MSR_MTRRfix4K_C0000;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	default:
 		return false;

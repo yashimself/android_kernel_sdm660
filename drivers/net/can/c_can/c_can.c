@@ -52,7 +52,10 @@
 #define CONTROL_EX_PDR		BIT(8)
 
 /* control register */
+<<<<<<< HEAD
 #define CONTROL_SWR		BIT(15)
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #define CONTROL_TEST		BIT(7)
 #define CONTROL_CCE		BIT(6)
 #define CONTROL_DISABLE_AR	BIT(5)
@@ -573,6 +576,7 @@ static void c_can_configure_msg_objects(struct net_device *dev)
 				   IF_MCONT_RCV_EOB);
 }
 
+<<<<<<< HEAD
 static int c_can_software_reset(struct net_device *dev)
 {
 	struct c_can_priv *priv = netdev_priv(dev);
@@ -593,6 +597,8 @@ static int c_can_software_reset(struct net_device *dev)
 	return 0;
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /*
  * Configure C_CAN chip:
  * - enable/disable auto-retransmission
@@ -602,11 +608,14 @@ static int c_can_software_reset(struct net_device *dev)
 static int c_can_chip_config(struct net_device *dev)
 {
 	struct c_can_priv *priv = netdev_priv(dev);
+<<<<<<< HEAD
 	int err;
 
 	err = c_can_software_reset(dev);
 	if (err)
 		return err;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* enable automatic retransmission */
 	priv->write_reg(priv, C_CAN_CTRL_REG, CONTROL_ENABLE_AR);

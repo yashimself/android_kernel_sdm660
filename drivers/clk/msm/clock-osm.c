@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2016-2018, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2016-2018, 2020, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -272,7 +276,11 @@ static void __iomem *debug_base;
 #define ACD_REG_RELATIVE_ADDR_BITMASK(addr) \
 			(1 << (ACD_REG_RELATIVE_ADDR(addr)))
 
+<<<<<<< HEAD
 #define FIXDIV(div) (div ? (2 * (div) - 1) : (0))
+=======
+#define FIXDIV(div) ((int)div ? (2 * (div) - 1) : (0))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #define F(f, s, div, m, n) \
 	{ \

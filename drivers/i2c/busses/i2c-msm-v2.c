@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2014-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2014-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -2155,8 +2159,17 @@ static bool i2c_msm_xfer_next_buf(struct i2c_msm_ctrl *ctrl)
 {
 	struct i2c_msm_xfer_buf *cur_buf = &ctrl->xfer.cur_buf;
 	struct i2c_msg          *cur_msg = ctrl->xfer.msgs + cur_buf->msg_idx;
+<<<<<<< HEAD
 	int bc_rem = cur_msg->len - cur_buf->end_idx;
 
+=======
+	int bc_rem = 0;
+
+	if (!cur_msg)
+		return false;
+
+	bc_rem = cur_msg->len - cur_buf->end_idx;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (cur_buf->is_init && cur_buf->end_idx && bc_rem) {
 		/* not the first buffer in a message */
 
@@ -2330,6 +2343,7 @@ i2c_msm_frmwrk_xfer(struct i2c_adapter *adap, struct i2c_msg msgs[], int num)
 	struct i2c_msm_ctrl      *ctrl = i2c_get_adapdata(adap);
 	struct i2c_msm_xfer      *xfer = &ctrl->xfer;
 
+<<<<<<< HEAD
 	if (num < 1) {
 		dev_err(ctrl->dev,
 		"error on number of msgs(%d) received\n", num);
@@ -2341,6 +2355,14 @@ i2c_msm_frmwrk_xfer(struct i2c_adapter *adap, struct i2c_msg msgs[], int num)
 		return PTR_ERR(msgs);
 	}
 
+=======
+	if (IS_ERR_OR_NULL(msgs) || num < 1) {
+		dev_err(ctrl->dev,
+		"Error on msgs Accessing invalid message pointer or message buffer\n");
+		return -EINVAL;
+	}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* if system is suspended just bail out */
 	if (ctrl->pwr_state == I2C_MSM_PM_SYS_SUSPENDED) {
 		dev_err(ctrl->dev,

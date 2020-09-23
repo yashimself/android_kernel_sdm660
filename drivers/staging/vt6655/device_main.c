@@ -807,7 +807,11 @@ static int vnt_int_report_rate(struct vnt_private *priv,
 		else if (fb_option & FIFOCTL_AUTO_FB_1)
 			tx_rate = fallback_rate1[tx_rate][retry];
 
+<<<<<<< HEAD
 		if (info->band == NL80211_BAND_5GHZ)
+=======
+		if (info->band == IEEE80211_BAND_5GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			idx = tx_rate - RATE_6M;
 		else
 			idx = tx_rate;
@@ -1284,7 +1288,11 @@ static int vnt_config(struct ieee80211_hw *hw, u32 changed)
 	    (conf->flags & IEEE80211_CONF_OFFCHANNEL)) {
 		set_channel(priv, conf->chandef.chan);
 
+<<<<<<< HEAD
 		if (conf->chandef.chan->band == NL80211_BAND_5GHZ)
+=======
+		if (conf->chandef.chan->band == IEEE80211_BAND_5GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			bb_type = BB_TYPE_11A;
 		else
 			bb_type = BB_TYPE_11G;

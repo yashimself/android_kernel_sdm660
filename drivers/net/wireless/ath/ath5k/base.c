@@ -268,15 +268,25 @@ static void ath5k_reg_notifier(struct wiphy *wiphy,
  * Returns true for the channel numbers used.
  */
 #ifdef CONFIG_ATH5K_TEST_CHANNELS
+<<<<<<< HEAD
 static bool ath5k_is_standard_channel(short chan, enum nl80211_band band)
+=======
+static bool ath5k_is_standard_channel(short chan, enum ieee80211_band band)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	return true;
 }
 
 #else
+<<<<<<< HEAD
 static bool ath5k_is_standard_channel(short chan, enum nl80211_band band)
 {
 	if (band == NL80211_BAND_2GHZ && chan <= 14)
+=======
+static bool ath5k_is_standard_channel(short chan, enum ieee80211_band band)
+{
+	if (band == IEEE80211_BAND_2GHZ && chan <= 14)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return true;
 
 	return	/* UNII 1,2 */
@@ -297,18 +307,30 @@ ath5k_setup_channels(struct ath5k_hw *ah, struct ieee80211_channel *channels,
 		unsigned int mode, unsigned int max)
 {
 	unsigned int count, size, freq, ch;
+<<<<<<< HEAD
 	enum nl80211_band band;
+=======
+	enum ieee80211_band band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	switch (mode) {
 	case AR5K_MODE_11A:
 		/* 1..220, but 2GHz frequencies are filtered by check_channel */
 		size = 220;
+<<<<<<< HEAD
 		band = NL80211_BAND_5GHZ;
+=======
+		band = IEEE80211_BAND_5GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AR5K_MODE_11B:
 	case AR5K_MODE_11G:
 		size = 26;
+<<<<<<< HEAD
 		band = NL80211_BAND_2GHZ;
+=======
+		band = IEEE80211_BAND_2GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	default:
 		ATH5K_WARN(ah, "bad mode, not copying channels\n");
@@ -363,6 +385,7 @@ ath5k_setup_bands(struct ieee80211_hw *hw)
 	int max_c, count_c = 0;
 	int i;
 
+<<<<<<< HEAD
 	BUILD_BUG_ON(ARRAY_SIZE(ah->sbands) < NUM_NL80211_BANDS);
 	max_c = ARRAY_SIZE(ah->channels);
 
@@ -370,6 +393,15 @@ ath5k_setup_bands(struct ieee80211_hw *hw)
 	sband = &ah->sbands[NL80211_BAND_2GHZ];
 	sband->band = NL80211_BAND_2GHZ;
 	sband->bitrates = &ah->rates[NL80211_BAND_2GHZ][0];
+=======
+	BUILD_BUG_ON(ARRAY_SIZE(ah->sbands) < IEEE80211_NUM_BANDS);
+	max_c = ARRAY_SIZE(ah->channels);
+
+	/* 2GHz band */
+	sband = &ah->sbands[IEEE80211_BAND_2GHZ];
+	sband->band = IEEE80211_BAND_2GHZ;
+	sband->bitrates = &ah->rates[IEEE80211_BAND_2GHZ][0];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (test_bit(AR5K_MODE_11G, ah->ah_capabilities.cap_mode)) {
 		/* G mode */
@@ -381,7 +413,11 @@ ath5k_setup_bands(struct ieee80211_hw *hw)
 		sband->n_channels = ath5k_setup_channels(ah, sband->channels,
 					AR5K_MODE_11G, max_c);
 
+<<<<<<< HEAD
 		hw->wiphy->bands[NL80211_BAND_2GHZ] = sband;
+=======
+		hw->wiphy->bands[IEEE80211_BAND_2GHZ] = sband;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		count_c = sband->n_channels;
 		max_c -= count_c;
 	} else if (test_bit(AR5K_MODE_11B, ah->ah_capabilities.cap_mode)) {
@@ -407,7 +443,11 @@ ath5k_setup_bands(struct ieee80211_hw *hw)
 		sband->n_channels = ath5k_setup_channels(ah, sband->channels,
 					AR5K_MODE_11B, max_c);
 
+<<<<<<< HEAD
 		hw->wiphy->bands[NL80211_BAND_2GHZ] = sband;
+=======
+		hw->wiphy->bands[IEEE80211_BAND_2GHZ] = sband;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		count_c = sband->n_channels;
 		max_c -= count_c;
 	}
@@ -415,9 +455,15 @@ ath5k_setup_bands(struct ieee80211_hw *hw)
 
 	/* 5GHz band, A mode */
 	if (test_bit(AR5K_MODE_11A, ah->ah_capabilities.cap_mode)) {
+<<<<<<< HEAD
 		sband = &ah->sbands[NL80211_BAND_5GHZ];
 		sband->band = NL80211_BAND_5GHZ;
 		sband->bitrates = &ah->rates[NL80211_BAND_5GHZ][0];
+=======
+		sband = &ah->sbands[IEEE80211_BAND_5GHZ];
+		sband->band = IEEE80211_BAND_5GHZ;
+		sband->bitrates = &ah->rates[IEEE80211_BAND_5GHZ][0];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		memcpy(sband->bitrates, &ath5k_rates[4],
 		       sizeof(struct ieee80211_rate) * 8);
@@ -427,7 +473,11 @@ ath5k_setup_bands(struct ieee80211_hw *hw)
 		sband->n_channels = ath5k_setup_channels(ah, sband->channels,
 					AR5K_MODE_11A, max_c);
 
+<<<<<<< HEAD
 		hw->wiphy->bands[NL80211_BAND_5GHZ] = sband;
+=======
+		hw->wiphy->bands[IEEE80211_BAND_5GHZ] = sband;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 	ath5k_setup_rate_idx(ah, sband);
 

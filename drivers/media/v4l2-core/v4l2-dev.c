@@ -706,6 +706,12 @@ static void determine_valid_ioctls(struct video_device *vdev)
 		SET_VALID_IOCTL(ops, VIDIOC_ENUM_DV_TIMINGS, vidioc_enum_dv_timings);
 		SET_VALID_IOCTL(ops, VIDIOC_DV_TIMINGS_CAP, vidioc_dv_timings_cap);
 		SET_VALID_IOCTL(ops, VIDIOC_G_EDID, vidioc_g_edid);
+<<<<<<< HEAD
+=======
+	} else {
+		/* ioctls valid for radio */
+		SET_VALID_IOCTL(ops, VIDIOC_DQBUF, vidioc_dqbuf);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 	if (is_tx && (is_radio || is_sdr)) {
 		/* radio transmitter only ioctls */

@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2015-2017, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2015-2018, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * Copyright (C) 2013 Red Hat
  * Author: Rob Clark <robdclark@gmail.com>
  *
@@ -159,6 +163,11 @@ struct sde_kms {
 	bool has_danger_ctrl;
 	void **hdmi_displays;
 	int hdmi_display_count;
+<<<<<<< HEAD
+=======
+	int shd_display_count;
+	void **shd_displays;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* splash handoff structure */
 	struct sde_splash_info splash_info;
@@ -306,6 +315,19 @@ void sde_kms_info_add_keyint(struct sde_kms_info *info,
 		int32_t value);
 
 /**
+<<<<<<< HEAD
+=======
+ * sde_kms_info_update_keystr - update the special string's value.
+ * @info_str: Pointer to source blob str
+ * @key:      Pointer to key string
+ * @value:    Signed 32-bit integer value
+ */
+void sde_kms_info_update_keystr(char *info_str,
+		const char *key,
+		int32_t value);
+
+/**
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * sde_kms_info_add_keystr - add string value to 'sde_kms_info'
  * @info: Pointer to sde_kms_info structure
  * @key: Pointer to key string

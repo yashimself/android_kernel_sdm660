@@ -100,7 +100,11 @@ ENTRY(arm_copy_from_user)
 
 ENDPROC(arm_copy_from_user)
 
+<<<<<<< HEAD
 	.pushsection .text.fixup,"ax"
+=======
+	.pushsection .fixup,"ax"
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.align 0
 	copy_abort_preamble
 	ldmfd	sp!, {r1, r2}

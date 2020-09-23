@@ -8,10 +8,17 @@
  */
 
 	/* SoC fixed clocks */
+<<<<<<< HEAD
 	soc_uartclk: refclk7372800hz {
 		compatible = "fixed-clock";
 		#clock-cells = <0>;
 		clock-frequency = <7372800>;
+=======
+	soc_uartclk: refclk7273800hz {
+		compatible = "fixed-clock";
+		#clock-cells = <0>;
+		clock-frequency = <7273800>;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		clock-output-names = "juno:uartclk";
 	};
 

@@ -203,6 +203,10 @@ struct ov6650 {
 	unsigned long		pclk_max;	/* from resolution and format */
 	struct v4l2_fract	tpf;		/* as requested with s_parm */
 	u32 code;
+<<<<<<< HEAD
+=======
+	enum v4l2_colorspace	colorspace;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 
@@ -215,6 +219,7 @@ static u32 ov6650_codes[] = {
 	MEDIA_BUS_FMT_Y8_1X8,
 };
 
+<<<<<<< HEAD
 static const struct v4l2_mbus_framefmt ov6650_def_fmt = {
 	.width		= W_CIF,
 	.height		= H_CIF,
@@ -226,6 +231,8 @@ static const struct v4l2_mbus_framefmt ov6650_def_fmt = {
 	.xfer_func	= V4L2_XFER_FUNC_DEFAULT,
 };
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /* read a register */
 static int ov6650_reg_read(struct i2c_client *client, u8 reg, u8 *val)
 {
@@ -520,6 +527,7 @@ static int ov6650_get_fmt(struct v4l2_subdev *sd,
 	if (format->pad)
 		return -EINVAL;
 
+<<<<<<< HEAD
 	/* initialize response with default media bus frame format */
 	*mf = ov6650_def_fmt;
 
@@ -534,6 +542,14 @@ static int ov6650_get_fmt(struct v4l2_subdev *sd,
 		mf->height = priv->rect.height >> priv->half_scale;
 		mf->code = priv->code;
 	}
+=======
+	mf->width	= priv->rect.width >> priv->half_scale;
+	mf->height	= priv->rect.height >> priv->half_scale;
+	mf->code	= priv->code;
+	mf->colorspace	= priv->colorspace;
+	mf->field	= V4L2_FIELD_NONE;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return 0;
 }
 
@@ -629,6 +645,10 @@ static int ov6650_s_fmt(struct v4l2_subdev *sd, struct v4l2_mbus_framefmt *mf)
 		dev_err(&client->dev, "Pixel format not handled: 0x%x\n", code);
 		return -EINVAL;
 	}
+<<<<<<< HEAD
+=======
+	priv->code = code;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (code == MEDIA_BUS_FMT_Y8_1X8 ||
 			code == MEDIA_BUS_FMT_SBGGR8_1X8) {
@@ -641,6 +661,14 @@ static int ov6650_s_fmt(struct v4l2_subdev *sd, struct v4l2_mbus_framefmt *mf)
 		priv->pclk_max = 8000000;
 	}
 
+<<<<<<< HEAD
+=======
+	if (code == MEDIA_BUS_FMT_SBGGR8_1X8)
+		priv->colorspace = V4L2_COLORSPACE_SRGB;
+	else if (code != 0)
+		priv->colorspace = V4L2_COLORSPACE_JPEG;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (half_scale) {
 		dev_dbg(&client->dev, "max resolution: QCIF\n");
 		coma_set |= COMA_QCIF;
@@ -649,6 +677,10 @@ static int ov6650_s_fmt(struct v4l2_subdev *sd, struct v4l2_mbus_framefmt *mf)
 		dev_dbg(&client->dev, "max resolution: CIF\n");
 		coma_mask |= COMA_QCIF;
 	}
+<<<<<<< HEAD
+=======
+	priv->half_scale = half_scale;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (sense) {
 		if (sense->master_clock == 8000000) {
@@ -688,6 +720,7 @@ static int ov6650_s_fmt(struct v4l2_subdev *sd, struct v4l2_mbus_framefmt *mf)
 		ret = ov6650_reg_rmw(client, REG_COMA, coma_set, coma_mask);
 	if (!ret)
 		ret = ov6650_reg_write(client, REG_CLKRC, clkrc);
+<<<<<<< HEAD
 	if (!ret) {
 		priv->half_scale = half_scale;
 
@@ -696,6 +729,16 @@ static int ov6650_s_fmt(struct v4l2_subdev *sd, struct v4l2_mbus_framefmt *mf)
 	if (!ret)
 		priv->code = code;
 
+=======
+	if (!ret)
+		ret = ov6650_reg_rmw(client, REG_COML, coml_set, coml_mask);
+
+	if (!ret) {
+		mf->colorspace	= priv->colorspace;
+		mf->width = priv->rect.width >> half_scale;
+		mf->height = priv->rect.height >> half_scale;
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return ret;
 }
 
@@ -714,6 +757,11 @@ static int ov6650_set_fmt(struct v4l2_subdev *sd,
 		v4l_bound_align_image(&mf->width, 2, W_CIF, 1,
 				&mf->height, 2, H_CIF, 1, 0);
 
+<<<<<<< HEAD
+=======
+	mf->field = V4L2_FIELD_NONE;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	switch (mf->code) {
 	case MEDIA_BUS_FMT_Y10_1X10:
 		mf->code = MEDIA_BUS_FMT_Y8_1X8;
@@ -722,10 +770,15 @@ static int ov6650_set_fmt(struct v4l2_subdev *sd,
 	case MEDIA_BUS_FMT_YUYV8_2X8:
 	case MEDIA_BUS_FMT_VYUY8_2X8:
 	case MEDIA_BUS_FMT_UYVY8_2X8:
+<<<<<<< HEAD
+=======
+		mf->colorspace = V4L2_COLORSPACE_JPEG;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	default:
 		mf->code = MEDIA_BUS_FMT_SBGGR8_1X8;
 	case MEDIA_BUS_FMT_SBGGR8_1X8:
+<<<<<<< HEAD
 		break;
 	}
 
@@ -754,6 +807,16 @@ static int ov6650_set_fmt(struct v4l2_subdev *sd,
 		mf->height = priv->rect.height >> priv->half_scale;
 		mf->code = priv->code;
 	}
+=======
+		mf->colorspace = V4L2_COLORSPACE_SRGB;
+		break;
+	}
+
+	if (format->which == V4L2_SUBDEV_FORMAT_ACTIVE)
+		return ov6650_s_fmt(sd, mf);
+	cfg->try_fmt = *mf;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return 0;
 }
 
@@ -1073,6 +1136,10 @@ static int ov6650_probe(struct i2c_client *client,
 	priv->rect.height = H_CIF;
 	priv->half_scale  = false;
 	priv->code	  = MEDIA_BUS_FMT_YUYV8_2X8;
+<<<<<<< HEAD
+=======
+	priv->colorspace  = V4L2_COLORSPACE_JPEG;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	ret = ov6650_video_probe(client);
 	if (ret)

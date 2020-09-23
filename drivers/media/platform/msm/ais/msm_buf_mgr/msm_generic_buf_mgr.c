@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2013-2017, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2013-2018, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -554,6 +558,7 @@ static long msm_buf_mngr_subdev_ioctl(struct v4l2_subdev *sd,
 				return -EINVAL;
 			if (!k_ioctl.ioctl_ptr)
 				return -EINVAL;
+<<<<<<< HEAD
 
 			MSM_CAM_GET_IOCTL_ARG_PTR(&tmp, &k_ioctl.ioctl_ptr,
 				sizeof(tmp));
@@ -563,6 +568,18 @@ static long msm_buf_mngr_subdev_ioctl(struct v4l2_subdev *sd,
 			}
 			k_ioctl.ioctl_ptr = (uintptr_t)&buf_info;
 
+=======
+			if (!is_compat_task()) {
+				MSM_CAM_GET_IOCTL_ARG_PTR(&tmp,
+					&k_ioctl.ioctl_ptr, sizeof(tmp));
+				if (copy_from_user(&buf_info,
+					(void __user *)tmp,
+					sizeof(struct msm_buf_mngr_info))) {
+					return -EFAULT;
+				}
+				k_ioctl.ioctl_ptr = (uintptr_t)&buf_info;
+			}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			argp = (void *)&k_ioctl;
 			rc = msm_cam_buf_mgr_ops(cmd, argp);
 			}

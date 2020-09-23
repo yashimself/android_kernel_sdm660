@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2016-2017, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2016-2019 The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -471,9 +475,15 @@ static int msm_sdw_codec_enable_vi_feedback(struct snd_soc_dapm_widget *w,
 				MSM_SDW_TX10_SPKR_PROT_PATH_CTL, 0x20,
 				0x20);
 			snd_soc_update_bits(codec,
+<<<<<<< HEAD
 				MSM_SDW_TX9_SPKR_PROT_PATH_CTL, 0x0F, 0x04);
 			snd_soc_update_bits(codec,
 				MSM_SDW_TX10_SPKR_PROT_PATH_CTL, 0x0F, 0x04);
+=======
+				MSM_SDW_TX9_SPKR_PROT_PATH_CTL, 0x0F, 0x00);
+			snd_soc_update_bits(codec,
+				MSM_SDW_TX10_SPKR_PROT_PATH_CTL, 0x0F, 0x00);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			snd_soc_update_bits(codec,
 				MSM_SDW_TX9_SPKR_PROT_PATH_CTL, 0x10, 0x10);
 			snd_soc_update_bits(codec,
@@ -496,10 +506,17 @@ static int msm_sdw_codec_enable_vi_feedback(struct snd_soc_dapm_widget *w,
 				0x20);
 			snd_soc_update_bits(codec,
 				MSM_SDW_TX11_SPKR_PROT_PATH_CTL, 0x0F,
+<<<<<<< HEAD
 				0x04);
 			snd_soc_update_bits(codec,
 				MSM_SDW_TX12_SPKR_PROT_PATH_CTL, 0x0F,
 				0x04);
+=======
+				0x00);
+			snd_soc_update_bits(codec,
+				MSM_SDW_TX12_SPKR_PROT_PATH_CTL, 0x0F,
+				0x00);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			snd_soc_update_bits(codec,
 				MSM_SDW_TX11_SPKR_PROT_PATH_CTL, 0x10,
 				0x10);
@@ -1871,7 +1888,12 @@ static int msm_sdw_probe(struct platform_device *pdev)
 	int adsp_state;
 
 	adsp_state = apr_get_subsys_state();
+<<<<<<< HEAD
 	if (adsp_state != APR_SUBSYS_LOADED) {
+=======
+	if (adsp_state != APR_SUBSYS_LOADED ||
+		!q6core_is_adsp_ready()) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		dev_err(&pdev->dev, "Adsp is not loaded yet %d\n",
 				adsp_state);
 		return -EPROBE_DEFER;

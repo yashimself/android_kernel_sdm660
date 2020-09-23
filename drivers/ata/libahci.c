@@ -187,6 +187,10 @@ struct ata_port_operations ahci_pmp_retry_srst_ops = {
 EXPORT_SYMBOL_GPL(ahci_pmp_retry_srst_ops);
 
 static bool ahci_em_messages __read_mostly = true;
+<<<<<<< HEAD
+=======
+EXPORT_SYMBOL_GPL(ahci_em_messages);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 module_param(ahci_em_messages, bool, 0444);
 /* add other LED protocol types when they become supported */
 MODULE_PARM_DESC(ahci_em_messages,

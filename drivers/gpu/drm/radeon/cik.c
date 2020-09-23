@@ -7372,8 +7372,13 @@ static int cik_irq_init(struct radeon_device *rdev)
 	}
 
 	/* setup interrupt control */
+<<<<<<< HEAD
 	/* set dummy read address to dummy page address */
 	WREG32(INTERRUPT_CNTL2, rdev->dummy_page.addr >> 8);
+=======
+	/* XXX this should actually be a bus address, not an MC address. same on older asics */
+	WREG32(INTERRUPT_CNTL2, rdev->ih.gpu_addr >> 8);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	interrupt_cntl = RREG32(INTERRUPT_CNTL);
 	/* IH_DUMMY_RD_OVERRIDE=0 - dummy read disabled with msi, enabled without msi
 	 * IH_DUMMY_RD_OVERRIDE=1 - dummy read controlled by IH_DUMMY_RD_EN

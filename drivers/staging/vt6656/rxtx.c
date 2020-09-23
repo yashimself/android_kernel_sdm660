@@ -280,9 +280,17 @@ static u16 vnt_rxtx_datahead_g(struct vnt_usb_send_context *tx_context,
 							PK_TYPE_11B, &buf->b);
 
 	/* Get Duration and TimeStamp */
+<<<<<<< HEAD
 	if (ieee80211_is_nullfunc(hdr->frame_control)) {
 		buf->duration_a = hdr->duration_id;
 		buf->duration_b = hdr->duration_id;
+=======
+	if (ieee80211_is_pspoll(hdr->frame_control)) {
+		__le16 dur = cpu_to_le16(priv->current_aid | BIT(14) | BIT(15));
+
+		buf->duration_a = dur;
+		buf->duration_b = dur;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	} else {
 		buf->duration_a = vnt_get_duration_le(priv,
 						tx_context->pkt_type, need_ack);
@@ -371,8 +379,15 @@ static u16 vnt_rxtx_datahead_ab(struct vnt_usb_send_context *tx_context,
 			  tx_context->pkt_type, &buf->ab);
 
 	/* Get Duration and TimeStampOff */
+<<<<<<< HEAD
 	if (ieee80211_is_nullfunc(hdr->frame_control)) {
 		buf->duration = hdr->duration_id;
+=======
+	if (ieee80211_is_pspoll(hdr->frame_control)) {
+		__le16 dur = cpu_to_le16(priv->current_aid | BIT(14) | BIT(15));
+
+		buf->duration = dur;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	} else {
 		buf->duration = vnt_get_duration_le(priv, tx_context->pkt_type,
 						    need_ack);
@@ -808,6 +823,7 @@ int vnt_tx_packet(struct vnt_private *priv, struct sk_buff *skb)
 	}
 
 	if (current_rate > RATE_11M) {
+<<<<<<< HEAD
 		if (info->band == NL80211_BAND_5GHZ) {
 			pkt_type = PK_TYPE_11A;
 		} else {
@@ -819,6 +835,15 @@ int vnt_tx_packet(struct vnt_private *priv, struct sk_buff *skb)
 			} else {
 				pkt_type = PK_TYPE_11A;
 			}
+=======
+		if (info->band == IEEE80211_BAND_5GHZ) {
+			pkt_type = PK_TYPE_11A;
+		} else {
+			if (tx_rate->flags & IEEE80211_TX_RC_USE_CTS_PROTECT)
+				pkt_type = PK_TYPE_11GB;
+			else
+				pkt_type = PK_TYPE_11GA;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 	} else {
 		pkt_type = PK_TYPE_11B;

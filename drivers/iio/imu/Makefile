@@ -14,5 +14,9 @@ adis_lib-$(CONFIG_IIO_ADIS_LIB_BUFFER) += adis_buffer.o
 obj-$(CONFIG_IIO_ADIS_LIB) += adis_lib.o
 
 obj-y += inv_mpu6050/
+<<<<<<< HEAD
+=======
+obj-y += inv_mpu/
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 obj-$(CONFIG_KMX61) += kmx61.o

@@ -122,6 +122,7 @@ static int hvterm_raw_get_chars(uint32_t vtermno, char *buf, int count)
 	return got;
 }
 
+<<<<<<< HEAD
 /**
  * hvterm_raw_put_chars: send characters to firmware for given vterm adapter
  * @vtermno: The virtual terminal number.
@@ -130,6 +131,8 @@ static int hvterm_raw_get_chars(uint32_t vtermno, char *buf, int count)
  *       you are sending fewer chars.
  * @count: number of chars to send.
  */
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int hvterm_raw_put_chars(uint32_t vtermno, const char *buf, int count)
 {
 	struct hvterm_priv *pv = hvterm_privs[vtermno];
@@ -242,7 +245,10 @@ static const struct hv_ops hvterm_hvsi_ops = {
 static void udbg_hvc_putc(char c)
 {
 	int count = -1;
+<<<<<<< HEAD
 	unsigned char bounce_buffer[16];
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (!hvterm_privs[0])
 		return;
@@ -253,12 +259,16 @@ static void udbg_hvc_putc(char c)
 	do {
 		switch(hvterm_privs[0]->proto) {
 		case HV_PROTOCOL_RAW:
+<<<<<<< HEAD
 			/*
 			 * hvterm_raw_put_chars requires at least a 16-byte
 			 * buffer, so go via the bounce buffer
 			 */
 			bounce_buffer[0] = c;
 			count = hvterm_raw_put_chars(0, bounce_buffer, 1);
+=======
+			count = hvterm_raw_put_chars(0, &c, 1);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			break;
 		case HV_PROTOCOL_HVSI:
 			count = hvterm_hvsi_put_chars(0, &c, 1);

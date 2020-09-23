@@ -5003,6 +5003,7 @@ accounting:
 	 */
 	user_lock_limit *= num_online_cpus();
 
+<<<<<<< HEAD
 	user_locked = atomic_long_read(&user->locked_vm);
 
 	/*
@@ -5012,6 +5013,9 @@ accounting:
 	if (user_locked > user_lock_limit)
 		user_locked = user_lock_limit;
 	user_locked += user_extra;
+=======
+	user_locked = atomic_long_read(&user->locked_vm) + user_extra;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (user_locked > user_lock_limit)
 		extra = user_locked - user_lock_limit;
@@ -6000,6 +6004,7 @@ static void perf_event_task_output(struct perf_event *event,
 		goto out;
 
 	task_event->event_id.pid = perf_event_pid(event, task);
+<<<<<<< HEAD
 	task_event->event_id.tid = perf_event_tid(event, task);
 
 	if (task_event->event_id.header.type == PERF_RECORD_EXIT) {
@@ -6011,6 +6016,12 @@ static void perf_event_task_output(struct perf_event *event,
 		task_event->event_id.ppid = perf_event_pid(event, current);
 		task_event->event_id.ptid = perf_event_tid(event, current);
 	}
+=======
+	task_event->event_id.ppid = perf_event_pid(event, current);
+
+	task_event->event_id.tid = perf_event_tid(event, task);
+	task_event->event_id.ptid = perf_event_tid(event, current);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	task_event->event_id.time = perf_event_clock(event);
 

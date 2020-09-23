@@ -110,7 +110,11 @@ static int wl18xx_scan_send(struct wl1271 *wl, struct wl12xx_vif *wlvif,
 
 	/* TODO: per-band ies? */
 	if (cmd->active[0]) {
+<<<<<<< HEAD
 		u8 band = NL80211_BAND_2GHZ;
+=======
+		u8 band = IEEE80211_BAND_2GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		ret = wl12xx_cmd_build_probe_req(wl, wlvif,
 				 cmd->role_id, band,
 				 req->ssids ? req->ssids[0].ssid : NULL,
@@ -127,7 +131,11 @@ static int wl18xx_scan_send(struct wl1271 *wl, struct wl12xx_vif *wlvif,
 	}
 
 	if (cmd->active[1] || cmd->dfs) {
+<<<<<<< HEAD
 		u8 band = NL80211_BAND_5GHZ;
+=======
+		u8 band = IEEE80211_BAND_5GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		ret = wl12xx_cmd_build_probe_req(wl, wlvif,
 				 cmd->role_id, band,
 				 req->ssids ? req->ssids[0].ssid : NULL,
@@ -253,7 +261,11 @@ int wl18xx_scan_sched_scan_config(struct wl1271 *wl,
 	cmd->terminate_on_report = 0;
 
 	if (cmd->active[0]) {
+<<<<<<< HEAD
 		u8 band = NL80211_BAND_2GHZ;
+=======
+		u8 band = IEEE80211_BAND_2GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		ret = wl12xx_cmd_build_probe_req(wl, wlvif,
 				 cmd->role_id, band,
 				 req->ssids ? req->ssids[0].ssid : NULL,
@@ -270,7 +282,11 @@ int wl18xx_scan_sched_scan_config(struct wl1271 *wl,
 	}
 
 	if (cmd->active[1] || cmd->dfs) {
+<<<<<<< HEAD
 		u8 band = NL80211_BAND_5GHZ;
+=======
+		u8 band = IEEE80211_BAND_5GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		ret = wl12xx_cmd_build_probe_req(wl, wlvif,
 				 cmd->role_id, band,
 				 req->ssids ? req->ssids[0].ssid : NULL,

@@ -132,8 +132,12 @@ static int msm6242_read_time(struct device *dev, struct rtc_time *tm)
 		      msm6242_read(priv, MSM6242_SECOND1);
 	tm->tm_min  = msm6242_read(priv, MSM6242_MINUTE10) * 10 +
 		      msm6242_read(priv, MSM6242_MINUTE1);
+<<<<<<< HEAD
 	tm->tm_hour = (msm6242_read(priv, MSM6242_HOUR10) &
 		       MSM6242_HOUR10_HR_MASK) * 10 +
+=======
+	tm->tm_hour = (msm6242_read(priv, MSM6242_HOUR10 & 3)) * 10 +
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		      msm6242_read(priv, MSM6242_HOUR1);
 	tm->tm_mday = msm6242_read(priv, MSM6242_DAY10) * 10 +
 		      msm6242_read(priv, MSM6242_DAY1);

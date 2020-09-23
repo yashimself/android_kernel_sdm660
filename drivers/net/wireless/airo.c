@@ -5848,7 +5848,11 @@ static int airo_get_freq(struct net_device *dev,
 	ch = le16_to_cpu(status_rid.channel);
 	if((ch > 0) && (ch < 15)) {
 		fwrq->m = 100000 *
+<<<<<<< HEAD
 			ieee80211_channel_to_frequency(ch, NL80211_BAND_2GHZ);
+=======
+			ieee80211_channel_to_frequency(ch, IEEE80211_BAND_2GHZ);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		fwrq->e = 1;
 	} else {
 		fwrq->m = ch;
@@ -6906,7 +6910,11 @@ static int airo_get_range(struct net_device *dev,
 	for(i = 0; i < 14; i++) {
 		range->freq[k].i = i + 1; /* List index */
 		range->freq[k].m = 100000 *
+<<<<<<< HEAD
 		     ieee80211_channel_to_frequency(i + 1, NL80211_BAND_2GHZ);
+=======
+		     ieee80211_channel_to_frequency(i + 1, IEEE80211_BAND_2GHZ);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		range->freq[k++].e = 1;	/* Values in MHz -> * 10^5 * 10 */
 	}
 	range->num_frequency = k;
@@ -7314,7 +7322,11 @@ static inline char *airo_translate_scan(struct net_device *dev,
 	iwe.cmd = SIOCGIWFREQ;
 	iwe.u.freq.m = le16_to_cpu(bss->dsChannel);
 	iwe.u.freq.m = 100000 *
+<<<<<<< HEAD
 	      ieee80211_channel_to_frequency(iwe.u.freq.m, NL80211_BAND_2GHZ);
+=======
+	      ieee80211_channel_to_frequency(iwe.u.freq.m, IEEE80211_BAND_2GHZ);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	iwe.u.freq.e = 1;
 	current_ev = iwe_stream_add_event(info, current_ev, end_buf,
 					  &iwe, IW_EV_FREQ_LEN);
@@ -7808,8 +7820,21 @@ static int readrids(struct net_device *dev, aironet_ioctl *comp) {
 	case AIROGVLIST:    ridcode = RID_APLIST;       break;
 	case AIROGDRVNAM:   ridcode = RID_DRVNAME;      break;
 	case AIROGEHTENC:   ridcode = RID_ETHERENCAP;   break;
+<<<<<<< HEAD
 	case AIROGWEPKTMP:  ridcode = RID_WEP_TEMP;	break;
 	case AIROGWEPKNV:   ridcode = RID_WEP_PERM;	break;
+=======
+	case AIROGWEPKTMP:  ridcode = RID_WEP_TEMP;
+		/* Only super-user can read WEP keys */
+		if (!capable(CAP_NET_ADMIN))
+			return -EPERM;
+		break;
+	case AIROGWEPKNV:   ridcode = RID_WEP_PERM;
+		/* Only super-user can read WEP keys */
+		if (!capable(CAP_NET_ADMIN))
+			return -EPERM;
+		break;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	case AIROGSTAT:     ridcode = RID_STATUS;       break;
 	case AIROGSTATSD32: ridcode = RID_STATSDELTA;   break;
 	case AIROGSTATSC32: ridcode = RID_STATS;        break;
@@ -7823,6 +7848,7 @@ static int readrids(struct net_device *dev, aironet_ioctl *comp) {
 		return -EINVAL;
 	}
 
+<<<<<<< HEAD
 	if (ridcode == RID_WEP_TEMP || ridcode == RID_WEP_PERM) {
 		/* Only super-user can read WEP keys */
 		if (!capable(CAP_NET_ADMIN))
@@ -7830,6 +7856,9 @@ static int readrids(struct net_device *dev, aironet_ioctl *comp) {
 	}
 
 	if ((iobuf = kzalloc(RIDSIZE, GFP_KERNEL)) == NULL)
+=======
+	if ((iobuf = kmalloc(RIDSIZE, GFP_KERNEL)) == NULL)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return -ENOMEM;
 
 	PC4500_readrid(ai,ridcode,iobuf,RIDSIZE, 1);

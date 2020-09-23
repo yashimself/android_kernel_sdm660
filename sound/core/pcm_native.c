@@ -587,10 +587,13 @@ static int snd_pcm_hw_params(struct snd_pcm_substream *substream,
 					LONG_MAX - runtime->buffer_size)
 		runtime->boundary *= 2;
 
+<<<<<<< HEAD
 	/* clear the buffer for avoiding possible kernel info leaks */
 	if (runtime->dma_area && !substream->ops->copy)
 		memset(runtime->dma_area, 0, runtime->dma_bytes);
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	snd_pcm_timer_resolution_change(substream);
 	snd_pcm_set_state(substream, SNDRV_PCM_STATE_SETUP);
 

@@ -419,14 +419,20 @@ static struct sensor_register ov2659_720p[] = {
 	{ REG_TIMING_YINC, 0x11 },
 	{ REG_TIMING_VERT_FORMAT, 0x80 },
 	{ REG_TIMING_HORIZ_FORMAT, 0x00 },
+<<<<<<< HEAD
 	{ 0x370a, 0x12 },
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	{ 0x3a03, 0xe8 },
 	{ 0x3a09, 0x6f },
 	{ 0x3a0b, 0x5d },
 	{ 0x3a15, 0x9a },
+<<<<<<< HEAD
 	{ REG_VFIFO_READ_START_H, 0x00 },
 	{ REG_VFIFO_READ_START_L, 0x80 },
 	{ REG_ISP_CTRL02, 0x00 },
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	{ REG_NULL, 0x00 },
 };
 
@@ -1137,7 +1143,11 @@ static int ov2659_set_fmt(struct v4l2_subdev *sd,
 		mf = v4l2_subdev_get_try_format(sd, cfg, fmt->pad);
 		*mf = fmt->format;
 #else
+<<<<<<< HEAD
 		ret = -ENOTTY;
+=======
+		return -ENOTTY;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #endif
 	} else {
 		s64 val;
@@ -1208,6 +1218,7 @@ static int ov2659_s_stream(struct v4l2_subdev *sd, int on)
 		goto unlock;
 	}
 
+<<<<<<< HEAD
 	ret = ov2659_set_pixel_clock(ov2659);
 	if (!ret)
 		ret = ov2659_set_frame_size(ov2659);
@@ -1217,6 +1228,13 @@ static int ov2659_s_stream(struct v4l2_subdev *sd, int on)
 		ov2659_set_streaming(ov2659, 1);
 		ov2659->streaming = on;
 	}
+=======
+	ov2659_set_pixel_clock(ov2659);
+	ov2659_set_frame_size(ov2659);
+	ov2659_set_format(ov2659);
+	ov2659_set_streaming(ov2659, 1);
+	ov2659->streaming = on;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 unlock:
 	mutex_unlock(&ov2659->lock);

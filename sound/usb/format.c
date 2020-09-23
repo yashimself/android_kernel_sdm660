@@ -253,6 +253,7 @@ static int parse_audio_format_rates_v1(struct snd_usb_audio *chip, struct audiof
 }
 
 /*
+<<<<<<< HEAD
  * Many Focusrite devices supports a limited set of sampling rates per
  * altsetting. Maximum rate is exposed in the last 4 bytes of Format Type
  * descriptor which has a non-standard bLength = 10.
@@ -299,6 +300,8 @@ static bool focusrite_valid_sample_rate(struct snd_usb_audio *chip,
 }
 
 /*
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * Helper function to walk the array of sample rate triplets reported by
  * the device. The problem is that we need to parse whole array first to
  * get to know how many sample rates we have to expect.
@@ -334,11 +337,14 @@ static int parse_uac2_sample_rate_range(struct snd_usb_audio *chip,
 		}
 
 		for (rate = min; rate <= max; rate += res) {
+<<<<<<< HEAD
 			/* Filter out invalid rates on Focusrite devices */
 			if (USB_ID_VENDOR(chip->usb_id) == 0x1235 &&
 			    !focusrite_valid_sample_rate(chip, fp, rate))
 				goto skip_rate;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			if (fp->rate_table)
 				fp->rate_table[nr_rates] = rate;
 			if (!fp->rate_min || rate < fp->rate_min)
@@ -353,7 +359,10 @@ static int parse_uac2_sample_rate_range(struct snd_usb_audio *chip,
 				break;
 			}
 
+<<<<<<< HEAD
 skip_rate:
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			/* avoid endless loop */
 			if (res == 0)
 				break;

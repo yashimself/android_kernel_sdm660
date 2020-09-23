@@ -95,10 +95,14 @@ static noinline int gup_pte_range(pmd_t pmd, unsigned long addr,
 		}
 		VM_BUG_ON(!pfn_valid(pte_pfn(pte)));
 		page = pte_page(pte);
+<<<<<<< HEAD
 		if (unlikely(!try_get_page(page))) {
 			pte_unmap(ptep);
 			return 0;
 		}
+=======
+		get_page(page);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		SetPageReferenced(page);
 		pages[*nr] = page;
 		(*nr)++;
@@ -135,8 +139,11 @@ static noinline int gup_huge_pmd(pmd_t pmd, unsigned long addr,
 
 	refs = 0;
 	head = pmd_page(pmd);
+<<<<<<< HEAD
 	if (WARN_ON_ONCE(page_ref_count(head) <= 0))
 		return 0;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	page = head + ((addr & ~PMD_MASK) >> PAGE_SHIFT);
 	do {
 		VM_BUG_ON_PAGE(compound_head(page) != head, page);
@@ -213,8 +220,11 @@ static noinline int gup_huge_pud(pud_t pud, unsigned long addr,
 
 	refs = 0;
 	head = pud_page(pud);
+<<<<<<< HEAD
 	if (WARN_ON_ONCE(page_ref_count(head) <= 0))
 		return 0;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	page = head + ((addr & ~PUD_MASK) >> PAGE_SHIFT);
 	do {
 		VM_BUG_ON_PAGE(compound_head(page) != head, page);

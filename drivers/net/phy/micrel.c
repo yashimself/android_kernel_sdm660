@@ -482,6 +482,7 @@ static int ksz9031_config_init(struct phy_device *phydev)
 		"txd2-skew-ps", "txd3-skew-ps"
 	};
 	static const char *control_skews[2] = {"txen-skew-ps", "rxdv-skew-ps"};
+<<<<<<< HEAD
 	const struct device *dev_walker;
 
 	/* The Micrel driver has a deprecated option to place phy OF
@@ -493,6 +494,11 @@ static int ksz9031_config_init(struct phy_device *phydev)
 		of_node = dev_walker->of_node;
 		dev_walker = dev_walker->parent;
 	} while (!of_node && dev_walker);
+=======
+
+	if (!of_node && dev->parent->of_node)
+		of_node = dev->parent->of_node;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (of_node) {
 		ksz9031_of_load_skew_values(phydev, of_node,

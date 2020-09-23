@@ -1071,7 +1071,10 @@ ENTRY(int3)
 END(int3)
 
 ENTRY(general_protection)
+<<<<<<< HEAD
 	ASM_CLAC
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	pushl	$do_general_protection
 	jmp	error_code
 END(general_protection)

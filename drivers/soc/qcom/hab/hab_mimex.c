@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2016-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2016-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -31,15 +35,25 @@ static int hab_export_ack_find(struct uhab_context *ctx,
 	struct hab_export_ack *expect_ack, struct virtual_channel *vchan)
 {
 	int ret = 0;
+<<<<<<< HEAD
 	struct hab_export_ack_recvd *ack_recvd, *tmp;
+=======
+	struct hab_export_ack_recvd *ack_recvd = NULL, *tmp = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	spin_lock_bh(&ctx->expq_lock);
 
 	list_for_each_entry_safe(ack_recvd, tmp, &ctx->exp_rxq, node) {
+<<<<<<< HEAD
 		if ((ack_recvd->ack.export_id == expect_ack->export_id &&
 			ack_recvd->ack.vcid_local == expect_ack->vcid_local &&
 			ack_recvd->ack.vcid_remote == expect_ack->vcid_remote)
 			|| vchan->otherend_closed) {
+=======
+		if (ack_recvd->ack.export_id == expect_ack->export_id &&
+			ack_recvd->ack.vcid_local == expect_ack->vcid_local &&
+			ack_recvd->ack.vcid_remote == expect_ack->vcid_remote) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			list_del(&ack_recvd->node);
 			kfree(ack_recvd);
 			ret = 1;
@@ -52,6 +66,15 @@ static int hab_export_ack_find(struct uhab_context *ctx,
 		}
 	}
 
+<<<<<<< HEAD
+=======
+	if (!ret && vchan->otherend_closed) {
+		pr_info("no expected ack, but vchan %x is remotely closed\n",
+			vchan->id);
+		ret = 1;
+	}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	spin_unlock_bh(&ctx->expq_lock);
 
 	return ret;
@@ -60,7 +83,11 @@ static int hab_export_ack_find(struct uhab_context *ctx,
 static int hab_export_ack_wait(struct uhab_context *ctx,
 	struct hab_export_ack *expect_ack, struct virtual_channel *vchan)
 {
+<<<<<<< HEAD
 	int ret;
+=======
+	int ret = 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	ret = wait_event_interruptible_timeout(ctx->exp_wq,
 		hab_export_ack_find(ctx, expect_ack, vchan),
@@ -83,8 +110,13 @@ static struct export_desc *habmem_add_export(struct virtual_channel *vchan,
 		int sizebytes,
 		uint32_t flags)
 {
+<<<<<<< HEAD
 	struct uhab_context *ctx;
 	struct export_desc *exp;
+=======
+	struct uhab_context *ctx = NULL;
+	struct export_desc *exp = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (!vchan || !sizebytes)
 		return NULL;
@@ -112,7 +144,11 @@ static struct export_desc *habmem_add_export(struct virtual_channel *vchan,
 	ctx = vchan->ctx;
 	write_lock(&ctx->exp_lock);
 	ctx->export_total++;
+<<<<<<< HEAD
 	list_add_tail(&exp->node, &ctx->exp_whse);
+=======
+	list_add_tail((struct list_head *)&exp->node, &ctx->exp_whse);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	write_unlock(&ctx->exp_lock);
 
 	return exp;
@@ -120,12 +156,24 @@ static struct export_desc *habmem_add_export(struct virtual_channel *vchan,
 
 void habmem_remove_export(struct export_desc *exp)
 {
+<<<<<<< HEAD
 	struct physical_channel *pchan;
 	struct uhab_context *ctx;
 
 	if (!exp || !exp->ctx || !exp->pchan) {
 		pr_err("failed to find valid info in exp %pK ctx %pK pchan %pK\n",
 			   exp, exp->ctx, exp->pchan);
+=======
+	struct physical_channel *pchan = NULL;
+	struct uhab_context *ctx = NULL;
+
+	if (!exp || !exp->ctx || !exp->pchan) {
+		if (exp)
+			pr_err("invalid info in exp %pK ctx %pK pchan %pK\n",
+			   exp, exp->ctx, exp->pchan);
+		else
+			pr_err("invalid exp\n");
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return;
 	}
 
@@ -143,7 +191,11 @@ void habmem_remove_export(struct export_desc *exp)
 
 static int compress_pfns(void **pfns, int npages, unsigned int *data_size)
 {
+<<<<<<< HEAD
 	int i, j = 0;
+=======
+	int i = 0, j = 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct grantable *item = (struct grantable *)*pfns;
 	int region_size = 1;
 	struct compressed_pfns *new_table =
@@ -159,8 +211,13 @@ static int compress_pfns(void **pfns, int npages, unsigned int *data_size)
 			region_size++; /* continuous pfn */
 		} else {
 			new_table->region[j].size  = region_size;
+<<<<<<< HEAD
 			new_table->region[j].space = item[i].pfn -
 							item[i-1].pfn - 1;
+=======
+			new_table->region[j].space = (int)(item[i].pfn -
+							item[i-1].pfn - 1);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			j++;
 			region_size = 1;
 		}
@@ -170,8 +227,13 @@ static int compress_pfns(void **pfns, int npages, unsigned int *data_size)
 	new_table->nregions = j+1;
 	vfree(*pfns);
 
+<<<<<<< HEAD
 	*data_size = sizeof(struct compressed_pfns) +
 		sizeof(struct region)*new_table->nregions;
+=======
+	*data_size = (int)(sizeof(struct compressed_pfns) +
+		sizeof(struct region)*new_table->nregions);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	*pfns = new_table;
 	return 0;
 }
@@ -188,9 +250,15 @@ static int habmem_export_vchan(struct uhab_context *ctx,
 		int nunits,
 		uint32_t flags,
 		uint32_t *export_id) {
+<<<<<<< HEAD
 	int ret;
 	struct export_desc *exp;
 	uint32_t sizebytes = sizeof(*exp) + payload_size;
+=======
+	int ret = 0;
+	struct export_desc *exp = NULL;
+	uint32_t sizebytes = (uint32_t)(sizeof(*exp) + payload_size);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct hab_export_ack expected_ack = {0};
 	struct hab_header header = HAB_HEADER_INITIALIZER;
 
@@ -236,14 +304,23 @@ int hab_mem_export(struct uhab_context *ctx,
 	void *pdata_exp = NULL;
 	unsigned int pdata_size = 0;
 	uint32_t export_id = 0;
+<<<<<<< HEAD
 	struct virtual_channel *vchan;
 	int page_count;
+=======
+	struct virtual_channel *vchan = NULL;
+	int page_count = 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int compressed = 0;
 
 	if (!ctx || !param || !param->buffer)
 		return -EINVAL;
 
+<<<<<<< HEAD
 	vchan = hab_get_vchan_fromvcid(param->vcid, ctx);
+=======
+	vchan = hab_get_vchan_fromvcid(param->vcid, ctx, 0);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!vchan || !vchan->pchan) {
 		ret = -ENODEV;
 		goto err;
@@ -263,7 +340,11 @@ int hab_mem_export(struct uhab_context *ctx,
 			vchan->pchan->dom_id,
 			pdata_exp,
 			&compressed,
+<<<<<<< HEAD
 			&pdata_size);
+=======
+			(int *)&pdata_size);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	} else {
 		ret = habmem_hyp_grant_user((unsigned long)param->buffer,
 			page_count,
@@ -271,11 +352,19 @@ int hab_mem_export(struct uhab_context *ctx,
 			vchan->pchan->dom_id,
 			pdata_exp,
 			&compressed,
+<<<<<<< HEAD
 			&pdata_size);
 	}
 	if (ret < 0) {
 		pr_err("habmem_hyp_grant failed size=%d ret=%d\n",
 			pdata_size, ret);
+=======
+			(int *)&pdata_size);
+	}
+	if (ret < 0) {
+		pr_err("habmem_hyp_grant vc %x failed size=%d ret=%d\n",
+			   param->vcid, pdata_size, ret);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		goto err;
 	}
 
@@ -303,14 +392,25 @@ int hab_mem_unexport(struct uhab_context *ctx,
 		int kernel)
 {
 	int ret = 0, found = 0;
+<<<<<<< HEAD
 	struct export_desc *exp, *tmp;
 	struct virtual_channel *vchan;
 
+=======
+	struct export_desc *exp = NULL, *tmp = NULL;
+	struct virtual_channel *vchan = NULL;
+
+	(void)kernel;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!ctx || !param)
 		return -EINVAL;
 
 	/* refcnt on the access */
+<<<<<<< HEAD
 	vchan = hab_get_vchan_fromvcid(param->vcid, ctx);
+=======
+	vchan = hab_get_vchan_fromvcid(param->vcid, ctx, 1);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!vchan || !vchan->pchan) {
 		ret = -ENODEV;
 		goto err_novchan;
@@ -319,9 +419,15 @@ int hab_mem_unexport(struct uhab_context *ctx,
 	write_lock(&ctx->exp_lock);
 	list_for_each_entry_safe(exp, tmp, &ctx->exp_whse, node) {
 		if (param->exportid == exp->export_id &&
+<<<<<<< HEAD
 			param->vcid == exp->vcid_local) {
 			/* same vchan guarantees the pchan for idr */
 			list_del(&exp->node);
+=======
+			vchan->pchan == exp->pchan &&
+			param->vcid == exp->vcid_local) {
+			list_del((struct list_head *)&exp->node);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			found = 1;
 			break;
 		}
@@ -353,12 +459,20 @@ int hab_mem_import(struct uhab_context *ctx,
 {
 	int ret = 0, found = 0;
 	struct export_desc *exp = NULL;
+<<<<<<< HEAD
 	struct virtual_channel *vchan;
+=======
+	struct virtual_channel *vchan = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (!ctx || !param)
 		return -EINVAL;
 
+<<<<<<< HEAD
 	vchan = hab_get_vchan_fromvcid(param->vcid, ctx);
+=======
+	vchan = hab_get_vchan_fromvcid(param->vcid, ctx, 0);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!vchan || !vchan->pchan) {
 		ret = -ENODEV;
 		goto err_imp;
@@ -366,17 +480,33 @@ int hab_mem_import(struct uhab_context *ctx,
 
 	spin_lock_bh(&ctx->imp_lock);
 	list_for_each_entry(exp, &ctx->imp_whse, node) {
+<<<<<<< HEAD
 		if ((exp->export_id == param->exportid) &&
 			(param->vcid == exp->vcid_remote)) {
 			/* only allow import on the vchan recevied from
 			 * remote
 			 */
+=======
+		if (exp->export_id == param->exportid &&
+			exp->pchan == vchan->pchan &&
+			param->vcid == exp->vcid_local) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			found = 1;
 			break;
 		}
 	}
 	spin_unlock_bh(&ctx->imp_lock);
 
+<<<<<<< HEAD
+=======
+	if ((exp->payload_count << PAGE_SHIFT) != param->sizebytes) {
+		pr_err("input size %d don't match buffer size %d\n",
+			param->sizebytes, exp->payload_count << PAGE_SHIFT);
+		ret = -EINVAL;
+		goto err_imp;
+	}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!found) {
 		pr_err("Fail to get export descriptor from export id %d\n",
 			param->exportid);
@@ -408,13 +538,22 @@ int hab_mem_unimport(struct uhab_context *ctx,
 		int kernel)
 {
 	int ret = 0, found = 0;
+<<<<<<< HEAD
 	struct export_desc *exp = NULL, *exp_tmp;
 	struct virtual_channel *vchan;
+=======
+	struct export_desc *exp = NULL, *exp_tmp = NULL;
+	struct virtual_channel *vchan = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (!ctx || !param)
 		return -EINVAL;
 
+<<<<<<< HEAD
 	vchan = hab_get_vchan_fromvcid(param->vcid, ctx);
+=======
+	vchan = hab_get_vchan_fromvcid(param->vcid, ctx, 1);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!vchan || !vchan->pchan) {
 		if (vchan)
 			hab_vchan_put(vchan);
@@ -424,9 +563,16 @@ int hab_mem_unimport(struct uhab_context *ctx,
 	spin_lock_bh(&ctx->imp_lock);
 	list_for_each_entry_safe(exp, exp_tmp, &ctx->imp_whse, node) {
 		if (exp->export_id == param->exportid &&
+<<<<<<< HEAD
 			param->vcid == exp->vcid_remote) {
 			/* same vchan is expected here */
 			list_del(&exp->node);
+=======
+			exp->pchan == vchan->pchan &&
+			param->vcid == exp->vcid_local) {
+			/* same pchan is expected here */
+			list_del((struct list_head *)&exp->node);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			ctx->import_total--;
 			found = 1;
 			break;

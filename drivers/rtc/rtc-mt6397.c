@@ -55,6 +55,7 @@
 
 #define RTC_AL_SEC		0x0018
 
+<<<<<<< HEAD
 #define RTC_AL_SEC_MASK		0x003f
 #define RTC_AL_MIN_MASK		0x003f
 #define RTC_AL_HOU_MASK		0x001f
@@ -63,6 +64,8 @@
 #define RTC_AL_MTH_MASK		0x000f
 #define RTC_AL_YEA_MASK		0x007f
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #define RTC_PDN2		0x002e
 #define RTC_PDN2_PWRON_ALARM	BIT(4)
 
@@ -119,7 +122,11 @@ static irqreturn_t mtk_rtc_irq_handler_thread(int irq, void *data)
 		irqen = irqsta & ~RTC_IRQ_EN_AL;
 		mutex_lock(&rtc->lock);
 		if (regmap_write(rtc->regmap, rtc->addr_base + RTC_IRQ_EN,
+<<<<<<< HEAD
 				 irqen) == 0)
+=======
+				 irqen) < 0)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			mtk_rtc_write_trigger(rtc);
 		mutex_unlock(&rtc->lock);
 
@@ -241,12 +248,21 @@ static int mtk_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alm)
 	alm->pending = !!(pdn2 & RTC_PDN2_PWRON_ALARM);
 	mutex_unlock(&rtc->lock);
 
+<<<<<<< HEAD
 	tm->tm_sec = data[RTC_OFFSET_SEC] & RTC_AL_SEC_MASK;
 	tm->tm_min = data[RTC_OFFSET_MIN] & RTC_AL_MIN_MASK;
 	tm->tm_hour = data[RTC_OFFSET_HOUR] & RTC_AL_HOU_MASK;
 	tm->tm_mday = data[RTC_OFFSET_DOM] & RTC_AL_DOM_MASK;
 	tm->tm_mon = data[RTC_OFFSET_MTH] & RTC_AL_MTH_MASK;
 	tm->tm_year = data[RTC_OFFSET_YEAR] & RTC_AL_YEA_MASK;
+=======
+	tm->tm_sec = data[RTC_OFFSET_SEC];
+	tm->tm_min = data[RTC_OFFSET_MIN];
+	tm->tm_hour = data[RTC_OFFSET_HOUR];
+	tm->tm_mday = data[RTC_OFFSET_DOM];
+	tm->tm_mon = data[RTC_OFFSET_MTH];
+	tm->tm_year = data[RTC_OFFSET_YEAR];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	tm->tm_year += RTC_MIN_YEAR_OFFSET;
 	tm->tm_mon--;
@@ -267,6 +283,7 @@ static int mtk_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alm)
 	tm->tm_year -= RTC_MIN_YEAR_OFFSET;
 	tm->tm_mon++;
 
+<<<<<<< HEAD
 	mutex_lock(&rtc->lock);
 	ret = regmap_bulk_read(rtc->regmap, rtc->addr_base + RTC_AL_SEC,
 			       data, RTC_OFFSET_COUNT);
@@ -286,6 +303,16 @@ static int mtk_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alm)
 	data[RTC_OFFSET_YEAR] = ((data[RTC_OFFSET_YEAR] & ~(RTC_AL_YEA_MASK)) |
 				(tm->tm_year & RTC_AL_YEA_MASK));
 
+=======
+	data[RTC_OFFSET_SEC] = tm->tm_sec;
+	data[RTC_OFFSET_MIN] = tm->tm_min;
+	data[RTC_OFFSET_HOUR] = tm->tm_hour;
+	data[RTC_OFFSET_DOM] = tm->tm_mday;
+	data[RTC_OFFSET_MTH] = tm->tm_mon;
+	data[RTC_OFFSET_YEAR] = tm->tm_year;
+
+	mutex_lock(&rtc->lock);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (alm->enabled) {
 		ret = regmap_bulk_write(rtc->regmap,
 					rtc->addr_base + RTC_AL_SEC,

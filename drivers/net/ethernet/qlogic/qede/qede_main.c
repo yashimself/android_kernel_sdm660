@@ -400,7 +400,11 @@ netdev_tx_t qede_start_xmit(struct sk_buff *skb,
 	u8 xmit_type;
 	u16 idx;
 	u16 hlen;
+<<<<<<< HEAD
 	bool data_split = false;
+=======
+	bool data_split;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* Get tx-queue context and netdev index */
 	txq_index = skb_get_queue_mapping(skb);

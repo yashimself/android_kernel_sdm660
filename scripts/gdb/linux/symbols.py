@@ -99,8 +99,12 @@ lx-symbols command."""
             attrs[n]['name'].string(): attrs[n]['address']
             for n in range(int(sect_attrs['nsections']))}
         args = []
+<<<<<<< HEAD
         for section_name in [".data", ".data..read_mostly", ".rodata", ".bss",
                              ".text", ".text.hot", ".text.unlikely"]:
+=======
+        for section_name in [".data", ".data..read_mostly", ".rodata", ".bss"]:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
             address = section_name_to_address.get(section_name)
             if address:
                 args.append(" -s {name} {addr}".format(

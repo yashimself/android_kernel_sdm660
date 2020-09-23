@@ -1090,8 +1090,12 @@ static void arm_smmu_write_strtab_ent(struct arm_smmu_device *smmu, u32 sid,
 	}
 
 	arm_smmu_sync_ste_for_sid(smmu, sid);
+<<<<<<< HEAD
 	/* See comment in arm_smmu_write_ctx_desc() */
 	WRITE_ONCE(dst[0], cpu_to_le64(val));
+=======
+	dst[0] = cpu_to_le64(val);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	arm_smmu_sync_ste_for_sid(smmu, sid);
 
 	/* It's likely that we'll want to use the new STE soon */

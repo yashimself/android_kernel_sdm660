@@ -221,7 +221,11 @@ static int ad5380_read_raw(struct iio_dev *indio_dev,
 		if (ret)
 			return ret;
 		*val >>= chan->scan_type.shift;
+<<<<<<< HEAD
 		*val -= (1 << chan->scan_type.realbits) / 2;
+=======
+		val -= (1 << chan->scan_type.realbits) / 2;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return IIO_VAL_INT;
 	case IIO_CHAN_INFO_SCALE:
 		*val = 2 * st->vref;

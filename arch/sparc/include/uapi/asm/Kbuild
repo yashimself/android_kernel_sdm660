@@ -1,4 +1,5 @@
 # UAPI Header export list
+<<<<<<< HEAD
 # User exported sparc header files
 
 include include/uapi/asm-generic/Kbuild.asm
@@ -48,3 +49,6 @@ header-y += uctx.h
 header-y += unistd.h
 header-y += utrap.h
 header-y += watchdog.h
+=======
+include include/uapi/asm-generic/Kbuild.asm
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

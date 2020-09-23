@@ -890,7 +890,13 @@ static int isif_set_hw_if_params(struct vpfe_hw_if_param *params)
 static int isif_config_ycbcr(void)
 {
 	struct isif_ycbcr_config *params = &isif_cfg.ycbcr;
+<<<<<<< HEAD
 	u32 modeset = 0, ccdcfg = 0;
+=======
+	struct vpss_pg_frame_size frame_size;
+	u32 modeset = 0, ccdcfg = 0;
+	struct vpss_sync_pol sync;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	dev_dbg(isif_cfg.dev, "\nStarting isif_config_ycbcr...");
 
@@ -978,6 +984,16 @@ static int isif_config_ycbcr(void)
 		/* two fields are interleaved in memory */
 		regw(0x00000249, SDOFST);
 
+<<<<<<< HEAD
+=======
+	/* Setup test pattern if enabled */
+	if (isif_cfg.bayer.config_params.test_pat_gen) {
+		sync.ccdpg_hdpol = params->hd_pol;
+		sync.ccdpg_vdpol = params->vd_pol;
+		dm365_vpss_set_sync_pol(sync);
+		dm365_vpss_set_pg_frame_size(frame_size);
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return 0;
 }
 

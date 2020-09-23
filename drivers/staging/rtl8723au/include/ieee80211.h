@@ -266,7 +266,11 @@ join_res:
 
 /* Represent channel details, subset of ieee80211_channel */
 struct rtw_ieee80211_channel {
+<<<<<<< HEAD
 	/* enum nl80211_band band; */
+=======
+	/* enum ieee80211_band band; */
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* u16 center_freq; */
 	u16 hw_value;
 	u32 flags;

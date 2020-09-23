@@ -225,13 +225,21 @@ int acpi_device_set_power(struct acpi_device *device, int state)
  end:
 	if (result) {
 		dev_warn(&device->dev, "Failed to change power state to %s\n",
+<<<<<<< HEAD
 			 acpi_power_state_string(target_state));
+=======
+			 acpi_power_state_string(state));
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	} else {
 		device->power.state = target_state;
 		ACPI_DEBUG_PRINT((ACPI_DB_INFO,
 				  "Device [%s] transitioned to %s\n",
 				  device->pnp.bus_id,
+<<<<<<< HEAD
 				  acpi_power_state_string(target_state)));
+=======
+				  acpi_power_state_string(state)));
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	return result;
@@ -1094,6 +1102,7 @@ static void acpi_dev_pm_detach(struct device *dev, bool power_off)
  */
 int acpi_dev_pm_attach(struct device *dev, bool power_on)
 {
+<<<<<<< HEAD
 	/*
 	 * Skip devices whose ACPI companions match the device IDs below,
 	 * because they require special power management handling incompatible
@@ -1107,6 +1116,11 @@ int acpi_dev_pm_attach(struct device *dev, bool power_on)
 	struct acpi_device *adev = ACPI_COMPANION(dev);
 
 	if (!adev || !acpi_match_device_ids(adev, special_pm_ids))
+=======
+	struct acpi_device *adev = ACPI_COMPANION(dev);
+
+	if (!adev)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return -ENODEV;
 
 	if (dev->pm_domain)

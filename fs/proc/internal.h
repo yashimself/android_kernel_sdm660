@@ -285,10 +285,18 @@ extern int proc_remount(struct super_block *, int *, char *);
 /*
  * task_[no]mmu.c
  */
+<<<<<<< HEAD
+=======
+struct mem_size_stats;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 struct proc_maps_private {
 	struct inode *inode;
 	struct task_struct *task;
 	struct mm_struct *mm;
+<<<<<<< HEAD
+=======
+	struct mem_size_stats *rollup;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #ifdef CONFIG_MMU
 	struct vm_area_struct *tail_vma;
 #endif
@@ -304,6 +312,10 @@ extern const struct file_operations proc_tid_maps_operations;
 extern const struct file_operations proc_pid_numa_maps_operations;
 extern const struct file_operations proc_tid_numa_maps_operations;
 extern const struct file_operations proc_pid_smaps_operations;
+<<<<<<< HEAD
+=======
+extern const struct file_operations proc_pid_smaps_rollup_operations;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 extern const struct file_operations proc_tid_smaps_operations;
 extern const struct file_operations proc_clear_refs_operations;
 extern const struct file_operations proc_pagemap_operations;

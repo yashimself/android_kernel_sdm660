@@ -47,6 +47,14 @@ extern void mvme147_reset (void);
 
 static int bcd2int (unsigned char b);
 
+<<<<<<< HEAD
+=======
+/* Save tick handler routine pointer, will point to xtime_update() in
+ * kernel/time/timekeeping.c, called via mvme147_process_int() */
+
+irq_handler_t tick_handler;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 int __init mvme147_parse_bootinfo(const struct bi_record *bi)
 {
@@ -102,6 +110,7 @@ void __init config_mvme147(void)
 
 static irqreturn_t mvme147_timer_int (int irq, void *dev_id)
 {
+<<<<<<< HEAD
 	irq_handler_t timer_routine = dev_id;
 	unsigned long flags;
 
@@ -112,13 +121,23 @@ static irqreturn_t mvme147_timer_int (int irq, void *dev_id)
 	local_irq_restore(flags);
 
 	return IRQ_HANDLED;
+=======
+	m147_pcc->t1_int_cntrl = PCC_TIMER_INT_CLR;
+	m147_pcc->t1_int_cntrl = PCC_INT_ENAB|PCC_LEVEL_TIMER1;
+	return tick_handler(irq, dev_id);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 
 void mvme147_sched_init (irq_handler_t timer_routine)
 {
+<<<<<<< HEAD
 	if (request_irq(PCC_IRQ_TIMER1, mvme147_timer_int, 0, "timer 1",
 			timer_routine))
+=======
+	tick_handler = timer_routine;
+	if (request_irq(PCC_IRQ_TIMER1, mvme147_timer_int, 0, "timer 1", NULL))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		pr_err("Couldn't register timer interrupt\n");
 
 	/* Init the clock with a value */

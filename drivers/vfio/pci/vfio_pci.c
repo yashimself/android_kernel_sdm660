@@ -496,7 +496,10 @@ static long vfio_pci_ioctl(void *device_data,
 		{
 			void __iomem *io;
 			size_t size;
+<<<<<<< HEAD
 			u16 orig_cmd;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 			info.offset = VFIO_PCI_INDEX_TO_OFFSET(info.index);
 			info.flags = 0;
@@ -506,6 +509,7 @@ static long vfio_pci_ioctl(void *device_data,
 			if (!info.size)
 				break;
 
+<<<<<<< HEAD
 			/*
 			 * Is it really there?  Enable memory decode for
 			 * implicit access in pci_map_rom().
@@ -523,6 +527,17 @@ static long vfio_pci_ioctl(void *device_data,
 			}
 
 			pci_write_config_word(pdev, PCI_COMMAND, orig_cmd);
+=======
+			/* Is it really there? */
+			io = pci_map_rom(pdev, &size);
+			if (!io || !size) {
+				info.size = 0;
+				break;
+			}
+			pci_unmap_rom(pdev, io);
+
+			info.flags = VFIO_REGION_INFO_FLAG_READ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			break;
 		}
 		case VFIO_PCI_VGA_REGION_INDEX:

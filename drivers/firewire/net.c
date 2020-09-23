@@ -249,11 +249,15 @@ static int fwnet_header_cache(const struct neighbour *neigh,
 	h = (struct fwnet_header *)((u8 *)hh->hh_data + HH_DATA_OFF(sizeof(*h)));
 	h->h_proto = type;
 	memcpy(h->h_dest, neigh->ha, net->addr_len);
+<<<<<<< HEAD
 
 	/* Pairs with the READ_ONCE() in neigh_resolve_output(),
 	 * neigh_hh_output() and neigh_update_hhs().
 	 */
 	smp_store_release(&hh->hh_len, FWNET_HLEN);
+=======
+	hh->hh_len = FWNET_HLEN;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	return 0;
 }

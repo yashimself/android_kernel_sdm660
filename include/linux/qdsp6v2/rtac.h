@@ -22,7 +22,11 @@
 #define RTAC_CVS		1
 #define RTAC_VOICE_MODES	2
 
+<<<<<<< HEAD
 #define RTAC_MAX_ACTIVE_DEVICES		4
+=======
+#define RTAC_MAX_ACTIVE_DEVICES		6
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #define RTAC_MAX_ACTIVE_POPP		8
 
 #define DEFAULT_APP_TYPE	0x00011130

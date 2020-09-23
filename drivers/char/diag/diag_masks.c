@@ -2274,6 +2274,11 @@ int diag_process_apps_masks(unsigned char *buf, int len, int pid)
 		return -EINVAL;
 
 	if (*buf == DIAG_CMD_LOG_CONFIG) {
+<<<<<<< HEAD
+=======
+		if (len < (2 * sizeof(int)))
+			return -EINVAL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		sub_cmd = *(int *)(buf + sizeof(int));
 		switch (sub_cmd) {
 		case DIAG_CMD_OP_LOG_DISABLE:
@@ -2290,6 +2295,11 @@ int diag_process_apps_masks(unsigned char *buf, int len, int pid)
 			break;
 		}
 	} else if (*buf == DIAG_CMD_MSG_CONFIG) {
+<<<<<<< HEAD
+=======
+		if (len < (2 * sizeof(uint8_t)))
+			return -EINVAL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		sub_cmd = *(uint8_t *)(buf + sizeof(uint8_t));
 		switch (sub_cmd) {
 		case DIAG_CMD_OP_GET_SSID_RANGE:

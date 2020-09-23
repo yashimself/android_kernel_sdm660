@@ -22,6 +22,10 @@
 #include <linux/user-return-notifier.h>
 #include <linux/nospec.h>
 #include <linux/uprobes.h>
+<<<<<<< HEAD
+=======
+#include <linux/syscalls.h>
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #include <asm/desc.h>
 #include <asm/traps.h>
@@ -64,6 +68,7 @@ static void do_audit_syscall_entry(struct pt_regs *regs, u32 arch)
 }
 
 /*
+<<<<<<< HEAD
  * We can return 0 to resume the syscall or anything else to go to phase
  * 2.  If we resume the syscall, we need to put something appropriate in
  * regs->orig_ax.
@@ -80,6 +85,18 @@ unsigned long syscall_trace_enter_phase1(struct pt_regs *regs, u32 arch)
 {
 	struct thread_info *ti = pt_regs_to_thread_info(regs);
 	unsigned long ret = 0;
+=======
+ * Returns the syscall nr to run (which should match regs->orig_ax) or -1
+ * to skip the syscall.
+ */
+long syscall_trace_enter(struct pt_regs *regs)
+{
+	u32 arch = is_ia32_task() ? AUDIT_ARCH_I386 : AUDIT_ARCH_X86_64;
+
+	struct thread_info *ti = pt_regs_to_thread_info(regs);
+	unsigned long ret = 0;
+	bool emulated = false;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	u32 work;
 
 	if (IS_ENABLED(CONFIG_DEBUG_ENTRY))
@@ -98,11 +115,37 @@ unsigned long syscall_trace_enter_phase1(struct pt_regs *regs, u32 arch)
 	}
 #endif
 
+<<<<<<< HEAD
 #ifdef CONFIG_SECCOMP
 	/*
 	 * Do seccomp first -- it should minimize exposure of other
 	 * code, and keeping seccomp fast is probably more valuable
 	 * than the rest of this.
+=======
+	/*
+	 * If we stepped into a sysenter/syscall insn, it trapped in
+	 * kernel mode; do_debug() cleared TF and set TIF_SINGLESTEP.
+	 * If user-mode had set TF itself, then it's still clear from
+	 * do_debug() and we need to set it again to restore the user
+	 * state.  If we entered on the slow path, TF was already set.
+	 */
+	if (work & _TIF_SINGLESTEP)
+		regs->flags |= X86_EFLAGS_TF;
+
+	if (unlikely(work & _TIF_SYSCALL_EMU))
+		emulated = true;
+
+	if ((emulated || (work & _TIF_SYSCALL_TRACE)) &&
+	    tracehook_report_syscall_entry(regs))
+		return -1L;
+
+	if (emulated)
+		return -1L;
+
+#ifdef CONFIG_SECCOMP
+	/*
+	 * Do seccomp after ptrace, to catch any tracer changes.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	 */
 	if (work & _TIF_SECCOMP) {
 		struct seccomp_data sd;
@@ -129,6 +172,7 @@ unsigned long syscall_trace_enter_phase1(struct pt_regs *regs, u32 arch)
 			sd.args[5] = regs->bp;
 		}
 
+<<<<<<< HEAD
 		BUILD_BUG_ON(SECCOMP_PHASE1_OK != 0);
 		BUILD_BUG_ON(SECCOMP_PHASE1_SKIP != 1);
 
@@ -202,6 +246,14 @@ long syscall_trace_enter_phase2(struct pt_regs *regs, u32 arch,
 	    tracehook_report_syscall_entry(regs))
 		ret = -1L;
 
+=======
+		ret = __secure_computing(&sd);
+		if (ret == -1)
+			return ret;
+	}
+#endif
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (unlikely(test_thread_flag(TIF_SYSCALL_TRACEPOINT)))
 		trace_sys_enter(regs, regs->orig_ax);
 
@@ -210,6 +262,7 @@ long syscall_trace_enter_phase2(struct pt_regs *regs, u32 arch,
 	return ret ?: regs->orig_ax;
 }
 
+<<<<<<< HEAD
 long syscall_trace_enter(struct pt_regs *regs)
 {
 	u32 arch = is_ia32_task() ? AUDIT_ARCH_I386 : AUDIT_ARCH_X86_64;
@@ -221,6 +274,8 @@ long syscall_trace_enter(struct pt_regs *regs)
 		return syscall_trace_enter_phase2(regs, arch, phase1_result);
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #define EXIT_TO_USERMODE_LOOP_FLAGS				\
 	(_TIF_SIGPENDING | _TIF_NOTIFY_RESUME | _TIF_UPROBE |	\
 	 _TIF_NEED_RESCHED | _TIF_USER_RETURN_NOTIFY)
@@ -274,6 +329,11 @@ __visible inline void prepare_exit_to_usermode(struct pt_regs *regs)
 	struct thread_info *ti = pt_regs_to_thread_info(regs);
 	u32 cached_flags;
 
+<<<<<<< HEAD
+=======
+	addr_limit_user_check();
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (IS_ENABLED(CONFIG_PROVE_LOCKING) && WARN_ON(!irqs_disabled()))
 		local_irq_disable();
 

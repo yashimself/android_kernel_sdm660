@@ -26,14 +26,22 @@ module_param_named(debug_mask, wcn36xx_dbg_mask, uint, 0644);
 MODULE_PARM_DESC(debug_mask, "Debugging mask");
 
 #define CHAN2G(_freq, _idx) { \
+<<<<<<< HEAD
 	.band = NL80211_BAND_2GHZ, \
+=======
+	.band = IEEE80211_BAND_2GHZ, \
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.center_freq = (_freq), \
 	.hw_value = (_idx), \
 	.max_power = 25, \
 }
 
 #define CHAN5G(_freq, _idx) { \
+<<<<<<< HEAD
 	.band = NL80211_BAND_5GHZ, \
+=======
+	.band = IEEE80211_BAND_5GHZ, \
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.center_freq = (_freq), \
 	.hw_value = (_idx), \
 	.max_power = 25, \
@@ -516,7 +524,11 @@ static void wcn36xx_sw_scan_complete(struct ieee80211_hw *hw,
 }
 
 static void wcn36xx_update_allowed_rates(struct ieee80211_sta *sta,
+<<<<<<< HEAD
 					 enum nl80211_band band)
+=======
+					 enum ieee80211_band band)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	int i, size;
 	u16 *rates_table;
@@ -529,7 +541,11 @@ static void wcn36xx_update_allowed_rates(struct ieee80211_sta *sta,
 
 	size = ARRAY_SIZE(sta_priv->supported_rates.dsss_rates);
 	rates_table = sta_priv->supported_rates.dsss_rates;
+<<<<<<< HEAD
 	if (band == NL80211_BAND_2GHZ) {
+=======
+	if (band == IEEE80211_BAND_2GHZ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		for (i = 0; i < size; i++) {
 			if (rates & 0x01) {
 				rates_table[i] = wcn_2ghz_rates[i].hw_value;
@@ -958,8 +974,13 @@ static int wcn36xx_init_ieee80211(struct wcn36xx *wcn)
 		BIT(NL80211_IFTYPE_ADHOC) |
 		BIT(NL80211_IFTYPE_MESH_POINT);
 
+<<<<<<< HEAD
 	wcn->hw->wiphy->bands[NL80211_BAND_2GHZ] = &wcn_band_2ghz;
 	wcn->hw->wiphy->bands[NL80211_BAND_5GHZ] = &wcn_band_5ghz;
+=======
+	wcn->hw->wiphy->bands[IEEE80211_BAND_2GHZ] = &wcn_band_2ghz;
+	wcn->hw->wiphy->bands[IEEE80211_BAND_5GHZ] = &wcn_band_5ghz;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	wcn->hw->wiphy->cipher_suites = cipher_suites;
 	wcn->hw->wiphy->n_cipher_suites = ARRAY_SIZE(cipher_suites);

@@ -285,6 +285,10 @@ static int mmc_devfreq_get_dev_status(struct device *dev,
 {
 	struct mmc_host *host = container_of(dev, struct mmc_host, class_dev);
 	struct mmc_devfeq_clk_scaling *clk_scaling;
+<<<<<<< HEAD
+=======
+	bool disable = false;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (!host) {
 		pr_err("bad host parameter\n");
@@ -312,7 +316,18 @@ static int mmc_devfreq_get_dev_status(struct device *dev,
 		}
 	}
 
+<<<<<<< HEAD
 	status->busy_time = clk_scaling->total_busy_time_us;
+=======
+	if (host->ops->check_temp &&
+			host->card->clk_scaling_highest > UHS_DDR50_MAX_DTR)
+		disable = host->ops->check_temp(host);
+	/* busy_time=0 for running at low freq*/
+	if (disable)
+		status->busy_time = 0;
+	else
+		status->busy_time = clk_scaling->total_busy_time_us;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	status->total_time = ktime_to_us(ktime_sub(ktime_get(),
 		clk_scaling->measure_interval_start));
 	clk_scaling->total_busy_time_us = 0;
@@ -478,7 +493,11 @@ int mmc_recovery_fallback_lower_speed(struct mmc_host *host)
 		mmc_host_clear_sdr104(host);
 		err = mmc_hw_reset(host);
 		host->card->sdr104_blocked = true;
+<<<<<<< HEAD
 	} else {
+=======
+	} else if (mmc_card_sd(host->card)) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		/* If sdr104_wa is not present, just return status */
 		err = host->bus_ops->alive(host);
 	}

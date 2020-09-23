@@ -92,7 +92,11 @@
 #define JZ_AIC_I2S_STATUS_BUSY BIT(2)
 
 #define JZ_AIC_CLK_DIV_MASK 0xf
+<<<<<<< HEAD
 #define I2SDIV_DV_SHIFT 0
+=======
+#define I2SDIV_DV_SHIFT 8
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #define I2SDIV_DV_MASK (0xf << I2SDIV_DV_SHIFT)
 #define I2SDIV_IDV_SHIFT 8
 #define I2SDIV_IDV_MASK (0xf << I2SDIV_IDV_SHIFT)

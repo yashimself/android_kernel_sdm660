@@ -119,6 +119,7 @@ ENDPROC(cpu_resume_after_mmu)
 	.text
 	.align
 
+<<<<<<< HEAD
 #ifdef CONFIG_MCPM
 	.arm
 THUMB(	.thumb			)
@@ -127,6 +128,8 @@ ARM_BE8(setend be)			@ ensure we are in BE mode
 	b	no_hyp
 #endif
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #ifdef CONFIG_MMU
 	.arm
 ENTRY(cpu_resume_arm)
@@ -142,7 +145,10 @@ ARM_BE8(setend be)			@ ensure we are in BE mode
 	bl	__hyp_stub_install_secondary
 #endif
 	safe_svcmode_maskall r1
+<<<<<<< HEAD
 no_hyp:
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	mov	r1, #0
 	ALT_SMP(mrc p15, 0, r0, c0, c0, 5)
 	ALT_UP_B(1f)
@@ -172,9 +178,12 @@ ENDPROC(cpu_resume)
 #ifdef CONFIG_MMU
 ENDPROC(cpu_resume_arm)
 #endif
+<<<<<<< HEAD
 #ifdef CONFIG_MCPM
 ENDPROC(cpu_resume_no_hyp)
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	.align 2
 _sleep_save_sp:

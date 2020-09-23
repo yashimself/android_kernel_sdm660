@@ -87,6 +87,7 @@ static void dw_dma_acpi_controller_register(struct dw_dma *dw)
 	dma_cap_set(DMA_SLAVE, info->dma_cap);
 	info->filter_fn = dw_dma_acpi_filter;
 
+<<<<<<< HEAD
 	ret = acpi_dma_controller_register(dev, acpi_dma_simple_xlate, info);
 	if (ret)
 		dev_err(dev, "could not register acpi_dma_controller\n");
@@ -101,6 +102,15 @@ static void dw_dma_acpi_controller_free(struct dw_dma *dw)
 #else /* !CONFIG_ACPI */
 static inline void dw_dma_acpi_controller_register(struct dw_dma *dw) {}
 static inline void dw_dma_acpi_controller_free(struct dw_dma *dw) {}
+=======
+	ret = devm_acpi_dma_controller_register(dev, acpi_dma_simple_xlate,
+						info);
+	if (ret)
+		dev_err(dev, "could not register acpi_dma_controller\n");
+}
+#else /* !CONFIG_ACPI */
+static inline void dw_dma_acpi_controller_register(struct dw_dma *dw) {}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #endif /* !CONFIG_ACPI */
 
 #ifdef CONFIG_OF
@@ -232,9 +242,12 @@ static int dw_remove(struct platform_device *pdev)
 {
 	struct dw_dma_chip *chip = platform_get_drvdata(pdev);
 
+<<<<<<< HEAD
 	if (ACPI_HANDLE(&pdev->dev))
 		dw_dma_acpi_controller_free(chip->dw);
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (pdev->dev.of_node)
 		of_dma_controller_free(pdev->dev.of_node);
 

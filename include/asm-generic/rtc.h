@@ -106,7 +106,11 @@ static inline unsigned int __get_rtc_time(struct rtc_time *time)
 	time->tm_year += real_year - 72;
 #endif
 
+<<<<<<< HEAD
 	if (century > 20)
+=======
+	if (century)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		time->tm_year += (century - 19) * 100;
 
 	/*

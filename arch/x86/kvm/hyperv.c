@@ -26,7 +26,10 @@
 #include "hyperv.h"
 
 #include <linux/kvm_host.h>
+<<<<<<< HEAD
 #include <linux/nospec.h>
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #include <trace/events/kvm.h>
 
 #include "trace.h"
@@ -54,12 +57,20 @@ static int kvm_hv_msr_get_crash_data(struct kvm_vcpu *vcpu,
 				     u32 index, u64 *pdata)
 {
 	struct kvm_hv *hv = &vcpu->kvm->arch.hyperv;
+<<<<<<< HEAD
 	size_t size = ARRAY_SIZE(hv->hv_crash_param);
 
 	if (WARN_ON_ONCE(index >= size))
 		return -EINVAL;
 
 	*pdata = hv->hv_crash_param[array_index_nospec(index, size)];
+=======
+
+	if (WARN_ON_ONCE(index >= ARRAY_SIZE(hv->hv_crash_param)))
+		return -EINVAL;
+
+	*pdata = hv->hv_crash_param[index];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return 0;
 }
 
@@ -98,12 +109,20 @@ static int kvm_hv_msr_set_crash_data(struct kvm_vcpu *vcpu,
 				     u32 index, u64 data)
 {
 	struct kvm_hv *hv = &vcpu->kvm->arch.hyperv;
+<<<<<<< HEAD
 	size_t size = ARRAY_SIZE(hv->hv_crash_param);
 
 	if (WARN_ON_ONCE(index >= size))
 		return -EINVAL;
 
 	hv->hv_crash_param[array_index_nospec(index, size)] = data;
+=======
+
+	if (WARN_ON_ONCE(index >= ARRAY_SIZE(hv->hv_crash_param)))
+		return -EINVAL;
+
+	hv->hv_crash_param[index] = data;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return 0;
 }
 

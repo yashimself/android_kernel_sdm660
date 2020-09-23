@@ -591,6 +591,10 @@ static void __sock_release(struct socket *sock, struct inode *inode)
 		if (inode)
 			inode_lock(inode);
 		sock->ops->release(sock);
+<<<<<<< HEAD
+=======
+		sock->sk = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (inode)
 			inode_unlock(inode);
 		sock->ops = NULL;
@@ -3215,7 +3219,10 @@ static int compat_sock_ioctl_trans(struct file *file, struct socket *sock,
 	case SIOCSARP:
 	case SIOCGARP:
 	case SIOCDARP:
+<<<<<<< HEAD
 	case SIOCOUTQNSD:
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	case SIOCATMARK:
 		return sock_do_ioctl(net, sock, cmd, arg);
 	}

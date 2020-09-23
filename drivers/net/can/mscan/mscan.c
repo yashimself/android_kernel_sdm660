@@ -392,12 +392,21 @@ static int mscan_rx_poll(struct napi_struct *napi, int quota)
 	struct net_device *dev = napi->dev;
 	struct mscan_regs __iomem *regs = priv->reg_base;
 	struct net_device_stats *stats = &dev->stats;
+<<<<<<< HEAD
 	int work_done = 0;
+=======
+	int npackets = 0;
+	int ret = 1;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct sk_buff *skb;
 	struct can_frame *frame;
 	u8 canrflg;
 
+<<<<<<< HEAD
 	while (work_done < quota) {
+=======
+	while (npackets < quota) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		canrflg = in_8(&regs->canrflg);
 		if (!(canrflg & (MSCAN_RXF | MSCAN_ERR_IF)))
 			break;
@@ -418,6 +427,7 @@ static int mscan_rx_poll(struct napi_struct *napi, int quota)
 
 		stats->rx_packets++;
 		stats->rx_bytes += frame->can_dlc;
+<<<<<<< HEAD
 		work_done++;
 		netif_receive_skb(skb);
 	}
@@ -430,6 +440,20 @@ static int mscan_rx_poll(struct napi_struct *napi, int quota)
 		}
 	}
 	return work_done;
+=======
+		npackets++;
+		netif_receive_skb(skb);
+	}
+
+	if (!(in_8(&regs->canrflg) & (MSCAN_RXF | MSCAN_ERR_IF))) {
+		napi_complete(&priv->napi);
+		clear_bit(F_RX_PROGRESS, &priv->flags);
+		if (priv->can.state < CAN_STATE_BUS_OFF)
+			out_8(&regs->canrier, priv->shadow_canrier);
+		ret = 0;
+	}
+	return ret;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static irqreturn_t mscan_isr(int irq, void *dev_id)

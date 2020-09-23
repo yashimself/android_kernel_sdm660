@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2018, 2020, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -1247,7 +1251,11 @@ int32_t qpnp_adc_scale_default(struct qpnp_vadc_chip *vadc,
 	} else {
 		qpnp_adc_scale_with_calib_param(adc_code, adc_properties,
 					chan_properties, &scale_voltage);
+<<<<<<< HEAD
 		if (!chan_properties->calib_type == CALIB_ABSOLUTE)
+=======
+		if (!(chan_properties->calib_type == CALIB_ABSOLUTE))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			scale_voltage *= 1000;
 	}
 

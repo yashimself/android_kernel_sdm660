@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2016-2017, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2016-2017, 2020 The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -62,6 +66,10 @@ struct msm_dig_priv {
 				 struct notifier_block *nblock,
 				 bool enable);
 	struct tx_mute_work tx_mute_dwork[NUM_DECIMATORS];
+<<<<<<< HEAD
+=======
+	unsigned long status_mask;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 struct dig_ctrl_platform_data {

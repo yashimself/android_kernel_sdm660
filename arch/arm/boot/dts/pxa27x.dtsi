@@ -27,7 +27,11 @@
 			clocks = <&clks CLK_NONE>;
 		};
 
+<<<<<<< HEAD
 		usb0: usb@4c000000 {
+=======
+		pxa27x_ohci: usb@4c000000 {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			compatible = "marvell,pxa-ohci";
 			reg = <0x4c000000 0x10000>;
 			interrupts = <3>;

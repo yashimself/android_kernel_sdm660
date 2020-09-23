@@ -378,9 +378,15 @@ static inline int hb_waiters_pending(struct futex_hash_bucket *hb)
  */
 static struct futex_hash_bucket *hash_futex(union futex_key *key)
 {
+<<<<<<< HEAD
 	u32 hash = jhash2((u32 *)key, offsetof(typeof(*key), both.offset) / 4,
 			  key->both.offset);
 
+=======
+	u32 hash = jhash2((u32*)&key->both.word,
+			  (sizeof(key->both.word)+sizeof(key->both.ptr))/4,
+			  key->both.offset);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return &futex_queues[hash & (futex_hashsize - 1)];
 }
 
@@ -407,7 +413,11 @@ static void get_futex_key_refs(union futex_key *key)
 
 	switch (key->both.offset & (FUT_OFF_INODE|FUT_OFF_MMSHARED)) {
 	case FUT_OFF_INODE:
+<<<<<<< HEAD
 		smp_mb();		/* explicit smp_mb(); (B) */
+=======
+		ihold(key->shared.inode); /* implies MB (B) */
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case FUT_OFF_MMSHARED:
 		futex_get_mm(key); /* implies MB (B) */
@@ -438,6 +448,10 @@ static void drop_futex_key_refs(union futex_key *key)
 
 	switch (key->both.offset & (FUT_OFF_INODE|FUT_OFF_MMSHARED)) {
 	case FUT_OFF_INODE:
+<<<<<<< HEAD
+=======
+		iput(key->shared.inode);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case FUT_OFF_MMSHARED:
 		mmdrop(key->private.mm);
@@ -445,6 +459,7 @@ static void drop_futex_key_refs(union futex_key *key)
 	}
 }
 
+<<<<<<< HEAD
 /*
  * Generate a machine wide unique identifier for this inode.
  *
@@ -485,6 +500,8 @@ static u64 get_inode_sequence_number(struct inode *inode)
 	}
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /**
  * get_futex_key() - Get parameters which are the keys for a futex
  * @uaddr:	virtual address of the futex
@@ -497,6 +514,7 @@ static u64 get_inode_sequence_number(struct inode *inode)
  *
  * The key words are stored in *key on success.
  *
+<<<<<<< HEAD
  * For shared mappings (when @fshared), the key is:
  *   ( inode->i_sequence, page->index, offset_within_page )
  * [ also see get_inode_sequence_number() ]
@@ -506,6 +524,11 @@ static u64 get_inode_sequence_number(struct inode *inode)
  *
  * This allows (cross process, where applicable) identification of the futex
  * without keeping the page pinned for the duration of the FUTEX_WAIT.
+=======
+ * For shared mappings, it's (page->index, file_inode(vma->vm_file),
+ * offset_within_page).  For private mappings, it's (uaddr, current->mm).
+ * We can usually work out the index without swapping in the page.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * lock_page() might sleep, the caller should not hold a spinlock.
  */
@@ -673,6 +696,11 @@ again:
 		key->private.mm = mm;
 		key->private.address = address;
 
+<<<<<<< HEAD
+=======
+		get_futex_key_refs(key); /* implies smp_mb(); (B) */
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	} else {
 		struct inode *inode;
 
@@ -704,14 +732,50 @@ again:
 			goto again;
 		}
 
+<<<<<<< HEAD
 		key->both.offset |= FUT_OFF_INODE; /* inode-based key */
 		key->shared.i_seq = get_inode_sequence_number(inode);
+=======
+		/*
+		 * Take a reference unless it is about to be freed. Previously
+		 * this reference was taken by ihold under the page lock
+		 * pinning the inode in place so i_lock was unnecessary. The
+		 * only way for this check to fail is if the inode was
+		 * truncated in parallel which is almost certainly an
+		 * application bug. In such a case, just retry.
+		 *
+		 * We are not calling into get_futex_key_refs() in file-backed
+		 * cases, therefore a successful atomic_inc return below will
+		 * guarantee that get_futex_key() will still imply smp_mb(); (B).
+		 */
+		if (!atomic_inc_not_zero(&inode->i_count)) {
+			rcu_read_unlock();
+			put_page(page_head);
+
+			goto again;
+		}
+
+		/* Should be impossible but lets be paranoid for now */
+		if (WARN_ON_ONCE(inode->i_mapping != mapping)) {
+			err = -EFAULT;
+			rcu_read_unlock();
+			iput(inode);
+
+			goto out;
+		}
+
+		key->both.offset |= FUT_OFF_INODE; /* inode-based key */
+		key->shared.inode = inode;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		key->shared.pgoff = basepage_index(page);
 		rcu_read_unlock();
 	}
 
+<<<<<<< HEAD
 	get_futex_key_refs(key); /* implies smp_mb(); (B) */
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 out:
 	put_page(page_head);
 	return err;
@@ -1479,6 +1543,7 @@ static int futex_atomic_op_inuser(unsigned int encoded_op, u32 __user *uaddr)
 	int oldval, ret;
 
 	if (encoded_op & (FUTEX_OP_OPARG_SHIFT << 28)) {
+<<<<<<< HEAD
 		if (oparg < 0 || oparg > 31) {
 			char comm[sizeof(current->comm)];
 			/*
@@ -1489,6 +1554,10 @@ static int futex_atomic_op_inuser(unsigned int encoded_op, u32 __user *uaddr)
 					get_task_comm(comm, current), oparg);
 			oparg &= 31;
 		}
+=======
+		if (oparg < 0 || oparg > 31)
+			return -EINVAL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		oparg = 1 << oparg;
 	}
 

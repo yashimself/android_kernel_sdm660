@@ -60,14 +60,22 @@ int orinoco_wiphy_register(struct wiphy *wiphy)
 		if (priv->channel_mask & (1 << i)) {
 			priv->channels[i].center_freq =
 				ieee80211_channel_to_frequency(i + 1,
+<<<<<<< HEAD
 							   NL80211_BAND_2GHZ);
+=======
+							   IEEE80211_BAND_2GHZ);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			channels++;
 		}
 	}
 	priv->band.channels = priv->channels;
 	priv->band.n_channels = channels;
 
+<<<<<<< HEAD
 	wiphy->bands[NL80211_BAND_2GHZ] = &priv->band;
+=======
+	wiphy->bands[IEEE80211_BAND_2GHZ] = &priv->band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	wiphy->signal_type = CFG80211_SIGNAL_TYPE_MBM;
 
 	i = 0;
@@ -175,7 +183,11 @@ static int orinoco_set_monitor_channel(struct wiphy *wiphy,
 	if (cfg80211_get_chandef_type(chandef) != NL80211_CHAN_NO_HT)
 		return -EINVAL;
 
+<<<<<<< HEAD
 	if (chandef->chan->band != NL80211_BAND_2GHZ)
+=======
+	if (chandef->chan->band != IEEE80211_BAND_2GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return -EINVAL;
 
 	channel = ieee80211_frequency_to_channel(chandef->chan->center_freq);

@@ -217,9 +217,12 @@ void mlx4_unregister_device(struct mlx4_dev *dev)
 	struct mlx4_priv *priv = mlx4_priv(dev);
 	struct mlx4_interface *intf;
 
+<<<<<<< HEAD
 	if (!(dev->persist->interface_state & MLX4_INTERFACE_STATE_UP))
 		return;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	mlx4_stop_catas_poll(dev);
 	if (dev->persist->interface_state & MLX4_INTERFACE_STATE_DELETION &&
 	    mlx4_is_slave(dev)) {

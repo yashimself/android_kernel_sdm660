@@ -1107,7 +1107,11 @@ static inline u8 bnx2x_get_path_func_num(struct bnx2x *bp)
 		for (i = 0; i < E1H_FUNC_MAX / 2; i++) {
 			u32 func_config =
 				MF_CFG_RD(bp,
+<<<<<<< HEAD
 					  func_mf_config[BP_PATH(bp) + 2 * i].
+=======
+					  func_mf_config[BP_PORT(bp) + 2 * i].
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 					  config);
 			func_num +=
 				((func_config & FUNC_MF_CFG_FUNC_HIDE) ? 0 : 1);

@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2013-2018, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2013-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -484,6 +488,7 @@ static int msm_ssphy_qmp_set_suspend(struct usb_phy *uphy, int suspend)
 		/* Make sure above write completed with PHY */
 		wmb();
 
+<<<<<<< HEAD
 		clk_disable_unprepare(phy->cfg_ahb_clk);
 		clk_disable_unprepare(phy->aux_clk);
 		clk_disable_unprepare(phy->pipe_clk);
@@ -492,6 +497,18 @@ static int msm_ssphy_qmp_set_suspend(struct usb_phy *uphy, int suspend)
 		if (phy->ref_clk_src)
 			clk_disable_unprepare(phy->ref_clk_src);
 		phy->clk_enabled = false;
+=======
+		if (phy->clk_enabled) {
+			clk_disable_unprepare(phy->cfg_ahb_clk);
+			clk_disable_unprepare(phy->aux_clk);
+			clk_disable_unprepare(phy->pipe_clk);
+			if (phy->ref_clk)
+				clk_disable_unprepare(phy->ref_clk);
+			if (phy->ref_clk_src)
+				clk_disable_unprepare(phy->ref_clk_src);
+			phy->clk_enabled = false;
+		}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		phy->in_suspend = true;
 		msm_ssphy_power_enable(phy, 0);
 		dev_dbg(uphy->dev, "QMP PHY is suspend\n");

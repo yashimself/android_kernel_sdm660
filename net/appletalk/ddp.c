@@ -1911,6 +1911,12 @@ static unsigned char ddp_snap_id[] = { 0x08, 0x00, 0x07, 0x80, 0x9B };
 EXPORT_SYMBOL(atrtr_get_dev);
 EXPORT_SYMBOL(atalk_find_dev_addr);
 
+<<<<<<< HEAD
+=======
+static const char atalk_err_snap[] __initconst =
+	KERN_CRIT "Unable to register DDP with SNAP.\n";
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /* Called by proto.c on kernel start up */
 static int __init atalk_init(void)
 {
@@ -1925,23 +1931,34 @@ static int __init atalk_init(void)
 		goto out_proto;
 
 	ddp_dl = register_snap_client(ddp_snap_id, atalk_rcv);
+<<<<<<< HEAD
 	if (!ddp_dl) {
 		pr_crit("Unable to register DDP with SNAP.\n");
 		rc = -ENOMEM;
 		goto out_sock;
 	}
+=======
+	if (!ddp_dl)
+		printk(atalk_err_snap);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	dev_add_pack(&ltalk_packet_type);
 	dev_add_pack(&ppptalk_packet_type);
 
 	rc = register_netdevice_notifier(&ddp_notifier);
 	if (rc)
+<<<<<<< HEAD
 		goto out_snap;
 
 	rc = aarp_proto_init();
 	if (rc)
 		goto out_dev;
 
+=======
+		goto out_sock;
+
+	aarp_proto_init();
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	rc = atalk_proc_init();
 	if (rc)
 		goto out_aarp;
@@ -1955,6 +1972,7 @@ out_proc:
 	atalk_proc_exit();
 out_aarp:
 	aarp_cleanup_module();
+<<<<<<< HEAD
 out_dev:
 	unregister_netdevice_notifier(&ddp_notifier);
 out_snap:
@@ -1962,6 +1980,13 @@ out_snap:
 	dev_remove_pack(&ltalk_packet_type);
 	unregister_snap_client(ddp_dl);
 out_sock:
+=======
+	unregister_netdevice_notifier(&ddp_notifier);
+out_sock:
+	dev_remove_pack(&ppptalk_packet_type);
+	dev_remove_pack(&ltalk_packet_type);
+	unregister_snap_client(ddp_dl);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	sock_unregister(PF_APPLETALK);
 out_proto:
 	proto_unregister(&ddp_proto);

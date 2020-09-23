@@ -400,7 +400,10 @@ static int sfb_enqueue(struct sk_buff *skb, struct Qdisc *sch)
 enqueue:
 	ret = qdisc_enqueue(skb, child);
 	if (likely(ret == NET_XMIT_SUCCESS)) {
+<<<<<<< HEAD
 		qdisc_qstats_backlog_inc(sch, skb);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		sch->q.qlen++;
 		increment_qlen(skb, q);
 	} else if (net_xmit_drop_count(ret)) {
@@ -429,7 +432,10 @@ static struct sk_buff *sfb_dequeue(struct Qdisc *sch)
 
 	if (skb) {
 		qdisc_bstats_update(sch, skb);
+<<<<<<< HEAD
 		qdisc_qstats_backlog_dec(sch, skb);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		sch->q.qlen--;
 		decrement_qlen(skb, q);
 	}
@@ -452,7 +458,10 @@ static void sfb_reset(struct Qdisc *sch)
 	struct sfb_sched_data *q = qdisc_priv(sch);
 
 	qdisc_reset(q->qdisc);
+<<<<<<< HEAD
 	sch->qstats.backlog = 0;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	sch->q.qlen = 0;
 	q->slot = 0;
 	q->double_buffering = false;

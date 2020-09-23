@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2014-2016, 2018 The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2014-2016, 2018, 2020, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -53,7 +57,11 @@ static void __iomem *virt_base_gpu;
 #define dsi1phypll_mm_source_val		2
 #define ext_extpclk_clk_src_mm_source_val	1
 
+<<<<<<< HEAD
 #define FIXDIV(div) (div ? (2 * (div) - 1) : (0))
+=======
+#define FIXDIV(div) ((int)div ? (2 * (div) - 1) : (0))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #define F_MM(f, s, div, m, n) \
 	{ \
@@ -3648,6 +3656,24 @@ void __iomem *gpu_base;
 u64 efuse;
 int gpu_speed_bin;
 
+<<<<<<< HEAD
+=======
+static int mmss_pll_suspend(struct device *dev)
+{
+	return 0;
+}
+
+static int mmss_pll_resume(struct device *dev)
+{
+#ifdef CONFIG_HIBERNATION
+	mmpll9.c.ops->set_rate(&mmpll9.c, 1248000000);
+	mmpll8.c.ops->set_rate(&mmpll8.c, 510000);
+	mmpll2.c.ops->set_rate(&mmpll2.c, 510000);
+#endif
+	return 0;
+}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 int msm_mmsscc_8996_probe(struct platform_device *pdev)
 {
 	struct resource *res;
@@ -3810,11 +3836,25 @@ static struct of_device_id msm_clock_mmss_match_table[] = {
 	{},
 };
 
+<<<<<<< HEAD
+=======
+static const struct dev_pm_ops msm_clock_mmss_pm_ops = {
+	.freeze_late = mmss_pll_suspend,
+	.thaw_early = mmss_pll_resume,
+	.poweroff_late = mmss_pll_suspend,
+	.restore_early = mmss_pll_resume,
+};
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static struct platform_driver msm_clock_mmss_driver = {
 	.probe = msm_mmsscc_8996_probe,
 	.driver = {
 		.name = "qcom,mmsscc-8996",
 		.of_match_table = msm_clock_mmss_match_table,
+<<<<<<< HEAD
+=======
+		.pm = &msm_clock_mmss_pm_ops,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		.owner = THIS_MODULE,
 	},
 };

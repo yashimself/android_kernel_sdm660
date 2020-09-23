@@ -35,6 +35,7 @@
 #define stub_execveat sys_execveat
 #define stub_rt_sigreturn sys_rt_sigreturn
 
+<<<<<<< HEAD
 #define __SYSCALL_COMMON(nr, sym, compat) __SYSCALL_64(nr, sym, compat)
 #define __SYSCALL_X32(nr, sym, compat) /* Not supported */
 
@@ -43,6 +44,13 @@
 
 #undef __SYSCALL_64
 #define __SYSCALL_64(nr, sym, compat) [ nr ] = sym,
+=======
+#define __SYSCALL_64(nr, sym, qual) extern asmlinkage long sym(unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, unsigned long) ;
+#include <asm/syscalls_64.h>
+
+#undef __SYSCALL_64
+#define __SYSCALL_64(nr, sym, qual) [ nr ] = sym,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 extern asmlinkage long sys_ni_syscall(unsigned long, unsigned long, unsigned long, unsigned long, unsigned long, unsigned long);
 

@@ -505,7 +505,11 @@ static int __init map_entry_trampoline(void)
 {
 	extern char __entry_tramp_text_start[];
 
+<<<<<<< HEAD
 	pgprot_t prot = PAGE_KERNEL_EXEC;
+=======
+	pgprot_t prot = PAGE_KERNEL_ROX;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	phys_addr_t pa_start = __pa_symbol(__entry_tramp_text_start);
 
 	/* The trampoline is always mapped and can therefore be global */

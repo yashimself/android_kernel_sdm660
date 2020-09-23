@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2008-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2008-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -145,10 +149,17 @@ the appropriate macros. */
 /* This needs to be modified manually now, when we add
  a new RANGE of SSIDs to the msg_mask_tbl */
 #define MSG_MASK_TBL_CNT		26
+<<<<<<< HEAD
 #define APPS_EVENT_LAST_ID		0xC85
 
 #define MSG_SSID_0			0
 #define MSG_SSID_0_LAST			129
+=======
+#define APPS_EVENT_LAST_ID		0xCB7
+
+#define MSG_SSID_0			0
+#define MSG_SSID_0_LAST			131
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #define MSG_SSID_1			500
 #define MSG_SSID_1_LAST			506
 #define MSG_SSID_2			1000
@@ -166,7 +177,11 @@ the appropriate macros. */
 #define MSG_SSID_8			5000
 #define MSG_SSID_8_LAST			5036
 #define MSG_SSID_9			5500
+<<<<<<< HEAD
 #define MSG_SSID_9_LAST			5516
+=======
+#define MSG_SSID_9_LAST			5517
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #define MSG_SSID_10			6000
 #define MSG_SSID_10_LAST		6081
 #define MSG_SSID_11			6500
@@ -180,7 +195,11 @@ the appropriate macros. */
 #define MSG_SSID_15			8000
 #define MSG_SSID_15_LAST		8000
 #define MSG_SSID_16			8500
+<<<<<<< HEAD
 #define MSG_SSID_16_LAST		8529
+=======
+#define MSG_SSID_16_LAST		8532
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #define MSG_SSID_17			9000
 #define MSG_SSID_17_LAST		9008
 #define MSG_SSID_18			9500
@@ -341,12 +360,23 @@ static const uint32_t msg_bld_masks_0[] = {
 	MSG_LVL_MED,
 	MSG_LVL_HIGH,
 	MSG_LVL_LOW,
+<<<<<<< HEAD
 	MSG_LVL_LOW|MSG_LVL_MED|MSG_LVL_HIGH|MSG_LVL_ERROR|MSG_LVL_FATAL,
+=======
+	MSG_LVL_LOW | MSG_LVL_MED | MSG_LVL_HIGH | MSG_LVL_ERROR |
+		MSG_LVL_FATAL,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	MSG_LVL_HIGH,
 	MSG_LVL_LOW,
 	MSG_LVL_MED,
 	MSG_LVL_MED,
+<<<<<<< HEAD
 	MSG_LVL_HIGH
+=======
+	MSG_LVL_HIGH,
+	MSG_LVL_HIGH,
+	MSG_LVL_LOW | MSG_LVL_MED | MSG_LVL_HIGH | MSG_LVL_ERROR
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 static const uint32_t msg_bld_masks_1[] = {
@@ -566,6 +596,7 @@ static const uint32_t msg_bld_masks_8[] = {
 };
 
 static const uint32_t msg_bld_masks_9[] = {
+<<<<<<< HEAD
 	MSG_LVL_MED|MSG_MASK_5,
 	MSG_LVL_MED|MSG_MASK_5,
 	MSG_LVL_MED|MSG_MASK_5,
@@ -583,6 +614,26 @@ static const uint32_t msg_bld_masks_9[] = {
 	MSG_LVL_MED|MSG_MASK_5,
 	MSG_LVL_MED|MSG_MASK_5,
 	MSG_LVL_MED|MSG_MASK_5
+=======
+	MSG_LVL_MED | MSG_MASK_5,
+	MSG_LVL_MED | MSG_MASK_5,
+	MSG_LVL_MED | MSG_MASK_5,
+	MSG_LVL_MED | MSG_MASK_5,
+	MSG_LVL_MED | MSG_MASK_5,
+	MSG_LVL_MED | MSG_MASK_5,
+	MSG_LVL_MED | MSG_MASK_5,
+	MSG_LVL_MED | MSG_MASK_5,
+	MSG_LVL_MED | MSG_MASK_5,
+	MSG_LVL_MED | MSG_MASK_5,
+	MSG_LVL_MED | MSG_MASK_5,
+	MSG_LVL_MED | MSG_MASK_5,
+	MSG_LVL_MED | MSG_MASK_5,
+	MSG_LVL_MED | MSG_MASK_5,
+	MSG_LVL_MED | MSG_MASK_5,
+	MSG_LVL_MED | MSG_MASK_5,
+	MSG_LVL_MED | MSG_MASK_5,
+	MSG_LVL_LOW
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 static const uint32_t msg_bld_masks_10[] =  {
@@ -757,11 +808,27 @@ static const uint32_t msg_bld_masks_16[] = {
 	MSG_LVL_LOW,
 	MSG_LVL_LOW,
 	MSG_LVL_LOW,
+<<<<<<< HEAD
 	MSG_LVL_LOW|MSG_LVL_MED|MSG_LVL_HIGH|MSG_LVL_ERROR|MSG_LVL_FATAL,
 	MSG_LVL_LOW|MSG_LVL_MED|MSG_LVL_HIGH|MSG_LVL_ERROR|MSG_LVL_FATAL,
 	MSG_LVL_LOW|MSG_LVL_MED|MSG_LVL_HIGH|MSG_LVL_ERROR|MSG_LVL_FATAL,
 	MSG_LVL_LOW|MSG_LVL_MED|MSG_LVL_HIGH|MSG_LVL_ERROR|MSG_LVL_FATAL,
 	MSG_LVL_LOW|MSG_LVL_MED|MSG_LVL_HIGH|MSG_LVL_ERROR|MSG_LVL_FATAL
+=======
+	MSG_LVL_LOW | MSG_LVL_MED | MSG_LVL_HIGH | MSG_LVL_ERROR |
+		MSG_LVL_FATAL,
+	MSG_LVL_LOW | MSG_LVL_MED | MSG_LVL_HIGH | MSG_LVL_ERROR |
+		MSG_LVL_FATAL,
+	MSG_LVL_LOW | MSG_LVL_MED | MSG_LVL_HIGH | MSG_LVL_ERROR |
+		MSG_LVL_FATAL,
+	MSG_LVL_LOW | MSG_LVL_MED | MSG_LVL_HIGH | MSG_LVL_ERROR |
+		MSG_LVL_FATAL,
+	MSG_LVL_LOW | MSG_LVL_MED | MSG_LVL_HIGH | MSG_LVL_ERROR |
+		MSG_LVL_FATAL,
+	MSG_LVL_MED,
+	MSG_LVL_MED,
+	MSG_LVL_LOW
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 static const uint32_t msg_bld_masks_17[] =  {
@@ -901,7 +968,11 @@ static const uint32_t msg_bld_masks_25[] = {
 /* LOG CODES */
 static const uint32_t log_code_last_tbl[] = {
 	0x0,	/* EQUIP ID 0 */
+<<<<<<< HEAD
 	0x1C7B,	/* EQUIP ID 1 */
+=======
+	0x1CC0,	/* EQUIP ID 1 */
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	0x0,	/* EQUIP ID 2 */
 	0x0,	/* EQUIP ID 3 */
 	0x4910,	/* EQUIP ID 4 */

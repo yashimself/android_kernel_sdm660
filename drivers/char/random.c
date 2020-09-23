@@ -1824,6 +1824,12 @@ unsigned int get_random_int(void)
 	__u32 *hash;
 	unsigned int ret;
 
+<<<<<<< HEAD
+=======
+	if (arch_get_random_int(&ret))
+		return ret;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	hash = get_cpu_var(get_random_int_hash);
 
 	hash[0] += current->pid + jiffies + random_get_entropy();
@@ -1843,6 +1849,12 @@ unsigned long get_random_long(void)
 	__u32 *hash;
 	unsigned long ret;
 
+<<<<<<< HEAD
+=======
+	if (arch_get_random_long(&ret))
+		return ret;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	hash = get_cpu_var(get_random_int_hash);
 
 	hash[0] += current->pid + jiffies + random_get_entropy();

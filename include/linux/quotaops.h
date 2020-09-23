@@ -54,6 +54,7 @@ static inline struct dquot *dqgrab(struct dquot *dquot)
 	atomic_inc(&dquot->dq_count);
 	return dquot;
 }
+<<<<<<< HEAD
 
 static inline bool dquot_is_busy(struct dquot *dquot)
 {
@@ -64,6 +65,8 @@ static inline bool dquot_is_busy(struct dquot *dquot)
 	return false;
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 void dqput(struct dquot *dquot);
 int dquot_scan_active(struct super_block *sb,
 		      int (*fn)(struct dquot *dquot, unsigned long priv),

@@ -178,7 +178,12 @@ static int jfs_create(struct inode *dip, struct dentry *dentry, umode_t mode,
 		unlock_new_inode(ip);
 		iput(ip);
 	} else {
+<<<<<<< HEAD
 		d_instantiate_new(dentry, ip);
+=======
+		unlock_new_inode(ip);
+		d_instantiate(dentry, ip);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
       out2:
@@ -312,7 +317,12 @@ static int jfs_mkdir(struct inode *dip, struct dentry *dentry, umode_t mode)
 		unlock_new_inode(ip);
 		iput(ip);
 	} else {
+<<<<<<< HEAD
 		d_instantiate_new(dentry, ip);
+=======
+		unlock_new_inode(ip);
+		d_instantiate(dentry, ip);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
       out2:
@@ -1056,7 +1066,12 @@ static int jfs_symlink(struct inode *dip, struct dentry *dentry,
 		unlock_new_inode(ip);
 		iput(ip);
 	} else {
+<<<<<<< HEAD
 		d_instantiate_new(dentry, ip);
+=======
+		unlock_new_inode(ip);
+		d_instantiate(dentry, ip);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
       out2:
@@ -1440,7 +1455,12 @@ static int jfs_mknod(struct inode *dir, struct dentry *dentry,
 		unlock_new_inode(ip);
 		iput(ip);
 	} else {
+<<<<<<< HEAD
 		d_instantiate_new(dentry, ip);
+=======
+		unlock_new_inode(ip);
+		d_instantiate(dentry, ip);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
       out1:

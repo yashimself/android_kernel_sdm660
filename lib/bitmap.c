@@ -12,7 +12,10 @@
 #include <linux/bitmap.h>
 #include <linux/bitops.h>
 #include <linux/bug.h>
+<<<<<<< HEAD
 #include <linux/slab.h>
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #include <asm/page.h>
 #include <asm/uaccess.h>
@@ -1082,6 +1085,7 @@ void bitmap_copy_le(unsigned long *dst, const unsigned long *src, unsigned int n
 }
 EXPORT_SYMBOL(bitmap_copy_le);
 #endif
+<<<<<<< HEAD
 
 unsigned long *bitmap_alloc(unsigned int nbits, gfp_t flags)
 {
@@ -1101,3 +1105,5 @@ void bitmap_free(const unsigned long *bitmap)
 	kfree(bitmap);
 }
 EXPORT_SYMBOL(bitmap_free);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

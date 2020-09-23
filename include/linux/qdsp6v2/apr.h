@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2010-2017, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2010-2017, 2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -196,4 +200,23 @@ int apr_set_q6_state(enum apr_subsys_state state);
 void apr_set_subsys_state(void);
 const char *apr_get_lpass_subsys_name(void);
 uint16_t apr_get_reset_domain(uint16_t proc);
+<<<<<<< HEAD
+=======
+#ifdef CONFIG_MSM_QDSP6_APRV2_VM
+static inline int apr_start_rx_rt(void *handle)
+{
+	return 0;
+}
+
+static inline int apr_end_rx_rt(void *handle)
+{
+	return 0;
+}
+#else
+int apr_start_rx_rt(void *handle);
+int apr_end_rx_rt(void *handle);
+#endif
+int apr_dummy_init(void);
+void apr_dummy_exit(void);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #endif

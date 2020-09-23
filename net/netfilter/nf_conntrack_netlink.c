@@ -3390,9 +3390,12 @@ static void __net_exit ctnetlink_net_exit_batch(struct list_head *net_exit_list)
 
 	list_for_each_entry(net, net_exit_list, exit_list)
 		ctnetlink_net_exit(net);
+<<<<<<< HEAD
 
 	/* wait for other cpus until they are done with ctnl_notifiers */
 	synchronize_rcu();
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static struct pernet_operations ctnetlink_net_ops = {

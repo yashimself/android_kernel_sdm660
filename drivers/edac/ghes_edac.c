@@ -189,7 +189,10 @@ void ghes_edac_report_mem_error(struct ghes *ghes, int sev,
 	/* Cleans the error report buffer */
 	memset(e, 0, sizeof (*e));
 	e->error_count = 1;
+<<<<<<< HEAD
 	e->grain = 1;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	strcpy(e->label, "unknown label");
 	e->msg = pvt->msg;
 	e->other_detail = pvt->other_detail;
@@ -285,7 +288,11 @@ void ghes_edac_report_mem_error(struct ghes *ghes, int sev,
 
 	/* Error grain */
 	if (mem_err->validation_bits & CPER_MEM_VALID_PA_MASK)
+<<<<<<< HEAD
 		e->grain = ~mem_err->physical_addr_mask + 1;
+=======
+		e->grain = ~(mem_err->physical_addr_mask & ~PAGE_MASK);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* Memory error location, mapped on e->location */
 	p = e->location;
@@ -392,6 +399,7 @@ void ghes_edac_report_mem_error(struct ghes *ghes, int sev,
 	if (p > pvt->other_detail)
 		*(p - 1) = '\0';
 
+<<<<<<< HEAD
 	/* Sanity-check driver-supplied grain value. */
 	if (WARN_ON_ONCE(!e->grain))
 		e->grain = 1;
@@ -399,6 +407,10 @@ void ghes_edac_report_mem_error(struct ghes *ghes, int sev,
 	grain_bits = fls_long(e->grain - 1);
 
 	/* Generate the trace event */
+=======
+	/* Generate the trace event */
+	grain_bits = fls_long(e->grain);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	snprintf(pvt->detail_location, sizeof(pvt->detail_location),
 		 "APEI location: %s %s", e->location, e->other_detail);
 	trace_mc_event(type, e->msg, e->label, e->error_count,

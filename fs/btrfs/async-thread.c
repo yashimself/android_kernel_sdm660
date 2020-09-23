@@ -389,6 +389,7 @@ void btrfs_set_work_high_priority(struct btrfs_work *work)
 {
 	set_bit(WORK_HIGH_PRIO_BIT, &work->flags);
 }
+<<<<<<< HEAD
 
 void btrfs_flush_workqueue(struct btrfs_workqueue *wq)
 {
@@ -397,3 +398,5 @@ void btrfs_flush_workqueue(struct btrfs_workqueue *wq)
 
 	flush_workqueue(wq->normal->normal_wq);
 }
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

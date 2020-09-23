@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2015-2017, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2015-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -37,5 +41,12 @@ int cnss_wlfw_athdiag_write_send_sync(struct cnss_plat_data *plat_priv,
 				      u32 data_len, u8 *data);
 int cnss_wlfw_ini_send_sync(struct cnss_plat_data *plat_priv,
 			    u8 fw_log_mode);
+<<<<<<< HEAD
 
+=======
+int cnss_wlfw_cal_update_req_send_sync(struct cnss_plat_data *plat_priv,
+				       void *data);
+int cnss_wlfw_cal_download_req_send_sync(struct cnss_plat_data *plat_priv,
+					 void *data);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #endif /* _CNSS_QMI_H */

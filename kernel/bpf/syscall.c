@@ -152,7 +152,11 @@ static int map_create(union bpf_attr *attr)
 
 	err = bpf_map_charge_memlock(map);
 	if (err)
+<<<<<<< HEAD
 		goto free_map_nouncharge;
+=======
+		goto free_map;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	err = bpf_map_new_fd(map);
 	if (err < 0)
@@ -162,8 +166,11 @@ static int map_create(union bpf_attr *attr)
 	return err;
 
 free_map:
+<<<<<<< HEAD
 	bpf_map_uncharge_memlock(map);
 free_map_nouncharge:
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	map->ops->map_free(map);
 	return err;
 }
@@ -669,7 +676,11 @@ static int bpf_obj_get(const union bpf_attr *attr)
 
 SYSCALL_DEFINE3(bpf, int, cmd, union bpf_attr __user *, uattr, unsigned int, size)
 {
+<<<<<<< HEAD
 	union bpf_attr attr;
+=======
+	union bpf_attr attr = {};
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int err;
 
 	if (sysctl_unprivileged_bpf_disabled && !capable(CAP_SYS_ADMIN))
@@ -705,7 +716,10 @@ SYSCALL_DEFINE3(bpf, int, cmd, union bpf_attr __user *, uattr, unsigned int, siz
 	}
 
 	/* copy attributes from user space, may be less than sizeof(bpf_attr) */
+<<<<<<< HEAD
 	memset(&attr, 0, sizeof(attr));
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (copy_from_user(&attr, uattr, size) != 0)
 		return -EFAULT;
 

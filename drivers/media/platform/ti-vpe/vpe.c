@@ -330,25 +330,36 @@ enum {
 };
 
 /* find our format description corresponding to the passed v4l2_format */
+<<<<<<< HEAD
 static struct vpe_fmt *__find_format(u32 fourcc)
+=======
+static struct vpe_fmt *find_format(struct v4l2_format *f)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	struct vpe_fmt *fmt;
 	unsigned int k;
 
 	for (k = 0; k < ARRAY_SIZE(vpe_formats); k++) {
 		fmt = &vpe_formats[k];
+<<<<<<< HEAD
 		if (fmt->fourcc == fourcc)
+=======
+		if (fmt->fourcc == f->fmt.pix.pixelformat)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			return fmt;
 	}
 
 	return NULL;
 }
 
+<<<<<<< HEAD
 static struct vpe_fmt *find_format(struct v4l2_format *f)
 {
 	return __find_format(f->fmt.pix.pixelformat);
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /*
  * there is one vpe_dev structure in the driver, it is shared by
  * all instances.
@@ -1299,7 +1310,10 @@ static irqreturn_t vpe_irq(int irq_vpe, void *data)
 		d_vb->timecode = s_vb->timecode;
 
 	d_vb->sequence = ctx->sequence;
+<<<<<<< HEAD
 	s_vb->sequence = ctx->sequence;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	d_q_data = &ctx->q_data[Q_DATA_DST];
 	if (d_q_data->flags & Q_DATA_INTERLACED) {
@@ -1440,9 +1454,15 @@ static int __vpe_try_fmt(struct vpe_ctx *ctx, struct v4l2_format *f,
 	int i, depth, depth_bytes;
 
 	if (!fmt || !(fmt->types & type)) {
+<<<<<<< HEAD
 		vpe_dbg(ctx->dev, "Fourcc format (0x%08x) invalid.\n",
 			pix->pixelformat);
 		fmt = __find_format(V4L2_PIX_FMT_YUYV);
+=======
+		vpe_err(ctx->dev, "Fourcc format (0x%08x) invalid.\n",
+			pix->pixelformat);
+		return -EINVAL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	if (pix->field != V4L2_FIELD_NONE && pix->field != V4L2_FIELD_ALTERNATE)
@@ -2000,7 +2020,11 @@ static int vpe_open(struct file *file)
 	v4l2_ctrl_handler_setup(hdl);
 
 	s_q_data = &ctx->q_data[Q_DATA_SRC];
+<<<<<<< HEAD
 	s_q_data->fmt = __find_format(V4L2_PIX_FMT_YUYV);
+=======
+	s_q_data->fmt = &vpe_formats[2];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	s_q_data->width = 1920;
 	s_q_data->height = 1080;
 	s_q_data->bytesperline[VPE_LUMA] = (s_q_data->width *

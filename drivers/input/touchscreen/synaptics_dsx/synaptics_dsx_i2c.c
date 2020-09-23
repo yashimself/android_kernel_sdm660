@@ -511,7 +511,10 @@ static struct i2c_driver synaptics_rmi4_i2c_driver = {
 	.id_table = synaptics_rmi4_id_table,
 };
 
+<<<<<<< HEAD
 #ifndef CONFIG_MACH_ASUS_X01BD
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 int synaptics_rmi4_bus_init(void)
 {
 	return i2c_add_driver(&synaptics_rmi4_i2c_driver);
@@ -520,12 +523,20 @@ EXPORT_SYMBOL(synaptics_rmi4_bus_init);
 
 void synaptics_rmi4_bus_exit(void)
 {
+<<<<<<< HEAD
 		i2c_del_driver(&synaptics_rmi4_i2c_driver);
 
 		return;
 }
 EXPORT_SYMBOL(synaptics_rmi4_bus_exit);
 #endif
+=======
+	i2c_del_driver(&synaptics_rmi4_i2c_driver);
+
+	return;
+}
+EXPORT_SYMBOL(synaptics_rmi4_bus_exit);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 MODULE_AUTHOR("Synaptics, Inc.");
 MODULE_DESCRIPTION("Synaptics DSX I2C Bus Support Module");

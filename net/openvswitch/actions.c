@@ -137,6 +137,7 @@ static bool is_flow_key_valid(const struct sw_flow_key *key)
 	return !!key->eth.type;
 }
 
+<<<<<<< HEAD
 static void update_ethertype(struct sk_buff *skb, struct ethhdr *hdr,
 			     __be16 ethertype)
 {
@@ -150,10 +151,16 @@ static void update_ethertype(struct sk_buff *skb, struct ethhdr *hdr,
 	hdr->h_proto = ethertype;
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int push_mpls(struct sk_buff *skb, struct sw_flow_key *key,
 		     const struct ovs_action_push_mpls *mpls)
 {
 	__be32 *new_mpls_lse;
+<<<<<<< HEAD
+=======
+	struct ethhdr *hdr;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* Networking stack do not allow simultaneous Tunnel and MPLS GSO. */
 	if (skb->encapsulation)
@@ -172,7 +179,13 @@ static int push_mpls(struct sk_buff *skb, struct sw_flow_key *key,
 
 	skb_postpush_rcsum(skb, new_mpls_lse, MPLS_HLEN);
 
+<<<<<<< HEAD
 	update_ethertype(skb, eth_hdr(skb), mpls->mpls_ethertype);
+=======
+	hdr = eth_hdr(skb);
+	hdr->h_proto = mpls->mpls_ethertype;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!skb->inner_protocol)
 		skb_set_inner_protocol(skb, skb->protocol);
 	skb->protocol = mpls->mpls_ethertype;
@@ -203,7 +216,11 @@ static int pop_mpls(struct sk_buff *skb, struct sw_flow_key *key,
 	 * field correctly in the presence of VLAN tags.
 	 */
 	hdr = (struct ethhdr *)(skb_mpls_header(skb) - ETH_HLEN);
+<<<<<<< HEAD
 	update_ethertype(skb, hdr, ethertype);
+=======
+	hdr->h_proto = ethertype;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (eth_p_mpls(skb->protocol))
 		skb->protocol = ethertype;
 

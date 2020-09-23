@@ -86,8 +86,11 @@ static bool __init cntvct_functional(void)
 	 */
 	np = of_find_compatible_node(NULL, NULL, "arm,armv7-timer");
 	if (!np)
+<<<<<<< HEAD
 		np = of_find_compatible_node(NULL, NULL, "arm,armv8-timer");
 	if (!np)
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		goto out_put;
 
 	if (of_property_read_bool(np, "arm,cpu-registers-not-fw-configured"))
@@ -175,8 +178,11 @@ static void __init patch_vdso(void *ehdr)
 	if (!cntvct_ok) {
 		vdso_nullpatch_one(&einfo, "__vdso_gettimeofday");
 		vdso_nullpatch_one(&einfo, "__vdso_clock_gettime");
+<<<<<<< HEAD
 		vdso_nullpatch_one(&einfo, "__vdso_clock_getres");
 		/* do not zero out __vdso_time, no cntvct_ok dependency */
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 }
 
@@ -262,14 +268,22 @@ void arm_install_vdso(struct mm_struct *mm, unsigned long addr)
 
 static void vdso_write_begin(struct vdso_data *vdata)
 {
+<<<<<<< HEAD
 	++vdso_data->tb_seq_count;
+=======
+	++vdso_data->seq_count;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	smp_wmb(); /* Pairs with smp_rmb in vdso_read_retry */
 }
 
 static void vdso_write_end(struct vdso_data *vdata)
 {
 	smp_wmb(); /* Pairs with smp_rmb in vdso_read_begin */
+<<<<<<< HEAD
 	++vdso_data->tb_seq_count;
+=======
+	++vdso_data->seq_count;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static bool tk_is_cntvct(const struct timekeeper *tk)
@@ -293,10 +307,17 @@ static bool tk_is_cntvct(const struct timekeeper *tk)
  * counter again, making it even, indicating to userspace that the
  * update is finished.
  *
+<<<<<<< HEAD
  * Userspace is expected to sample tb_seq_count before reading any other
  * fields from the data page.  If tb_seq_count is odd, userspace is
  * expected to wait until it becomes even.  After copying data from
  * the page, userspace must sample tb_seq_count again; if it has changed
+=======
+ * Userspace is expected to sample seq_count before reading any other
+ * fields from the data page.  If seq_count is odd, userspace is
+ * expected to wait until it becomes even.  After copying data from
+ * the page, userspace must sample seq_count again; if it has changed
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * from its previous value, userspace must retry the whole sequence.
  *
  * Calls to update_vsyscall are serialized by the timekeeping core.
@@ -314,13 +335,18 @@ void update_vsyscall(struct timekeeper *tk)
 
 	vdso_write_begin(vdso_data);
 
+<<<<<<< HEAD
 	vdso_data->use_syscall			= !tk_is_cntvct(tk);
+=======
+	vdso_data->tk_is_cntvct			= tk_is_cntvct(tk);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	vdso_data->xtime_coarse_sec		= tk->xtime_sec;
 	vdso_data->xtime_coarse_nsec		= (u32)(tk->tkr_mono.xtime_nsec >>
 							tk->tkr_mono.shift);
 	vdso_data->wtm_clock_sec		= wtm->tv_sec;
 	vdso_data->wtm_clock_nsec		= wtm->tv_nsec;
 
+<<<<<<< HEAD
 	if (!vdso_data->use_syscall) {
 		struct timespec btm = ktime_to_timespec(tk->offs_boot);
 
@@ -336,6 +362,15 @@ void update_vsyscall(struct timekeeper *tk)
 		vdso_data->cs_mask		= tk->tkr_mono.mask;
 		vdso_data->btm_sec		= btm.tv_sec;
 		vdso_data->btm_nsec		= btm.tv_nsec;
+=======
+	if (vdso_data->tk_is_cntvct) {
+		vdso_data->cs_cycle_last	= tk->tkr_mono.cycle_last;
+		vdso_data->xtime_clock_sec	= tk->xtime_sec;
+		vdso_data->xtime_clock_snsec	= tk->tkr_mono.xtime_nsec;
+		vdso_data->cs_mult		= tk->tkr_mono.mult;
+		vdso_data->cs_shift		= tk->tkr_mono.shift;
+		vdso_data->cs_mask		= tk->tkr_mono.mask;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	vdso_write_end(vdso_data);

@@ -249,27 +249,44 @@ static int crypto_report(struct sk_buff *in_skb, struct nlmsghdr *in_nlh,
 drop_alg:
 	crypto_mod_put(alg);
 
+<<<<<<< HEAD
 	if (err) {
 		kfree_skb(skb);
 		return err;
 	}
+=======
+	if (err)
+		return err;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	return nlmsg_unicast(crypto_nlsk, skb, NETLINK_CB(in_skb).portid);
 }
 
 static int crypto_dump_report(struct sk_buff *skb, struct netlink_callback *cb)
 {
+<<<<<<< HEAD
 	const size_t start_pos = cb->args[0];
 	size_t pos = 0;
 	struct crypto_dump_info info;
 	struct crypto_alg *alg;
 	int res;
+=======
+	struct crypto_alg *alg;
+	struct crypto_dump_info info;
+	int err;
+
+	if (cb->args[0])
+		goto out;
+
+	cb->args[0] = 1;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	info.in_skb = cb->skb;
 	info.out_skb = skb;
 	info.nlmsg_seq = cb->nlh->nlmsg_seq;
 	info.nlmsg_flags = NLM_F_MULTI;
 
+<<<<<<< HEAD
 	down_read(&crypto_alg_sem);
 	list_for_each_entry(alg, &crypto_alg_list, cra_list) {
 		if (pos >= start_pos) {
@@ -286,6 +303,18 @@ static int crypto_dump_report(struct sk_buff *skb, struct netlink_callback *cb)
 out:
 	up_read(&crypto_alg_sem);
 	return res;
+=======
+	list_for_each_entry(alg, &crypto_alg_list, cra_list) {
+		err = crypto_report_alg(alg, &info);
+		if (err)
+			goto out_err;
+	}
+
+out:
+	return skb->len;
+out_err:
+	return err;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static int crypto_dump_report_done(struct netlink_callback *cb)
@@ -503,7 +532,11 @@ static int crypto_user_rcv_msg(struct sk_buff *skb, struct nlmsghdr *nlh)
 	if ((type == (CRYPTO_MSG_GETALG - CRYPTO_MSG_BASE) &&
 	    (nlh->nlmsg_flags & NLM_F_DUMP))) {
 		struct crypto_alg *alg;
+<<<<<<< HEAD
 		unsigned long dump_alloc = 0;
+=======
+		u16 dump_alloc = 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		if (link->dump == NULL)
 			return -EINVAL;
@@ -511,16 +544,27 @@ static int crypto_user_rcv_msg(struct sk_buff *skb, struct nlmsghdr *nlh)
 		down_read(&crypto_alg_sem);
 		list_for_each_entry(alg, &crypto_alg_list, cra_list)
 			dump_alloc += CRYPTO_REPORT_MAXSIZE;
+<<<<<<< HEAD
 		up_read(&crypto_alg_sem);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		{
 			struct netlink_dump_control c = {
 				.dump = link->dump,
 				.done = link->done,
+<<<<<<< HEAD
 				.min_dump_alloc = min(dump_alloc, 65535UL),
 			};
 			err = netlink_dump_start(crypto_nlsk, skb, nlh, &c);
 		}
+=======
+				.min_dump_alloc = dump_alloc,
+			};
+			err = netlink_dump_start(crypto_nlsk, skb, nlh, &c);
+		}
+		up_read(&crypto_alg_sem);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		return err;
 	}

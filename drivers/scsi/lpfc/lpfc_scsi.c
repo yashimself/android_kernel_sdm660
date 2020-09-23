@@ -2707,7 +2707,10 @@ lpfc_bg_scsi_prep_dma_buf_s3(struct lpfc_hba *phba,
 	int datasegcnt, protsegcnt, datadir = scsi_cmnd->sc_data_direction;
 	int prot_group_type = 0;
 	int fcpdl;
+<<<<<<< HEAD
 	struct lpfc_vport *vport = phba->pport;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/*
 	 * Start the lpfc command prep by bumping the bpl beyond fcp_cmnd
@@ -2813,6 +2816,7 @@ lpfc_bg_scsi_prep_dma_buf_s3(struct lpfc_hba *phba,
 	 */
 	iocb_cmd->un.fcpi.fcpi_parm = fcpdl;
 
+<<<<<<< HEAD
 	/*
 	 * For First burst, we may need to adjust the initial transfer
 	 * length for DIF
@@ -2821,6 +2825,8 @@ lpfc_bg_scsi_prep_dma_buf_s3(struct lpfc_hba *phba,
 	    (fcpdl < vport->cfg_first_burst_size))
 		iocb_cmd->un.fcpi.fcpi_XRdy = fcpdl;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return 0;
 err:
 	if (lpfc_cmd->seg_cnt)
@@ -3370,7 +3376,10 @@ lpfc_bg_scsi_prep_dma_buf_s4(struct lpfc_hba *phba,
 	int datasegcnt, protsegcnt, datadir = scsi_cmnd->sc_data_direction;
 	int prot_group_type = 0;
 	int fcpdl;
+<<<<<<< HEAD
 	struct lpfc_vport *vport = phba->pport;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/*
 	 * Start the lpfc command prep by bumping the sgl beyond fcp_cmnd
@@ -3487,6 +3496,7 @@ lpfc_bg_scsi_prep_dma_buf_s4(struct lpfc_hba *phba,
 	iocb_cmd->un.fcpi.fcpi_parm = fcpdl;
 
 	/*
+<<<<<<< HEAD
 	 * For First burst, we may need to adjust the initial transfer
 	 * length for DIF
 	 */
@@ -3495,6 +3505,8 @@ lpfc_bg_scsi_prep_dma_buf_s4(struct lpfc_hba *phba,
 		iocb_cmd->un.fcpi.fcpi_XRdy = fcpdl;
 
 	/*
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	 * If the OAS driver feature is enabled and the lun is enabled for
 	 * OAS, set the oas iocb related flags.
 	 */

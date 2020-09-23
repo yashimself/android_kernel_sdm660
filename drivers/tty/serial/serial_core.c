@@ -1018,7 +1018,11 @@ static int uart_break_ctl(struct tty_struct *tty, int break_state)
 
 	mutex_lock(&port->mutex);
 
+<<<<<<< HEAD
 	if (uport->type != PORT_UNKNOWN && uport->ops->break_ctl)
+=======
+	if (uport->type != PORT_UNKNOWN)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		uport->ops->break_ctl(uport, break_state);
 
 	mutex_unlock(&port->mutex);
@@ -2705,7 +2709,10 @@ int uart_add_one_port(struct uart_driver *drv, struct uart_port *uport)
 	if (uport->cons && uport->dev)
 		of_console_check(uport->dev->of_node, uport->cons->name, uport->line);
 
+<<<<<<< HEAD
 	tty_port_link_device(port, drv->tty_driver, uport->line);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	uart_configure_port(drv, state, uport);
 
 	num_groups = 2;

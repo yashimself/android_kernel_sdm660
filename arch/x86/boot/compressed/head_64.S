@@ -104,7 +104,11 @@ ENTRY(startup_32)
 	notl	%eax
 	andl	%eax, %ebx
 	cmpl	$LOAD_PHYSICAL_ADDR, %ebx
+<<<<<<< HEAD
 	jae	1f
+=======
+	jge	1f
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #endif
 	movl	$LOAD_PHYSICAL_ADDR, %ebx
 1:
@@ -225,11 +229,14 @@ ENTRY(efi32_stub_entry)
 	leal	efi32_config(%ebp), %eax
 	movl	%eax, efi_config(%ebp)
 
+<<<<<<< HEAD
 	/* Disable paging */
 	movl	%cr0, %eax
 	btrl	$X86_CR0_PG_BIT, %eax
 	movl	%eax, %cr0
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	jmp	startup_32
 ENDPROC(efi32_stub_entry)
 #endif
@@ -337,7 +344,11 @@ preferred_addr:
 	notq	%rax
 	andq	%rax, %rbp
 	cmpq	$LOAD_PHYSICAL_ADDR, %rbp
+<<<<<<< HEAD
 	jae	1f
+=======
+	jge	1f
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #endif
 	movq	$LOAD_PHYSICAL_ADDR, %rbp
 1:

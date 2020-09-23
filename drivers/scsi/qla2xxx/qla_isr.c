@@ -966,6 +966,11 @@ global_port_update:
 			ql_dbg(ql_dbg_async, vha, 0x5011,
 			    "Asynchronous PORT UPDATE ignored %04x/%04x/%04x.\n",
 			    mb[1], mb[2], mb[3]);
+<<<<<<< HEAD
+=======
+
+			qlt_async_event(mb[0], vha, mb);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			break;
 		}
 
@@ -986,6 +991,11 @@ global_port_update:
 		set_bit(LOOP_RESYNC_NEEDED, &vha->dpc_flags);
 		set_bit(LOCAL_LOOP_UPDATE, &vha->dpc_flags);
 		set_bit(VP_CONFIG_OK, &vha->vp_flags);
+<<<<<<< HEAD
+=======
+
+		qlt_async_event(mb[0], vha, mb);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 
 	case MBA_RSCN_UPDATE:		/* State Change Registration */

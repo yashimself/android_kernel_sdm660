@@ -476,6 +476,7 @@ config DM_VERITY
 
 	  If unsure, say N.
 
+<<<<<<< HEAD
 config DM_VERITY_HASH_PREFETCH_MIN_SIZE_128
 	bool "Prefetch size 128"
 
@@ -491,6 +492,8 @@ config DM_VERITY_HASH_PREFETCH_MIN_SIZE
 	  performance with increased memory consumption for keeping more hashes
 	  in RAM.
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 config DM_VERITY_FEC
 	bool "Verity forward error correction support"
 	depends on DM_VERITY
@@ -554,7 +557,10 @@ config DM_ANDROID_VERITY
 	depends on ASYMMETRIC_KEY_TYPE
 	depends on ASYMMETRIC_PUBLIC_KEY_SUBTYPE
 	depends on MD_LINEAR=y
+<<<<<<< HEAD
 	select DM_VERITY_HASH_PREFETCH_MIN_SIZE_128
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	---help---
 	  This device-mapper target is virtually a VERITY target. This
 	  target is setup by reading the metadata contents piggybacked

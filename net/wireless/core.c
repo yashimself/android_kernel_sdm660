@@ -559,7 +559,11 @@ int wiphy_register(struct wiphy *wiphy)
 {
 	struct cfg80211_registered_device *rdev = wiphy_to_rdev(wiphy);
 	int res;
+<<<<<<< HEAD
 	enum nl80211_band band;
+=======
+	enum ieee80211_band band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct ieee80211_supported_band *sband;
 	bool have_band = false;
 	int i;
@@ -649,7 +653,11 @@ int wiphy_register(struct wiphy *wiphy)
 		return res;
 
 	/* sanity check supported bands/channels */
+<<<<<<< HEAD
 	for (band = 0; band < NUM_NL80211_BANDS; band++) {
+=======
+	for (band = 0; band < IEEE80211_NUM_BANDS; band++) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		sband = wiphy->bands[band];
 		if (!sband)
 			continue;
@@ -661,7 +669,11 @@ int wiphy_register(struct wiphy *wiphy)
 		 * on 60GHz band, there are no legacy rates, so
 		 * n_bitrates is 0
 		 */
+<<<<<<< HEAD
 		if (WARN_ON(band != NL80211_BAND_60GHZ &&
+=======
+		if (WARN_ON(band != IEEE80211_BAND_60GHZ &&
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			    !sband->n_bitrates))
 			return -EINVAL;
 
@@ -671,7 +683,11 @@ int wiphy_register(struct wiphy *wiphy)
 		 * global structure for that.
 		 */
 		if (cfg80211_disable_40mhz_24ghz &&
+<<<<<<< HEAD
 		    band == NL80211_BAND_2GHZ &&
+=======
+		    band == IEEE80211_BAND_2GHZ &&
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		    sband->ht_cap.ht_supported) {
 			sband->ht_cap.cap &= ~IEEE80211_HT_CAP_SUP_WIDTH_20_40;
 			sband->ht_cap.cap &= ~IEEE80211_HT_CAP_SGI_40;

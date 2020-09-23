@@ -2400,9 +2400,15 @@ int ath10k_wmi_event_mgmt_rx(struct ath10k *ar, struct sk_buff *skb)
 	 * of mgmt rx.
 	 */
 	if (channel >= 1 && channel <= 14) {
+<<<<<<< HEAD
 		status->band = NL80211_BAND_2GHZ;
 	} else if (channel >= 36 && channel <= 165) {
 		status->band = NL80211_BAND_5GHZ;
+=======
+		status->band = IEEE80211_BAND_2GHZ;
+	} else if (channel >= 36 && channel <= 165) {
+		status->band = IEEE80211_BAND_5GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	} else {
 		/* Shouldn't happen unless list of advertised channels to
 		 * mac80211 has been changed.
@@ -2412,7 +2418,11 @@ int ath10k_wmi_event_mgmt_rx(struct ath10k *ar, struct sk_buff *skb)
 		return 0;
 	}
 
+<<<<<<< HEAD
 	if (phy_mode == MODE_11B && status->band == NL80211_BAND_5GHZ)
+=======
+	if (phy_mode == MODE_11B && status->band == IEEE80211_BAND_5GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		ath10k_dbg(ar, ATH10K_DBG_MGMT, "wmi mgmt rx 11b (CCK) on 5GHz\n");
 
 	sband = &ar->mac.sbands[status->band];
@@ -2468,7 +2478,11 @@ static int freq_to_idx(struct ath10k *ar, int freq)
 	struct ieee80211_supported_band *sband;
 	int band, ch, idx = 0;
 
+<<<<<<< HEAD
 	for (band = NL80211_BAND_2GHZ; band < NUM_NL80211_BANDS; band++) {
+=======
+	for (band = IEEE80211_BAND_2GHZ; band < IEEE80211_NUM_BANDS; band++) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		sband = ar->hw->wiphy->bands[band];
 		if (!sband)
 			continue;
@@ -6048,6 +6062,7 @@ static struct sk_buff *ath10k_wmi_10_4_op_gen_init(struct ath10k *ar)
 
 int ath10k_wmi_start_scan_verify(const struct wmi_start_scan_arg *arg)
 {
+<<<<<<< HEAD
 	if (arg->ie_len && !arg->ie)
 		return -EINVAL;
 	if (arg->n_channels && !arg->channels)
@@ -6057,6 +6072,8 @@ int ath10k_wmi_start_scan_verify(const struct wmi_start_scan_arg *arg)
 	if (arg->n_bssids && !arg->bssids)
 		return -EINVAL;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (arg->ie_len > WLAN_SCAN_PARAMS_MAX_IE_LEN)
 		return -EINVAL;
 	if (arg->n_channels > ARRAY_SIZE(arg->channels))

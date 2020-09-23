@@ -173,6 +173,7 @@ static struct fscrypt_mode {
 		.cipher_str = "cts(cbc(aes))",
 		.keysize = 16,
 	},
+<<<<<<< HEAD
 	[FS_ENCRYPTION_MODE_SPECK128_256_XTS] = {
 		.friendly_name = "Speck128/256-XTS",
 		.cipher_str = "xts(speck128)",
@@ -183,6 +184,8 @@ static struct fscrypt_mode {
 		.cipher_str = "cts(cbc(speck128))",
 		.keysize = 32,
 	},
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 static struct fscrypt_mode *

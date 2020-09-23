@@ -1383,7 +1383,11 @@ csio_device_reset(struct device *dev,
 		return -EINVAL;
 
 	/* Delete NPIV lnodes */
+<<<<<<< HEAD
 	csio_lnodes_exit(hw, 1);
+=======
+	 csio_lnodes_exit(hw, 1);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* Block upper IOs */
 	csio_lnodes_block_request(hw);

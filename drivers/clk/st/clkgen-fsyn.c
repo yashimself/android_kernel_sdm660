@@ -549,6 +549,7 @@ static int clk_fs660c32_vco_get_params(unsigned long input,
 	return 0;
 }
 
+<<<<<<< HEAD
 static long quadfs_pll_fs660c32_round_rate(struct clk_hw *hw,
 					   unsigned long rate,
 					   unsigned long *prate)
@@ -563,6 +564,21 @@ static long quadfs_pll_fs660c32_round_rate(struct clk_hw *hw,
 	pr_debug("%s: %s new rate %ld [ndiv=%u]\n",
 		 __func__, clk_hw_get_name(hw),
 		 rate, (unsigned int)params.ndiv);
+=======
+static long quadfs_pll_fs660c32_round_rate(struct clk_hw *hw, unsigned long rate
+		, unsigned long *prate)
+{
+	struct stm_fs params;
+
+	if (!clk_fs660c32_vco_get_params(*prate, rate, &params))
+		clk_fs660c32_vco_get_rate(*prate, &params, &rate);
+
+	pr_debug("%s: %s new rate %ld [sdiv=0x%x,md=0x%x,pe=0x%x,nsdiv3=%u]\n",
+		 __func__, clk_hw_get_name(hw),
+		 rate, (unsigned int)params.sdiv,
+		 (unsigned int)params.mdiv,
+		 (unsigned int)params.pe, (unsigned int)params.nsdiv);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	return rate;
 }

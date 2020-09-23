@@ -1,6 +1,7 @@
 # UAPI Header export list
 include include/uapi/asm-generic/Kbuild.asm
 
+<<<<<<< HEAD
 header-y += auxvec.h
 header-y += byteorder.h
 header-y += fcntl.h
@@ -18,3 +19,8 @@ header-y += stat.h
 header-y += statfs.h
 header-y += swab.h
 header-y += unistd.h
+=======
+generated-y += unistd-common.h
+generated-y += unistd-oabi.h
+generated-y += unistd-eabi.h
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

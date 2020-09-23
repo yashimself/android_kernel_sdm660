@@ -2392,6 +2392,7 @@ out:
 	return err;
 }
 
+<<<<<<< HEAD
 static void afiucv_iucv_exit(void)
 {
 	device_unregister(af_iucv_dev);
@@ -2399,6 +2400,8 @@ static void afiucv_iucv_exit(void)
 	pr_iucv->iucv_unregister(&af_iucv_handler, 0);
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int __init afiucv_init(void)
 {
 	int err;
@@ -2432,6 +2435,7 @@ static int __init afiucv_init(void)
 		err = afiucv_iucv_init();
 		if (err)
 			goto out_sock;
+<<<<<<< HEAD
 	}
 
 	err = register_netdevice_notifier(&afiucv_netdev_notifier);
@@ -2444,6 +2448,13 @@ static int __init afiucv_init(void)
 out_notifier:
 	if (pr_iucv)
 		afiucv_iucv_exit();
+=======
+	} else
+		register_netdevice_notifier(&afiucv_netdev_notifier);
+	dev_add_pack(&iucv_packet_type);
+	return 0;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 out_sock:
 	sock_unregister(PF_IUCV);
 out_proto:
@@ -2457,11 +2468,20 @@ out:
 static void __exit afiucv_exit(void)
 {
 	if (pr_iucv) {
+<<<<<<< HEAD
 		afiucv_iucv_exit();
 		symbol_put(iucv_if);
 	}
 
 	unregister_netdevice_notifier(&afiucv_netdev_notifier);
+=======
+		device_unregister(af_iucv_dev);
+		driver_unregister(&af_iucv_driver);
+		pr_iucv->iucv_unregister(&af_iucv_handler, 0);
+		symbol_put(iucv_if);
+	} else
+		unregister_netdevice_notifier(&afiucv_netdev_notifier);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	dev_remove_pack(&iucv_packet_type);
 	sock_unregister(PF_IUCV);
 	proto_unregister(&iucv_proto);

@@ -11,9 +11,12 @@ obj-$(CONFIG_DEBUG_BUS_VOTER) += msm_bus_dbg_voter.o
 obj-$(CONFIG_CORESIGHT) +=  msm_buspm_coresight_adhoc.o
 
 obj-$(CONFIG_DEBUG_FS) += msm_bus_dbg.o
+<<<<<<< HEAD
 
 # TODO: remove me b/62058353
 subdir-ccflags-y += \
 	-Wno-self-assign \
 	-Wno-parentheses-equality
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

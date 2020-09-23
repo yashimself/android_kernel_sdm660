@@ -2329,6 +2329,7 @@ repeat:
 			 */
 			if (need_to_create_worker(pool)) {
 				spin_lock(&wq_mayday_lock);
+<<<<<<< HEAD
 				/*
 				 * Queue iff we aren't racing destruction
 				 * and somebody else hasn't queued it already.
@@ -2337,6 +2338,10 @@ repeat:
 					get_pwq(pwq);
 					list_add_tail(&pwq->mayday_node, &wq->maydays);
 				}
+=======
+				get_pwq(pwq);
+				list_move_tail(&pwq->mayday_node, &wq->maydays);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				spin_unlock(&wq_mayday_lock);
 			}
 		}
@@ -3977,6 +3982,7 @@ void destroy_workqueue(struct workqueue_struct *wq)
 	struct pool_workqueue *pwq;
 	int node;
 
+<<<<<<< HEAD
 	/*
 	 * Remove it from sysfs first so that sanity check failure doesn't
 	 * lead to sysfs name conflicts.
@@ -4000,6 +4006,11 @@ void destroy_workqueue(struct workqueue_struct *wq)
 		kfree(rescuer);
 	}
 
+=======
+	/* drain it before proceeding with destruction */
+	drain_workqueue(wq);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* sanity checks */
 	mutex_lock(&wq->mutex);
 	for_each_pwq(pwq, wq) {
@@ -4029,6 +4040,14 @@ void destroy_workqueue(struct workqueue_struct *wq)
 	list_del_rcu(&wq->list);
 	mutex_unlock(&wq_pool_mutex);
 
+<<<<<<< HEAD
+=======
+	workqueue_sysfs_unregister(wq);
+
+	if (wq->rescuer)
+		kthread_stop(wq->rescuer->task);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!(wq->flags & WQ_UNBOUND)) {
 		/*
 		 * The base ref is never dropped on per-cpu pwqs.  Directly
@@ -4305,8 +4324,12 @@ static void show_pwq(struct pool_workqueue *pwq)
 	pr_info("  pwq %d:", pool->id);
 	pr_cont_pool_info(pool);
 
+<<<<<<< HEAD
 	pr_cont(" active=%d/%d refcnt=%d%s\n",
 		pwq->nr_active, pwq->max_active, pwq->refcnt,
+=======
+	pr_cont(" active=%d/%d%s\n", pwq->nr_active, pwq->max_active,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		!list_empty(&pwq->mayday_node) ? " MAYDAY" : "");
 
 	hash_for_each(pool->busy_hash, bkt, worker, hentry) {

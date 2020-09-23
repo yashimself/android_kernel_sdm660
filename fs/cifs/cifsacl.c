@@ -480,7 +480,11 @@ static void access_flags_to_mode(__le32 ace_flags, int type, umode_t *pmode,
 			((flags & FILE_EXEC_RIGHTS) == FILE_EXEC_RIGHTS))
 		*pmode |= (S_IXUGO & (*pbits_to_set));
 
+<<<<<<< HEAD
 	cifs_dbg(NOISY, "access flags 0x%x mode now %04o\n", flags, *pmode);
+=======
+	cifs_dbg(NOISY, "access flags 0x%x mode now 0x%x\n", flags, *pmode);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return;
 }
 
@@ -509,7 +513,11 @@ static void mode_to_access_flags(umode_t mode, umode_t bits_to_use,
 	if (mode & S_IXUGO)
 		*pace_flags |= SET_FILE_EXEC_RIGHTS;
 
+<<<<<<< HEAD
 	cifs_dbg(NOISY, "mode: %04o, access flags now 0x%x\n",
+=======
+	cifs_dbg(NOISY, "mode: 0x%x, access flags now 0x%x\n",
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		 mode, *pace_flags);
 	return;
 }

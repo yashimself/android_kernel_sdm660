@@ -69,6 +69,7 @@ static const unsigned long goodix_irq_flags[] = {
 static const struct dmi_system_id rotated_screen[] = {
 #if defined(CONFIG_DMI) && defined(CONFIG_X86)
 	{
+<<<<<<< HEAD
 		.ident = "Teclast X89",
 		.matches = {
 			/* tPAD is too generic, also match on bios date */
@@ -78,6 +79,8 @@ static const struct dmi_system_id rotated_screen[] = {
 		},
 	},
 	{
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		.ident = "WinBook TW100",
 		.matches = {
 			DMI_MATCH(DMI_SYS_VENDOR, "WinBook"),

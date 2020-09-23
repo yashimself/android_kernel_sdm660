@@ -940,7 +940,11 @@ int prism2mgmt_flashdl_state(wlandevice_t *wlandev, void *msgp)
 		}
 	}
 
+<<<<<<< HEAD
 	return result;
+=======
+	return 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /*----------------------------------------------------------------

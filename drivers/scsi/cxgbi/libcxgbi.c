@@ -692,7 +692,10 @@ static struct rt6_info *find_route_ipv6(const struct in6_addr *saddr,
 {
 	struct flowi6 fl;
 
+<<<<<<< HEAD
 	memset(&fl, 0, sizeof(fl));
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (saddr)
 		memcpy(&fl.saddr, saddr, sizeof(struct in6_addr));
 	if (daddr)

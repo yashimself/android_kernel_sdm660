@@ -1220,7 +1220,11 @@ static int octeon_irq_gpio_map(struct irq_domain *d,
 
 	line = (hw + gpiod->base_hwirq) >> 6;
 	bit = (hw + gpiod->base_hwirq) & 63;
+<<<<<<< HEAD
 	if (line >= ARRAY_SIZE(octeon_irq_ciu_to_irq) ||
+=======
+	if (line > ARRAY_SIZE(octeon_irq_ciu_to_irq) ||
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		octeon_irq_ciu_to_irq[line][bit] != 0)
 		return -EINVAL;
 
@@ -2168,9 +2172,12 @@ static int octeon_irq_cib_map(struct irq_domain *d,
 	}
 
 	cd = kzalloc(sizeof(*cd), GFP_KERNEL);
+<<<<<<< HEAD
 	if (!cd)
 		return -ENOMEM;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	cd->host_data = host_data;
 	cd->bit = hw;
 

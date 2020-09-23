@@ -390,6 +390,7 @@ static int bcm2835aux_spi_probe(struct platform_device *pdev)
 	platform_set_drvdata(pdev, master);
 	master->mode_bits = BCM2835_AUX_SPI_MODE_BITS;
 	master->bits_per_word_mask = SPI_BPW_MASK(8);
+<<<<<<< HEAD
 	/* even though the driver never officially supported native CS
 	 * allow a single native CS for legacy DT support purposes when
 	 * no cs-gpio is configured.
@@ -402,6 +403,9 @@ static int bcm2835aux_spi_probe(struct platform_device *pdev)
 	 *     a spi_transfer
 	 */
 	master->num_chipselect = 1;
+=======
+	master->num_chipselect = -1;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	master->transfer_one = bcm2835aux_spi_transfer_one;
 	master->handle_err = bcm2835aux_spi_handle_err;
 	master->dev.of_node = pdev->dev.of_node;

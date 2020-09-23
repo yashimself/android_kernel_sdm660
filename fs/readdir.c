@@ -51,6 +51,7 @@ out:
 EXPORT_SYMBOL(iterate_dir);
 
 /*
+<<<<<<< HEAD
  * POSIX says that a dirent name cannot contain NULL or a '/'.
  *
  * It's not 100% clear what we should really do in this case.
@@ -85,6 +86,8 @@ static int verify_dirent_name(const char *name, int len)
 }
 
 /*
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * Traditional linux readdir() handling..
  *
  * "count=1" is a special case, meaning that the buffer is one
@@ -193,9 +196,12 @@ static int filldir(struct dir_context *ctx, const char *name, int namlen,
 	int reclen = ALIGN(offsetof(struct linux_dirent, d_name) + namlen + 2,
 		sizeof(long));
 
+<<<<<<< HEAD
 	buf->error = verify_dirent_name(name, namlen);
 	if (unlikely(buf->error))
 		return buf->error;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	buf->error = -EINVAL;	/* only used if we fail.. */
 	if (reclen > buf->count)
 		return -EINVAL;
@@ -280,9 +286,12 @@ static int filldir64(struct dir_context *ctx, const char *name, int namlen,
 	int reclen = ALIGN(offsetof(struct linux_dirent64, d_name) + namlen + 1,
 		sizeof(u64));
 
+<<<<<<< HEAD
 	buf->error = verify_dirent_name(name, namlen);
 	if (unlikely(buf->error))
 		return buf->error;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	buf->error = -EINVAL;	/* only used if we fail.. */
 	if (reclen > buf->count)
 		return -EINVAL;

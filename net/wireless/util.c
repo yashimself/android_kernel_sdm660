@@ -48,7 +48,11 @@ u32 ieee80211_mandatory_rates(struct ieee80211_supported_band *sband,
 	if (WARN_ON(!sband))
 		return 1;
 
+<<<<<<< HEAD
 	if (sband->band == NL80211_BAND_2GHZ) {
+=======
+	if (sband->band == IEEE80211_BAND_2GHZ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (scan_width == NL80211_BSS_CHAN_WIDTH_5 ||
 		    scan_width == NL80211_BSS_CHAN_WIDTH_10)
 			mandatory_flag = IEEE80211_RATE_MANDATORY_G;
@@ -66,26 +70,42 @@ u32 ieee80211_mandatory_rates(struct ieee80211_supported_band *sband,
 }
 EXPORT_SYMBOL(ieee80211_mandatory_rates);
 
+<<<<<<< HEAD
 int ieee80211_channel_to_frequency(int chan, enum nl80211_band band)
+=======
+int ieee80211_channel_to_frequency(int chan, enum ieee80211_band band)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	/* see 802.11 17.3.8.3.2 and Annex J
 	 * there are overlapping channel numbers in 5GHz and 2GHz bands */
 	if (chan <= 0)
 		return 0; /* not supported */
 	switch (band) {
+<<<<<<< HEAD
 	case NL80211_BAND_2GHZ:
+=======
+	case IEEE80211_BAND_2GHZ:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (chan == 14)
 			return 2484;
 		else if (chan < 14)
 			return 2407 + chan * 5;
 		break;
+<<<<<<< HEAD
 	case NL80211_BAND_5GHZ:
+=======
+	case IEEE80211_BAND_5GHZ:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (chan >= 182 && chan <= 196)
 			return 4000 + chan * 5;
 		else
 			return 5000 + chan * 5;
 		break;
+<<<<<<< HEAD
 	case NL80211_BAND_60GHZ:
+=======
+	case IEEE80211_BAND_60GHZ:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (chan < 5)
 			return 56160 + chan * 2160;
 		break;
@@ -117,11 +137,19 @@ EXPORT_SYMBOL(ieee80211_frequency_to_channel);
 struct ieee80211_channel *__ieee80211_get_channel(struct wiphy *wiphy,
 						  int freq)
 {
+<<<<<<< HEAD
 	enum nl80211_band band;
 	struct ieee80211_supported_band *sband;
 	int i;
 
 	for (band = 0; band < NUM_NL80211_BANDS; band++) {
+=======
+	enum ieee80211_band band;
+	struct ieee80211_supported_band *sband;
+	int i;
+
+	for (band = 0; band < IEEE80211_NUM_BANDS; band++) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		sband = wiphy->bands[band];
 
 		if (!sband)
@@ -138,12 +166,20 @@ struct ieee80211_channel *__ieee80211_get_channel(struct wiphy *wiphy,
 EXPORT_SYMBOL(__ieee80211_get_channel);
 
 static void set_mandatory_flags_band(struct ieee80211_supported_band *sband,
+<<<<<<< HEAD
 				     enum nl80211_band band)
+=======
+				     enum ieee80211_band band)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	int i, want;
 
 	switch (band) {
+<<<<<<< HEAD
 	case NL80211_BAND_5GHZ:
+=======
+	case IEEE80211_BAND_5GHZ:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		want = 3;
 		for (i = 0; i < sband->n_bitrates; i++) {
 			if (sband->bitrates[i].bitrate == 60 ||
@@ -156,7 +192,11 @@ static void set_mandatory_flags_band(struct ieee80211_supported_band *sband,
 		}
 		WARN_ON(want);
 		break;
+<<<<<<< HEAD
 	case NL80211_BAND_2GHZ:
+=======
+	case IEEE80211_BAND_2GHZ:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		want = 7;
 		for (i = 0; i < sband->n_bitrates; i++) {
 			if (sband->bitrates[i].bitrate == 10) {
@@ -186,12 +226,20 @@ static void set_mandatory_flags_band(struct ieee80211_supported_band *sband,
 		}
 		WARN_ON(want != 0 && want != 3 && want != 6);
 		break;
+<<<<<<< HEAD
 	case NL80211_BAND_60GHZ:
+=======
+	case IEEE80211_BAND_60GHZ:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		/* check for mandatory HT MCS 1..4 */
 		WARN_ON(!sband->ht_cap.ht_supported);
 		WARN_ON((sband->ht_cap.mcs.rx_mask[0] & 0x1e) != 0x1e);
 		break;
+<<<<<<< HEAD
 	case NUM_NL80211_BANDS:
+=======
+	case IEEE80211_NUM_BANDS:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		WARN_ON(1);
 		break;
 	}
@@ -199,9 +247,15 @@ static void set_mandatory_flags_band(struct ieee80211_supported_band *sband,
 
 void ieee80211_set_bitrate_flags(struct wiphy *wiphy)
 {
+<<<<<<< HEAD
 	enum nl80211_band band;
 
 	for (band = 0; band < NUM_NL80211_BANDS; band++)
+=======
+	enum ieee80211_band band;
+
+	for (band = 0; band < IEEE80211_NUM_BANDS; band++)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (wiphy->bands[band])
 			set_mandatory_flags_band(wiphy->bands[band], band);
 }
@@ -591,6 +645,10 @@ int ieee80211_data_from_8023(struct sk_buff *skb, const u8 *addr,
 	hdr.frame_control = fc;
 	hdr.duration_id = 0;
 	hdr.seq_ctrl = 0;
+<<<<<<< HEAD
+=======
+	eth_zero_addr(hdr.addr4);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	skip_header_bytes = ETH_HLEN;
 	if (ethertype == ETH_P_AARP || ethertype == ETH_P_IPX) {
@@ -1329,22 +1387,37 @@ size_t ieee80211_ie_split(const u8 *ies, size_t ielen,
 EXPORT_SYMBOL(ieee80211_ie_split);
 
 bool ieee80211_operating_class_to_band(u8 operating_class,
+<<<<<<< HEAD
 				       enum nl80211_band *band)
+=======
+				       enum ieee80211_band *band)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	switch (operating_class) {
 	case 112:
 	case 115 ... 127:
 	case 128 ... 130:
+<<<<<<< HEAD
 		*band = NL80211_BAND_5GHZ;
+=======
+		*band = IEEE80211_BAND_5GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return true;
 	case 81:
 	case 82:
 	case 83:
 	case 84:
+<<<<<<< HEAD
 		*band = NL80211_BAND_2GHZ;
 		return true;
 	case 180:
 		*band = NL80211_BAND_60GHZ;
+=======
+		*band = IEEE80211_BAND_2GHZ;
+		return true;
+	case 180:
+		*band = IEEE80211_BAND_60GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return true;
 	}
 
@@ -1817,10 +1890,17 @@ int ieee80211_get_ratemask(struct ieee80211_supported_band *sband,
 
 unsigned int ieee80211_get_num_supported_channels(struct wiphy *wiphy)
 {
+<<<<<<< HEAD
 	enum nl80211_band band;
 	unsigned int n_channels = 0;
 
 	for (band = 0; band < NUM_NL80211_BANDS; band++)
+=======
+	enum ieee80211_band band;
+	unsigned int n_channels = 0;
+
+	for (band = 0; band < IEEE80211_NUM_BANDS; band++)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (wiphy->bands[band])
 			n_channels += wiphy->bands[band]->n_channels;
 
@@ -1907,6 +1987,7 @@ bool cfg80211_is_gratuitous_arp_unsolicited_na(struct sk_buff *skb)
 	return false;
 }
 EXPORT_SYMBOL(cfg80211_is_gratuitous_arp_unsolicited_na);
+<<<<<<< HEAD
 
 /* Layer 2 Update frame (802.2 Type 1 LLC XID Update response) */
 struct iapp_layer2_update {
@@ -1952,3 +2033,5 @@ void cfg80211_send_layer2_update(struct net_device *dev, const u8 *addr)
 	netif_rx_ni(skb);
 }
 EXPORT_SYMBOL(cfg80211_send_layer2_update);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2016, 2019,  The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -131,6 +135,37 @@ TRACE_EVENT(msm_cam_ping_pong_debug_dump,
 	)
 );
 
+<<<<<<< HEAD
+=======
+TRACE_EVENT(msm_cam_isp_status_dump,
+	TP_PROTO(char *event, uint32_t vfe_id, uint32_t frame_id,
+		uint32_t irq_status0, uint32_t irq_status1),
+	TP_ARGS(event, vfe_id, frame_id, irq_status0,
+		irq_status1),
+	TP_STRUCT__entry(
+		__field(char *, event)
+		__field(unsigned int, vfe_id)
+		__field(unsigned int, frame_id)
+		__field(unsigned int, irq_status0)
+		__field(unsigned int, irq_status1)
+	),
+	TP_fast_assign(
+		__entry->event = event;
+		__entry->vfe_id = vfe_id;
+		__entry->frame_id = frame_id;
+		__entry->irq_status0 = irq_status0;
+		__entry->irq_status1 = irq_status1;
+	),
+	TP_printk("%s vfe %d, frame %d, irq_st0 %x, irq_st1 %x\n",
+		__entry->event,
+		__entry->vfe_id,
+		__entry->frame_id,
+		__entry->irq_status0,
+		__entry->irq_status1
+	)
+);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #endif /* _MSM_CAM_TRACE_H */
 /* This part must be outside protection */
 #include <trace/define_trace.h>

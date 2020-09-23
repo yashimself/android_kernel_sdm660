@@ -140,6 +140,7 @@ static int find_console_handle(void)
 	return 1;
 }
 
+<<<<<<< HEAD
 static unsigned int local_ev_byte_channel_send(unsigned int handle,
 					       unsigned int *count,
 					       const char *p)
@@ -155,6 +156,8 @@ static unsigned int local_ev_byte_channel_send(unsigned int handle,
 	return ev_byte_channel_send(handle, count, p);
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /*************************** EARLY CONSOLE DRIVER ***************************/
 
 #ifdef CONFIG_PPC_EARLY_DEBUG_EHV_BC
@@ -173,7 +176,11 @@ static void byte_channel_spin_send(const char data)
 
 	do {
 		count = 1;
+<<<<<<< HEAD
 		ret = local_ev_byte_channel_send(CONFIG_PPC_EARLY_DEBUG_EHV_BC_HANDLE,
+=======
+		ret = ev_byte_channel_send(CONFIG_PPC_EARLY_DEBUG_EHV_BC_HANDLE,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 					   &count, &data);
 	} while (ret == EV_EAGAIN);
 }
@@ -240,7 +247,11 @@ static int ehv_bc_console_byte_channel_send(unsigned int handle, const char *s,
 	while (count) {
 		len = min_t(unsigned int, count, EV_BYTE_CHANNEL_MAX_BYTES);
 		do {
+<<<<<<< HEAD
 			ret = local_ev_byte_channel_send(handle, &len, s);
+=======
+			ret = ev_byte_channel_send(handle, &len, s);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		} while (ret == EV_EAGAIN);
 		count -= len;
 		s += len;
@@ -420,7 +431,11 @@ static void ehv_bc_tx_dequeue(struct ehv_bc_data *bc)
 			    CIRC_CNT_TO_END(bc->head, bc->tail, BUF_SIZE),
 			    EV_BYTE_CHANNEL_MAX_BYTES);
 
+<<<<<<< HEAD
 		ret = local_ev_byte_channel_send(bc->handle, &len, bc->buf + bc->tail);
+=======
+		ret = ev_byte_channel_send(bc->handle, &len, bc->buf + bc->tail);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		/* 'len' is valid only if the return code is 0 or EV_EAGAIN */
 		if (!ret || (ret == EV_EAGAIN))

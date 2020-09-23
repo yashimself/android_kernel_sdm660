@@ -1702,8 +1702,11 @@ static int btrfs_remount(struct super_block *sb, int *flags, char *data)
 		}
 
 		if (btrfs_super_log_root(fs_info->super_copy) != 0) {
+<<<<<<< HEAD
 			btrfs_warn(fs_info,
 		"mount required to replay tree-log, cannot remount read-write");
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			ret = -EINVAL;
 			goto restore;
 		}
@@ -1980,7 +1983,10 @@ static int btrfs_statfs(struct dentry *dentry, struct kstatfs *buf)
 	struct btrfs_block_rsv *block_rsv = &fs_info->global_block_rsv;
 	int ret;
 	u64 thresh = 0;
+<<<<<<< HEAD
 	int mixed = 0;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/*
 	 * holding chunk_muext to avoid allocating new chunks, holding
@@ -2006,6 +2012,7 @@ static int btrfs_statfs(struct dentry *dentry, struct kstatfs *buf)
 				}
 			}
 		}
+<<<<<<< HEAD
 
 		/*
 		 * Metadata in mixed block goup profiles are accounted in data
@@ -2017,6 +2024,10 @@ static int btrfs_statfs(struct dentry *dentry, struct kstatfs *buf)
 				total_free_meta += found->disk_total -
 					found->disk_used;
 		}
+=======
+		if (found->flags & BTRFS_BLOCK_GROUP_METADATA)
+			total_free_meta += found->disk_total - found->disk_used;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		total_used += found->disk_used;
 	}
@@ -2054,6 +2065,7 @@ static int btrfs_statfs(struct dentry *dentry, struct kstatfs *buf)
 	 */
 	thresh = 4 * 1024 * 1024;
 
+<<<<<<< HEAD
 	/*
 	 * We only want to claim there's no available space if we can no longer
 	 * allocate chunks for our metadata profile and our global reserve will
@@ -2063,6 +2075,9 @@ static int btrfs_statfs(struct dentry *dentry, struct kstatfs *buf)
 	 */
 	if (!mixed && block_rsv->space_info->full &&
 	    total_free_meta - thresh < block_rsv->size)
+=======
+	if (total_free_meta - thresh < block_rsv->size)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		buf->f_bavail = 0;
 
 	buf->f_type = BTRFS_SUPER_MAGIC;

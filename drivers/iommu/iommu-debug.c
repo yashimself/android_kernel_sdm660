@@ -30,7 +30,11 @@
 #include <asm/dma-iommu.h>
 #include "iommu-debug.h"
 
+<<<<<<< HEAD
 #if defined(CONFIG_IOMMU_DEBUG_TRACKING) || defined(CONFIG_IOMMU_TESTS)
+=======
+#if defined(CONFIG_IOMMU_TESTS)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 static const char *iommu_debug_attr_to_string(enum iommu_attr attr)
 {

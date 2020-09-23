@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2016-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2016-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -16,8 +20,13 @@ struct virtual_channel *
 hab_vchan_alloc(struct uhab_context *ctx, struct physical_channel *pchan,
 				int openid)
 {
+<<<<<<< HEAD
 	int id;
 	struct virtual_channel *vchan;
+=======
+	int id = 0;
+	struct virtual_channel *vchan = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (!pchan || !ctx)
 		return NULL;
@@ -73,10 +82,17 @@ hab_vchan_free(struct kref *ref)
 {
 	struct virtual_channel *vchan =
 		container_of(ref, struct virtual_channel, refcount);
+<<<<<<< HEAD
 	struct hab_message *message, *msg_tmp;
 	struct physical_channel *pchan = vchan->pchan;
 	struct uhab_context *ctx = vchan->ctx;
 	struct virtual_channel *vc, *vc_tmp;
+=======
+	struct hab_message *message = NULL, *msg_tmp = NULL;
+	struct physical_channel *pchan = vchan->pchan;
+	struct uhab_context *ctx = vchan->ctx;
+	struct virtual_channel *vc = NULL, *vc_tmp = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	spin_lock_bh(&vchan->rx_lock);
 	list_for_each_entry_safe(message, msg_tmp, &vchan->rx_list, node) {
@@ -85,12 +101,17 @@ hab_vchan_free(struct kref *ref)
 	}
 	spin_unlock_bh(&vchan->rx_lock);
 
+<<<<<<< HEAD
 	/* the release vchan from ctx was done earlier in vchan close() */
 	hab_ctx_put(ctx); /* now ctx is not needed from this vchan's view */
 	vchan->ctx = NULL;
 
 	/* release vchan from pchan. no more msg for this vchan */
 	write_lock(&pchan->vchans_lock);
+=======
+	/* release vchan from pchan. no more msg for this vchan */
+	write_lock_bh(&pchan->vchans_lock);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	list_for_each_entry_safe(vc, vc_tmp, &pchan->vchannels, pnode) {
 		if (vchan == vc) {
 			list_del(&vc->pnode);
@@ -99,7 +120,14 @@ hab_vchan_free(struct kref *ref)
 			break;
 		}
 	}
+<<<<<<< HEAD
 	write_unlock(&pchan->vchans_lock);
+=======
+	write_unlock_bh(&pchan->vchans_lock);
+
+	/* the release vchan from ctx was done earlier in vchan close() */
+	hab_ctx_put(ctx); /* now ctx is not needed from this vchan's view */
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* release idr at the last so same idr will not be used early */
 	spin_lock_bh(&pchan->vid_lock);
@@ -118,7 +146,11 @@ hab_vchan_free(struct kref *ref)
 struct virtual_channel*
 hab_vchan_get(struct physical_channel *pchan, struct hab_header *header)
 {
+<<<<<<< HEAD
 	struct virtual_channel *vchan;
+=======
+	struct virtual_channel *vchan = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	uint32_t vchan_id = HAB_HEADER_GET_ID(*header);
 	uint32_t session_id = HAB_HEADER_GET_SESSION_ID(*header);
 	size_t sizebytes = HAB_HEADER_GET_SIZE(*header);
@@ -144,6 +176,16 @@ hab_vchan_get(struct physical_channel *pchan, struct hab_header *header)
 				get_refcnt(vchan->refcount),
 				payload_type, sizebytes);
 			vchan = NULL;
+<<<<<<< HEAD
+=======
+		} else if (vchan->otherend_closed || vchan->closed) {
+			pr_err("closed already remote %d local %d vcid %x remote %x session %d refcnt %d header %x session %d type %d sz %zd\n",
+				vchan->otherend_closed, vchan->closed,
+				vchan->id, vchan->otherend_id,
+				vchan->session_id, get_refcnt(vchan->refcount),
+				vchan_id, session_id, payload_type, sizebytes);
+			vchan = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		} else if (!kref_get_unless_zero(&vchan->refcount)) {
 			/*
 			 * this happens when refcnt is already zero
@@ -154,6 +196,7 @@ hab_vchan_get(struct physical_channel *pchan, struct hab_header *header)
 				vchan->session_id, get_refcnt(vchan->refcount),
 				vchan_id, session_id, payload_type, sizebytes);
 			vchan = NULL;
+<<<<<<< HEAD
 		} else if (vchan->otherend_closed || vchan->closed) {
 			pr_err("closed already remote %d local %d vcid %x remote %x session %d refcnt %d header %x session %d type %d sz %zd\n",
 				vchan->otherend_closed, vchan->closed,
@@ -161,6 +204,8 @@ hab_vchan_get(struct physical_channel *pchan, struct hab_header *header)
 				vchan->session_id, get_refcnt(vchan->refcount),
 				vchan_id, session_id, payload_type, sizebytes);
 			vchan = NULL;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 	}
 	spin_unlock_bh(&pchan->vid_lock);
@@ -168,18 +213,33 @@ hab_vchan_get(struct physical_channel *pchan, struct hab_header *header)
 	return vchan;
 }
 
+<<<<<<< HEAD
+=======
+/* wake up local waiting Q, so stop-vchan can be processed */
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 void hab_vchan_stop(struct virtual_channel *vchan)
 {
 	if (vchan) {
 		vchan->otherend_closed = 1;
 		wake_up(&vchan->rx_queue);
+<<<<<<< HEAD
 		wake_up_interruptible(&vchan->ctx->exp_wq);
+=======
+		if (vchan->ctx)
+			wake_up_interruptible(&vchan->ctx->exp_wq);
+		else
+			pr_err("NULL ctx for vchan %x\n", vchan->id);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 }
 
 void hab_vchans_stop(struct physical_channel *pchan)
 {
+<<<<<<< HEAD
 	struct virtual_channel *vchan, *tmp;
+=======
+	struct virtual_channel *vchan = NULL, *tmp = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	read_lock(&pchan->vchans_lock);
 	list_for_each_entry_safe(vchan, tmp, &pchan->vchannels, pnode) {
@@ -188,6 +248,10 @@ void hab_vchans_stop(struct physical_channel *pchan)
 	read_unlock(&pchan->vchans_lock);
 }
 
+<<<<<<< HEAD
+=======
+/* send vchan close to remote and stop receiving anything locally */
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 void hab_vchan_stop_notify(struct virtual_channel *vchan)
 {
 	hab_send_close_msg(vchan);
@@ -196,10 +260,36 @@ void hab_vchan_stop_notify(struct virtual_channel *vchan)
 
 static int hab_vchans_per_pchan_empty(struct physical_channel *pchan)
 {
+<<<<<<< HEAD
 	int empty;
 
 	read_lock(&pchan->vchans_lock);
 	empty = list_empty(&pchan->vchannels);
+=======
+	int empty = 0;
+
+	read_lock(&pchan->vchans_lock);
+	empty = list_empty(&pchan->vchannels);
+	if (!empty) {
+		struct virtual_channel *vchan = NULL;
+		int vcnt = pchan->vcnt;
+
+		list_for_each_entry(vchan, &pchan->vchannels, pnode) {
+			/* discount open-pending unpaired vchan */
+			if (!vchan->session_id)
+				vcnt--;
+			else
+				pr_err("vchan %pK %x rm %x sn %d rf %d clsd %d rm clsd %d\n",
+					vchan, vchan->id,
+					vchan->otherend_id,
+					vchan->session_id,
+					get_refcnt(vchan->refcount),
+					vchan->closed, vchan->otherend_closed);
+		}
+		if (!vcnt)
+			empty = 1;/* unpaired vchan can exist at init time */
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	read_unlock(&pchan->vchans_lock);
 
 	return empty;
@@ -207,9 +297,15 @@ static int hab_vchans_per_pchan_empty(struct physical_channel *pchan)
 
 static int hab_vchans_empty(int vmid)
 {
+<<<<<<< HEAD
 	int i, empty = 1;
 	struct physical_channel *pchan;
 	struct hab_device *hab_dev;
+=======
+	int i = 0, empty = 1;
+	struct physical_channel *pchan = NULL;
+	struct hab_device *hab_dev = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	for (i = 0; i < hab_driver.ndevices; i++) {
 		hab_dev = &hab_driver.devp[i];
@@ -220,6 +316,11 @@ static int hab_vchans_empty(int vmid)
 				if (!hab_vchans_per_pchan_empty(pchan)) {
 					empty = 0;
 					spin_unlock_bh(&hab_dev->pchan_lock);
+<<<<<<< HEAD
+=======
+					pr_info("vmid %d %s's vchans are not closed\n",
+							vmid, pchan->name);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 					break;
 				}
 			}
@@ -239,7 +340,11 @@ void hab_vchans_empty_wait(int vmid)
 	pr_info("waiting for GVM%d's sockets closure\n", vmid);
 
 	while (!hab_vchans_empty(vmid))
+<<<<<<< HEAD
 		schedule();
+=======
+		usleep_range(10000, 12000);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	pr_info("all of GVM%d's sockets are closed\n", vmid);
 }
@@ -249,6 +354,7 @@ int hab_vchan_find_domid(struct virtual_channel *vchan)
 	return vchan ? vchan->pchan->dom_id : -1;
 }
 
+<<<<<<< HEAD
 /* this sould be only called once after refcnt is zero */
 static void hab_vchan_schedule_free(struct kref *ref)
 {
@@ -285,12 +391,26 @@ void hab_vchan_put(struct virtual_channel *vchan)
 {
 	if (vchan)
 		kref_put(&vchan->refcount, hab_vchan_schedule_free);
+=======
+void hab_vchan_put(struct virtual_channel *vchan)
+{
+	if (vchan)
+		kref_put(&vchan->refcount, &hab_vchan_free);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 int hab_vchan_query(struct uhab_context *ctx, int32_t vcid, uint64_t *ids,
 			   char *names, size_t name_size, uint32_t flags)
 {
+<<<<<<< HEAD
 	struct virtual_channel *vchan = hab_get_vchan_fromvcid(vcid, ctx);
+=======
+	struct virtual_channel *vchan = NULL;
+
+	(void)flags;
+
+	vchan = hab_get_vchan_fromvcid(vcid, ctx, 1);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!vchan)
 		return -EINVAL;
 

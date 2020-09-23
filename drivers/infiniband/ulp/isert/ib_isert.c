@@ -3278,6 +3278,20 @@ isert_wait4logout(struct isert_conn *isert_conn)
 }
 
 static void
+<<<<<<< HEAD
+=======
+isert_wait4cmds(struct iscsi_conn *conn)
+{
+	isert_info("iscsi_conn %p\n", conn);
+
+	if (conn->sess) {
+		target_sess_cmd_list_set_waiting(conn->sess->se_sess);
+		target_wait_for_sess_cmds(conn->sess->se_sess);
+	}
+}
+
+static void
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 isert_wait4flush(struct isert_conn *isert_conn)
 {
 	struct ib_recv_wr *bad_wr;
@@ -3295,6 +3309,7 @@ isert_wait4flush(struct isert_conn *isert_conn)
 	wait_for_completion(&isert_conn->wait_comp_err);
 }
 
+<<<<<<< HEAD
 static void
 isert_wait4cmds(struct iscsi_conn *conn)
 {
@@ -3306,6 +3321,8 @@ isert_wait4cmds(struct iscsi_conn *conn)
 	}
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /**
  * isert_put_unsol_pending_cmds() - Drop commands waiting for
  *     unsolicitate dataout

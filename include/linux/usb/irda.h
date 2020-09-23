@@ -118,11 +118,16 @@ struct usb_irda_cs_descriptor {
  * 6 - 115200 bps
  * 7 - 576000 bps
  * 8 - 1.152 Mbps
+<<<<<<< HEAD
  * 9 - 4 Mbps
+=======
+ * 9 - 5 mbps
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * 10..15 - Reserved
  */
 #define USB_IRDA_STATUS_LINK_SPEED	0x0f
 
+<<<<<<< HEAD
 #define USB_IRDA_LS_NO_CHANGE		0
 #define USB_IRDA_LS_2400		1
 #define USB_IRDA_LS_9600		2
@@ -134,6 +139,8 @@ struct usb_irda_cs_descriptor {
 #define USB_IRDA_LS_1152000		8
 #define USB_IRDA_LS_4000000		9
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /* The following is a 4-bit value used only for
  * outbound header:
  *

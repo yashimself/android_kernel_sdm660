@@ -70,7 +70,11 @@ xpc_get_rsvd_page_pa(int nasid)
 	unsigned long rp_pa = nasid;	/* seed with nasid */
 	size_t len = 0;
 	size_t buf_len = 0;
+<<<<<<< HEAD
 	void *buf = NULL;
+=======
+	void *buf = buf;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	void *buf_base = NULL;
 	enum xp_retval (*get_partition_rsvd_page_pa)
 		(void *, u64 *, unsigned long *, size_t *) =

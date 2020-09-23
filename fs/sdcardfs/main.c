@@ -34,6 +34,11 @@ enum {
 	Opt_reserved_mb,
 	Opt_gid_derivation,
 	Opt_default_normal,
+<<<<<<< HEAD
+=======
+	Opt_nocache,
+	Opt_unshared_obb,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	Opt_err,
 };
 
@@ -47,7 +52,13 @@ static const match_table_t sdcardfs_tokens = {
 	{Opt_multiuser, "multiuser"},
 	{Opt_gid_derivation, "derive_gid"},
 	{Opt_default_normal, "default_normal"},
+<<<<<<< HEAD
 	{Opt_reserved_mb, "reserved_mb=%u"},
+=======
+	{Opt_unshared_obb, "unshared_obb"},
+	{Opt_reserved_mb, "reserved_mb=%u"},
+	{Opt_nocache, "nocache"},
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	{Opt_err, NULL}
 };
 
@@ -71,6 +82,10 @@ static int parse_options(struct super_block *sb, char *options, int silent,
 	/* by default, gid derivation is off */
 	opts->gid_derivation = false;
 	opts->default_normal = false;
+<<<<<<< HEAD
+=======
+	opts->nocache = false;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	*debug = 0;
 
@@ -128,6 +143,15 @@ static int parse_options(struct super_block *sb, char *options, int silent,
 		case Opt_default_normal:
 			opts->default_normal = true;
 			break;
+<<<<<<< HEAD
+=======
+		case Opt_nocache:
+			opts->nocache = true;
+			break;
+		case Opt_unshared_obb:
+			opts->unshared_obb = true;
+			break;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		/* unknown option */
 		default:
 			if (!silent)
@@ -181,13 +205,23 @@ int parse_options_remount(struct super_block *sb, char *options, int silent,
 				return 0;
 			vfsopts->mask = option;
 			break;
+<<<<<<< HEAD
+=======
+		case Opt_unshared_obb:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		case Opt_default_normal:
 		case Opt_multiuser:
 		case Opt_userid:
 		case Opt_fsuid:
 		case Opt_fsgid:
 		case Opt_reserved_mb:
+<<<<<<< HEAD
 			pr_warn("Option \"%s\" can't be changed during remount\n", p);
+=======
+		case Opt_gid_derivation:
+			if (!silent)
+				pr_warn("Option \"%s\" can't be changed during remount\n", p);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			break;
 		/* unknown option */
 		default:
@@ -264,7 +298,11 @@ static int sdcardfs_read_super(struct vfsmount *mnt, struct super_block *sb,
 
 	pr_info("sdcardfs: dev_name -> %s\n", dev_name);
 	pr_info("sdcardfs: options -> %s\n", (char *)raw_data);
+<<<<<<< HEAD
 	pr_info("sdcardfs: mnt -> %p\n", mnt);
+=======
+	pr_info("sdcardfs: mnt -> %pK\n", mnt);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* parse lower path */
 	err = kern_path(dev_name, LOOKUP_FOLLOW | LOOKUP_DIRECTORY,

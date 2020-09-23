@@ -82,11 +82,19 @@ struct tz_bw_svc_resp {
 	enum tz_bw_svc_err status;
 } __packed;
 
+<<<<<<< HEAD
 __packed union tz_bw_svc_req {
 	struct tz_bw_svc_start_req *start_req;
 	struct tz_bw_svc_get_req *get_req;
 	struct tz_bw_svc_stop_req *stop_req;
 };
+=======
+union tz_bw_svc_req {
+	struct tz_bw_svc_start_req *start_req;
+	struct tz_bw_svc_get_req *get_req;
+	struct tz_bw_svc_stop_req *stop_req;
+} __packed;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 struct tz_bw_svc_buf {
 	union tz_bw_svc_req bwreq;

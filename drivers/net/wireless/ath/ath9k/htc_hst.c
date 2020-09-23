@@ -414,7 +414,11 @@ void ath9k_htc_rx_msg(struct htc_target *htc_handle,
 		return;
 	}
 
+<<<<<<< HEAD
 	if (epid < 0 || epid >= ENDPOINT_MAX) {
+=======
+	if (epid >= ENDPOINT_MAX) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (pipe_id != USB_REG_IN_PIPE)
 			dev_kfree_skb_any(skb);
 		else

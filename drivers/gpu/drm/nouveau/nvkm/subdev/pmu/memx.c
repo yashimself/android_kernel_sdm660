@@ -87,10 +87,17 @@ nvkm_memx_fini(struct nvkm_memx **pmemx, bool exec)
 	if (exec) {
 		nvkm_pmu_send(pmu, reply, PROC_MEMX, MEMX_MSG_EXEC,
 			      memx->base, finish);
+<<<<<<< HEAD
 		nvkm_debug(subdev, "Exec took %uns, PMU_IN %08x\n",
 			   reply[0], reply[1]);
 	}
 
+=======
+	}
+
+	nvkm_debug(subdev, "Exec took %uns, PMU_IN %08x\n",
+		   reply[0], reply[1]);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	kfree(memx);
 	return 0;
 }

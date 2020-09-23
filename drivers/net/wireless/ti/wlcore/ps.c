@@ -202,7 +202,11 @@ int wl1271_ps_set_mode(struct wl1271 *wl, struct wl12xx_vif *wlvif,
 		 * enable beacon early termination.
 		 * Not relevant for 5GHz and for high rates.
 		 */
+<<<<<<< HEAD
 		if ((wlvif->band == NL80211_BAND_2GHZ) &&
+=======
+		if ((wlvif->band == IEEE80211_BAND_2GHZ) &&
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		    (wlvif->basic_rate < CONF_HW_BIT_RATE_9MBPS)) {
 			ret = wl1271_acx_bet_enable(wl, wlvif, true);
 			if (ret < 0)
@@ -213,7 +217,11 @@ int wl1271_ps_set_mode(struct wl1271 *wl, struct wl12xx_vif *wlvif,
 		wl1271_debug(DEBUG_PSM, "leaving psm");
 
 		/* disable beacon early termination */
+<<<<<<< HEAD
 		if ((wlvif->band == NL80211_BAND_2GHZ) &&
+=======
+		if ((wlvif->band == IEEE80211_BAND_2GHZ) &&
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		    (wlvif->basic_rate < CONF_HW_BIT_RATE_9MBPS)) {
 			ret = wl1271_acx_bet_enable(wl, wlvif, false);
 			if (ret < 0)

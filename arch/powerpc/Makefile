@@ -350,9 +350,13 @@ vdso_install:
 ifeq ($(CONFIG_PPC64),y)
 	$(Q)$(MAKE) $(build)=arch/$(ARCH)/kernel/vdso64 $@
 endif
+<<<<<<< HEAD
 ifdef CONFIG_VDSO32
 	$(Q)$(MAKE) $(build)=arch/$(ARCH)/kernel/vdso32 $@
 endif
+=======
+	$(Q)$(MAKE) $(build)=arch/$(ARCH)/kernel/vdso32 $@
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 archclean:
 	$(Q)$(MAKE) $(clean)=$(boot)

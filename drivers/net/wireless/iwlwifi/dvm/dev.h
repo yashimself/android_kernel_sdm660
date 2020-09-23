@@ -677,7 +677,11 @@ struct iwl_priv {
 
 	struct iwl_hw_params hw_params;
 
+<<<<<<< HEAD
 	enum nl80211_band band;
+=======
+	enum ieee80211_band band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	u8 valid_contexts;
 
 	void (*rx_handlers[REPLY_MAX])(struct iwl_priv *priv,
@@ -722,11 +726,19 @@ struct iwl_priv {
 	unsigned long scan_start;
 	unsigned long scan_start_tsf;
 	void *scan_cmd;
+<<<<<<< HEAD
 	enum nl80211_band scan_band;
 	struct cfg80211_scan_request *scan_request;
 	struct ieee80211_vif *scan_vif;
 	enum iwl_scan_type scan_type;
 	u8 scan_tx_ant[NUM_NL80211_BANDS];
+=======
+	enum ieee80211_band scan_band;
+	struct cfg80211_scan_request *scan_request;
+	struct ieee80211_vif *scan_vif;
+	enum iwl_scan_type scan_type;
+	u8 scan_tx_ant[IEEE80211_NUM_BANDS];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	u8 mgmt_tx_ant;
 
 	/* max number of station keys */

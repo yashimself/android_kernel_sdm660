@@ -6,9 +6,12 @@
 
 #include <asm/byteorder.h>
 
+<<<<<<< HEAD
 #define INT32_MAX	S32_MAX
 #define UINT32_MAX	U32_MAX
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 typedef __be16 fdt16_t;
 typedef __be32 fdt32_t;
 typedef __be64 fdt64_t;

@@ -477,7 +477,11 @@ static void p54_bss_info_changed(struct ieee80211_hw *dev,
 		p54_set_edcf(priv);
 	}
 	if (changed & BSS_CHANGED_BASIC_RATES) {
+<<<<<<< HEAD
 		if (dev->conf.chandef.chan->band == NL80211_BAND_5GHZ)
+=======
+		if (dev->conf.chandef.chan->band == IEEE80211_BAND_5GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			priv->basic_rate_mask = (info->basic_rates << 4);
 		else
 			priv->basic_rate_mask = info->basic_rates;
@@ -829,7 +833,11 @@ void p54_free_common(struct ieee80211_hw *dev)
 	struct p54_common *priv = dev->priv;
 	unsigned int i;
 
+<<<<<<< HEAD
 	for (i = 0; i < NUM_NL80211_BANDS; i++)
+=======
+	for (i = 0; i < IEEE80211_NUM_BANDS; i++)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		kfree(priv->band_table[i]);
 
 	kfree(priv->iq_autocal);

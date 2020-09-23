@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2014-2017, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2014-2018, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -1207,7 +1211,11 @@ error_regulator_enable:
 	return rc;
 }
 
+<<<<<<< HEAD
 int qpnp_flash_led_prepare(struct led_trigger *trig, int options,
+=======
+static int qpnp_flash_led_prepare_v1(struct led_trigger *trig, int options,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 					int *max_current)
 {
 	struct led_classdev *led_cdev = trigger_to_lcdev(trig);
@@ -1269,7 +1277,11 @@ static void qpnp_flash_led_work(struct work_struct *work)
 	int max_curr_avail_ma = 0;
 	int total_curr_ma = 0;
 	int i;
+<<<<<<< HEAD
 	u8 val;
+=======
+	u8 val = 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	uint temp;
 
 	mutex_lock(&led->flash_led_lock);
@@ -2226,7 +2238,10 @@ static int qpnp_flash_led_parse_common_dt(
 					"Invalid thermal derate rate\n");
 				return -EINVAL;
 			}
+<<<<<<< HEAD
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			led->pdata->thermal_derate_rate = (u8)temp_val;
 		} else {
 			dev_err(&led->pdev->dev,
@@ -2468,16 +2483,29 @@ static int qpnp_flash_led_probe(struct platform_device *pdev)
 	led->pdev = pdev;
 	led->current_addr = FLASH_LED0_CURRENT(led->base);
 	led->current2_addr = FLASH_LED1_CURRENT(led->base);
+<<<<<<< HEAD
+=======
+	qpnp_flash_led_prepare = qpnp_flash_led_prepare_v1;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	led->pdata = devm_kzalloc(&pdev->dev, sizeof(*led->pdata), GFP_KERNEL);
 	if (!led->pdata)
 		return -ENOMEM;
 
+<<<<<<< HEAD
 	led->peripheral_type = (u8)qpnp_flash_led_get_peripheral_type(led);
 	if (led->peripheral_type < 0) {
 		dev_err(&pdev->dev, "Failed to get peripheral type\n");
 		return rc;
 	}
+=======
+	rc = qpnp_flash_led_get_peripheral_type(led);
+	if (rc < 0) {
+		dev_err(&pdev->dev, "Failed to get peripheral type\n");
+		return rc;
+	}
+	led->peripheral_type = (u8) rc;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	rc = qpnp_flash_led_parse_common_dt(led, node);
 	if (rc) {
@@ -2520,6 +2548,10 @@ static int qpnp_flash_led_probe(struct platform_device *pdev)
 	}
 
 	for_each_child_of_node(node, temp) {
+<<<<<<< HEAD
+=======
+		j = -1;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		led->flash_node[i].cdev.brightness_set =
 						qpnp_flash_led_brightness_set;
 		led->flash_node[i].cdev.brightness_get =
@@ -2594,7 +2626,10 @@ static int qpnp_flash_led_probe(struct platform_device *pdev)
 			if (rc)
 				goto error_led_register;
 		}
+<<<<<<< HEAD
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		i++;
 	}
 
@@ -2606,7 +2641,11 @@ static int qpnp_flash_led_probe(struct platform_device *pdev)
 			(long)root);
 		if (PTR_ERR(root) == -ENODEV)
 			pr_err("debugfs is not enabled in kernel");
+<<<<<<< HEAD
 		goto error_led_debugfs;
+=======
+		goto error_free_led_sysfs;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	led->dbgfs_root = root;
@@ -2636,6 +2675,11 @@ static int qpnp_flash_led_probe(struct platform_device *pdev)
 	return 0;
 
 error_led_debugfs:
+<<<<<<< HEAD
+=======
+	debugfs_remove_recursive(root);
+error_free_led_sysfs:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	i = led->num_leds - 1;
 	j = ARRAY_SIZE(qpnp_flash_led_attrs) - 1;
 error_led_register:
@@ -2646,7 +2690,10 @@ error_led_register:
 		j = ARRAY_SIZE(qpnp_flash_led_attrs) - 1;
 		led_classdev_unregister(&led->flash_node[i].cdev);
 	}
+<<<<<<< HEAD
 	debugfs_remove_recursive(root);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	mutex_destroy(&led->flash_led_lock);
 	destroy_workqueue(led->ordered_workq);
 

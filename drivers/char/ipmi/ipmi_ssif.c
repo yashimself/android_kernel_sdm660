@@ -742,6 +742,7 @@ static void msg_done_handler(struct ssif_info *ssif_info, int result,
 	flags = ipmi_ssif_lock_cond(ssif_info, &oflags);
 	msg = ssif_info->curr_msg;
 	if (msg) {
+<<<<<<< HEAD
 		if (data) {
 			if (len > IPMI_MAX_MSG_LENGTH)
 				len = IPMI_MAX_MSG_LENGTH;
@@ -750,6 +751,12 @@ static void msg_done_handler(struct ssif_info *ssif_info, int result,
 			len = 0;
 		}
 		msg->rsp_size = len;
+=======
+		msg->rsp_size = len;
+		if (msg->rsp_size > IPMI_MAX_MSG_LENGTH)
+			msg->rsp_size = IPMI_MAX_MSG_LENGTH;
+		memcpy(msg->rsp, data, msg->rsp_size);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		ssif_info->curr_msg = NULL;
 	}
 

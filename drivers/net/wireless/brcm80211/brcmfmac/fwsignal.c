@@ -2262,6 +2262,7 @@ void brcmf_fws_bustxfail(struct brcmf_fws_info *fws, struct sk_buff *skb)
 void brcmf_fws_bus_blocked(struct brcmf_pub *drvr, bool flow_blocked)
 {
 	struct brcmf_fws_info *fws = drvr->fws;
+<<<<<<< HEAD
 	struct brcmf_if *ifp;
 	int i;
 
@@ -2280,4 +2281,12 @@ void brcmf_fws_bus_blocked(struct brcmf_pub *drvr, bool flow_blocked)
 		else
 			fws->stats.bus_flow_block++;
 	}
+=======
+
+	fws->bus_flow_blocked = flow_blocked;
+	if (!flow_blocked)
+		brcmf_fws_schedule_deq(fws);
+	else
+		fws->stats.bus_flow_block++;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }

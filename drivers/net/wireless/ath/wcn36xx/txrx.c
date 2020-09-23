@@ -225,7 +225,11 @@ static void wcn36xx_set_tx_mgmt(struct wcn36xx_tx_bd *bd,
 
 	/* default rate for unicast */
 	if (ieee80211_is_mgmt(hdr->frame_control))
+<<<<<<< HEAD
 		bd->bd_rate = (WCN36XX_BAND(wcn) == NL80211_BAND_5GHZ) ?
+=======
+		bd->bd_rate = (WCN36XX_BAND(wcn) == IEEE80211_BAND_5GHZ) ?
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			WCN36XX_BD_RATE_CTRL :
 			WCN36XX_BD_RATE_MGMT;
 	else if (ieee80211_is_ctl(hdr->frame_control))

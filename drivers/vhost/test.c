@@ -201,7 +201,11 @@ static long vhost_test_run(struct vhost_test *n, int test)
 		oldpriv = vq->private_data;
 		vq->private_data = priv;
 
+<<<<<<< HEAD
 		r = vhost_init_used(&n->vqs[index]);
+=======
+		r = vhost_vq_init_access(&n->vqs[index]);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		mutex_unlock(&vq->mutex);
 

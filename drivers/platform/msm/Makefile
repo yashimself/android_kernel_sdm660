@@ -16,7 +16,11 @@ obj-$(CONFIG_SEEMP_CORE) += seemp_core/
 obj-$(CONFIG_USB_BAM) += usb_bam.o
 obj-$(CONFIG_MSM_MHI_DEV) += mhi_dev/
 obj-$(CONFIG_MSM_EXT_DISPLAY) += msm_ext_display.o
+<<<<<<< HEAD
 
 #TODO: remove me b/62058353
 subdir-ccflags-y += \
 	-Wno-enum-conversion
+=======
+obj-$(CONFIG_SDIO_QCN) += qcn/
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

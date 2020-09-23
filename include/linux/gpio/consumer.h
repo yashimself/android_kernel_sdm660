@@ -398,7 +398,11 @@ static inline int gpiod_to_irq(const struct gpio_desc *desc)
 
 static inline struct gpio_desc *gpio_to_desc(unsigned gpio)
 {
+<<<<<<< HEAD
 	return NULL;
+=======
+	return ERR_PTR(-EINVAL);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static inline int desc_to_gpio(const struct gpio_desc *desc)

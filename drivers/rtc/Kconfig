@@ -278,7 +278,10 @@ config RTC_DRV_MAX6900
 config RTC_DRV_MAX8907
 	tristate "Maxim MAX8907"
 	depends on MFD_MAX8907
+<<<<<<< HEAD
 	select REGMAP_IRQ
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	help
 	  If you say yes here you will get support for the
 	  RTC of Maxim MAX8907 PMIC.

@@ -109,8 +109,12 @@ static inline int verify_sec_ctx_len(struct nlattr **attrs)
 		return 0;
 
 	uctx = nla_data(rt);
+<<<<<<< HEAD
 	if (uctx->len > nla_len(rt) ||
 	    uctx->len != (sizeof(struct xfrm_user_sec_ctx) + uctx->ctx_len))
+=======
+	if (uctx->len != (sizeof(struct xfrm_user_sec_ctx) + uctx->ctx_len))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return -EINVAL;
 
 	return 0;
@@ -612,12 +616,18 @@ static struct xfrm_state *xfrm_state_construct(struct net *net,
 	if (err)
 		goto error;
 
+<<<<<<< HEAD
 	if (attrs[XFRMA_SEC_CTX]) {
 		err = security_xfrm_state_alloc(x,
 						nla_data(attrs[XFRMA_SEC_CTX]));
 		if (err)
 			goto error;
 	}
+=======
+	if (attrs[XFRMA_SEC_CTX] &&
+	    security_xfrm_state_alloc(x, nla_data(attrs[XFRMA_SEC_CTX])))
+		goto error;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if ((err = xfrm_alloc_replay_state_esn(&x->replay_esn, &x->preplay_esn,
 					       attrs[XFRMA_REPLAY_ESN_VAL])))
@@ -934,8 +944,12 @@ static int xfrm_dump_sa_done(struct netlink_callback *cb)
 	struct sock *sk = cb->skb->sk;
 	struct net *net = sock_net(sk);
 
+<<<<<<< HEAD
 	if (cb->args[0])
 		xfrm_state_walk_done(walk, net);
+=======
+	xfrm_state_walk_done(walk, net);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return 0;
 }
 
@@ -960,6 +974,11 @@ static int xfrm_dump_sa(struct sk_buff *skb, struct netlink_callback *cb)
 		u8 proto = 0;
 		int err;
 
+<<<<<<< HEAD
+=======
+		cb->args[0] = 1;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		err = nlmsg_parse(cb->nlh, 0, attrs, XFRMA_MAX,
 				  xfrma_policy);
 		if (err < 0)
@@ -976,7 +995,10 @@ static int xfrm_dump_sa(struct sk_buff *skb, struct netlink_callback *cb)
 			proto = nla_get_u8(attrs[XFRMA_PROTO]);
 
 		xfrm_state_walk_init(walk, proto, filter);
+<<<<<<< HEAD
 		cb->args[0] = 1;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	(void) xfrm_state_walk(net, walk, dump_one_state, &info);
@@ -2190,9 +2212,12 @@ static int xfrm_add_acquire(struct sk_buff *skb, struct nlmsghdr *nlh,
 
 	err = verify_newpolicy_info(&ua->policy);
 	if (err)
+<<<<<<< HEAD
 		goto free_state;
 	err = verify_sec_ctx_len(attrs);
 	if (err)
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		goto bad_policy;
 
 	/*   build an XP */
@@ -2538,11 +2563,14 @@ static int xfrm_user_rcv_msg(struct sk_buff *skb, struct nlmsghdr *nlh)
 	const struct xfrm_link *link;
 	int type, err;
 
+<<<<<<< HEAD
 #ifdef CONFIG_COMPAT
 	if (is_compat_task())
 		return -EOPNOTSUPP;
 #endif
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	type = nlh->nlmsg_type;
 	if (type > XFRM_MSG_MAX)
 		return -EINVAL;

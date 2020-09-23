@@ -307,10 +307,13 @@ static void pstore_dump(struct kmsg_dumper *dumper,
 		bool compressed;
 		size_t total_len;
 
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_X00TD
 		big_oops_buf = NULL;
 #endif
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (big_oops_buf && is_locked) {
 			dst = big_oops_buf;
 			hsize = sprintf(dst, "%s#%d Part%u\n", why,
@@ -363,9 +366,12 @@ static void pstore_dump(struct kmsg_dumper *dumper,
 
 static struct kmsg_dumper pstore_dumper = {
 	.dump = pstore_dump,
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_X00TD
 	.name = "pstore_ramoops",
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 /*

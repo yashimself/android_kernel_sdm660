@@ -185,6 +185,7 @@ static int do_ipv6_setsockopt(struct sock *sk, int level, int optname,
 					retv = -EBUSY;
 					break;
 				}
+<<<<<<< HEAD
 			}
 			if (sk->sk_protocol == IPPROTO_TCP &&
 			    sk->sk_prot != &tcpv6_prot) {
@@ -193,6 +194,11 @@ static int do_ipv6_setsockopt(struct sock *sk, int level, int optname,
 			}
 			if (sk->sk_protocol != IPPROTO_TCP)
 				break;
+=======
+			} else if (sk->sk_protocol != IPPROTO_TCP)
+				break;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			if (sk->sk_state != TCP_ESTABLISHED) {
 				retv = -ENOTCONN;
 				break;

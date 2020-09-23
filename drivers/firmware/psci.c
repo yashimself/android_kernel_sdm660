@@ -112,6 +112,7 @@ bool psci_power_state_is_valid(u32 state)
 	return !(state & ~valid_mask);
 }
 
+<<<<<<< HEAD
 static unsigned long __invoke_psci_fn_hvc(unsigned long function_id,
 			unsigned long arg0, unsigned long arg1,
 			unsigned long arg2)
@@ -132,6 +133,8 @@ unsigned long __invoke_psci_fn_smc(unsigned long function_id,
 	return res.a0;
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int psci_to_linux_errno(int errno)
 {
 	switch (errno) {

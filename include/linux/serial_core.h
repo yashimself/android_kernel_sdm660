@@ -160,7 +160,10 @@ struct uart_port {
 	struct console		*cons;			/* struct console, if any */
 #if defined(CONFIG_SERIAL_CORE_CONSOLE) || defined(SUPPORT_SYSRQ)
 	unsigned long		sysrq;			/* sysrq timeout */
+<<<<<<< HEAD
 	unsigned int		sysrq_ch;		/* char for sysrq */
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #endif
 
 	/* flags must be updated while holding port mutex */
@@ -446,6 +449,7 @@ uart_handle_sysrq_char(struct uart_port *port, unsigned int ch)
 	}
 	return 0;
 }
+<<<<<<< HEAD
 static inline int
 uart_prepare_sysrq_char(struct uart_port *port, unsigned int ch)
 {
@@ -482,6 +486,10 @@ uart_unlock_and_check_sysrq(struct uart_port *port, unsigned long irqflags)
 {
 	spin_unlock_irqrestore(&port->lock, irqflags);
 }
+=======
+#else
+#define uart_handle_sysrq_char(port,ch) ({ (void)port; 0; })
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #endif
 
 /*

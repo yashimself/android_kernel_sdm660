@@ -49,7 +49,10 @@ static inline int dev_requeue_skb(struct sk_buff *skb, struct Qdisc *q)
 {
 	q->gso_skb = skb;
 	q->qstats.requeues++;
+<<<<<<< HEAD
 	qdisc_qstats_backlog_inc(q, skb);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	q->q.qlen++;	/* it's still part of the queue */
 	__netif_schedule(q);
 
@@ -93,7 +96,10 @@ static struct sk_buff *dequeue_skb(struct Qdisc *q, bool *validate,
 		txq = skb_get_tx_queue(txq->dev, skb);
 		if (!netif_xmit_frozen_or_stopped(txq)) {
 			q->gso_skb = NULL;
+<<<<<<< HEAD
 			qdisc_qstats_backlog_dec(q, skb);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			q->q.qlen--;
 		} else
 			skb = NULL;
@@ -626,6 +632,7 @@ struct Qdisc *qdisc_create_dflt(struct netdev_queue *dev_queue,
 	struct Qdisc *sch;
 
 	if (!try_module_get(ops->owner))
+<<<<<<< HEAD
 		return NULL;
 
 	sch = qdisc_alloc(dev_queue, ops);
@@ -633,12 +640,23 @@ struct Qdisc *qdisc_create_dflt(struct netdev_queue *dev_queue,
 		module_put(ops->owner);
 		return NULL;
 	}
+=======
+		goto errout;
+
+	sch = qdisc_alloc(dev_queue, ops);
+	if (IS_ERR(sch))
+		goto errout;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	sch->parent = parentid;
 
 	if (!ops->init || ops->init(sch, NULL) == 0)
 		return sch;
 
 	qdisc_destroy(sch);
+<<<<<<< HEAD
+=======
+errout:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return NULL;
 }
 EXPORT_SYMBOL(qdisc_create_dflt);

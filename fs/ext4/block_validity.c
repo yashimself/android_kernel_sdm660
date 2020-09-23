@@ -136,6 +136,7 @@ static void debug_print_tree(struct ext4_sb_info *sbi)
 	printk("\n");
 }
 
+<<<<<<< HEAD
 static int ext4_protect_reserved_inode(struct super_block *sb, u32 ino)
 {
 	struct inode *inode;
@@ -179,6 +180,8 @@ static int ext4_protect_reserved_inode(struct super_block *sb, u32 ino)
 	return err;
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 int ext4_setup_system_zone(struct super_block *sb)
 {
 	ext4_group_t ngroups = ext4_get_groups_count(sb);
@@ -213,12 +216,15 @@ int ext4_setup_system_zone(struct super_block *sb)
 		if (ret)
 			return ret;
 	}
+<<<<<<< HEAD
 	if (ext4_has_feature_journal(sb) && sbi->s_es->s_journal_inum) {
 		ret = ext4_protect_reserved_inode(sb,
 				le32_to_cpu(sbi->s_es->s_journal_inum));
 		if (ret)
 			return ret;
 	}
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (test_opt(sb, DEBUG))
 		debug_print_tree(EXT4_SB(sb));
@@ -275,11 +281,14 @@ int ext4_check_blockref(const char *function, unsigned int line,
 	__le32 *bref = p;
 	unsigned int blk;
 
+<<<<<<< HEAD
 	if (ext4_has_feature_journal(inode->i_sb) &&
 	    (inode->i_ino ==
 	     le32_to_cpu(EXT4_SB(inode->i_sb)->s_es->s_journal_inum)))
 		return 0;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	while (bref < p+max) {
 		blk = le32_to_cpu(*bref++);
 		if (blk &&

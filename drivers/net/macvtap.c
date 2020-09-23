@@ -373,7 +373,11 @@ static rx_handler_result_t macvtap_handle_frame(struct sk_buff **pskb)
 			goto wake_up;
 		}
 
+<<<<<<< HEAD
 		consume_skb(skb);
+=======
+		kfree_skb(skb);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		while (segs) {
 			struct sk_buff *nskb = segs->next;
 

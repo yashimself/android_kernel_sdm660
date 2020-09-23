@@ -69,10 +69,13 @@ struct sm5502_muic_info {
 /* Default value of SM5502 register to bring up MUIC device. */
 static struct reg_data sm5502_reg_data[] = {
 	{
+<<<<<<< HEAD
 		.reg = SM5502_REG_RESET,
 		.val = SM5502_REG_RESET_MASK,
 		.invert = true,
 	}, {
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		.reg = SM5502_REG_CONTROL,
 		.val = SM5502_REG_CONTROL_MASK_INT_MASK,
 		.invert = false,

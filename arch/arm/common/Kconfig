@@ -17,7 +17,10 @@ config SHARP_PARAM
 
 config SHARP_SCOOP
 	bool
+<<<<<<< HEAD
 
 config FIQ_GLUE
 	bool
 	select FIQ
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

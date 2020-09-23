@@ -1596,7 +1596,11 @@ _string_esr_irq_bug:
 
 /*
  * .data section should be page aligned
+<<<<<<< HEAD
  *	(look into arch/openrisc/kernel/vmlinux.lds.S)
+=======
+ *	(look into arch/or32/kernel/vmlinux.lds)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  */
 	.section .data,"aw"
 	.align	8192

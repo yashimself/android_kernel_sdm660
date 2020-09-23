@@ -867,6 +867,7 @@ void cacheinfo_cpu_offline(unsigned int cpu_id)
 	if (cache)
 		cache_cpu_clear(cache, cpu_id);
 }
+<<<<<<< HEAD
 
 void cacheinfo_teardown(void)
 {
@@ -884,4 +885,6 @@ void cacheinfo_rebuild(void)
 		cacheinfo_cpu_online(cpu);
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #endif /* (CONFIG_PPC_PSERIES && CONFIG_SUSPEND) || CONFIG_HOTPLUG_CPU */

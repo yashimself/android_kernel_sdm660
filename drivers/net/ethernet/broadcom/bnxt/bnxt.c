@@ -4250,10 +4250,13 @@ static void bnxt_del_napi(struct bnxt *bp)
 		napi_hash_del(&bnapi->napi);
 		netif_napi_del(&bnapi->napi);
 	}
+<<<<<<< HEAD
 	/* We called napi_hash_del() before netif_napi_del(), we need
 	 * to respect an RCU grace period before freeing napi structures.
 	 */
 	synchronize_net();
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static void bnxt_init_napi(struct bnxt *bp)
@@ -4310,7 +4313,13 @@ static void bnxt_tx_disable(struct bnxt *bp)
 			bnapi = bp->bnapi[i];
 			txr = &bnapi->tx_ring;
 			txq = netdev_get_tx_queue(bp->dev, i);
+<<<<<<< HEAD
 			txr->dev_state = BNXT_DEV_STATE_CLOSING;
+=======
+			__netif_tx_lock(txq, smp_processor_id());
+			txr->dev_state = BNXT_DEV_STATE_CLOSING;
+			__netif_tx_unlock(txq);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 	}
 	/* Stop all TX queues */
@@ -5312,13 +5321,21 @@ static int bnxt_change_mtu(struct net_device *dev, int new_mtu)
 		return -EINVAL;
 
 	if (netif_running(dev))
+<<<<<<< HEAD
 		bnxt_close_nic(bp, true, false);
+=======
+		bnxt_close_nic(bp, false, false);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	dev->mtu = new_mtu;
 	bnxt_set_ring_params(bp);
 
 	if (netif_running(dev))
+<<<<<<< HEAD
 		return bnxt_open_nic(bp, true, false);
+=======
+		return bnxt_open_nic(bp, false, false);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	return 0;
 }

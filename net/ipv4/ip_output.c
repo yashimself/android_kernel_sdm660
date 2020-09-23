@@ -1145,6 +1145,7 @@ static int ip_setup_cork(struct sock *sk, struct inet_cork *cork,
 	rt = *rtp;
 	if (unlikely(!rt))
 		return -EFAULT;
+<<<<<<< HEAD
 
 	cork->fragsize = ip_sk_use_pmtu(sk) ?
 			 dst_mtu(&rt->dst) : READ_ONCE(rt->dst.dev->mtu);
@@ -1156,6 +1157,15 @@ static int ip_setup_cork(struct sock *sk, struct inet_cork *cork,
 	/* We stole this route, caller should not release it. */
 	*rtp = NULL;
 
+=======
+	/*
+	 * We steal reference to this route, caller should not release it
+	 */
+	*rtp = NULL;
+	cork->fragsize = ip_sk_use_pmtu(sk) ?
+			 dst_mtu(&rt->dst) : rt->dst.dev->mtu;
+	cork->dst = &rt->dst;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	cork->length = 0;
 	cork->ttl = ipc->ttl;
 	cork->tos = ipc->tos;

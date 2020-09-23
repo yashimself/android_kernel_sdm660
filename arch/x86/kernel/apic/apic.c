@@ -1298,6 +1298,7 @@ void setup_local_APIC(void)
 	apic->init_apic_ldr();
 
 #ifdef CONFIG_X86_32
+<<<<<<< HEAD
 	if (apic->dest_logical) {
 		int logical_apicid, ldr_apicid;
 
@@ -1313,6 +1314,18 @@ void setup_local_APIC(void)
 		/* Always use the value from LDR. */
 		early_per_cpu(x86_cpu_to_logical_apicid, cpu) = ldr_apicid;
 	}
+=======
+	/*
+	 * APIC LDR is initialized.  If logical_apicid mapping was
+	 * initialized during get_smp_config(), make sure it matches the
+	 * actual value.
+	 */
+	i = early_per_cpu(x86_cpu_to_logical_apicid, cpu);
+	WARN_ON(i != BAD_APICID && i != logical_smp_processor_id());
+	/* always use the value from LDR */
+	early_per_cpu(x86_cpu_to_logical_apicid, cpu) =
+		logical_smp_processor_id();
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #endif
 
 	/*

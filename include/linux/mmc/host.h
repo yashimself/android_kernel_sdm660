@@ -185,6 +185,12 @@ struct mmc_host_ops {
 	int	(*notify_load)(struct mmc_host *, enum mmc_load);
 	void	(*notify_halt)(struct mmc_host *mmc, bool halt);
 	void	(*force_err_irq)(struct mmc_host *host, u64 errmask);
+<<<<<<< HEAD
+=======
+	int	(*check_temp)(struct mmc_host *host);
+	int	(*reg_temp_callback)(struct mmc_host *host);
+	int	(*dereg_temp_callback)(struct mmc_host *host);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 struct mmc_card;
@@ -732,8 +738,13 @@ static inline int mmc_boot_partition_access(struct mmc_host *host)
 
 static inline bool mmc_card_and_host_support_async_int(struct mmc_host *host)
 {
+<<<<<<< HEAD
 	return ((host->caps2 & MMC_CAP2_ASYNC_SDIO_IRQ_4BIT_MODE) &&
 			(host->card->cccr.async_intr_sup));
+=======
+	return (host->card && (host->caps2 & MMC_CAP2_ASYNC_SDIO_IRQ_4BIT_MODE)
+			&& (host->card->cccr.async_intr_sup));
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static inline int mmc_host_uhs(struct mmc_host *host)

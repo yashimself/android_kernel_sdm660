@@ -67,3 +67,7 @@ ifdef CONFIG_COMPAT
 obj-$(CONFIG_MSM_ADSPRPC)       += adsprpc_compat.o
 endif
 obj-$(CONFIG_MSM_RDBG)		+= rdbg.o
+<<<<<<< HEAD
+=======
+obj-$(CONFIG_QTI_SDIO_CLIENT)	+= qti_sdio_client.o
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

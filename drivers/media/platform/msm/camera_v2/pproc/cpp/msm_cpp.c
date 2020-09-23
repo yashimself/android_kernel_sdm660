@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2013-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2013-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -36,6 +40,10 @@
 #include "msm_camera_io_util.h"
 #include <linux/debugfs.h>
 #include "cam_smmu_api.h"
+<<<<<<< HEAD
+=======
+#include "msm_cam_cx_ipeak.h"
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #define MSM_CPP_DRV_NAME "msm_cpp"
 
@@ -1460,18 +1468,14 @@ static int cpp_open_node(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
 		VBIF_CLIENT_CPP, cpp_vbif_error_handler);
 
 	if (cpp_dev->cpp_open_cnt == 1) {
+<<<<<<< HEAD
 		rc = cpp_init_hardware(cpp_dev);
 		if (rc < 0) {
-			cpp_dev->cpp_open_cnt--;
-			cpp_dev->cpp_subscribe_list[i].active = 0;
-			cpp_dev->cpp_subscribe_list[i].vfh = NULL;
-			mutex_unlock(&cpp_dev->mutex);
-			return rc;
-		}
-
+=======
 		rc = cpp_init_mem(cpp_dev);
 		if (rc < 0) {
 			pr_err("Error: init memory fail\n");
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			cpp_dev->cpp_open_cnt--;
 			cpp_dev->cpp_subscribe_list[i].active = 0;
 			cpp_dev->cpp_subscribe_list[i].vfh = NULL;
@@ -1479,6 +1483,24 @@ static int cpp_open_node(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
 			return rc;
 		}
 
+<<<<<<< HEAD
+		rc = cpp_init_mem(cpp_dev);
+		if (rc < 0) {
+			pr_err("Error: init memory fail\n");
+=======
+		rc = cpp_init_hardware(cpp_dev);
+		if (rc < 0) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
+			cpp_dev->cpp_open_cnt--;
+			cpp_dev->cpp_subscribe_list[i].active = 0;
+			cpp_dev->cpp_subscribe_list[i].vfh = NULL;
+			mutex_unlock(&cpp_dev->mutex);
+			return rc;
+		}
+<<<<<<< HEAD
+
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		cpp_dev->state = CPP_STATE_IDLE;
 
 		CPP_DBG("Invoking msm_ion_client_create()\n");
@@ -1537,7 +1559,13 @@ static int cpp_close_node(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
 	}
 
 	if (cpp_dev->turbo_vote == 1) {
+<<<<<<< HEAD
 		rc = cx_ipeak_update(cpp_dev->cpp_cx_ipeak, false);
+=======
+		pr_debug("%s:cx_ipeak_update unvote. ipeak bit %d\n",
+			__func__, cpp_dev->cx_ipeak_bit);
+		rc = cam_cx_ipeak_unvote_cx_ipeak(cpp_dev->cx_ipeak_bit);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			if (rc)
 				pr_err("cx_ipeak_update failed");
 			else
@@ -1576,6 +1604,10 @@ static int cpp_close_node(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
 			msm_camera_io_r(cpp_dev->cpp_hw_base + 0x88));
 		pr_debug("DEBUG_R1: 0x%x\n",
 			msm_camera_io_r(cpp_dev->cpp_hw_base + 0x8C));
+<<<<<<< HEAD
+=======
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		msm_camera_io_w(0x0, cpp_dev->base + MSM_CPP_MICRO_CLKEN_CTL);
 		msm_cpp_clear_timer(cpp_dev);
 		cpp_release_hardware(cpp_dev);
@@ -3109,7 +3141,13 @@ unsigned long cpp_cx_ipeak_update(struct cpp_device *cpp_dev,
 	if ((clock >= cpp_dev->hw_info.freq_tbl
 		[(cpp_dev->hw_info.freq_tbl_count) - 1]) &&
 		(cpp_dev->turbo_vote == 0)) {
+<<<<<<< HEAD
 		ret = cx_ipeak_update(cpp_dev->cpp_cx_ipeak, true);
+=======
+		pr_debug("%s: clk is more than Nominal cpp, ipeak bit %d\n",
+			__func__, cpp_dev->cx_ipeak_bit);
+		ret = cam_cx_ipeak_update_vote_cx_ipeak(cpp_dev->cx_ipeak_bit);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (ret) {
 			pr_err("cx_ipeak voting failed setting clock below turbo");
 			clock = cpp_dev->hw_info.freq_tbl
@@ -3122,7 +3160,14 @@ unsigned long cpp_cx_ipeak_update(struct cpp_device *cpp_dev,
 		[(cpp_dev->hw_info.freq_tbl_count) - 1]) {
 		clock_rate = msm_cpp_set_core_clk(cpp_dev, clock, idx);
 		if (cpp_dev->turbo_vote == 1) {
+<<<<<<< HEAD
 			ret = cx_ipeak_update(cpp_dev->cpp_cx_ipeak, false);
+=======
+			pr_debug("%s:clk is less than Nominal, ipeak bit %d\n",
+				__func__, cpp_dev->cx_ipeak_bit);
+			ret = cam_cx_ipeak_unvote_cx_ipeak(
+				cpp_dev->cx_ipeak_bit);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			if (ret)
 				pr_err("cx_ipeak unvoting failed");
 			else
@@ -4605,8 +4650,17 @@ static int cpp_probe(struct platform_device *pdev)
 	if (of_find_property(pdev->dev.of_node, "qcom,cpp-cx-ipeak", NULL)) {
 		cpp_dev->cpp_cx_ipeak = cx_ipeak_register(
 			pdev->dev.of_node, "qcom,cpp-cx-ipeak");
+<<<<<<< HEAD
 		if (cpp_dev->cpp_cx_ipeak)
 			CPP_DBG("Cx ipeak Registration Successful ");
+=======
+		if (cpp_dev->cpp_cx_ipeak) {
+			cam_cx_ipeak_register_cx_ipeak(cpp_dev->cpp_cx_ipeak,
+				&cpp_dev->cx_ipeak_bit);
+			pr_err("%s register cx_ipeak received bit %d\n",
+				__func__, cpp_dev->cx_ipeak_bit);
+		}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		else
 			pr_err("Cx ipeak Registration Unsuccessful");
 	}
@@ -4792,6 +4846,10 @@ static struct platform_driver cpp_driver = {
 		.name = MSM_CPP_DRV_NAME,
 		.owner = THIS_MODULE,
 		.of_match_table = msm_cpp_dt_match,
+<<<<<<< HEAD
+=======
+		.suppress_bind_attrs = true,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	},
 };
 

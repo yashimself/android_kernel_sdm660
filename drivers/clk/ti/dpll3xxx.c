@@ -437,8 +437,12 @@ int omap3_noncore_dpll_enable(struct clk_hw *hw)
 
 	parent = clk_hw_get_parent(hw);
 
+<<<<<<< HEAD
 	if (clk_hw_get_rate(hw) ==
 	    clk_hw_get_rate(__clk_get_hw(dd->clk_bypass))) {
+=======
+	if (clk_hw_get_rate(hw) == clk_get_rate(dd->clk_bypass)) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		WARN_ON(parent != __clk_get_hw(dd->clk_bypass));
 		r = _omap3_noncore_dpll_bypass(clk);
 	} else {

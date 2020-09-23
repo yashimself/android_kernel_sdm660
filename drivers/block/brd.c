@@ -581,6 +581,7 @@ static struct kobject *brd_probe(dev_t dev, int *part, void *data)
 	return kobj;
 }
 
+<<<<<<< HEAD
 static inline void brd_check_and_reset_par(void)
 {
 	if (unlikely(!max_part))
@@ -600,6 +601,8 @@ static inline void brd_check_and_reset_par(void)
 	}
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int __init brd_init(void)
 {
 	struct brd_device *brd, *next;
@@ -623,7 +626,12 @@ static int __init brd_init(void)
 	if (register_blkdev(RAMDISK_MAJOR, "ramdisk"))
 		return -EIO;
 
+<<<<<<< HEAD
 	brd_check_and_reset_par();
+=======
+	if (unlikely(!max_part))
+		max_part = 1;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	for (i = 0; i < rd_nr; i++) {
 		brd = brd_alloc(i);

@@ -1207,11 +1207,16 @@ static inline int dma_get_slave_caps(struct dma_chan *chan,
 static inline int dmaengine_desc_set_reuse(struct dma_async_tx_descriptor *tx)
 {
 	struct dma_slave_caps caps;
+<<<<<<< HEAD
 	int ret;
 
 	ret = dma_get_slave_caps(tx->chan, &caps);
 	if (ret)
 		return ret;
+=======
+
+	dma_get_slave_caps(tx->chan, &caps);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (caps.descriptor_reuse) {
 		tx->flags |= DMA_CTRL_REUSE;

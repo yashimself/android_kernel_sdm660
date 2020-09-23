@@ -82,7 +82,11 @@ static inline void get_tod_clock_ext(char *clk)
 
 static inline unsigned long long get_tod_clock(void)
 {
+<<<<<<< HEAD
 	char clk[STORE_CLOCK_EXT_SIZE];
+=======
+	unsigned char clk[STORE_CLOCK_EXT_SIZE];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	get_tod_clock_ext(clk);
 	return *((unsigned long long *)&clk[1]);

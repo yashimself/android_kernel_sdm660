@@ -1,6 +1,10 @@
 #! /usr/bin/env python2
 
+<<<<<<< HEAD
 # Copyright (c) 2009-2015, The Linux Foundation. All rights reserved.
+=======
+# Copyright (c) 2009-2015, 2017, 2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -45,6 +49,10 @@ build_dir = '../all-kernels'
 make_command = ["vmlinux", "modules", "dtbs"]
 all_options = {}
 compile64 = os.environ.get('CROSS_COMPILE64')
+<<<<<<< HEAD
+=======
+clang_bin = os.environ.get('CLANG_BIN')
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 def error(msg):
     sys.stderr.write("error: %s\n" % msg)
@@ -230,7 +238,11 @@ class Builder():
         self.name = name
         self.defconfig = defconfig
 
+<<<<<<< HEAD
         self.confname = self.defconfig.split('/')[-1]
+=======
+        self.confname = re.sub('arch/arm[64]*/configs/', '', self.defconfig)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
         # Determine if this is a 64-bit target based on the location
         # of the defconfig.
@@ -266,13 +278,26 @@ class Builder():
         steps.append(ExecStep(['make', 'O=%s' % dest_dir,
             self.confname], env=self.make_env))
 
+<<<<<<< HEAD
         if not all_options.updateconfigs:
             # Build targets can be dependent upon the completion of
             # previous build targets, so build them one at a time.
+=======
+        # Build targets can be dependent upon the completion of
+        # previous build targets, so build them one at a time.
+        if os.environ.get('ARCH') == "arm64":
+            cmd_line = ['make',
+                'INSTALL_HDR_PATH=%s' % hdri_dir,
+                'INSTALL_MOD_PATH=%s' % modi_dir,
+                'O=%s' % dest_dir,
+                'REAL_CC=%s' % clang_bin]
+        else:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
             cmd_line = ['make',
                 'INSTALL_HDR_PATH=%s' % hdri_dir,
                 'INSTALL_MOD_PATH=%s' % modi_dir,
                 'O=%s' % dest_dir]
+<<<<<<< HEAD
             build_targets = []
             for c in make_command:
                 if re.match(r'^-{1,2}\w', c):
@@ -294,6 +319,19 @@ def update_config(file, str):
     print 'Updating %s with \'%s\'\n' % (file, str)
     with open(file, 'a') as defconfig:
         defconfig.write(str + '\n')
+=======
+
+        build_targets = []
+        for c in make_command:
+            if re.match(r'^-{1,2}\w', c):
+                cmd_line.append(c)
+            else:
+                build_targets.append(c)
+        for t in build_targets:
+            steps.append(ExecStep(cmd_line + [t], env=self.make_env))
+
+        return steps
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 def scan_configs():
     """Get the full list of defconfigs appropriate for this tree."""
@@ -303,21 +341,35 @@ def scan_configs():
         r'apq*_defconfig',
         r'qsd*_defconfig',
 	r'mpq*_defconfig',
+<<<<<<< HEAD
 	r'sdm[0-9]*_defconfig',
         )
     arch64_pats = (
 	r'msm*_defconfig',
 	r'sdm[0-9]*_defconfig',
+=======
+	r'sdm*_defconfig',
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
         )
     for p in arch_pats:
         for n in glob.glob('arch/arm/configs/' + p):
             name = os.path.basename(n)[:-10]
             names.append(Builder(name, n))
+<<<<<<< HEAD
     if 'CROSS_COMPILE64' in os.environ:
         for p in arch64_pats:
             for n in glob.glob('arch/arm64/configs/' + p):
                 name = os.path.basename(n)[:-10] + "-64"
                 names.append(Builder(name, n))
+=======
+    for defconfig in glob.glob('arch/arm*/configs/vendor/*_defconfig'):
+        target = os.path.basename(defconfig)[:-10]
+        name = target + "-llvm"
+        if 'arch/arm64' in defconfig:
+            name = name + "-64"
+        names.append(Builder(name, defconfig))
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
     return names
 
 def build_many(targets):
@@ -333,8 +385,11 @@ def build_many(targets):
 
     tracker = BuildTracker(parallel)
     for target in targets:
+<<<<<<< HEAD
         if all_options.updateconfigs:
             update_config(target.defconfig, all_options.updateconfigs)
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
         steps = target.build()
         tracker.add_sequence(target.log_name, target.name, steps)
     tracker.run()
@@ -350,18 +405,24 @@ def main():
     usage = ("""
            %prog [options] all                 -- Build all targets
            %prog [options] target target ...   -- List specific targets
+<<<<<<< HEAD
            %prog [options] perf                -- Build all perf targets
            %prog [options] noperf              -- Build all non-perf targets""")
     parser = OptionParser(usage=usage, version=version)
     parser.add_option('--configs', action='store_true',
             dest='configs',
             help="Copy configs back into tree")
+=======
+           """)
+    parser = OptionParser(usage=usage, version=version)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
     parser.add_option('--list', action='store_true',
             dest='list',
             help='List available targets')
     parser.add_option('-v', '--verbose', action='store_true',
             dest='verbose',
             help='Output to stdout in addition to log file')
+<<<<<<< HEAD
     parser.add_option('--oldconfig', action='store_true',
             dest='oldconfig',
             help='Only process "make oldconfig"')
@@ -369,6 +430,8 @@ def main():
             dest='updateconfigs',
             help="Update defconfigs with provided option setting, "
                  "e.g. --updateconfigs=\'CONFIG_USE_THING=y\'")
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
     parser.add_option('-j', '--jobs', type='int', dest="jobs",
             help="Number of simultaneous jobs")
     parser.add_option('-l', '--load-average', type='int',
@@ -391,13 +454,18 @@ def main():
             print "   %s" % target.name
         sys.exit(0)
 
+<<<<<<< HEAD
     if options.oldconfig:
         make_command = ["oldconfig"]
     elif options.make_target:
+=======
+    if options.make_target:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
         make_command = options.make_target
 
     if args == ['all']:
         build_many(configs)
+<<<<<<< HEAD
     elif args == ['perf']:
         targets = []
         for t in configs:
@@ -410,6 +478,8 @@ def main():
             if "perf" not in t.name:
                 targets.append(t)
         build_many(targets)
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
     elif len(args) > 0:
         all_configs = {}
         for t in configs:

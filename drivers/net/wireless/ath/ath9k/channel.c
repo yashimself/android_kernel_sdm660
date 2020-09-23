@@ -107,9 +107,15 @@ void ath_chanctx_init(struct ath_softc *sc)
 	struct ieee80211_channel *chan;
 	int i, j;
 
+<<<<<<< HEAD
 	sband = &common->sbands[NL80211_BAND_2GHZ];
 	if (!sband->n_channels)
 		sband = &common->sbands[NL80211_BAND_5GHZ];
+=======
+	sband = &common->sbands[IEEE80211_BAND_2GHZ];
+	if (!sband->n_channels)
+		sband = &common->sbands[IEEE80211_BAND_5GHZ];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	chan = &sband->channels[0];
 	for (i = 0; i < ATH9K_NUM_CHANCTX; i++) {
@@ -1315,9 +1321,15 @@ void ath9k_offchannel_init(struct ath_softc *sc)
 	struct ieee80211_channel *chan;
 	int i;
 
+<<<<<<< HEAD
 	sband = &common->sbands[NL80211_BAND_2GHZ];
 	if (!sband->n_channels)
 		sband = &common->sbands[NL80211_BAND_5GHZ];
+=======
+	sband = &common->sbands[IEEE80211_BAND_2GHZ];
+	if (!sband->n_channels)
+		sband = &common->sbands[IEEE80211_BAND_5GHZ];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	chan = &sband->channels[0];
 

@@ -992,9 +992,15 @@ static inline int b43_is_mode(struct b43_wl *wl, int type)
 
 /**
  * b43_current_band - Returns the currently used band.
+<<<<<<< HEAD
  * Returns one of NL80211_BAND_2GHZ and NL80211_BAND_5GHZ.
  */
 static inline enum nl80211_band b43_current_band(struct b43_wl *wl)
+=======
+ * Returns one of IEEE80211_BAND_2GHZ and IEEE80211_BAND_5GHZ.
+ */
+static inline enum ieee80211_band b43_current_band(struct b43_wl *wl)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	return wl->hw->conf.chandef.chan->band;
 }

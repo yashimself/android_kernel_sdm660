@@ -777,8 +777,13 @@ static irqreturn_t cpsw_rx_interrupt(int irq, void *dev_id)
 {
 	struct cpsw_priv *priv = dev_id;
 
+<<<<<<< HEAD
 	writel(0, &priv->wr_regs->rx_en);
 	cpdma_ctlr_eoi(priv->dma, CPDMA_EOI_RX);
+=======
+	cpdma_ctlr_eoi(priv->dma, CPDMA_EOI_RX);
+	writel(0, &priv->wr_regs->rx_en);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (priv->quirk_irq) {
 		disable_irq_nosync(priv->irqs_table[0]);
@@ -2060,11 +2065,15 @@ static int cpsw_probe_dt(struct cpsw_platform_data *data,
 		slave_data->phy_node = of_parse_phandle(slave_node,
 							"phy-handle", 0);
 		parp = of_get_property(slave_node, "phy_id", &lenp);
+<<<<<<< HEAD
 		if (slave_data->phy_node) {
 			dev_dbg(&pdev->dev,
 				"slave[%d] using phy-handle=\"%s\"\n",
 				i, slave_data->phy_node->full_name);
 		} else if (of_phy_is_fixed_link(slave_node)) {
+=======
+		if (of_phy_is_fixed_link(slave_node)) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			struct device_node *phy_node;
 			struct phy_device *phy_dev;
 
@@ -2101,9 +2110,13 @@ static int cpsw_probe_dt(struct cpsw_platform_data *data,
 				 PHY_ID_FMT, mdio->name, phyid);
 			put_device(&mdio->dev);
 		} else {
+<<<<<<< HEAD
 			dev_err(&pdev->dev,
 				"No slave[%d] phy_id, phy-handle, or fixed-link property\n",
 				i);
+=======
+			dev_err(&pdev->dev, "No slave[%d] phy_id or fixed-link property\n", i);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			goto no_phy_slave;
 		}
 		slave_data->phy_if = of_get_phy_mode(slave_node);
@@ -2532,14 +2545,21 @@ static int cpsw_probe(struct platform_device *pdev)
 		ret = cpsw_probe_dual_emac(pdev, priv);
 		if (ret) {
 			cpsw_err(priv, probe, "error probe slave 2 emac interface\n");
+<<<<<<< HEAD
 			goto clean_unregister_netdev_ret;
+=======
+			goto clean_ale_ret;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 	}
 
 	return 0;
 
+<<<<<<< HEAD
 clean_unregister_netdev_ret:
 	unregister_netdev(ndev);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 clean_ale_ret:
 	cpsw_ale_destroy(priv->ale);
 clean_dma_ret:

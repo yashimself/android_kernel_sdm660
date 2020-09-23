@@ -221,8 +221,13 @@ static void isp_video_capture_buffer_queue(struct vb2_buffer *vb)
 							ivb->dma_addr[i];
 
 			isp_dbg(2, &video->ve.vdev,
+<<<<<<< HEAD
 				"dma_buf %d (%d/%d/%d) addr: %pad\n",
 				buf_index, ivb->index, i, vb->index,
+=======
+				"dma_buf %pad (%d/%d/%d) addr: %pad\n",
+				&buf_index, ivb->index, i, vb->index,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				&ivb->dma_addr[i]);
 		}
 
@@ -323,7 +328,11 @@ static int isp_video_release(struct file *file)
 		ivc->streaming = 0;
 	}
 
+<<<<<<< HEAD
 	_vb2_fop_release(file, NULL);
+=======
+	vb2_fop_release(file);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (v4l2_fh_is_singular_file(file)) {
 		fimc_pipeline_call(&ivc->ve, close);

@@ -98,6 +98,7 @@ struct mem_entry_stats {
 
 static void kgsl_cma_unlock_secure(struct kgsl_memdesc *memdesc);
 
+<<<<<<< HEAD
 static ssize_t
 imported_mem_show(struct kgsl_process_private *priv,
 				int type, char *buf)
@@ -167,6 +168,8 @@ static struct kgsl_mem_entry_attribute debug_memstats[] = {
 				gpumem_unmapped_show),
 };
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /**
  * Show the current amount of memory allocated for the given memtype
  */
@@ -289,6 +292,7 @@ void kgsl_process_init_sysfs(struct kgsl_device *device,
 			&mem_stats[i].max_attr.attr))
 			WARN(1, "Couldn't create sysfs file '%s'\n",
 				mem_stats[i].max_attr.attr.name);
+<<<<<<< HEAD
 	}
 
 	for (i = 0; i < ARRAY_SIZE(debug_memstats); i++) {
@@ -296,6 +300,9 @@ void kgsl_process_init_sysfs(struct kgsl_device *device,
 			&debug_memstats[i].attr))
 			WARN(1, "Couldn't create sysfs file '%s'\n",
 				debug_memstats[i].attr.name);
+=======
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 }
 

@@ -86,7 +86,11 @@ static struct msm_isp_bufq *msm_isp_get_bufq(
 	/* bufq_handle cannot be 0 */
 	if ((bufq_handle == 0) ||
 		bufq_index >= BUF_MGR_NUM_BUF_Q ||
+<<<<<<< HEAD
 		(bufq_index > buf_mgr->num_buf_q))
+=======
+		(bufq_index >= buf_mgr->num_buf_q))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return NULL;
 
 	bufq = &buf_mgr->bufq[bufq_index];

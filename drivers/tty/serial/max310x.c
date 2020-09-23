@@ -763,9 +763,18 @@ static void max310x_start_tx(struct uart_port *port)
 
 static unsigned int max310x_tx_empty(struct uart_port *port)
 {
+<<<<<<< HEAD
 	u8 lvl = max310x_port_read(port, MAX310X_TXFIFOLVL_REG);
 
 	return lvl ? 0 : TIOCSER_TEMT;
+=======
+	unsigned int lvl, sts;
+
+	lvl = max310x_port_read(port, MAX310X_TXFIFOLVL_REG);
+	sts = max310x_port_read(port, MAX310X_IRQSTS_REG);
+
+	return ((sts & MAX310X_IRQ_TXEMPTY_BIT) && !lvl) ? TIOCSER_TEMT : 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static unsigned int max310x_get_mctrl(struct uart_port *port)

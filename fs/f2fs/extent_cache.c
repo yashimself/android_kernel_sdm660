@@ -175,10 +175,16 @@ bool f2fs_check_rb_tree_consistence(struct f2fs_sb_info *sbi,
 		next_re = rb_entry(next, struct rb_entry, rb_node);
 
 		if (cur_re->ofs + cur_re->len > next_re->ofs) {
+<<<<<<< HEAD
 			f2fs_msg(sbi->sb, KERN_INFO, "inconsistent rbtree, "
 				"cur(%u, %u) next(%u, %u)",
 				cur_re->ofs, cur_re->len,
 				next_re->ofs, next_re->len);
+=======
+			f2fs_info(sbi, "inconsistent rbtree, cur(%u, %u) next(%u, %u)",
+				  cur_re->ofs, cur_re->len,
+				  next_re->ofs, next_re->len);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			return false;
 		}
 

@@ -542,6 +542,7 @@ static void twinhead_reserve_killing_zone(struct pci_dev *dev)
 DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x27B9, twinhead_reserve_killing_zone);
 
 /*
+<<<<<<< HEAD
  * Device [1022:7914]
  * When in D0, PME# doesn't get asserted when plugging USB 2.0 device.
  */
@@ -553,6 +554,8 @@ static void pci_fixup_amd_fch_xhci_pme(struct pci_dev *dev)
 DECLARE_PCI_FIXUP_FINAL(PCI_VENDOR_ID_AMD, 0x7914, pci_fixup_amd_fch_xhci_pme);
 
 /*
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * Broadwell EP Home Agent BARs erroneously return non-zero values when read.
  *
  * See http://www.intel.com/content/www/us/en/processors/xeon/xeon-e5-v4-spec-update.html

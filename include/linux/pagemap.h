@@ -441,6 +441,7 @@ extern int __lock_page_or_retry(struct page *page, struct mm_struct *mm,
 				unsigned int flags);
 extern void unlock_page(struct page *page);
 
+<<<<<<< HEAD
 static inline void __set_page_locked(struct page *page)
 {
 	__set_bit(PG_locked, &page->flags);
@@ -453,6 +454,11 @@ static inline void __clear_page_locked(struct page *page)
 
 static inline int trylock_page(struct page *page)
 {
+=======
+static inline int trylock_page(struct page *page)
+{
+	page = compound_head(page);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return (likely(!test_and_set_bit_lock(PG_locked, &page->flags)));
 }
 
@@ -505,9 +511,15 @@ extern int wait_on_page_bit_killable_timeout(struct page *page,
 
 static inline int wait_on_page_locked_killable(struct page *page)
 {
+<<<<<<< HEAD
 	if (PageLocked(page))
 		return wait_on_page_bit_killable(page, PG_locked);
 	return 0;
+=======
+	if (!PageLocked(page))
+		return 0;
+	return wait_on_page_bit_killable(compound_head(page), PG_locked);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 extern wait_queue_head_t *page_waitqueue(struct page *page);
@@ -526,7 +538,11 @@ static inline void wake_up_page(struct page *page, int bit)
 static inline void wait_on_page_locked(struct page *page)
 {
 	if (PageLocked(page))
+<<<<<<< HEAD
 		wait_on_page_bit(page, PG_locked);
+=======
+		wait_on_page_bit(compound_head(page), PG_locked);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /* 
@@ -672,17 +688,28 @@ int replace_page_cache_page(struct page *old, struct page *new, gfp_t gfp_mask);
 
 /*
  * Like add_to_page_cache_locked, but used to add newly allocated pages:
+<<<<<<< HEAD
  * the page is new, so we can just run __set_page_locked() against it.
+=======
+ * the page is new, so we can just run __SetPageLocked() against it.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  */
 static inline int add_to_page_cache(struct page *page,
 		struct address_space *mapping, pgoff_t offset, gfp_t gfp_mask)
 {
 	int error;
 
+<<<<<<< HEAD
 	__set_page_locked(page);
 	error = add_to_page_cache_locked(page, mapping, offset, gfp_mask);
 	if (unlikely(error))
 		__clear_page_locked(page);
+=======
+	__SetPageLocked(page);
+	error = add_to_page_cache_locked(page, mapping, offset, gfp_mask);
+	if (unlikely(error))
+		__ClearPageLocked(page);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return error;
 }
 

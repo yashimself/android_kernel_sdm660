@@ -4,6 +4,11 @@
  * Copyright (C) Linaro 2012
  * Author: <benjamin.gaignard@linaro.org> for ST-Ericsson.
  *
+<<<<<<< HEAD
+=======
+ * Copyright (c) 2020, The Linux Foundation. All rights reserved.
+ *
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * This software is licensed under the terms of the GNU General Public
  * License version 2, as published by the Free Software Foundation, and
  * may be copied, distributed, and modified under those terms.
@@ -221,7 +226,11 @@ struct ion_heap *ion_cma_heap_create(struct ion_platform_heap *data)
 	/* set device as private heaps data, later it will be
 	 * used to make the link with reserved CMA memory */
 	heap->priv = data->priv;
+<<<<<<< HEAD
 	heap->type = ION_HEAP_TYPE_DMA;
+=======
+	heap->type = (enum ion_heap_type)ION_HEAP_TYPE_DMA;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	cma_heap_has_outer_cache = data->has_outer_cache;
 	return heap;
 }
@@ -363,7 +372,11 @@ struct ion_heap *ion_cma_secure_heap_create(struct ion_platform_heap *data)
 	 * used to make the link with reserved CMA memory
 	 */
 	heap->priv = data->priv;
+<<<<<<< HEAD
 	heap->type = ION_HEAP_TYPE_HYP_CMA;
+=======
+	heap->type = (enum ion_heap_type)ION_HEAP_TYPE_HYP_CMA;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	cma_heap_has_outer_cache = data->has_outer_cache;
 	return heap;
 }

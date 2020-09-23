@@ -868,7 +868,11 @@ lookup:
 		goto discard_and_relse;
 	nf_reset(skb);
 
+<<<<<<< HEAD
 	return __sk_receive_skb(sk, skb, 1, dh->dccph_doff * 4);
+=======
+	return sk_receive_skb(sk, skb, 1);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 no_dccp_socket:
 	if (!xfrm4_policy_check(NULL, XFRM_POLICY_IN, skb))

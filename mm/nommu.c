@@ -472,6 +472,7 @@ void vm_unmap_aliases(void)
 EXPORT_SYMBOL_GPL(vm_unmap_aliases);
 
 /*
+<<<<<<< HEAD
  * Implement a stub for vmalloc_sync_[un]mapping() if the architecture
  * chose not to have one.
  */
@@ -480,6 +481,12 @@ void __weak vmalloc_sync_mappings(void)
 }
 
 void __weak vmalloc_sync_unmappings(void)
+=======
+ * Implement a stub for vmalloc_sync_all() if the architecture chose not to
+ * have one.
+ */
+void __weak vmalloc_sync_all(void)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 }
 

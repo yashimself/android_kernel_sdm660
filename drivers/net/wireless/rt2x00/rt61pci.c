@@ -252,9 +252,15 @@ static void rt61pci_brightness_set(struct led_classdev *led_cdev,
 	    container_of(led_cdev, struct rt2x00_led, led_dev);
 	unsigned int enabled = brightness != LED_OFF;
 	unsigned int a_mode =
+<<<<<<< HEAD
 	    (enabled && led->rt2x00dev->curr_band == NL80211_BAND_5GHZ);
 	unsigned int bg_mode =
 	    (enabled && led->rt2x00dev->curr_band == NL80211_BAND_2GHZ);
+=======
+	    (enabled && led->rt2x00dev->curr_band == IEEE80211_BAND_5GHZ);
+	unsigned int bg_mode =
+	    (enabled && led->rt2x00dev->curr_band == IEEE80211_BAND_2GHZ);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (led->type == LED_TYPE_RADIO) {
 		rt2x00_set_field16(&led->rt2x00dev->led_mcu_reg,
@@ -641,12 +647,20 @@ static void rt61pci_config_antenna_5x(struct rt2x00_dev *rt2x00dev,
 	case ANTENNA_HW_DIVERSITY:
 		rt2x00_set_field8(&r4, BBP_R4_RX_ANTENNA_CONTROL, 2);
 		rt2x00_set_field8(&r4, BBP_R4_RX_FRAME_END,
+<<<<<<< HEAD
 				  (rt2x00dev->curr_band != NL80211_BAND_5GHZ));
+=======
+				  (rt2x00dev->curr_band != IEEE80211_BAND_5GHZ));
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case ANTENNA_A:
 		rt2x00_set_field8(&r4, BBP_R4_RX_ANTENNA_CONTROL, 1);
 		rt2x00_set_field8(&r4, BBP_R4_RX_FRAME_END, 0);
+<<<<<<< HEAD
 		if (rt2x00dev->curr_band == NL80211_BAND_5GHZ)
+=======
+		if (rt2x00dev->curr_band == IEEE80211_BAND_5GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			rt2x00_set_field8(&r77, BBP_R77_RX_ANTENNA, 0);
 		else
 			rt2x00_set_field8(&r77, BBP_R77_RX_ANTENNA, 3);
@@ -655,7 +669,11 @@ static void rt61pci_config_antenna_5x(struct rt2x00_dev *rt2x00dev,
 	default:
 		rt2x00_set_field8(&r4, BBP_R4_RX_ANTENNA_CONTROL, 1);
 		rt2x00_set_field8(&r4, BBP_R4_RX_FRAME_END, 0);
+<<<<<<< HEAD
 		if (rt2x00dev->curr_band == NL80211_BAND_5GHZ)
+=======
+		if (rt2x00dev->curr_band == IEEE80211_BAND_5GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			rt2x00_set_field8(&r77, BBP_R77_RX_ANTENNA, 3);
 		else
 			rt2x00_set_field8(&r77, BBP_R77_RX_ANTENNA, 0);
@@ -806,7 +824,11 @@ static void rt61pci_config_ant(struct rt2x00_dev *rt2x00dev,
 	BUG_ON(ant->rx == ANTENNA_SW_DIVERSITY ||
 	       ant->tx == ANTENNA_SW_DIVERSITY);
 
+<<<<<<< HEAD
 	if (rt2x00dev->curr_band == NL80211_BAND_5GHZ) {
+=======
+	if (rt2x00dev->curr_band == IEEE80211_BAND_5GHZ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		sel = antenna_sel_a;
 		lna = rt2x00_has_cap_external_lna_a(rt2x00dev);
 	} else {
@@ -820,9 +842,15 @@ static void rt61pci_config_ant(struct rt2x00_dev *rt2x00dev,
 	rt2x00mmio_register_read(rt2x00dev, PHY_CSR0, &reg);
 
 	rt2x00_set_field32(&reg, PHY_CSR0_PA_PE_BG,
+<<<<<<< HEAD
 			   rt2x00dev->curr_band == NL80211_BAND_2GHZ);
 	rt2x00_set_field32(&reg, PHY_CSR0_PA_PE_A,
 			   rt2x00dev->curr_band == NL80211_BAND_5GHZ);
+=======
+			   rt2x00dev->curr_band == IEEE80211_BAND_2GHZ);
+	rt2x00_set_field32(&reg, PHY_CSR0_PA_PE_A,
+			   rt2x00dev->curr_band == IEEE80211_BAND_5GHZ);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	rt2x00mmio_register_write(rt2x00dev, PHY_CSR0, reg);
 
@@ -844,7 +872,11 @@ static void rt61pci_config_lna_gain(struct rt2x00_dev *rt2x00dev,
 	u16 eeprom;
 	short lna_gain = 0;
 
+<<<<<<< HEAD
 	if (libconf->conf->chandef.chan->band == NL80211_BAND_2GHZ) {
+=======
+	if (libconf->conf->chandef.chan->band == IEEE80211_BAND_2GHZ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (rt2x00_has_cap_external_lna_bg(rt2x00dev))
 			lna_gain += 14;
 
@@ -1046,7 +1078,11 @@ static void rt61pci_link_tuner(struct rt2x00_dev *rt2x00dev,
 	/*
 	 * Determine r17 bounds.
 	 */
+<<<<<<< HEAD
 	if (rt2x00dev->curr_band == NL80211_BAND_5GHZ) {
+=======
+	if (rt2x00dev->curr_band == IEEE80211_BAND_5GHZ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		low_bound = 0x28;
 		up_bound = 0x48;
 		if (rt2x00_has_cap_external_lna_a(rt2x00dev)) {
@@ -2075,7 +2111,11 @@ static int rt61pci_agc_to_rssi(struct rt2x00_dev *rt2x00dev, int rxd_w1)
 		return 0;
 	}
 
+<<<<<<< HEAD
 	if (rt2x00dev->curr_band == NL80211_BAND_5GHZ) {
+=======
+	if (rt2x00dev->curr_band == IEEE80211_BAND_5GHZ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (lna == 3 || lna == 2)
 			offset += 10;
 	}

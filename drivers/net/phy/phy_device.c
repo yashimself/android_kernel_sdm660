@@ -161,8 +161,13 @@ struct phy_device *phy_device_create(struct mii_bus *bus, int addr, int phy_id,
 
 	dev->dev.release = phy_device_release;
 
+<<<<<<< HEAD
 	dev->speed = SPEED_UNKNOWN;
 	dev->duplex = DUPLEX_UNKNOWN;
+=======
+	dev->speed = 0;
+	dev->duplex = -1;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	dev->pause = 0;
 	dev->asym_pause = 0;
 	dev->link = 1;
@@ -522,7 +527,10 @@ struct phy_device *phy_connect(struct net_device *dev, const char *bus_id,
 	phydev = to_phy_device(d);
 
 	rc = phy_connect_direct(dev, phydev, handler, interface);
+<<<<<<< HEAD
 	put_device(d);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (rc)
 		return ERR_PTR(rc);
 
@@ -722,7 +730,10 @@ struct phy_device *phy_attach(struct net_device *dev, const char *bus_id,
 	phydev = to_phy_device(d);
 
 	rc = phy_attach_direct(dev, phydev, phydev->dev_flags, interface);
+<<<<<<< HEAD
 	put_device(d);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (rc)
 		return ERR_PTR(rc);
 

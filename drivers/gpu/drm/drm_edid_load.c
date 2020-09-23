@@ -261,6 +261,7 @@ out:
 	return edid;
 }
 
+<<<<<<< HEAD
 int drm_load_edid_firmware(struct drm_connector *connector)
 {
 	const char *connector_name = connector->name;
@@ -270,6 +271,16 @@ int drm_load_edid_firmware(struct drm_connector *connector)
 
 	if (edid_firmware[0] == '\0')
 		return 0;
+=======
+struct edid *drm_load_edid_firmware(struct drm_connector *connector)
+{
+	const char *connector_name = connector->name;
+	char *edidname, *last, *colon, *fwstr, *edidstr, *fallback = NULL;
+	struct edid *edid;
+
+	if (edid_firmware[0] == '\0')
+		return ERR_PTR(-ENOENT);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/*
 	 * If there are multiple edid files specified and separated
@@ -298,7 +309,11 @@ int drm_load_edid_firmware(struct drm_connector *connector)
 	if (!edidname) {
 		if (!fallback) {
 			kfree(fwstr);
+<<<<<<< HEAD
 			return 0;
+=======
+			return ERR_PTR(-ENOENT);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 		edidname = fallback;
 	}
@@ -310,6 +325,7 @@ int drm_load_edid_firmware(struct drm_connector *connector)
 	edid = edid_load(connector, edidname, connector_name);
 	kfree(fwstr);
 
+<<<<<<< HEAD
 	if (IS_ERR_OR_NULL(edid))
 		return 0;
 
@@ -319,4 +335,7 @@ int drm_load_edid_firmware(struct drm_connector *connector)
 	kfree(edid);
 
 	return ret;
+=======
+	return edid;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }

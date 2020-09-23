@@ -896,10 +896,16 @@ static void tcp_update_reordering(struct sock *sk, const int metric,
 /* This must be called before lost_out is incremented */
 static void tcp_verify_retransmit_hint(struct tcp_sock *tp, struct sk_buff *skb)
 {
+<<<<<<< HEAD
 	if ((!tp->retransmit_skb_hint && tp->retrans_out >= tp->lost_out) ||
 	    (tp->retransmit_skb_hint &&
 	     before(TCP_SKB_CB(skb)->seq,
 		    TCP_SKB_CB(tp->retransmit_skb_hint)->seq)))
+=======
+	if (!tp->retransmit_skb_hint ||
+	    before(TCP_SKB_CB(skb)->seq,
+		   TCP_SKB_CB(tp->retransmit_skb_hint)->seq))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		tp->retransmit_skb_hint = skb;
 
 	if (!tp->lost_out ||
@@ -1687,11 +1693,16 @@ tcp_sacktag_write_queue(struct sock *sk, const struct sk_buff *ack_skb,
 		}
 
 		/* Ignore very old stuff early */
+<<<<<<< HEAD
 		if (!after(sp[used_sacks].end_seq, prior_snd_una)) {
 			if (i == 0)
 				first_sack_index = -1;
 			continue;
 		}
+=======
+		if (!after(sp[used_sacks].end_seq, prior_snd_una))
+			continue;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		used_sacks++;
 	}
@@ -2927,10 +2938,14 @@ static void tcp_update_rtt_min(struct sock *sk, u32 rtt_us)
 {
 	const u32 now = tcp_time_stamp, wlen = sysctl_tcp_min_rtt_wlen * HZ;
 	struct rtt_meas *m = tcp_sk(sk)->rtt_min;
+<<<<<<< HEAD
 	struct rtt_meas rttm = {
 		.rtt = likely(rtt_us) ? rtt_us : jiffies_to_usecs(1),
 		.ts = now,
 	};
+=======
+	struct rtt_meas rttm = { .rtt = (rtt_us ? : 1), .ts = now };
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	u32 elapsed;
 
 	/* Check if the new measurement updates the 1st, 2nd, or 3rd choices */

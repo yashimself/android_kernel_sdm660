@@ -1046,6 +1046,7 @@ ath5k_debug_dump_bands(struct ath5k_hw *ah)
 
 	BUG_ON(!ah->sbands);
 
+<<<<<<< HEAD
 	for (b = 0; b < NUM_NL80211_BANDS; b++) {
 		struct ieee80211_supported_band *band = &ah->sbands[b];
 		char bname[6];
@@ -1054,6 +1055,16 @@ ath5k_debug_dump_bands(struct ath5k_hw *ah)
 			strcpy(bname, "2 GHz");
 			break;
 		case NL80211_BAND_5GHZ:
+=======
+	for (b = 0; b < IEEE80211_NUM_BANDS; b++) {
+		struct ieee80211_supported_band *band = &ah->sbands[b];
+		char bname[6];
+		switch (band->band) {
+		case IEEE80211_BAND_2GHZ:
+			strcpy(bname, "2 GHz");
+			break;
+		case IEEE80211_BAND_5GHZ:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			strcpy(bname, "5 GHz");
 			break;
 		default:

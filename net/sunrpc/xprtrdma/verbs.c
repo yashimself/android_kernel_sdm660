@@ -911,6 +911,7 @@ rpcrdma_create_req(struct rpcrdma_xprt *r_xprt)
 	return req;
 }
 
+<<<<<<< HEAD
 /**
  * rpcrdma_create_rep - Allocate an rpcrdma_rep object
  * @r_xprt: controlling transport
@@ -922,6 +923,12 @@ int
 {
 	struct rpcrdma_create_data_internal *cdata = &r_xprt->rx_data;
 	struct rpcrdma_buffer *buf = &r_xprt->rx_buf;
+=======
+struct rpcrdma_rep *
+rpcrdma_create_rep(struct rpcrdma_xprt *r_xprt)
+{
+	struct rpcrdma_create_data_internal *cdata = &r_xprt->rx_data;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct rpcrdma_ia *ia = &r_xprt->rx_ia;
 	struct rpcrdma_rep *rep;
 	int rc;
@@ -941,18 +948,26 @@ int
 	rep->rr_device = ia->ri_device;
 	rep->rr_rxprt = r_xprt;
 	INIT_WORK(&rep->rr_work, rpcrdma_receive_worker);
+<<<<<<< HEAD
 
 	spin_lock(&buf->rb_lock);
 	list_add(&rep->rr_list, &buf->rb_recv_bufs);
 	spin_unlock(&buf->rb_lock);
 	return 0;
+=======
+	return rep;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 out_free:
 	kfree(rep);
 out:
+<<<<<<< HEAD
 	dprintk("RPC:       %s: reply buffer %d alloc failed\n",
 		__func__, rc);
 	return rc;
+=======
+	return ERR_PTR(rc);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 int
@@ -988,10 +1003,24 @@ rpcrdma_buffer_create(struct rpcrdma_xprt *r_xprt)
 	}
 
 	INIT_LIST_HEAD(&buf->rb_recv_bufs);
+<<<<<<< HEAD
 	for (i = 0; i <= buf->rb_max_requests; i++) {
 		rc = rpcrdma_create_rep(r_xprt);
 		if (rc)
 			goto out;
+=======
+	for (i = 0; i < buf->rb_max_requests + 2; i++) {
+		struct rpcrdma_rep *rep;
+
+		rep = rpcrdma_create_rep(r_xprt);
+		if (IS_ERR(rep)) {
+			dprintk("RPC:       %s: reply buffer %d alloc failed\n",
+				__func__, i);
+			rc = PTR_ERR(rep);
+			goto out;
+		}
+		list_add(&rep->rr_list, &buf->rb_recv_bufs);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	return 0;
@@ -1343,6 +1372,7 @@ rpcrdma_ep_post_extra_recv(struct rpcrdma_xprt *r_xprt, unsigned int count)
 	struct rpcrdma_ia *ia = &r_xprt->rx_ia;
 	struct rpcrdma_ep *ep = &r_xprt->rx_ep;
 	struct rpcrdma_rep *rep;
+<<<<<<< HEAD
 	int rc;
 
 	while (count--) {
@@ -1351,6 +1381,17 @@ rpcrdma_ep_post_extra_recv(struct rpcrdma_xprt *r_xprt, unsigned int count)
 			goto out_reqbuf;
 		rep = rpcrdma_buffer_get_rep_locked(buffers);
 		spin_unlock(&buffers->rb_lock);
+=======
+	unsigned long flags;
+	int rc;
+
+	while (count--) {
+		spin_lock_irqsave(&buffers->rb_lock, flags);
+		if (list_empty(&buffers->rb_recv_bufs))
+			goto out_reqbuf;
+		rep = rpcrdma_buffer_get_rep_locked(buffers);
+		spin_unlock_irqrestore(&buffers->rb_lock, flags);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		rc = rpcrdma_ep_post_recv(ia, ep, rep);
 		if (rc)
@@ -1360,7 +1401,11 @@ rpcrdma_ep_post_extra_recv(struct rpcrdma_xprt *r_xprt, unsigned int count)
 	return 0;
 
 out_reqbuf:
+<<<<<<< HEAD
 	spin_unlock(&buffers->rb_lock);
+=======
+	spin_unlock_irqrestore(&buffers->rb_lock, flags);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	pr_warn("%s: no extra receive buffers\n", __func__);
 	return -ENOMEM;
 

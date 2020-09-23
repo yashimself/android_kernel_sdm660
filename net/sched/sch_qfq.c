@@ -1150,7 +1150,10 @@ static struct sk_buff *qfq_dequeue(struct Qdisc *sch)
 	if (!skb)
 		return NULL;
 
+<<<<<<< HEAD
 	qdisc_qstats_backlog_dec(sch, skb);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	sch->q.qlen--;
 	qdisc_bstats_update(sch, skb);
 
@@ -1251,7 +1254,10 @@ static int qfq_enqueue(struct sk_buff *skb, struct Qdisc *sch)
 	}
 
 	bstats_update(&cl->bstats, skb);
+<<<<<<< HEAD
 	qdisc_qstats_backlog_inc(sch, skb);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	++sch->q.qlen;
 
 	agg = cl->agg;
@@ -1518,7 +1524,10 @@ static void qfq_reset_qdisc(struct Qdisc *sch)
 			qdisc_reset(cl->qdisc);
 		}
 	}
+<<<<<<< HEAD
 	sch->qstats.backlog = 0;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	sch->q.qlen = 0;
 }
 

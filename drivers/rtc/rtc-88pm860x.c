@@ -115,6 +115,7 @@ static int pm860x_rtc_read_time(struct device *dev, struct rtc_time *tm)
 	pm860x_page_bulk_read(info->i2c, REG0_ADDR, 8, buf);
 	dev_dbg(info->dev, "%x-%x-%x-%x-%x-%x-%x-%x\n", buf[0], buf[1],
 		buf[2], buf[3], buf[4], buf[5], buf[6], buf[7]);
+<<<<<<< HEAD
 	base = ((unsigned long)buf[1] << 24) | (buf[3] << 16) |
 		(buf[5] << 8) | buf[7];
 
@@ -122,6 +123,13 @@ static int pm860x_rtc_read_time(struct device *dev, struct rtc_time *tm)
 	pm860x_bulk_read(info->i2c, PM8607_RTC_COUNTER1, 4, buf);
 	data = ((unsigned long)buf[3] << 24) | (buf[2] << 16) |
 		(buf[1] << 8) | buf[0];
+=======
+	base = (buf[1] << 24) | (buf[3] << 16) | (buf[5] << 8) | buf[7];
+
+	/* load 32-bit read-only counter */
+	pm860x_bulk_read(info->i2c, PM8607_RTC_COUNTER1, 4, buf);
+	data = (buf[3] << 24) | (buf[2] << 16) | (buf[1] << 8) | buf[0];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	ticks = base + data;
 	dev_dbg(info->dev, "get base:0x%lx, RO count:0x%lx, ticks:0x%lx\n",
 		base, data, ticks);
@@ -147,8 +155,12 @@ static int pm860x_rtc_set_time(struct device *dev, struct rtc_time *tm)
 
 	/* load 32-bit read-only counter */
 	pm860x_bulk_read(info->i2c, PM8607_RTC_COUNTER1, 4, buf);
+<<<<<<< HEAD
 	data = ((unsigned long)buf[3] << 24) | (buf[2] << 16) |
 		(buf[1] << 8) | buf[0];
+=======
+	data = (buf[3] << 24) | (buf[2] << 16) | (buf[1] << 8) | buf[0];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	base = ticks - data;
 	dev_dbg(info->dev, "set base:0x%lx, RO count:0x%lx, ticks:0x%lx\n",
 		base, data, ticks);
@@ -173,12 +185,19 @@ static int pm860x_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alrm)
 	pm860x_page_bulk_read(info->i2c, REG0_ADDR, 8, buf);
 	dev_dbg(info->dev, "%x-%x-%x-%x-%x-%x-%x-%x\n", buf[0], buf[1],
 		buf[2], buf[3], buf[4], buf[5], buf[6], buf[7]);
+<<<<<<< HEAD
 	base = ((unsigned long)buf[1] << 24) | (buf[3] << 16) |
 		(buf[5] << 8) | buf[7];
 
 	pm860x_bulk_read(info->i2c, PM8607_RTC_EXPIRE1, 4, buf);
 	data = ((unsigned long)buf[3] << 24) | (buf[2] << 16) |
 		(buf[1] << 8) | buf[0];
+=======
+	base = (buf[1] << 24) | (buf[3] << 16) | (buf[5] << 8) | buf[7];
+
+	pm860x_bulk_read(info->i2c, PM8607_RTC_EXPIRE1, 4, buf);
+	data = (buf[3] << 24) | (buf[2] << 16) | (buf[1] << 8) | buf[0];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	ticks = base + data;
 	dev_dbg(info->dev, "get base:0x%lx, RO count:0x%lx, ticks:0x%lx\n",
 		base, data, ticks);
@@ -203,6 +222,7 @@ static int pm860x_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alrm)
 	pm860x_page_bulk_read(info->i2c, REG0_ADDR, 8, buf);
 	dev_dbg(info->dev, "%x-%x-%x-%x-%x-%x-%x-%x\n", buf[0], buf[1],
 		buf[2], buf[3], buf[4], buf[5], buf[6], buf[7]);
+<<<<<<< HEAD
 	base = ((unsigned long)buf[1] << 24) | (buf[3] << 16) |
 		(buf[5] << 8) | buf[7];
 
@@ -210,6 +230,13 @@ static int pm860x_rtc_set_alarm(struct device *dev, struct rtc_wkalrm *alrm)
 	pm860x_bulk_read(info->i2c, PM8607_RTC_COUNTER1, 4, buf);
 	data = ((unsigned long)buf[3] << 24) | (buf[2] << 16) |
 		(buf[1] << 8) | buf[0];
+=======
+	base = (buf[1] << 24) | (buf[3] << 16) | (buf[5] << 8) | buf[7];
+
+	/* load 32-bit read-only counter */
+	pm860x_bulk_read(info->i2c, PM8607_RTC_COUNTER1, 4, buf);
+	data = (buf[3] << 24) | (buf[2] << 16) | (buf[1] << 8) | buf[0];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	ticks = base + data;
 	dev_dbg(info->dev, "get base:0x%lx, RO count:0x%lx, ticks:0x%lx\n",
 		base, data, ticks);

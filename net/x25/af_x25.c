@@ -100,7 +100,11 @@ int x25_parse_address_block(struct sk_buff *skb,
 	}
 
 	len = *skb->data;
+<<<<<<< HEAD
 	needed = 1 + ((len >> 4) + (len & 0x0f) + 1) / 2;
+=======
+	needed = 1 + (len >> 4) + (len & 0x0f);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (!pskb_may_pull(skb, needed)) {
 		/* packet is too short to hold the addresses it claims
@@ -288,7 +292,11 @@ static struct sock *x25_find_listener(struct x25_address *addr,
 	sk_for_each(s, &x25_list)
 		if ((!strcmp(addr->x25_addr,
 			x25_sk(s)->source_addr.x25_addr) ||
+<<<<<<< HEAD
 				!strcmp(x25_sk(s)->source_addr.x25_addr,
+=======
+				!strcmp(addr->x25_addr,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 					null_x25_address.x25_addr)) &&
 					s->sk_state == TCP_LISTEN) {
 			/*
@@ -684,6 +692,7 @@ static int x25_bind(struct socket *sock, struct sockaddr *uaddr, int addr_len)
 		goto out;
 	}
 
+<<<<<<< HEAD
 	/* check for the null_x25_address */
 	if (strcmp(addr->sx25_addr.x25_addr, null_x25_address.x25_addr)) {
 
@@ -693,6 +702,13 @@ static int x25_bind(struct socket *sock, struct sockaddr *uaddr, int addr_len)
 				rc = -EINVAL;
 				goto out;
 			}
+=======
+	len = strlen(addr->sx25_addr.x25_addr);
+	for (i = 0; i < len; i++) {
+		if (!isdigit(addr->sx25_addr.x25_addr[i])) {
+			rc = -EINVAL;
+			goto out;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 	}
 
@@ -764,10 +780,13 @@ static int x25_connect(struct socket *sock, struct sockaddr *uaddr,
 	if (sk->sk_state == TCP_ESTABLISHED)
 		goto out;
 
+<<<<<<< HEAD
 	rc = -EALREADY;	/* Do nothing if call is already in progress */
 	if (sk->sk_state == TCP_SYN_SENT)
 		goto out;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	sk->sk_state   = TCP_CLOSE;
 	sock->state = SS_UNCONNECTED;
 
@@ -814,7 +833,11 @@ static int x25_connect(struct socket *sock, struct sockaddr *uaddr,
 	/* Now the loop */
 	rc = -EINPROGRESS;
 	if (sk->sk_state != TCP_ESTABLISHED && (flags & O_NONBLOCK))
+<<<<<<< HEAD
 		goto out;
+=======
+		goto out_put_neigh;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	rc = x25_wait_for_connection_establishment(sk);
 	if (rc)

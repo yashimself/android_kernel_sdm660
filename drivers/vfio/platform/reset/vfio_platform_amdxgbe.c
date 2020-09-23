@@ -110,7 +110,11 @@ int vfio_platform_amdxgbe_reset(struct vfio_platform_device *vdev)
 	usleep_range(10, 15);
 
 	count = 2000;
+<<<<<<< HEAD
 	while (--count && (ioread32(xgmac_regs->ioaddr + DMA_MR) & 1))
+=======
+	while (count-- && (ioread32(xgmac_regs->ioaddr + DMA_MR) & 1))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		usleep_range(500, 600);
 
 	if (!count)

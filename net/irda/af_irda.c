@@ -839,7 +839,11 @@ static int irda_accept(struct socket *sock, struct socket *newsock, int flags)
 	struct sock *sk = sock->sk;
 	struct irda_sock *new, *self = irda_sk(sk);
 	struct sock *newsk;
+<<<<<<< HEAD
 	struct sk_buff *skb = NULL;
+=======
+	struct sk_buff *skb;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int err;
 
 	err = irda_create(sock_net(sk), newsock, sk->sk_protocol, 0);
@@ -907,6 +911,10 @@ static int irda_accept(struct socket *sock, struct socket *newsock, int flags)
 	err = -EPERM; /* value does not seem to make sense. -arnd */
 	if (!new->tsap) {
 		pr_debug("%s(), dup failed!\n", __func__);
+<<<<<<< HEAD
+=======
+		kfree_skb(skb);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		goto out;
 	}
 
@@ -925,6 +933,10 @@ static int irda_accept(struct socket *sock, struct socket *newsock, int flags)
 	/* Clean up the original one to keep it in listen state */
 	irttp_listen(self->tsap);
 
+<<<<<<< HEAD
+=======
+	kfree_skb(skb);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	sk->sk_ack_backlog--;
 
 	newsock->state = SS_CONNECTED;
@@ -932,7 +944,10 @@ static int irda_accept(struct socket *sock, struct socket *newsock, int flags)
 	irda_connect_response(new);
 	err = 0;
 out:
+<<<<<<< HEAD
 	kfree_skb(skb);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	release_sock(sk);
 	return err;
 }

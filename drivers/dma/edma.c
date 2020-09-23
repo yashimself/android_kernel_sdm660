@@ -2288,10 +2288,15 @@ static int edma_probe(struct platform_device *pdev)
 
 		ecc->tc_list = devm_kcalloc(dev, ecc->num_tc,
 					    sizeof(*ecc->tc_list), GFP_KERNEL);
+<<<<<<< HEAD
 		if (!ecc->tc_list) {
 			ret = -ENOMEM;
 			goto err_reg1;
 		}
+=======
+		if (!ecc->tc_list)
+			return -ENOMEM;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		for (i = 0;; i++) {
 			ret = of_parse_phandle_with_fixed_args(node, "ti,tptcs",
@@ -2439,6 +2444,7 @@ static struct platform_driver edma_driver = {
 	},
 };
 
+<<<<<<< HEAD
 static int edma_tptc_probe(struct platform_device *pdev)
 {
 	return 0;
@@ -2446,6 +2452,9 @@ static int edma_tptc_probe(struct platform_device *pdev)
 
 static struct platform_driver edma_tptc_driver = {
 	.probe		= edma_tptc_probe,
+=======
+static struct platform_driver edma_tptc_driver = {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.driver = {
 		.name	= "edma3-tptc",
 		.of_match_table = edma_tptc_of_ids,

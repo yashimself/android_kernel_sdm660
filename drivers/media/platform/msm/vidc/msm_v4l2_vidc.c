@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -31,6 +35,10 @@
 #include "msm_vidc_resources.h"
 #include "venus_boot.h"
 #include "vidc_hfi_api.h"
+<<<<<<< HEAD
+=======
+#include <soc/qcom/boot_stats.h>
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #define BASE_DEVICE_NUMBER 32
 
@@ -608,6 +616,10 @@ static int msm_vidc_probe_vidc_device(struct platform_device *pdev)
 		goto err_fail_sub_device_probe;
 	}
 
+<<<<<<< HEAD
+=======
+	place_marker("M - DRIVER Video Ready");
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return rc;
 
 err_fail_sub_device_probe:

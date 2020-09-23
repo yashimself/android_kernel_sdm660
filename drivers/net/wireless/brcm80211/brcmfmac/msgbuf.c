@@ -1155,8 +1155,11 @@ brcmf_msgbuf_process_rx_complete(struct brcmf_msgbuf *msgbuf, void *buf)
 		brcmu_pkt_buf_free_skb(skb);
 		return;
 	}
+<<<<<<< HEAD
 
 	skb->protocol = eth_type_trans(skb, ifp->ndev);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	brcmf_netif_rx(ifp, skb);
 }
 

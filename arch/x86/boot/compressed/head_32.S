@@ -170,7 +170,11 @@ preferred_addr:
 	notl	%eax
 	andl    %eax, %ebx
 	cmpl	$LOAD_PHYSICAL_ADDR, %ebx
+<<<<<<< HEAD
 	jae	1f
+=======
+	jge	1f
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #endif
 	movl	$LOAD_PHYSICAL_ADDR, %ebx
 1:

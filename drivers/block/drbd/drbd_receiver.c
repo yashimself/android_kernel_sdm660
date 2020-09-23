@@ -4116,6 +4116,7 @@ static int receive_state(struct drbd_connection *connection, struct packet_info 
 	if (peer_state.conn == C_AHEAD)
 		ns.conn = C_BEHIND;
 
+<<<<<<< HEAD
 	/* TODO:
 	 * if (primary and diskless and peer uuid != effective uuid)
 	 *     abort attach on peer;
@@ -4135,6 +4136,8 @@ static int receive_state(struct drbd_connection *connection, struct packet_info 
 	 * this node is currently Diskless Primary.
 	 */
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (device->p_uuid && peer_state.disk >= D_NEGOTIATING &&
 	    get_ldev_if_state(device, D_NEGOTIATING)) {
 		int cr; /* consider resync */

@@ -37,8 +37,12 @@ static inline int gup_pte_range(pmd_t *pmdp, pmd_t pmd, unsigned long addr,
 			return 0;
 		VM_BUG_ON(!pfn_valid(pte_pfn(pte)));
 		page = pte_page(pte);
+<<<<<<< HEAD
 		if (WARN_ON_ONCE(page_ref_count(page) < 0)
 		    || !page_cache_get_speculative(page))
+=======
+		if (!page_cache_get_speculative(page))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			return 0;
 		if (unlikely(pte_val(pte) != pte_val(*ptep))) {
 			put_page(page);
@@ -77,8 +81,12 @@ static inline int gup_huge_pmd(pmd_t *pmdp, pmd_t pmd, unsigned long addr,
 		refs++;
 	} while (addr += PAGE_SIZE, addr != end);
 
+<<<<<<< HEAD
 	if (WARN_ON_ONCE(page_ref_count(head) < 0)
 	    || !page_cache_add_speculative(head, refs)) {
+=======
+	if (!page_cache_add_speculative(head, refs)) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		*nr -= refs;
 		return 0;
 	}

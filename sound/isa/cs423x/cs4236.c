@@ -293,8 +293,12 @@ static int snd_cs423x_pnp_init_mpu(int dev, struct pnp_dev *pdev)
 	} else {
 		mpu_port[dev] = pnp_port_start(pdev, 0);
 		if (mpu_irq[dev] >= 0 &&
+<<<<<<< HEAD
 		    pnp_irq_valid(pdev, 0) &&
 		    pnp_irq(pdev, 0) != (resource_size_t)-1) {
+=======
+		    pnp_irq_valid(pdev, 0) && pnp_irq(pdev, 0) >= 0) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			mpu_irq[dev] = pnp_irq(pdev, 0);
 		} else {
 			mpu_irq[dev] = -1;	/* disable interrupt */

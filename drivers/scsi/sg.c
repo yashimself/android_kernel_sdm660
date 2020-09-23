@@ -820,10 +820,15 @@ sg_common_write(Sg_fd * sfp, Sg_request * srp,
 			"sg_common_write:  scsi opcode=0x%02x, cmd_size=%d\n",
 			(int) cmnd[0], (int) hp->cmd_len));
 
+<<<<<<< HEAD
 	if (hp->dxfer_len >= SZ_256M) {
 		sg_remove_request(sfp, srp);
 		return -EINVAL;
 	}
+=======
+	if (hp->dxfer_len >= SZ_256M)
+		return -EINVAL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	k = sg_start_req(srp, cmnd);
 	if (k) {

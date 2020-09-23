@@ -117,6 +117,17 @@ static int __init tipc_init(void)
 			      TIPC_CRITICAL_IMPORTANCE;
 	sysctl_tipc_rmem[2] = TIPC_CONN_OVERLOAD_LIMIT;
 
+<<<<<<< HEAD
+=======
+	err = tipc_netlink_start();
+	if (err)
+		goto out_netlink;
+
+	err = tipc_netlink_compat_start();
+	if (err)
+		goto out_netlink_compat;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	err = tipc_register_sysctl();
 	if (err)
 		goto out_sysctl;
@@ -137,6 +148,7 @@ static int __init tipc_init(void)
 	if (err)
 		goto out_bearer;
 
+<<<<<<< HEAD
 	err = tipc_netlink_start();
 	if (err)
 		goto out_netlink;
@@ -152,6 +164,10 @@ out_netlink_compat:
 	tipc_netlink_stop();
 out_netlink:
 	tipc_bearer_cleanup();
+=======
+	pr_info("Started in single node mode\n");
+	return 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 out_bearer:
 	unregister_pernet_device(&tipc_topsrv_net_ops);
 out_pernet_topsrv:
@@ -161,18 +177,33 @@ out_socket:
 out_pernet:
 	tipc_unregister_sysctl();
 out_sysctl:
+<<<<<<< HEAD
+=======
+	tipc_netlink_compat_stop();
+out_netlink_compat:
+	tipc_netlink_stop();
+out_netlink:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	pr_err("Unable to start in single node mode\n");
 	return err;
 }
 
 static void __exit tipc_exit(void)
 {
+<<<<<<< HEAD
 	tipc_netlink_compat_stop();
 	tipc_netlink_stop();
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	tipc_bearer_cleanup();
 	unregister_pernet_device(&tipc_topsrv_net_ops);
 	tipc_socket_stop();
 	unregister_pernet_device(&tipc_net_ops);
+<<<<<<< HEAD
+=======
+	tipc_netlink_stop();
+	tipc_netlink_compat_stop();
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	tipc_unregister_sysctl();
 
 	pr_info("Deactivated\n");

@@ -145,6 +145,7 @@ static bool is_ereg(u32 reg)
 			     BIT(BPF_REG_9));
 }
 
+<<<<<<< HEAD
 /*
  * is_ereg_8l() == true if BPF register 'reg' is mapped to access x86-64
  * lower 8-bit registers dil,sil,bpl,spl,r8b..r15b, which need extra byte
@@ -158,6 +159,8 @@ static bool is_ereg_8l(u32 reg)
 			  BIT(BPF_REG_FP));
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /* add modifiers if 'reg' maps to x64 registers r8..r15 */
 static u8 add_1mod(u8 byte, u32 reg)
 {
@@ -744,8 +747,14 @@ st:			if (is_imm8(insn->off))
 			/* STX: *(u8*)(dst_reg + off) = src_reg */
 		case BPF_STX | BPF_MEM | BPF_B:
 			/* emit 'mov byte ptr [rax + off], al' */
+<<<<<<< HEAD
 			if (is_ereg(dst_reg) || is_ereg_8l(src_reg))
 				/* Add extra byte for eregs or SIL,DIL,BPL in src_reg */
+=======
+			if (is_ereg(dst_reg) || is_ereg(src_reg) ||
+			    /* have to add extra byte for x86 SIL, DIL regs */
+			    src_reg == BPF_REG_1 || src_reg == BPF_REG_2)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				EMIT2(add_2mod(0x40, dst_reg, src_reg), 0x88);
 			else
 				EMIT1(0x88);

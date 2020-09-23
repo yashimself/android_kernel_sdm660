@@ -121,9 +121,12 @@ static int nft_dynset_init(const struct nft_ctx *ctx,
 			return PTR_ERR(set);
 	}
 
+<<<<<<< HEAD
 	if (set->ops->update == NULL)
 		return -EOPNOTSUPP;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (set->flags & NFT_SET_CONSTANT)
 		return -EBUSY;
 

@@ -511,7 +511,11 @@ static ssize_t show_hdmi_source(struct device *dev,
 			return scnprintf(buf, PAGE_SIZE,
 					 "input [gpu] unknown\n");
 	}
+<<<<<<< HEAD
 	pr_err("alienware-wmi: unknown HDMI source status: %u\n", status);
+=======
+	pr_err("alienware-wmi: unknown HDMI source status: %d\n", out_data);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return scnprintf(buf, PAGE_SIZE, "input gpu [unknown]\n");
 }
 

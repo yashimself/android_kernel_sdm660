@@ -855,9 +855,15 @@ static ssize_t ccid_bulk_write(struct file *fp, const char __user *buf,
 						&bulk_dev->tx_idle)))
 				ccid_request_free(req, ccid_dev->in);
 			r = -ENODEV;
+<<<<<<< HEAD
 		}
 		spin_unlock_irqrestore(&ccid_dev->lock, flags);
 		goto done;
+=======
+			goto done;
+		}
+		spin_unlock_irqrestore(&ccid_dev->lock, flags);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 done:
 	pr_debug("ccid_bulk_write returning %d\n", r);

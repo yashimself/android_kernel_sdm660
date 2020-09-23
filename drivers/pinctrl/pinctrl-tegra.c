@@ -418,7 +418,11 @@ static int tegra_pinconf_reg(struct tegra_pmx *pmx,
 		return -ENOTSUPP;
 	}
 
+<<<<<<< HEAD
 	if (*reg < 0 || *bit < 0)  {
+=======
+	if (*reg < 0 || *bit > 31) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (report_err) {
 			const char *prop = "unknown";
 			int i;

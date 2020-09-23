@@ -23,12 +23,15 @@ ENTRY(ftrace_stub)
 #define STACK_PTREGS	  (STACK_FRAME_OVERHEAD)
 #define STACK_PTREGS_GPRS (STACK_PTREGS + __PT_GPRS)
 #define STACK_PTREGS_PSW  (STACK_PTREGS + __PT_PSW)
+<<<<<<< HEAD
 #ifdef __PACK_STACK
 /* allocate just enough for r14, r15 and backchain */
 #define TRACED_FUNC_FRAME_SIZE	24
 #else
 #define TRACED_FUNC_FRAME_SIZE	STACK_FRAME_OVERHEAD
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 ENTRY(_mcount)
 	BR_EX	%r14
@@ -40,6 +43,7 @@ ENTRY(ftrace_caller)
 #ifndef CC_USING_HOTPATCH
 	aghi	%r0,MCOUNT_RETURN_FIXUP
 #endif
+<<<<<<< HEAD
 	# allocate stack frame for ftrace_caller to contain traced function
 	aghi	%r15,-TRACED_FUNC_FRAME_SIZE
 	stg	%r1,__SF_BACKCHAIN(%r15)
@@ -50,6 +54,11 @@ ENTRY(ftrace_caller)
 	stg	%r1,(STACK_PTREGS_GPRS+15*8)(%r15)
 	aghi	%r1,-TRACED_FUNC_FRAME_SIZE
 	stg	%r1,__SF_BACKCHAIN(%r15)
+=======
+	aghi	%r15,-STACK_FRAME_SIZE
+	stg	%r1,__SF_BACKCHAIN(%r15)
+	stg	%r1,(STACK_PTREGS_GPRS+15*8)(%r15)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	stg	%r0,(STACK_PTREGS_PSW+8)(%r15)
 	stmg	%r2,%r14,(STACK_PTREGS_GPRS+2*8)(%r15)
 #ifdef CONFIG_HAVE_MARCH_Z196_FEATURES

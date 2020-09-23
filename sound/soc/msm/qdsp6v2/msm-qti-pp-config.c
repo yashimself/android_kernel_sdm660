@@ -181,7 +181,11 @@ static int msm_qti_pp_put_dtmf_module_enable
 	struct audio_client *ac = NULL;
 	struct param_hdr_v3 param_hdr;
 	int ret = 0;
+<<<<<<< HEAD
 	u32 flag = ucontrol->value.integer.value[0];
+=======
+	u32 flag = (bool)ucontrol->value.integer.value[0];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	fe_id = ((struct soc_multi_mixer_control *)
 			kcontrol->private_value)->shift;
@@ -652,11 +656,19 @@ static int msm_qti_pp_set_sec_auxpcm_lb_vol_mixer(
 static int msm_qti_pp_get_channel_map_mixer(struct snd_kcontrol *kcontrol,
 					    struct snd_ctl_elem_value *ucontrol)
 {
+<<<<<<< HEAD
 	char channel_map[PCM_FORMAT_MAX_NUM_CHANNEL] = {0};
 	int i;
 
 	adm_get_multi_ch_map(channel_map, ADM_PATH_PLAYBACK);
 	for (i = 0; i < PCM_FORMAT_MAX_NUM_CHANNEL; i++)
+=======
+	char channel_map[PCM_FORMAT_MAX_NUM_CHANNEL_V2] = {0};
+	int i;
+
+	adm_get_multi_ch_map(channel_map, ADM_PATH_PLAYBACK);
+	for (i = 0; i < PCM_FORMAT_MAX_NUM_CHANNEL_V2; i++)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		ucontrol->value.integer.value[i] = (unsigned) channel_map[i];
 	return 0;
 }
@@ -664,10 +676,17 @@ static int msm_qti_pp_get_channel_map_mixer(struct snd_kcontrol *kcontrol,
 static int msm_qti_pp_put_channel_map_mixer(struct snd_kcontrol *kcontrol,
 					    struct snd_ctl_elem_value *ucontrol)
 {
+<<<<<<< HEAD
 	char channel_map[PCM_FORMAT_MAX_NUM_CHANNEL];
 	int i;
 
 	for (i = 0; i < PCM_FORMAT_MAX_NUM_CHANNEL; i++)
+=======
+	char channel_map[PCM_FORMAT_MAX_NUM_CHANNEL_V2] = {0};
+	int i;
+
+	for (i = 0; i < PCM_FORMAT_MAX_NUM_CHANNEL_V2; i++)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		channel_map[i] = (char)(ucontrol->value.integer.value[i]);
 	adm_set_multi_ch_map(channel_map, ADM_PATH_PLAYBACK);
 
@@ -1256,8 +1275,14 @@ static const struct snd_kcontrol_new sec_auxpcm_lb_vol_mixer_controls[] = {
 };
 
 static const struct snd_kcontrol_new multi_ch_channel_map_mixer_controls[] = {
+<<<<<<< HEAD
 	SOC_SINGLE_MULTI_EXT("Playback Device Channel Map", SND_SOC_NOPM, 0, 16,
 	0, 8, msm_qti_pp_get_channel_map_mixer,
+=======
+	SOC_SINGLE_MULTI_EXT("Playback Device Channel Map",
+	SND_SOC_NOPM, 0, 255,
+	0, 32, msm_qti_pp_get_channel_map_mixer,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	msm_qti_pp_put_channel_map_mixer),
 };
 

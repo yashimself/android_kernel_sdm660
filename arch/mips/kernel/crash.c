@@ -50,6 +50,7 @@ static void crash_shutdown_secondary(void *passed_regs)
 
 static void crash_kexec_prepare_cpus(void)
 {
+<<<<<<< HEAD
 	static int cpus_stopped;
 	unsigned int msecs;
 	unsigned int ncpus;
@@ -58,6 +59,11 @@ static void crash_kexec_prepare_cpus(void)
 		return;
 
 	ncpus = num_online_cpus() - 1;/* Excluding the panic cpu */
+=======
+	unsigned int msecs;
+
+	unsigned int ncpus = num_online_cpus() - 1;/* Excluding the panic cpu */
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	dump_send_ipi(crash_shutdown_secondary);
 	smp_wmb();
@@ -72,6 +78,7 @@ static void crash_kexec_prepare_cpus(void)
 		cpu_relax();
 		mdelay(1);
 	}
+<<<<<<< HEAD
 
 	cpus_stopped = 1;
 }
@@ -83,6 +90,8 @@ void crash_smp_send_stop(void)
 		_crash_smp_send_stop();
 
 	crash_kexec_prepare_cpus();
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 #else /* !defined(CONFIG_SMP)  */

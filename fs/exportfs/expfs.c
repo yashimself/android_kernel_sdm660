@@ -148,7 +148,10 @@ static struct dentry *reconnect_one(struct vfsmount *mnt,
 	mutex_unlock(&parent->d_inode->i_mutex);
 	if (IS_ERR(tmp)) {
 		dprintk("%s: lookup failed: %d\n", __func__, PTR_ERR(tmp));
+<<<<<<< HEAD
 		err = PTR_ERR(tmp);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		goto out_err;
 	}
 	if (tmp != dentry) {

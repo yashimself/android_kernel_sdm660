@@ -779,10 +779,17 @@ static ssize_t f_acm_port_num_show(struct config_item *item, char *page)
 	return sprintf(page, "%u\n", to_f_serial_opts(item)->port_num);
 }
 
+<<<<<<< HEAD
 CONFIGFS_ATTR_RO(f_acm_, port_num);
 
 static struct configfs_attribute *acm_attrs[] = {
 	&f_acm_attr_port_num,
+=======
+CONFIGFS_ATTR_RO(f_acm_port_, num);
+
+static struct configfs_attribute *acm_attrs[] = {
+	&f_acm_port_attr_num,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	NULL,
 };
 

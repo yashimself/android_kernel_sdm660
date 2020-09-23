@@ -648,9 +648,15 @@ static __init void map_mmioh_high_uv3(int index, int min_pnode, int max_pnode)
 				l = li;
 			}
 			addr1 = (base << shift) +
+<<<<<<< HEAD
 				f * (1ULL << m_io);
 			addr2 = (base << shift) +
 				(l + 1) * (1ULL << m_io);
+=======
+				f * (unsigned long)(1 << m_io);
+			addr2 = (base << shift) +
+				(l + 1) * (unsigned long)(1 << m_io);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			pr_info("UV: %s[%03d..%03d] NASID 0x%04x ADDR 0x%016lx - 0x%016lx\n",
 				id, fi, li, lnasid, addr1, addr2);
 			if (max_io < l)

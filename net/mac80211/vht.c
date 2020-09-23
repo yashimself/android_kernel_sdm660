@@ -299,6 +299,7 @@ enum ieee80211_sta_rx_bandwidth ieee80211_sta_cap_rx_bw(struct sta_info *sta)
 	return IEEE80211_STA_RX_BW_80;
 }
 
+<<<<<<< HEAD
 enum nl80211_chan_width ieee80211_sta_cap_chan_bw(struct sta_info *sta)
 {
 	struct ieee80211_sta_vht_cap *vht_cap = &sta->sta.vht_cap;
@@ -323,6 +324,9 @@ enum nl80211_chan_width ieee80211_sta_cap_chan_bw(struct sta_info *sta)
 }
 
 enum ieee80211_sta_rx_bandwidth
+=======
+static enum ieee80211_sta_rx_bandwidth
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 ieee80211_chan_width_to_rx_bw(enum nl80211_chan_width width)
 {
 	switch (width) {
@@ -350,7 +354,14 @@ enum ieee80211_sta_rx_bandwidth ieee80211_sta_cur_vht_bw(struct sta_info *sta)
 
 	bw = ieee80211_sta_cap_rx_bw(sta);
 	bw = min(bw, sta->cur_max_bandwidth);
+<<<<<<< HEAD
 	bw = min(bw, ieee80211_chan_width_to_rx_bw(bss_width));
+=======
+
+	/* do not cap the BW of TDLS WIDER_BW peers by the bss */
+	if (!test_sta_flag(sta, WLAN_STA_TDLS_WIDER_BW))
+		bw = min(bw, ieee80211_chan_width_to_rx_bw(bss_width));
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	return bw;
 }
@@ -398,7 +409,11 @@ void ieee80211_sta_set_rx_nss(struct sta_info *sta)
 
 u32 __ieee80211_vht_handle_opmode(struct ieee80211_sub_if_data *sdata,
 				  struct sta_info *sta, u8 opmode,
+<<<<<<< HEAD
 				  enum nl80211_band band)
+=======
+				  enum ieee80211_band band)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	struct ieee80211_local *local = sdata->local;
 	struct ieee80211_supported_band *sband;
@@ -447,7 +462,11 @@ u32 __ieee80211_vht_handle_opmode(struct ieee80211_sub_if_data *sdata,
 
 void ieee80211_vht_handle_opmode(struct ieee80211_sub_if_data *sdata,
 				 struct sta_info *sta, u8 opmode,
+<<<<<<< HEAD
 				 enum nl80211_band band)
+=======
+				 enum ieee80211_band band)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	struct ieee80211_local *local = sdata->local;
 	struct ieee80211_supported_band *sband = local->hw.wiphy->bands[band];

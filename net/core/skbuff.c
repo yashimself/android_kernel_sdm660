@@ -4477,8 +4477,14 @@ int skb_vlan_pop(struct sk_buff *skb)
 	if (likely(skb_vlan_tag_present(skb))) {
 		skb->vlan_tci = 0;
 	} else {
+<<<<<<< HEAD
 		if (unlikely(skb->protocol != htons(ETH_P_8021Q) &&
 			     skb->protocol != htons(ETH_P_8021AD)))
+=======
+		if (unlikely((skb->protocol != htons(ETH_P_8021Q) &&
+			      skb->protocol != htons(ETH_P_8021AD)) ||
+			     skb->len < VLAN_ETH_HLEN))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			return 0;
 
 		err = __skb_vlan_pop(skb, &vlan_tci);
@@ -4486,8 +4492,14 @@ int skb_vlan_pop(struct sk_buff *skb)
 			return err;
 	}
 	/* move next vlan tag to hw accel tag */
+<<<<<<< HEAD
 	if (likely(skb->protocol != htons(ETH_P_8021Q) &&
 		   skb->protocol != htons(ETH_P_8021AD)))
+=======
+	if (likely((skb->protocol != htons(ETH_P_8021Q) &&
+		    skb->protocol != htons(ETH_P_8021AD)) ||
+		   skb->len < VLAN_ETH_HLEN))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return 0;
 
 	vlan_proto = skb->protocol;

@@ -1,8 +1,11 @@
 #ifndef __KVM_X86_PMU_H
 #define __KVM_X86_PMU_H
 
+<<<<<<< HEAD
 #include <linux/nospec.h>
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #define vcpu_to_pmu(vcpu) (&(vcpu)->arch.pmu)
 #define pmu_to_vcpu(pmu)  (container_of((pmu), struct kvm_vcpu, arch.pmu))
 #define pmc_to_pmu(pmc)   (&(pmc)->vcpu->arch.pmu)
@@ -82,12 +85,17 @@ static inline bool pmc_is_enabled(struct kvm_pmc *pmc)
 static inline struct kvm_pmc *get_gp_pmc(struct kvm_pmu *pmu, u32 msr,
 					 u32 base)
 {
+<<<<<<< HEAD
 	if (msr >= base && msr < base + pmu->nr_arch_gp_counters) {
 		u32 index = array_index_nospec(msr - base,
 					       pmu->nr_arch_gp_counters);
 
 		return &pmu->gp_counters[index];
 	}
+=======
+	if (msr >= base && msr < base + pmu->nr_arch_gp_counters)
+		return &pmu->gp_counters[msr - base];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	return NULL;
 }
@@ -97,12 +105,17 @@ static inline struct kvm_pmc *get_fixed_pmc(struct kvm_pmu *pmu, u32 msr)
 {
 	int base = MSR_CORE_PERF_FIXED_CTR0;
 
+<<<<<<< HEAD
 	if (msr >= base && msr < base + pmu->nr_arch_fixed_counters) {
 		u32 index = array_index_nospec(msr - base,
 					       pmu->nr_arch_fixed_counters);
 
 		return &pmu->fixed_counters[index];
 	}
+=======
+	if (msr >= base && msr < base + pmu->nr_arch_fixed_counters)
+		return &pmu->fixed_counters[msr - base];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	return NULL;
 }

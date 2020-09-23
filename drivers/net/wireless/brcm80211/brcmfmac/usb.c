@@ -426,7 +426,10 @@ fail:
 			usb_free_urb(req->urb);
 		list_del(q->next);
 	}
+<<<<<<< HEAD
 	kfree(reqs);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return NULL;
 
 }
@@ -1353,7 +1356,11 @@ brcmf_usb_probe(struct usb_interface *intf, const struct usb_device_id *id)
 		goto fail;
 	}
 
+<<<<<<< HEAD
 	desc = &intf->cur_altsetting->desc;
+=======
+	desc = &intf->altsetting[0].desc;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if ((desc->bInterfaceClass != USB_CLASS_VENDOR_SPEC) ||
 	    (desc->bInterfaceSubClass != 2) ||
 	    (desc->bInterfaceProtocol != 0xff)) {
@@ -1366,7 +1373,11 @@ brcmf_usb_probe(struct usb_interface *intf, const struct usb_device_id *id)
 
 	num_of_eps = desc->bNumEndpoints;
 	for (ep = 0; ep < num_of_eps; ep++) {
+<<<<<<< HEAD
 		endpoint = &intf->cur_altsetting->endpoint[ep].desc;
+=======
+		endpoint = &intf->altsetting[0].endpoint[ep].desc;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		endpoint_num = usb_endpoint_num(endpoint);
 		if (!usb_endpoint_xfer_bulk(endpoint))
 			continue;

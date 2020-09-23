@@ -452,6 +452,7 @@ static void slip_transmit(struct work_struct *work)
  */
 static void slip_write_wakeup(struct tty_struct *tty)
 {
+<<<<<<< HEAD
 	struct slip *sl;
 
 	rcu_read_lock();
@@ -462,6 +463,11 @@ static void slip_write_wakeup(struct tty_struct *tty)
 	schedule_work(&sl->tx_work);
 out:
 	rcu_read_unlock();
+=======
+	struct slip *sl = tty->disc_data;
+
+	schedule_work(&sl->tx_work);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static void sl_tx_timeout(struct net_device *dev)
@@ -867,7 +873,11 @@ err_free_chan:
 	sl->tty = NULL;
 	tty->disc_data = NULL;
 	clear_bit(SLF_INUSE, &sl->flags);
+<<<<<<< HEAD
 	sl_free_netdev(sl->dev);
+=======
+	free_netdev(sl->dev);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 err_exit:
 	rtnl_unlock();
@@ -893,11 +903,18 @@ static void slip_close(struct tty_struct *tty)
 		return;
 
 	spin_lock_bh(&sl->lock);
+<<<<<<< HEAD
 	rcu_assign_pointer(tty->disc_data, NULL);
 	sl->tty = NULL;
 	spin_unlock_bh(&sl->lock);
 
 	synchronize_rcu();
+=======
+	tty->disc_data = NULL;
+	sl->tty = NULL;
+	spin_unlock_bh(&sl->lock);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	flush_work(&sl->tx_work);
 
 	/* VSV = very important to remove timers */

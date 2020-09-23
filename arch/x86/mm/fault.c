@@ -228,7 +228,11 @@ static inline pmd_t *vmalloc_sync_one(pgd_t *pgd, unsigned long address)
 	return pmd_k;
 }
 
+<<<<<<< HEAD
 static void vmalloc_sync(void)
+=======
+void vmalloc_sync_all(void)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	unsigned long address;
 
@@ -255,6 +259,7 @@ static void vmalloc_sync(void)
 	}
 }
 
+<<<<<<< HEAD
 void vmalloc_sync_mappings(void)
 {
 	vmalloc_sync();
@@ -265,6 +270,8 @@ void vmalloc_sync_unmappings(void)
 	vmalloc_sync();
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /*
  * 32-bit:
  *
@@ -359,6 +366,7 @@ out:
 
 #else /* CONFIG_X86_64: */
 
+<<<<<<< HEAD
 void vmalloc_sync_mappings(void)
 {
 	/*
@@ -376,6 +384,13 @@ void vmalloc_sync_unmappings(void)
 	 */
 }
 
+=======
+void vmalloc_sync_all(void)
+{
+	sync_global_pgds(VMALLOC_START & PGDIR_MASK, VMALLOC_END, 0);
+}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /*
  * 64-bit:
  *

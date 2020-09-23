@@ -305,16 +305,23 @@ static void macvlan_process_broadcast(struct work_struct *w)
 
 		rcu_read_unlock();
 
+<<<<<<< HEAD
 		if (src)
 			dev_put(src->dev);
 		kfree_skb(skb);
 
 		cond_resched();
+=======
+		kfree_skb(skb);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 }
 
 static void macvlan_broadcast_enqueue(struct macvlan_port *port,
+<<<<<<< HEAD
 				      const struct macvlan_dev *src,
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				      struct sk_buff *skb)
 {
 	struct sk_buff *nskb;
@@ -324,22 +331,34 @@ static void macvlan_broadcast_enqueue(struct macvlan_port *port,
 	if (!nskb)
 		goto err;
 
+<<<<<<< HEAD
 	MACVLAN_SKB_CB(nskb)->src = src;
 
 	spin_lock(&port->bc_queue.lock);
 	if (skb_queue_len(&port->bc_queue) < MACVLAN_BC_QUEUE_LEN) {
 		if (src)
 			dev_hold(src->dev);
+=======
+	spin_lock(&port->bc_queue.lock);
+	if (skb_queue_len(&port->bc_queue) < MACVLAN_BC_QUEUE_LEN) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		__skb_queue_tail(&port->bc_queue, nskb);
 		err = 0;
 	}
 	spin_unlock(&port->bc_queue.lock);
 
+<<<<<<< HEAD
 	schedule_work(&port->bc_work);
 
 	if (err)
 		goto free_nskb;
 
+=======
+	if (err)
+		goto free_nskb;
+
+	schedule_work(&port->bc_work);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return;
 
 free_nskb:
@@ -439,7 +458,12 @@ static rx_handler_result_t macvlan_handle_frame(struct sk_buff **pskb)
 			goto out;
 		}
 
+<<<<<<< HEAD
 		macvlan_broadcast_enqueue(port, src, skb);
+=======
+		MACVLAN_SKB_CB(skb)->src = src;
+		macvlan_broadcast_enqueue(port, skb);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		return RX_HANDLER_PASS;
 	}
@@ -484,11 +508,18 @@ static int macvlan_queue_xmit(struct sk_buff *skb, struct net_device *dev)
 	const struct macvlan_dev *dest;
 
 	if (vlan->mode == MACVLAN_MODE_BRIDGE) {
+<<<<<<< HEAD
 		const struct ethhdr *eth = skb_eth_hdr(skb);
 
 		/* send to other bridge ports directly */
 		if (is_multicast_ether_addr(eth->h_dest)) {
 			skb_reset_mac_header(skb);
+=======
+		const struct ethhdr *eth = (void *)skb->data;
+
+		/* send to other bridge ports directly */
+		if (is_multicast_ether_addr(eth->h_dest)) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			macvlan_broadcast(skb, port, dev, MACVLAN_MODE_BRIDGE);
 			goto xmit_world;
 		}
@@ -1567,7 +1598,11 @@ static int macvlan_device_event(struct notifier_block *unused,
 						struct macvlan_dev,
 						list);
 
+<<<<<<< HEAD
 		if (vlan && macvlan_sync_address(vlan->dev, dev->dev_addr))
+=======
+		if (macvlan_sync_address(vlan->dev, dev->dev_addr))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			return NOTIFY_BAD;
 
 		break;

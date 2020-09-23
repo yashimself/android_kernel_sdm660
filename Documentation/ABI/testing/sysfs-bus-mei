@@ -4,7 +4,11 @@ KernelVersion:	3.10
 Contact:	Samuel Ortiz <sameo@linux.intel.com>
 		linux-mei@linux.intel.com
 Description:	Stores the same MODALIAS value emitted by uevent
+<<<<<<< HEAD
 		Format: mei:<mei device name>:<device uuid>:<protocol version>
+=======
+		Format: mei:<mei device name>:<device uuid>:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 What:		/sys/bus/mei/devices/.../name
 Date:		May 2015

@@ -1622,6 +1622,7 @@ EXPORT_SYMBOL(denali_init);
 /* driver exit point */
 void denali_remove(struct denali_nand_info *denali)
 {
+<<<<<<< HEAD
 	/*
 	 * Pre-compute DMA buffer size to avoid any problems in case
 	 * nand_release() ever changes in a way that mtd->writesize and
@@ -1632,6 +1633,11 @@ void denali_remove(struct denali_nand_info *denali)
 	nand_release(&denali->mtd);
 	denali_irq_cleanup(denali->irq, denali);
 	dma_unmap_single(denali->dev, denali->buf.dma_buf, bufsize,
+=======
+	denali_irq_cleanup(denali->irq, denali);
+	dma_unmap_single(denali->dev, denali->buf.dma_buf,
+			 denali->mtd.writesize + denali->mtd.oobsize,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			 DMA_BIDIRECTIONAL);
 }
 EXPORT_SYMBOL(denali_remove);

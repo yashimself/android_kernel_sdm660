@@ -139,11 +139,19 @@ void ecryptfs_dump_cipher(struct ecryptfs_crypt_stat *stat)
 	if (!stat)
 		return;
 
+<<<<<<< HEAD
 	if (stat->cipher)
 		ecryptfs_printk(KERN_DEBUG,
 				"ecryptfs cipher is %s\n", stat->cipher);
 
 	if (stat->cipher_mode)
+=======
+	if (stat->cipher != NULL)
+		ecryptfs_printk(KERN_DEBUG,
+				"ecryptfs cipher is %s\n", stat->cipher);
+
+	if (stat->cipher_mode != NULL)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		ecryptfs_printk(KERN_DEBUG, "ecryptfs cipher mode is %s\n",
 				stat->cipher_mode);
 

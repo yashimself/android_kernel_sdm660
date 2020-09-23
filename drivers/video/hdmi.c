@@ -1036,12 +1036,21 @@ static int hdmi_avi_infoframe_unpack(struct hdmi_avi_infoframe *frame,
 	if (ptr[0] & 0x10)
 		frame->active_aspect = ptr[1] & 0xf;
 	if (ptr[0] & 0x8) {
+<<<<<<< HEAD
 		frame->top_bar = (ptr[6] << 8) | ptr[5];
 		frame->bottom_bar = (ptr[8] << 8) | ptr[7];
 	}
 	if (ptr[0] & 0x4) {
 		frame->left_bar = (ptr[10] << 8) | ptr[9];
 		frame->right_bar = (ptr[12] << 8) | ptr[11];
+=======
+		frame->top_bar = (ptr[5] << 8) + ptr[6];
+		frame->bottom_bar = (ptr[7] << 8) + ptr[8];
+	}
+	if (ptr[0] & 0x4) {
+		frame->left_bar = (ptr[9] << 8) + ptr[10];
+		frame->right_bar = (ptr[11] << 8) + ptr[12];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 	frame->scan_mode = ptr[0] & 0x3;
 

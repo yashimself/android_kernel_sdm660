@@ -707,7 +707,11 @@ static int qcom_smem_enumerate_partitions(struct qcom_smem *smem,
 			return -EINVAL;
 		}
 
+<<<<<<< HEAD
 		if (le32_to_cpu(header->size) != le32_to_cpu(entry->size)) {
+=======
+		if (header->size != entry->size) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			dev_err(smem->dev,
 				"Partition %d has invalid size\n", i);
 			return -EINVAL;

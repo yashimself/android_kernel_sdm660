@@ -1536,10 +1536,18 @@ static int __mcheck_cpu_apply_quirks(struct cpuinfo_x86 *c)
 			mce_flags.overflow_recov = 1;
 
 		/*
+<<<<<<< HEAD
 		 * Turn off MC4_MISC thresholding banks on all models since
 		 * they're not supported there.
 		 */
 		if (c->x86 == 0x15) {
+=======
+		 * Turn off MC4_MISC thresholding banks on those models since
+		 * they're not supported there.
+		 */
+		if (c->x86 == 0x15 &&
+		    (c->x86_model >= 0x10 && c->x86_model <= 0x1f)) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			int i;
 			u64 hwcr;
 			bool need_toggle;

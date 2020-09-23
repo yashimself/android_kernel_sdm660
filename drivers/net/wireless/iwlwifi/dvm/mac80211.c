@@ -199,12 +199,21 @@ int iwlagn_mac_setup_register(struct iwl_priv *priv,
 
 	hw->max_listen_interval = IWL_CONN_MAX_LISTEN_INTERVAL;
 
+<<<<<<< HEAD
 	if (priv->nvm_data->bands[NL80211_BAND_2GHZ].n_channels)
 		priv->hw->wiphy->bands[NL80211_BAND_2GHZ] =
 			&priv->nvm_data->bands[NL80211_BAND_2GHZ];
 	if (priv->nvm_data->bands[NL80211_BAND_5GHZ].n_channels)
 		priv->hw->wiphy->bands[NL80211_BAND_5GHZ] =
 			&priv->nvm_data->bands[NL80211_BAND_5GHZ];
+=======
+	if (priv->nvm_data->bands[IEEE80211_BAND_2GHZ].n_channels)
+		priv->hw->wiphy->bands[IEEE80211_BAND_2GHZ] =
+			&priv->nvm_data->bands[IEEE80211_BAND_2GHZ];
+	if (priv->nvm_data->bands[IEEE80211_BAND_5GHZ].n_channels)
+		priv->hw->wiphy->bands[IEEE80211_BAND_5GHZ] =
+			&priv->nvm_data->bands[IEEE80211_BAND_5GHZ];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	hw->wiphy->hw_version = priv->trans->hw_id;
 

@@ -1434,12 +1434,19 @@ static struct kvm_vcpu *kvmppc_core_vcpu_create_pr(struct kvm *kvm,
 
 	err = kvmppc_mmu_init(vcpu);
 	if (err < 0)
+<<<<<<< HEAD
 		goto free_shared_page;
 
 	return vcpu;
 
 free_shared_page:
 	free_page((unsigned long)vcpu->arch.shared);
+=======
+		goto uninit_vcpu;
+
+	return vcpu;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 uninit_vcpu:
 	kvm_vcpu_uninit(vcpu);
 free_shadow_vcpu:

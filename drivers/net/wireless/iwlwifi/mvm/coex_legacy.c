@@ -576,7 +576,11 @@ iwl_get_coex_type(struct iwl_mvm *mvm, const struct ieee80211_vif *vif)
 	chanctx_conf = rcu_dereference(vif->chanctx_conf);
 
 	if (!chanctx_conf ||
+<<<<<<< HEAD
 	    chanctx_conf->def.chan->band != NL80211_BAND_2GHZ) {
+=======
+	    chanctx_conf->def.chan->band != IEEE80211_BAND_2GHZ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		rcu_read_unlock();
 		return BT_COEX_INVALID_LUT;
 	}
@@ -867,7 +871,11 @@ static void iwl_mvm_bt_notif_iterator(void *_data, u8 *mac,
 
 	/* If channel context is invalid or not on 2.4GHz .. */
 	if ((!chanctx_conf ||
+<<<<<<< HEAD
 	     chanctx_conf->def.chan->band != NL80211_BAND_2GHZ)) {
+=======
+	     chanctx_conf->def.chan->band != IEEE80211_BAND_2GHZ)) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (vif->type == NL80211_IFTYPE_STATION) {
 			/* ... relax constraints and disable rssi events */
 			iwl_mvm_update_smps(mvm, vif, IWL_MVM_SMPS_REQ_BT_COEX,
@@ -1100,7 +1108,11 @@ static void iwl_mvm_bt_rssi_iterator(void *_data, u8 *mac,
 	chanctx_conf = rcu_dereference(vif->chanctx_conf);
 	/* If channel context is invalid or not on 2.4GHz - don't count it */
 	if (!chanctx_conf ||
+<<<<<<< HEAD
 	    chanctx_conf->def.chan->band != NL80211_BAND_2GHZ) {
+=======
+	    chanctx_conf->def.chan->band != IEEE80211_BAND_2GHZ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		rcu_read_unlock();
 		return;
 	}
@@ -1227,12 +1239,20 @@ bool iwl_mvm_bt_coex_is_shared_ant_avail_old(struct iwl_mvm *mvm)
 }
 
 bool iwl_mvm_bt_coex_is_tpc_allowed_old(struct iwl_mvm *mvm,
+<<<<<<< HEAD
 					enum nl80211_band band)
+=======
+					enum ieee80211_band band)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	u32 bt_activity =
 		le32_to_cpu(mvm->last_bt_notif_old.bt_activity_grading);
 
+<<<<<<< HEAD
 	if (band != NL80211_BAND_2GHZ)
+=======
+	if (band != IEEE80211_BAND_2GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return false;
 
 	return bt_activity >= BT_LOW_TRAFFIC;

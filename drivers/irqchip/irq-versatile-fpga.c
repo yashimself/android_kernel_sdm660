@@ -5,7 +5,10 @@
 #include <linux/irq.h>
 #include <linux/io.h>
 #include <linux/irqchip.h>
+<<<<<<< HEAD
 #include <linux/irqchip/chained_irq.h>
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #include <linux/irqchip/versatile-fpga.h>
 #include <linux/irqdomain.h>
 #include <linux/module.h>
@@ -68,6 +71,7 @@ static void fpga_irq_unmask(struct irq_data *d)
 
 static void fpga_irq_handle(struct irq_desc *desc)
 {
+<<<<<<< HEAD
 	struct irq_chip *chip = irq_desc_get_chip(desc);
 	struct fpga_irq_data *f = irq_desc_get_handler_data(desc);
 	u32 status;
@@ -78,6 +82,14 @@ static void fpga_irq_handle(struct irq_desc *desc)
 	if (status == 0) {
 		do_bad_IRQ(desc);
 		goto out;
+=======
+	struct fpga_irq_data *f = irq_desc_get_handler_data(desc);
+	u32 status = readl(f->base + IRQ_STATUS);
+
+	if (status == 0) {
+		do_bad_IRQ(desc);
+		return;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	do {
@@ -86,9 +98,12 @@ static void fpga_irq_handle(struct irq_desc *desc)
 		status &= ~(1 << irq);
 		generic_handle_irq(irq_find_mapping(f->domain, irq));
 	} while (status);
+<<<<<<< HEAD
 
 out:
 	chained_irq_exit(chip, desc);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /*
@@ -211,9 +226,12 @@ int __init fpga_irq_of_init(struct device_node *node,
 	if (of_property_read_u32(node, "valid-mask", &valid_mask))
 		valid_mask = 0;
 
+<<<<<<< HEAD
 	writel(clear_mask, base + IRQ_ENABLE_CLEAR);
 	writel(clear_mask, base + FIQ_ENABLE_CLEAR);
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* Some chips are cascaded from a parent IRQ */
 	parent_irq = irq_of_parse_and_map(node, 0);
 	if (!parent_irq) {
@@ -228,6 +246,12 @@ int __init fpga_irq_of_init(struct device_node *node,
 	fpga_irq_init(base, node->name, 0, parent_irq, valid_mask, node);
 #endif
 
+<<<<<<< HEAD
+=======
+	writel(clear_mask, base + IRQ_ENABLE_CLEAR);
+	writel(clear_mask, base + FIQ_ENABLE_CLEAR);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/*
 	 * On Versatile AB/PB, some secondary interrupts have a direct
 	 * pass-thru to the primary controller for IRQs 20 and 22-31 which need

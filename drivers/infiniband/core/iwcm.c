@@ -125,10 +125,15 @@ static void dealloc_work_entries(struct iwcm_id_private *cm_id_priv)
 {
 	struct list_head *e, *tmp;
 
+<<<<<<< HEAD
 	list_for_each_safe(e, tmp, &cm_id_priv->work_free_list) {
 		list_del(e);
 		kfree(list_entry(e, struct iwcm_work, free_list));
 	}
+=======
+	list_for_each_safe(e, tmp, &cm_id_priv->work_free_list)
+		kfree(list_entry(e, struct iwcm_work, free_list));
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static int alloc_work_entries(struct iwcm_id_private *cm_id_priv, int count)

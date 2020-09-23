@@ -924,13 +924,23 @@ static void sata_dwc_exec_command_by_tag(struct ata_port *ap,
 					 struct ata_taskfile *tf,
 					 u8 tag, u32 cmd_issued)
 {
+<<<<<<< HEAD
+=======
+	unsigned long flags;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct sata_dwc_device_port *hsdevp = HSDEVP_FROM_AP(ap);
 
 	dev_dbg(ap->dev, "%s cmd(0x%02x): %s tag=%d\n", __func__, tf->command,
 		ata_get_cmd_descript(tf->command), tag);
 
+<<<<<<< HEAD
 	hsdevp->cmd_issued[tag] = cmd_issued;
 
+=======
+	spin_lock_irqsave(&ap->host->lock, flags);
+	hsdevp->cmd_issued[tag] = cmd_issued;
+	spin_unlock_irqrestore(&ap->host->lock, flags);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/*
 	 * Clear SError before executing a new command.
 	 * sata_dwc_scr_write and read can not be used here. Clearing the PM

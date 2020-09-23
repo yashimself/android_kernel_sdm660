@@ -97,8 +97,15 @@ int bochs_hw_init(struct drm_device *dev, uint32_t flags)
 		size = min(size, mem);
 	}
 
+<<<<<<< HEAD
 	if (pci_request_region(pdev, 0, "bochs-drm") != 0)
 		DRM_WARN("Cannot request framebuffer, boot fb still active?\n");
+=======
+	if (pci_request_region(pdev, 0, "bochs-drm") != 0) {
+		DRM_ERROR("Cannot request framebuffer\n");
+		return -EBUSY;
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	bochs->fb_map = ioremap(addr, size);
 	if (bochs->fb_map == NULL) {

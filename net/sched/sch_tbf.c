@@ -197,7 +197,10 @@ static int tbf_enqueue(struct sk_buff *skb, struct Qdisc *sch)
 		return ret;
 	}
 
+<<<<<<< HEAD
 	qdisc_qstats_backlog_inc(sch, skb);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	sch->q.qlen++;
 	return NET_XMIT_SUCCESS;
 }
@@ -208,7 +211,10 @@ static unsigned int tbf_drop(struct Qdisc *sch)
 	unsigned int len = 0;
 
 	if (q->qdisc->ops->drop && (len = q->qdisc->ops->drop(q->qdisc)) != 0) {
+<<<<<<< HEAD
 		sch->qstats.backlog -= len;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		sch->q.qlen--;
 		qdisc_qstats_drop(sch);
 	}
@@ -255,7 +261,10 @@ static struct sk_buff *tbf_dequeue(struct Qdisc *sch)
 			q->t_c = now;
 			q->tokens = toks;
 			q->ptokens = ptoks;
+<<<<<<< HEAD
 			qdisc_qstats_backlog_dec(sch, skb);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			sch->q.qlen--;
 			qdisc_unthrottled(sch);
 			qdisc_bstats_update(sch, skb);
@@ -287,7 +296,10 @@ static void tbf_reset(struct Qdisc *sch)
 	struct tbf_sched_data *q = qdisc_priv(sch);
 
 	qdisc_reset(q->qdisc);
+<<<<<<< HEAD
 	sch->qstats.backlog = 0;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	sch->q.qlen = 0;
 	q->t_c = ktime_get_ns();
 	q->tokens = q->buffer;

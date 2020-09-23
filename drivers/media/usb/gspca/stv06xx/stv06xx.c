@@ -293,9 +293,12 @@ static int stv06xx_start(struct gspca_dev *gspca_dev)
 		return -EIO;
 	}
 
+<<<<<<< HEAD
 	if (alt->desc.bNumEndpoints < 1)
 		return -ENODEV;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	packet_size = le16_to_cpu(alt->endpoint[0].desc.wMaxPacketSize);
 	err = stv06xx_write_bridge(sd, STV_ISO_SIZE_L, packet_size);
 	if (err < 0)
@@ -320,6 +323,7 @@ out:
 
 static int stv06xx_isoc_init(struct gspca_dev *gspca_dev)
 {
+<<<<<<< HEAD
 	struct usb_interface_cache *intfc;
 	struct usb_host_interface *alt;
 	struct sd *sd = (struct sd *) gspca_dev;
@@ -335,6 +339,13 @@ static int stv06xx_isoc_init(struct gspca_dev *gspca_dev)
 		return -ENODEV;
 
 	/* Start isoc bandwidth "negotiation" at max isoc bandwidth */
+=======
+	struct usb_host_interface *alt;
+	struct sd *sd = (struct sd *) gspca_dev;
+
+	/* Start isoc bandwidth "negotiation" at max isoc bandwidth */
+	alt = &gspca_dev->dev->actconfig->intf_cache[0]->altsetting[1];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	alt->endpoint[0].desc.wMaxPacketSize =
 		cpu_to_le16(sd->sensor->max_packet_size[gspca_dev->curr_mode]);
 
@@ -347,10 +358,13 @@ static int stv06xx_isoc_nego(struct gspca_dev *gspca_dev)
 	struct usb_host_interface *alt;
 	struct sd *sd = (struct sd *) gspca_dev;
 
+<<<<<<< HEAD
 	/*
 	 * Existence of altsetting and endpoint was verified in
 	 * stv06xx_isoc_init()
 	 */
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	alt = &gspca_dev->dev->actconfig->intf_cache[0]->altsetting[1];
 	packet_size = le16_to_cpu(alt->endpoint[0].desc.wMaxPacketSize);
 	min_packet_size = sd->sensor->min_packet_size[gspca_dev->curr_mode];

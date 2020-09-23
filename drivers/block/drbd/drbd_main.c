@@ -331,8 +331,11 @@ static int drbd_thread_setup(void *arg)
 		 thi->name[0],
 		 resource->name);
 
+<<<<<<< HEAD
 	allow_kernel_signal(DRBD_SIGKILL);
 	allow_kernel_signal(SIGXCPU);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 restart:
 	retval = thi->function(thi);
 
@@ -794,6 +797,10 @@ int __drbd_send_protocol(struct drbd_connection *connection, enum drbd_packet cm
 
 	if (nc->tentative && connection->agreed_pro_version < 92) {
 		rcu_read_unlock();
+<<<<<<< HEAD
+=======
+		mutex_unlock(&sock->mutex);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		drbd_err(connection, "--dry-run is not supported by peer");
 		return -EOPNOTSUPP;
 	}

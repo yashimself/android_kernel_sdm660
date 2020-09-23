@@ -436,15 +436,23 @@ int snd_seq_timer_continue(struct snd_seq_timer *tmr)
 }
 
 /* return current 'real' time. use timeofday() to get better granularity. */
+<<<<<<< HEAD
 snd_seq_real_time_t snd_seq_timer_get_cur_time(struct snd_seq_timer *tmr,
 					       bool adjust_ktime)
+=======
+snd_seq_real_time_t snd_seq_timer_get_cur_time(struct snd_seq_timer *tmr)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	snd_seq_real_time_t cur_time;
 	unsigned long flags;
 
 	spin_lock_irqsave(&tmr->lock, flags);
 	cur_time = tmr->cur_time;
+<<<<<<< HEAD
 	if (adjust_ktime && tmr->running) {
+=======
+	if (tmr->running) { 
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		struct timeval tm;
 		int usec;
 		do_gettimeofday(&tm);
@@ -466,6 +474,7 @@ snd_seq_real_time_t snd_seq_timer_get_cur_time(struct snd_seq_timer *tmr,
  high PPQ values) */
 snd_seq_tick_time_t snd_seq_timer_get_cur_tick(struct snd_seq_timer *tmr)
 {
+<<<<<<< HEAD
 	snd_seq_tick_time_t cur_tick;
 	unsigned long flags;
 
@@ -473,6 +482,9 @@ snd_seq_tick_time_t snd_seq_timer_get_cur_tick(struct snd_seq_timer *tmr)
 	cur_tick = tmr->tick.cur_tick;
 	spin_unlock_irqrestore(&tmr->lock, flags);
 	return cur_tick;
+=======
+	return tmr->tick.cur_tick;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 
@@ -491,6 +503,7 @@ void snd_seq_info_timer_read(struct snd_info_entry *entry,
 		q = queueptr(idx);
 		if (q == NULL)
 			continue;
+<<<<<<< HEAD
 		mutex_lock(&q->timer_mutex);
 		tmr = q->timer;
 		if (!tmr)
@@ -498,12 +511,22 @@ void snd_seq_info_timer_read(struct snd_info_entry *entry,
 		ti = tmr->timeri;
 		if (!ti)
 			goto unlock;
+=======
+		if ((tmr = q->timer) == NULL ||
+		    (ti = tmr->timeri) == NULL) {
+			queuefree(q);
+			continue;
+		}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		snd_iprintf(buffer, "Timer for queue %i : %s\n", q->queue, ti->timer->name);
 		resolution = snd_timer_resolution(ti) * tmr->ticks;
 		snd_iprintf(buffer, "  Period time : %lu.%09lu\n", resolution / 1000000000, resolution % 1000000000);
 		snd_iprintf(buffer, "  Skew : %u / %u\n", tmr->skew, tmr->skew_base);
+<<<<<<< HEAD
 unlock:
 		mutex_unlock(&q->timer_mutex);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		queuefree(q);
  	}
 }

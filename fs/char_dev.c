@@ -332,7 +332,11 @@ static struct kobject *cdev_get(struct cdev *p)
 
 	if (owner && !try_module_get(owner))
 		return NULL;
+<<<<<<< HEAD
 	kobj = kobject_get_unless_zero(&p->kobj);
+=======
+	kobj = kobject_get(&p->kobj);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!kobj)
 		module_put(owner);
 	return kobj;

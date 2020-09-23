@@ -3502,7 +3502,11 @@ static void b43_nphy_tables_init_rev7_volatile(struct b43_wldev *dev)
 		{ 0x2, 0x18, 0x2 }, /* Core 1 */
 	};
 
+<<<<<<< HEAD
 	if (b43_current_band(dev->wl) == NL80211_BAND_5GHZ)
+=======
+	if (b43_current_band(dev->wl) == IEEE80211_BAND_5GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		antswlut = sprom->fem.ghz5.antswlut;
 	else
 		antswlut = sprom->fem.ghz2.antswlut;
@@ -3566,7 +3570,11 @@ static void b43_nphy_tables_init_rev3(struct b43_wldev *dev)
 	struct ssb_sprom *sprom = dev->dev->bus_sprom;
 	u8 antswlut;
 
+<<<<<<< HEAD
 	if (b43_current_band(dev->wl) == NL80211_BAND_5GHZ)
+=======
+	if (b43_current_band(dev->wl) == IEEE80211_BAND_5GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		antswlut = sprom->fem.ghz5.antswlut;
 	else
 		antswlut = sprom->fem.ghz2.antswlut;
@@ -3651,7 +3659,11 @@ static const u32 *b43_nphy_get_ipa_gain_table(struct b43_wldev *dev)
 {
 	struct b43_phy *phy = &dev->phy;
 
+<<<<<<< HEAD
 	if (b43_current_band(dev->wl) == NL80211_BAND_2GHZ) {
+=======
+	if (b43_current_band(dev->wl) == IEEE80211_BAND_2GHZ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		switch (phy->rev) {
 		case 17:
 			if (phy->radio_rev == 14)
@@ -3698,17 +3710,28 @@ static const u32 *b43_nphy_get_ipa_gain_table(struct b43_wldev *dev)
 const u32 *b43_nphy_get_tx_gain_table(struct b43_wldev *dev)
 {
 	struct b43_phy *phy = &dev->phy;
+<<<<<<< HEAD
 	enum nl80211_band band = b43_current_band(dev->wl);
+=======
+	enum ieee80211_band band = b43_current_band(dev->wl);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct ssb_sprom *sprom = dev->dev->bus_sprom;
 
 	if (dev->phy.rev < 3)
 		return b43_ntab_tx_gain_rev0_1_2;
 
 	/* rev 3+ */
+<<<<<<< HEAD
 	if ((dev->phy.n->ipa2g_on && band == NL80211_BAND_2GHZ) ||
 	    (dev->phy.n->ipa5g_on && band == NL80211_BAND_5GHZ)) {
 		return b43_nphy_get_ipa_gain_table(dev);
 	} else if (b43_current_band(dev->wl) == NL80211_BAND_5GHZ) {
+=======
+	if ((dev->phy.n->ipa2g_on && band == IEEE80211_BAND_2GHZ) ||
+	    (dev->phy.n->ipa5g_on && band == IEEE80211_BAND_5GHZ)) {
+		return b43_nphy_get_ipa_gain_table(dev);
+	} else if (b43_current_band(dev->wl) == IEEE80211_BAND_5GHZ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		switch (phy->rev) {
 		case 6:
 		case 5:
@@ -3746,7 +3769,11 @@ const s16 *b43_ntab_get_rf_pwr_offset_table(struct b43_wldev *dev)
 {
 	struct b43_phy *phy = &dev->phy;
 
+<<<<<<< HEAD
 	if (b43_current_band(dev->wl) == NL80211_BAND_2GHZ) {
+=======
+	if (b43_current_band(dev->wl) == IEEE80211_BAND_2GHZ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		switch (phy->rev) {
 		case 17:
 			if (phy->radio_rev == 14)

@@ -30,7 +30,10 @@
 #include <linux/ipv6.h>
 #include <linux/mdio.h>
 #include <net/ip6_checksum.h>
+<<<<<<< HEAD
 #include <net/vxlan.h>
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #include <linux/microchipphy.h>
 #include "lan78xx.h"
 
@@ -371,7 +374,11 @@ static int lan78xx_read_stats(struct lan78xx_net *dev,
 		}
 	} else {
 		netdev_warn(dev->net,
+<<<<<<< HEAD
 			    "Failed to read stat ret = %d", ret);
+=======
+			    "Failed to read stat ret = 0x%x", ret);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	kfree(stats);
@@ -1449,7 +1456,10 @@ static int lan78xx_mdio_init(struct lan78xx_net *dev)
 	dev->mdiobus->read = lan78xx_mdiobus_read;
 	dev->mdiobus->write = lan78xx_mdiobus_write;
 	dev->mdiobus->name = "lan78xx-mdiobus";
+<<<<<<< HEAD
 	dev->mdiobus->parent = &dev->udev->dev;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	snprintf(dev->mdiobus->id, MII_BUS_ID_SIZE, "usb-%03d:%03d",
 		 dev->udev->bus->busnum, dev->udev->devnum);
@@ -2037,6 +2047,14 @@ int lan78xx_stop(struct net_device *net)
 	return 0;
 }
 
+<<<<<<< HEAD
+=======
+static int lan78xx_linearize(struct sk_buff *skb)
+{
+	return skb_linearize(skb);
+}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static struct sk_buff *lan78xx_tx_prep(struct lan78xx_net *dev,
 				       struct sk_buff *skb, gfp_t flags)
 {
@@ -2047,10 +2065,15 @@ static struct sk_buff *lan78xx_tx_prep(struct lan78xx_net *dev,
 		return NULL;
 	}
 
+<<<<<<< HEAD
 	if (skb_linearize(skb)) {
 		dev_kfree_skb_any(skb);
 		return NULL;
 	}
+=======
+	if (lan78xx_linearize(skb) < 0)
+		return NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	tx_cmd_a = (u32)(skb->len & TX_CMD_A_LEN_MASK_) | TX_CMD_A_FCS_;
 
@@ -2894,6 +2917,7 @@ void lan78xx_tx_timeout(struct net_device *net)
 	tasklet_schedule(&dev->bh);
 }
 
+<<<<<<< HEAD
 static netdev_features_t lan78xx_features_check(struct sk_buff *skb,
 						struct net_device *netdev,
 						netdev_features_t features)
@@ -2907,6 +2931,8 @@ static netdev_features_t lan78xx_features_check(struct sk_buff *skb,
 	return features;
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static const struct net_device_ops lan78xx_netdev_ops = {
 	.ndo_open		= lan78xx_open,
 	.ndo_stop		= lan78xx_stop,
@@ -2920,7 +2946,10 @@ static const struct net_device_ops lan78xx_netdev_ops = {
 	.ndo_set_features	= lan78xx_set_features,
 	.ndo_vlan_rx_add_vid	= lan78xx_vlan_rx_add_vid,
 	.ndo_vlan_rx_kill_vid	= lan78xx_vlan_rx_kill_vid,
+<<<<<<< HEAD
 	.ndo_features_check	= lan78xx_features_check,
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 static int lan78xx_probe(struct usb_interface *intf,
@@ -2976,7 +3005,10 @@ static int lan78xx_probe(struct usb_interface *intf,
 
 	if (netdev->mtu > (dev->hard_mtu - netdev->hard_header_len))
 		netdev->mtu = dev->hard_mtu - netdev->hard_header_len;
+<<<<<<< HEAD
 	netif_set_gso_max_size(netdev, MAX_SINGLE_PACKET_SIZE - MAX_HEADER);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	dev->ep_blkin = (intf->cur_altsetting)->endpoint + 0;
 	dev->ep_blkout = (intf->cur_altsetting)->endpoint + 1;

@@ -212,10 +212,17 @@ source "drivers/input/tablet/Kconfig"
 
 source "drivers/input/touchscreen/Kconfig"
 
+<<<<<<< HEAD
 source "drivers/input/fingerprint/Kconfig"
 
 source "drivers/input/misc/Kconfig"
 
+=======
+source "drivers/input/misc/Kconfig"
+
+source "drivers/input/sensors/bmi160/Kconfig"
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 endif
 
 menu "Hardware I/O ports"

@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2015-2016 The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2015-2019 The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -106,6 +110,10 @@ struct sde_encoder_phys_ops {
 			struct drm_display_mode *adjusted_mode);
 	void (*enable)(struct sde_encoder_phys *encoder);
 	void (*disable)(struct sde_encoder_phys *encoder);
+<<<<<<< HEAD
+=======
+	void (*post_disable)(struct sde_encoder_phys *encoder);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int (*atomic_check)(struct sde_encoder_phys *encoder,
 			    struct drm_crtc_state *crtc_state,
 			    struct drm_connector_state *conn_state);
@@ -185,6 +193,10 @@ enum sde_intr_idx {
  *				between 0-2 Incremented when a new kickoff is
  *				scheduled. Decremented in irq handler
  * @pending_kickoff_wq:		Wait queue for blocking until kickoff completes
+<<<<<<< HEAD
+=======
+ * @splash_flush_bits:	Flush bits of splash reserved hardware pipes
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  */
 struct sde_encoder_phys {
 	struct drm_encoder *parent;
@@ -210,6 +222,10 @@ struct sde_encoder_phys {
 	atomic_t underrun_cnt;
 	atomic_t pending_kickoff_cnt;
 	wait_queue_head_t pending_kickoff_wq;
+<<<<<<< HEAD
+=======
+	uint32_t splash_flush_bits;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 static inline int sde_encoder_phys_inc_pending(struct sde_encoder_phys *phys)
@@ -298,6 +314,30 @@ struct sde_encoder_phys_wb {
 };
 
 /**
+<<<<<<< HEAD
+=======
+ * struct sde_encoder_phys_shd - sub-class of sde_encoder_phys to handle shared
+ *	display
+ * @base:	Baseclass physical encoder structure
+ * @hw_lm:	mixer hw block to overwrite base encoder
+ * @hw_ctl:	ctl hw block to overwrite base encoder
+ * @irq_idx:	IRQ interface lookup index
+ * @irq_cb:	interrupt callback
+ * @num_mixers:	Number of mixers available in base encoder
+ * @num_ctls:	Number of ctls available in base encoder
+ */
+struct sde_encoder_phys_shd {
+	struct sde_encoder_phys base;
+	struct sde_hw_mixer *hw_lm[CRTC_DUAL_MIXERS];
+	struct sde_hw_ctl *hw_ctl[CRTC_DUAL_MIXERS];
+	int irq_idx[INTR_IDX_MAX];
+	struct sde_irq_callback irq_cb[INTR_IDX_MAX];
+	u32 num_mixers;
+	u32 num_ctls;
+};
+
+/**
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * struct sde_enc_phys_init_params - initialization parameters for phys encs
  * @sde_kms:		Pointer to the sde_kms top level
  * @parent:		Pointer to the containing virtual encoder
@@ -350,6 +390,26 @@ struct sde_encoder_phys *sde_encoder_phys_wb_init(
 }
 #endif
 
+<<<<<<< HEAD
+=======
+/**
+ * sde_encoder_phys_shd_init - Construct a new shared physical encoder
+ * @p:	Pointer to init params structure
+ * Return: Error code or newly allocated encoder
+ */
+#ifdef CONFIG_DRM_SDE_SHD
+struct sde_encoder_phys *sde_encoder_phys_shd_init(
+		struct sde_enc_phys_init_params *p);
+#else
+static inline
+struct sde_encoder_phys *sde_encoder_phys_shd_init(
+		struct sde_enc_phys_init_params *p)
+{
+	return NULL;
+}
+#endif
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 void sde_encoder_phys_setup_cdm(struct sde_encoder_phys *phys_enc,
 		const struct sde_format *format, u32 output_type,
 		struct sde_rect *roi);

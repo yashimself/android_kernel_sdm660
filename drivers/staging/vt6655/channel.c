@@ -144,7 +144,11 @@ void vnt_init_bands(struct vnt_private *priv)
 			ch[i].flags = IEEE80211_CHAN_NO_HT40;
 		}
 
+<<<<<<< HEAD
 		priv->hw->wiphy->bands[NL80211_BAND_5GHZ] =
+=======
+		priv->hw->wiphy->bands[IEEE80211_BAND_5GHZ] =
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 						&vnt_supported_5ghz_band;
 	/* fallthrough */
 	case RF_RFMD2959:
@@ -159,7 +163,11 @@ void vnt_init_bands(struct vnt_private *priv)
 			ch[i].flags = IEEE80211_CHAN_NO_HT40;
 		}
 
+<<<<<<< HEAD
 		priv->hw->wiphy->bands[NL80211_BAND_2GHZ] =
+=======
+		priv->hw->wiphy->bands[IEEE80211_BAND_2GHZ] =
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 						&vnt_supported_2ghz_band;
 		break;
 	}

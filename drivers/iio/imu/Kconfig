@@ -37,6 +37,10 @@ config KMX61
 	  be called kmx61.
 
 source "drivers/iio/imu/inv_mpu6050/Kconfig"
+<<<<<<< HEAD
+=======
+source "drivers/iio/imu/inv_mpu/Kconfig"
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 endmenu
 

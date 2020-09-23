@@ -1666,7 +1666,11 @@ static int carl9170_op_get_survey(struct ieee80211_hw *hw, int idx,
 			return err;
 	}
 
+<<<<<<< HEAD
 	for (b = 0; b < NUM_NL80211_BANDS; b++) {
+=======
+	for (b = 0; b < IEEE80211_NUM_BANDS; b++) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		band = ar->hw->wiphy->bands[b];
 
 		if (!band)
@@ -1941,13 +1945,21 @@ static int carl9170_parse_eeprom(struct ar9170 *ar)
 	}
 
 	if (ar->eeprom.operating_flags & AR9170_OPFLAG_2GHZ) {
+<<<<<<< HEAD
 		ar->hw->wiphy->bands[NL80211_BAND_2GHZ] =
+=======
+		ar->hw->wiphy->bands[IEEE80211_BAND_2GHZ] =
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			&carl9170_band_2GHz;
 		chans += carl9170_band_2GHz.n_channels;
 		bands++;
 	}
 	if (ar->eeprom.operating_flags & AR9170_OPFLAG_5GHZ) {
+<<<<<<< HEAD
 		ar->hw->wiphy->bands[NL80211_BAND_5GHZ] =
+=======
+		ar->hw->wiphy->bands[IEEE80211_BAND_5GHZ] =
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			&carl9170_band_5GHz;
 		chans += carl9170_band_5GHz.n_channels;
 		bands++;

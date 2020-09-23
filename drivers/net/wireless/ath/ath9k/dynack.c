@@ -212,7 +212,11 @@ void ath_dynack_sample_tx_ts(struct ath_hw *ah, struct sk_buff *skb,
 		struct ieee80211_tx_rate *rates = info->status.rates;
 
 		rate = &common->sbands[info->band].bitrates[rates[ridx].idx];
+<<<<<<< HEAD
 		if (info->band == NL80211_BAND_2GHZ &&
+=======
+		if (info->band == IEEE80211_BAND_2GHZ &&
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		    !(rate->flags & IEEE80211_RATE_ERP_G))
 			phy = WLAN_RC_PHY_CCK;
 		else
@@ -285,9 +289,15 @@ void ath_dynack_node_init(struct ath_hw *ah, struct ath_node *an)
 
 	an->ackto = ackto;
 
+<<<<<<< HEAD
 	spin_lock_bh(&da->qlock);
 	list_add_tail(&an->list, &da->nodes);
 	spin_unlock_bh(&da->qlock);
+=======
+	spin_lock(&da->qlock);
+	list_add_tail(&an->list, &da->nodes);
+	spin_unlock(&da->qlock);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 EXPORT_SYMBOL(ath_dynack_node_init);
 
@@ -301,9 +311,15 @@ void ath_dynack_node_deinit(struct ath_hw *ah, struct ath_node *an)
 {
 	struct ath_dynack *da = &ah->dynack;
 
+<<<<<<< HEAD
 	spin_lock_bh(&da->qlock);
 	list_del(&an->list);
 	spin_unlock_bh(&da->qlock);
+=======
+	spin_lock(&da->qlock);
+	list_del(&an->list);
+	spin_unlock(&da->qlock);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 EXPORT_SYMBOL(ath_dynack_node_deinit);
 

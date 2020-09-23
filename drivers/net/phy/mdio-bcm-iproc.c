@@ -188,6 +188,7 @@ static int iproc_mdio_remove(struct platform_device *pdev)
 	return 0;
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_PM_SLEEP
 int iproc_mdio_resume(struct device *dev)
 {
@@ -205,6 +206,8 @@ static const struct dev_pm_ops iproc_mdio_pm_ops = {
 };
 #endif /* CONFIG_PM_SLEEP */
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static const struct of_device_id iproc_mdio_of_match[] = {
 	{ .compatible = "brcm,iproc-mdio", },
 	{ /* sentinel */ },
@@ -215,9 +218,12 @@ static struct platform_driver iproc_mdio_driver = {
 	.driver = {
 		.name = "iproc-mdio",
 		.of_match_table = iproc_mdio_of_match,
+<<<<<<< HEAD
 #ifdef CONFIG_PM_SLEEP
 		.pm = &iproc_mdio_pm_ops,
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	},
 	.probe = iproc_mdio_probe,
 	.remove = iproc_mdio_remove,

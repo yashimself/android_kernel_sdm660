@@ -603,6 +603,7 @@ int sas_smp_phy_control(struct domain_device *dev, int phy_id,
 	}
 
 	res = smp_execute_task(dev, pc_req, PC_REQ_SIZE, pc_resp,PC_RESP_SIZE);
+<<<<<<< HEAD
 	if (res) {
 		pr_err("ex %016llx phy%02d PHY control failed: %d\n",
 		       SAS_ADDR(dev->sas_addr), phy_id, res);
@@ -611,6 +612,9 @@ int sas_smp_phy_control(struct domain_device *dev, int phy_id,
 		       SAS_ADDR(dev->sas_addr), phy_id, pc_resp[2]);
 		res = pc_resp[2];
 	}
+=======
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	kfree(pc_resp);
 	kfree(pc_req);
 	return res;
@@ -813,6 +817,7 @@ static struct domain_device *sas_ex_discover_end_dev(
 
 #ifdef CONFIG_SCSI_SAS_ATA
 	if ((phy->attached_tproto & SAS_PROTOCOL_STP) || phy->attached_sata_dev) {
+<<<<<<< HEAD
 		if (child->linkrate > parent->min_linkrate) {
 			struct sas_phy_linkrates rates = {
 				.maximum_linkrate = parent->min_linkrate,
@@ -833,6 +838,8 @@ static struct domain_device *sas_ex_discover_end_dev(
 				  SAS_ADDR(child->sas_addr), phy_id);
 			child->linkrate = child->min_linkrate;
 		}
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		res = sas_get_ata_info(child, phy);
 		if (res)
 			goto out_free;

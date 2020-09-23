@@ -54,6 +54,19 @@ static __u8 rbv_clear;
 static int gIER,gIFR,gBufA,gBufB;
 
 /*
+<<<<<<< HEAD
+=======
+ * Timer defs.
+ */
+
+#define TICK_SIZE		10000
+#define MAC_CLOCK_TICK		(783300/HZ)		/* ticks per HZ */
+#define MAC_CLOCK_LOW		(MAC_CLOCK_TICK&0xFF)
+#define MAC_CLOCK_HIGH		(MAC_CLOCK_TICK>>8)
+
+
+/*
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * On Macs with a genuine VIA chip there is no way to mask an individual slot
  * interrupt. This limitation also seems to apply to VIA clone logic cores in
  * Quadra-like ASICs. (RBV and OSS machines don't have this limitation.)
@@ -268,6 +281,25 @@ void __init via_init(void)
 }
 
 /*
+<<<<<<< HEAD
+=======
+ * Start the 100 Hz clock
+ */
+
+void __init via_init_clock(irq_handler_t func)
+{
+	via1[vACR] |= 0x40;
+	via1[vT1LL] = MAC_CLOCK_LOW;
+	via1[vT1LH] = MAC_CLOCK_HIGH;
+	via1[vT1CL] = MAC_CLOCK_LOW;
+	via1[vT1CH] = MAC_CLOCK_HIGH;
+
+	if (request_irq(IRQ_MAC_TIMER_1, func, 0, "timer", func))
+		pr_err("Couldn't register %s interrupt\n", "timer");
+}
+
+/*
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * Debugging dump, used in various places to see what's going on.
  */
 
@@ -295,6 +327,32 @@ void via_debug_dump(void)
 }
 
 /*
+<<<<<<< HEAD
+=======
+ * This is always executed with interrupts disabled.
+ *
+ * TBI: get time offset between scheduling timer ticks
+ */
+
+u32 mac_gettimeoffset(void)
+{
+	unsigned long ticks, offset = 0;
+
+	/* read VIA1 timer 2 current value */
+	ticks = via1[vT1CL] | (via1[vT1CH] << 8);
+	/* The probability of underflow is less than 2% */
+	if (ticks > MAC_CLOCK_TICK - MAC_CLOCK_TICK / 50)
+		/* Check for pending timer interrupt in VIA1 IFR */
+		if (via1[vIFR] & 0x40) offset = TICK_SIZE;
+
+	ticks = MAC_CLOCK_TICK - ticks;
+	ticks = ticks * 10000L / MAC_CLOCK_TICK;
+
+	return (ticks + offset) * 1000;
+}
+
+/*
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * Flush the L2 cache on Macs that have it by flipping
  * the system into 24-bit mode for an instant.
  */
@@ -397,8 +455,11 @@ void via_nubus_irq_shutdown(int irq)
  * via6522.c :-), disable/pending masks added.
  */
 
+<<<<<<< HEAD
 #define VIA_TIMER_1_INT BIT(6)
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 void via1_irq(struct irq_desc *desc)
 {
 	int irq_num;
@@ -408,6 +469,7 @@ void via1_irq(struct irq_desc *desc)
 	if (!events)
 		return;
 
+<<<<<<< HEAD
 	irq_num = IRQ_MAC_TIMER_1;
 	irq_bit = VIA_TIMER_1_INT;
 	if (events & irq_bit) {
@@ -423,6 +485,8 @@ void via1_irq(struct irq_desc *desc)
 			return;
 	}
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	irq_num = VIA1_SOURCE_BASE;
 	irq_bit = 1;
 	do {
@@ -587,6 +651,7 @@ int via2_scsi_drq_pending(void)
 	return via2[gIFR] & (1 << IRQ_IDX(IRQ_MAC_SCSIDRQ));
 }
 EXPORT_SYMBOL(via2_scsi_drq_pending);
+<<<<<<< HEAD
 
 /* timer and clock source */
 
@@ -640,3 +705,5 @@ u32 mac_gettimeoffset(void)
 
 	return ((count * VIA_TIMER_INTERVAL) / VIA_TIMER_CYCLES) * 1000;
 }
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

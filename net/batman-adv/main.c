@@ -747,7 +747,11 @@ static u16 batadv_tvlv_container_list_size(struct batadv_priv *bat_priv)
 static void batadv_tvlv_container_remove(struct batadv_priv *bat_priv,
 					 struct batadv_tvlv_container *tvlv)
 {
+<<<<<<< HEAD
 	lockdep_assert_held(&bat_priv->tvlv.container_list_lock);
+=======
+	lockdep_assert_held(&bat_priv->tvlv.handler_list_lock);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (!tvlv)
 		return;
@@ -1079,20 +1083,30 @@ void batadv_tvlv_handler_register(struct batadv_priv *bat_priv,
 {
 	struct batadv_tvlv_handler *tvlv_handler;
 
+<<<<<<< HEAD
 	spin_lock_bh(&bat_priv->tvlv.handler_list_lock);
 
 	tvlv_handler = batadv_tvlv_handler_get(bat_priv, type, version);
 	if (tvlv_handler) {
 		spin_unlock_bh(&bat_priv->tvlv.handler_list_lock);
+=======
+	tvlv_handler = batadv_tvlv_handler_get(bat_priv, type, version);
+	if (tvlv_handler) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		batadv_tvlv_handler_free_ref(tvlv_handler);
 		return;
 	}
 
 	tvlv_handler = kzalloc(sizeof(*tvlv_handler), GFP_ATOMIC);
+<<<<<<< HEAD
 	if (!tvlv_handler) {
 		spin_unlock_bh(&bat_priv->tvlv.handler_list_lock);
 		return;
 	}
+=======
+	if (!tvlv_handler)
+		return;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	tvlv_handler->ogm_handler = optr;
 	tvlv_handler->unicast_handler = uptr;
@@ -1102,6 +1116,10 @@ void batadv_tvlv_handler_register(struct batadv_priv *bat_priv,
 	atomic_set(&tvlv_handler->refcount, 1);
 	INIT_HLIST_NODE(&tvlv_handler->list);
 
+<<<<<<< HEAD
+=======
+	spin_lock_bh(&bat_priv->tvlv.handler_list_lock);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	hlist_add_head_rcu(&tvlv_handler->list, &bat_priv->tvlv.handler_list);
 	spin_unlock_bh(&bat_priv->tvlv.handler_list_lock);
 }

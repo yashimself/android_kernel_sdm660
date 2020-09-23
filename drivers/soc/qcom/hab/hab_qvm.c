@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2016-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2016-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -80,7 +84,11 @@ static irqreturn_t shm_irq_handler(int irq, void *_pchan)
 
 		if (status & 0xffff) {/*source bitmask indicator*/
 			rc = IRQ_HANDLED;
+<<<<<<< HEAD
 			tasklet_schedule(&dev->task);
+=======
+			tasklet_hi_schedule(&dev->task);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 	}
 	return rc;

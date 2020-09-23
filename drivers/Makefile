@@ -141,6 +141,10 @@ obj-$(CONFIG_OF)		+= of/
 obj-$(CONFIG_SSB)		+= ssb/
 obj-$(CONFIG_BCMA)		+= bcma/
 obj-$(CONFIG_VHOST_RING)	+= vhost/
+<<<<<<< HEAD
+=======
+obj-$(CONFIG_VHOST)		+= vhost/
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 obj-$(CONFIG_VLYNQ)		+= vlynq/
 obj-$(CONFIG_STAGING)		+= staging/
 obj-y				+= platform/

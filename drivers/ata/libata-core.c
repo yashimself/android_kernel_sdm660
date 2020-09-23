@@ -6355,9 +6355,12 @@ void ata_host_detach(struct ata_host *host)
 {
 	int i;
 
+<<<<<<< HEAD
 	/* Ensure ata_port probe has completed */
 	async_synchronize_full();
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	for (i = 0; i < host->n_ports; i++)
 		ata_port_detach(host->ports[i]);
 

@@ -4,7 +4,10 @@
 #include <linux/types.h>
 #include <linux/in6.h>
 #include <linux/siphash.h>
+<<<<<<< HEAD
 #include <linux/string.h>
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #include <uapi/linux/if_ether.h>
 
 /**
@@ -186,6 +189,7 @@ static inline bool flow_keys_have_l4(struct flow_keys *keys)
 
 u32 flow_hash_from_keys(struct flow_keys *keys);
 
+<<<<<<< HEAD
 static inline void
 flow_dissector_init_keys(struct flow_dissector_key_control *key_control,
 			 struct flow_dissector_key_basic *key_basic)
@@ -194,4 +198,6 @@ flow_dissector_init_keys(struct flow_dissector_key_control *key_control,
 	memset(key_basic, 0, sizeof(*key_basic));
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #endif

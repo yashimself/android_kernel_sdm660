@@ -54,6 +54,7 @@ static unsigned long __bestmult(struct clk_hw *hw, unsigned long rate,
 				unsigned long *best_parent_rate,
 				u8 width, unsigned long flags)
 {
+<<<<<<< HEAD
 	struct clk_multiplier *mult = to_clk_multiplier(hw);
 	unsigned long orig_parent_rate = *best_parent_rate;
 	unsigned long parent_rate, current_rate, best_rate = ~0;
@@ -76,6 +77,16 @@ static unsigned long __bestmult(struct clk_hw *hw, unsigned long rate,
 	}
 
 	for (i = 1; i < maxmult; i++) {
+=======
+	unsigned long orig_parent_rate = *best_parent_rate;
+	unsigned long parent_rate, current_rate, best_rate = ~0;
+	unsigned int i, bestmult = 0;
+
+	if (!(clk_hw_get_flags(hw) & CLK_SET_RATE_PARENT))
+		return rate / *best_parent_rate;
+
+	for (i = 1; i < ((1 << width) - 1); i++) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (rate == orig_parent_rate * i) {
 			/*
 			 * This is the best case for us if we have a

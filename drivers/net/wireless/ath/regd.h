@@ -260,7 +260,11 @@ int ath_regd_init(struct ath_regulatory *reg, struct wiphy *wiphy,
 		  void (*reg_notifier)(struct wiphy *wiphy,
 				       struct regulatory_request *request));
 u32 ath_regd_get_band_ctl(struct ath_regulatory *reg,
+<<<<<<< HEAD
 			  enum nl80211_band band);
+=======
+			  enum ieee80211_band band);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 void ath_reg_notifier_apply(struct wiphy *wiphy,
 			    struct regulatory_request *request,
 			    struct ath_regulatory *reg);

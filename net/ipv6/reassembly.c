@@ -774,8 +774,15 @@ err_protocol:
 
 void ipv6_frag_exit(void)
 {
+<<<<<<< HEAD
 	ip6_frags_sysctl_unregister();
 	unregister_pernet_subsys(&ip6_frags_ops);
 	inet6_del_protocol(&frag_protocol, IPPROTO_FRAGMENT);
 	inet_frags_fini(&ip6_frags);
+=======
+	inet_frags_fini(&ip6_frags);
+	ip6_frags_sysctl_unregister();
+	unregister_pernet_subsys(&ip6_frags_ops);
+	inet6_del_protocol(&frag_protocol, IPPROTO_FRAGMENT);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }

@@ -52,6 +52,10 @@ enum sde_rm_topology_name {
  *                              of a single layer mixer.
  * @SDE_RM_TOPCTL_PPSPLIT: Require kernel to use pingpong split pipe
  *                         configuration instead of dual pipe.
+<<<<<<< HEAD
+=======
+ * @SDE_RM_TOPCTL_FORCE_MIXER: Require kernel to force single mixer usage
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  */
 enum sde_rm_topology_control {
 	SDE_RM_TOPCTL_RESERVE_LOCK,
@@ -59,6 +63,10 @@ enum sde_rm_topology_control {
 	SDE_RM_TOPCTL_DSPP,
 	SDE_RM_TOPCTL_FORCE_TILING,
 	SDE_RM_TOPCTL_PPSPLIT,
+<<<<<<< HEAD
+=======
+	SDE_RM_TOPCTL_FORCE_MIXER,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 /**
@@ -222,4 +230,33 @@ int sde_rm_read_resource_for_splash(struct sde_rm *rm,
 				void *sinfo,
 				struct sde_mdss_cfg *cat);
 
+<<<<<<< HEAD
+=======
+/**
+ * sde_rm_ext_blk_create_reserve - Create external HW blocks
+ *	in resource manager and reserve for specific encoder.
+ * @rm: SDE Resource Manager handle
+ * @type: external HW block type
+ * @id: external HW block id
+ * @hw: external HW block
+ * @enc: DRM Encoder handle
+ * @Return: 0 on Success otherwise -ERROR
+ */
+int sde_rm_ext_blk_create_reserve(struct sde_rm *rm,
+		enum sde_hw_blk_type type,
+		uint32_t id,
+		void *hw,
+		struct drm_encoder *enc);
+
+/**
+ * sde_rm_ext_blk_destroy - Given the encoder for the display chain, release
+ *	external HW blocks created for that.
+ * @rm: SDE Resource Manager handle
+ * @enc: DRM Encoder handle
+ * @Return: 0 on Success otherwise -ERROR
+ */
+int sde_rm_ext_blk_destroy(struct sde_rm *rm,
+				struct drm_encoder *enc);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #endif /* __SDE_RM_H__ */

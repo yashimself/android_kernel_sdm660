@@ -1989,7 +1989,11 @@ struct page *ksm_might_need_to_copy(struct page *page,
 
 		SetPageDirty(new_page);
 		__SetPageUptodate(new_page);
+<<<<<<< HEAD
 		__set_page_locked(new_page);
+=======
+		__SetPageLocked(new_page);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	return new_page;

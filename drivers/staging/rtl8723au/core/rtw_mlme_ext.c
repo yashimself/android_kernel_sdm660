@@ -2113,10 +2113,17 @@ static int on_action_public23a(struct rtw_adapter *padapter,
 
 	if (channel <= RTW_CH_MAX_2G_CHANNEL)
 		freq = ieee80211_channel_to_frequency(channel,
+<<<<<<< HEAD
 						      NL80211_BAND_2GHZ);
 	else
 		freq = ieee80211_channel_to_frequency(channel,
 						      NL80211_BAND_5GHZ);
+=======
+						      IEEE80211_BAND_2GHZ);
+	else
+		freq = ieee80211_channel_to_frequency(channel,
+						      IEEE80211_BAND_5GHZ);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (cfg80211_rx_mgmt(padapter->rtw_wdev, freq, 0, pframe,
 			     skb->len, 0))

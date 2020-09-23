@@ -50,8 +50,12 @@ struct binder_buffer {
 	unsigned free:1;
 	unsigned allow_user_free:1;
 	unsigned async_transaction:1;
+<<<<<<< HEAD
 	unsigned free_in_progress:1;
 	unsigned debug_id:28;
+=======
+	unsigned debug_id:29;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	struct binder_transaction *transaction;
 

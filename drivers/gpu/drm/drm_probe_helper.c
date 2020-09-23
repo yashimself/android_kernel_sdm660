@@ -199,6 +199,7 @@ static int drm_helper_probe_single_connector_modes_merge_bits(struct drm_connect
 		goto prune;
 	}
 
+<<<<<<< HEAD
 #ifdef CONFIG_DRM_LOAD_EDID_FIRMWARE
 	count = drm_load_edid_firmware(connector);
 	if (count == 0)
@@ -212,6 +213,9 @@ static int drm_helper_probe_single_connector_modes_merge_bits(struct drm_connect
 		} else
 			count = (*connector_funcs->get_modes)(connector);
 	}
+=======
+	count = (*connector_funcs->get_modes)(connector);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (count == 0 && connector->status == connector_status_connected)
 		count = drm_add_modes_noedid(connector, 1024, 768);

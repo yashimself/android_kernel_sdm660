@@ -962,9 +962,15 @@ void hiddev_disconnect(struct hid_device *hid)
 	hiddev->exist = 0;
 
 	if (hiddev->open) {
+<<<<<<< HEAD
 		usbhid_close(hiddev->hid);
 		wake_up_interruptible(&hiddev->wait);
 		mutex_unlock(&hiddev->existancelock);
+=======
+		mutex_unlock(&hiddev->existancelock);
+		usbhid_close(hiddev->hid);
+		wake_up_interruptible(&hiddev->wait);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	} else {
 		mutex_unlock(&hiddev->existancelock);
 		kfree(hiddev);

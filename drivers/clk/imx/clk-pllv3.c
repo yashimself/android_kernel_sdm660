@@ -76,9 +76,15 @@ static int clk_pllv3_prepare(struct clk_hw *hw)
 
 	val = readl_relaxed(pll->base);
 	if (pll->powerup_set)
+<<<<<<< HEAD
 		val |= pll->powerdown;
 	else
 		val &= ~pll->powerdown;
+=======
+		val |= BM_PLL_POWER;
+	else
+		val &= ~BM_PLL_POWER;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	writel_relaxed(val, pll->base);
 
 	return clk_pllv3_wait_lock(pll);
@@ -91,9 +97,15 @@ static void clk_pllv3_unprepare(struct clk_hw *hw)
 
 	val = readl_relaxed(pll->base);
 	if (pll->powerup_set)
+<<<<<<< HEAD
 		val &= ~pll->powerdown;
 	else
 		val |= pll->powerdown;
+=======
+		val &= ~BM_PLL_POWER;
+	else
+		val |= BM_PLL_POWER;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	writel_relaxed(val, pll->base);
 }
 

@@ -327,8 +327,13 @@ static int wm831x_buckv_get_voltage_sel(struct regulator_dev *rdev)
 }
 
 /* Current limit options */
+<<<<<<< HEAD
 static const unsigned int wm831x_dcdc_ilim[] = {
 	125000, 250000, 375000, 500000, 625000, 750000, 875000, 1000000
+=======
+static u16 wm831x_dcdc_ilim[] = {
+	125, 250, 375, 500, 625, 750, 875, 1000
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 static int wm831x_buckv_set_current_limit(struct regulator_dev *rdev,

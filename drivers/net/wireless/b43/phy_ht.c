@@ -568,7 +568,11 @@ static void b43_phy_ht_tx_power_ctl(struct b43_wldev *dev, bool enable)
 	} else {
 		b43_phy_set(dev, B43_PHY_HT_TXPCTL_CMD_C1, en_bits);
 
+<<<<<<< HEAD
 		if (b43_current_band(dev->wl) == NL80211_BAND_5GHZ) {
+=======
+		if (b43_current_band(dev->wl) == IEEE80211_BAND_5GHZ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			for (i = 0; i < 3; i++)
 				b43_phy_write(dev, cmd_regs[i], 0x32);
 		}
@@ -643,7 +647,11 @@ static void b43_phy_ht_tx_power_ctl_setup(struct b43_wldev *dev)
 	u16 freq = dev->phy.chandef->chan->center_freq;
 	int i, c;
 
+<<<<<<< HEAD
 	if (b43_current_band(dev->wl) == NL80211_BAND_2GHZ) {
+=======
+	if (b43_current_band(dev->wl) == IEEE80211_BAND_2GHZ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		for (c = 0; c < 3; c++) {
 			target[c] = sprom->core_pwr_info[c].maxpwr_2g;
 			a1[c] = sprom->core_pwr_info[c].pa_2g[0];
@@ -777,7 +785,11 @@ static void b43_phy_ht_channel_setup(struct b43_wldev *dev,
 				const struct b43_phy_ht_channeltab_e_phy *e,
 				struct ieee80211_channel *new_channel)
 {
+<<<<<<< HEAD
 	if (new_channel->band == NL80211_BAND_5GHZ) {
+=======
+	if (new_channel->band == IEEE80211_BAND_5GHZ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		/* Switch to 2 GHz for a moment to access B-PHY regs */
 		b43_phy_mask(dev, B43_PHY_HT_BANDCTL, ~B43_PHY_HT_BANDCTL_5GHZ);
 
@@ -805,7 +817,11 @@ static void b43_phy_ht_channel_setup(struct b43_wldev *dev,
 	} else {
 		b43_phy_ht_classifier(dev, B43_PHY_HT_CLASS_CTL_OFDM_EN,
 				      B43_PHY_HT_CLASS_CTL_OFDM_EN);
+<<<<<<< HEAD
 		if (new_channel->band == NL80211_BAND_2GHZ)
+=======
+		if (new_channel->band == IEEE80211_BAND_2GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			b43_phy_mask(dev, B43_PHY_HT_TEST, ~0x840);
 	}
 
@@ -916,7 +932,11 @@ static int b43_phy_ht_op_init(struct b43_wldev *dev)
 	if (0) /* TODO: condition */
 		; /* TODO: PHY op on reg 0x217 */
 
+<<<<<<< HEAD
 	if (b43_current_band(dev->wl) == NL80211_BAND_5GHZ)
+=======
+	if (b43_current_band(dev->wl) == IEEE80211_BAND_5GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		b43_phy_ht_classifier(dev, B43_PHY_HT_CLASS_CTL_CCK_EN, 0);
 	else
 		b43_phy_ht_classifier(dev, B43_PHY_HT_CLASS_CTL_CCK_EN,
@@ -1005,7 +1025,11 @@ static int b43_phy_ht_op_init(struct b43_wldev *dev)
 	b43_phy_ht_classifier(dev, 0, 0);
 	b43_phy_ht_read_clip_detection(dev, clip_state);
 
+<<<<<<< HEAD
 	if (b43_current_band(dev->wl) == NL80211_BAND_2GHZ)
+=======
+	if (b43_current_band(dev->wl) == IEEE80211_BAND_2GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		b43_phy_ht_bphy_init(dev);
 
 	b43_httab_write_bulk(dev, B43_HTTAB32(0x1a, 0xc0),
@@ -1077,7 +1101,11 @@ static int b43_phy_ht_op_switch_channel(struct b43_wldev *dev,
 	enum nl80211_channel_type channel_type =
 		cfg80211_get_chandef_type(&dev->wl->hw->conf.chandef);
 
+<<<<<<< HEAD
 	if (b43_current_band(dev->wl) == NL80211_BAND_2GHZ) {
+=======
+	if (b43_current_band(dev->wl) == IEEE80211_BAND_2GHZ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if ((new_channel < 1) || (new_channel > 14))
 			return -EINVAL;
 	} else {
@@ -1089,7 +1117,11 @@ static int b43_phy_ht_op_switch_channel(struct b43_wldev *dev,
 
 static unsigned int b43_phy_ht_op_get_default_chan(struct b43_wldev *dev)
 {
+<<<<<<< HEAD
 	if (b43_current_band(dev->wl) == NL80211_BAND_2GHZ)
+=======
+	if (b43_current_band(dev->wl) == IEEE80211_BAND_2GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return 11;
 	return 36;
 }

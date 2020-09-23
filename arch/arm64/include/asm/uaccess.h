@@ -73,6 +73,12 @@ static inline void set_fs(mm_segment_t fs)
 {
 	current_thread_info()->addr_limit = fs;
 
+<<<<<<< HEAD
+=======
+	/* On user-mode return, check fs is correct */
+	set_thread_flag(TIF_FSCHECK);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/*
 	 * Enable/disable UAO so that copy_to_user() etc can access
 	 * kernel memory with the unprivileged instructions.

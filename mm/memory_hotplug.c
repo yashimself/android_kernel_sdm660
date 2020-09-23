@@ -32,8 +32,13 @@
 #include <linux/hugetlb.h>
 #include <linux/memblock.h>
 #include <linux/bootmem.h>
+<<<<<<< HEAD
 #include <linux/rmap.h>
 #include <linux/compaction.h>
+=======
+#include <linux/compaction.h>
+#include <linux/rmap.h>
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #include <asm/tlbflush.h>
 
@@ -1495,7 +1500,11 @@ do_migrate_range(unsigned long start_pfn, unsigned long end_pfn)
 			if (WARN_ON(PageLRU(page)))
 				isolate_lru_page(page);
 			if (page_mapped(page))
+<<<<<<< HEAD
 				try_to_unmap(page, TTU_IGNORE_MLOCK | TTU_IGNORE_ACCESS);
+=======
+				try_to_unmap(page, TTU_IGNORE_MLOCK | TTU_IGNORE_ACCESS, NULL);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			continue;
 		}
 

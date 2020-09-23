@@ -197,7 +197,13 @@ struct sdcardfs_mount_options {
 	bool multiuser;
 	bool gid_derivation;
 	bool default_normal;
+<<<<<<< HEAD
 	unsigned int reserved_mb;
+=======
+	bool unshared_obb;
+	unsigned int reserved_mb;
+	bool nocache;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 struct sdcardfs_vfsmount_options {

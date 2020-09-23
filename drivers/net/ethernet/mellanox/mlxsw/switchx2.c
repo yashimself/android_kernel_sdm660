@@ -993,7 +993,11 @@ static int mlxsw_sx_port_create(struct mlxsw_sx *mlxsw_sx, u8 local_port)
 	/* Each packet needs to have a Tx header (metadata) on top all other
 	 * headers.
 	 */
+<<<<<<< HEAD
 	dev->needed_headroom = MLXSW_TXHDR_LEN;
+=======
+	dev->hard_header_len += MLXSW_TXHDR_LEN;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	err = mlxsw_sx_port_module_check(mlxsw_sx_port, &usable);
 	if (err) {
@@ -1074,7 +1078,10 @@ err_port_stp_state_set:
 err_port_admin_status_set:
 err_port_mtu_set:
 err_port_speed_set:
+<<<<<<< HEAD
 	mlxsw_sx_port_swid_set(mlxsw_sx_port, MLXSW_PORT_SWID_DISABLED_PORT);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 err_port_swid_set:
 err_port_system_port_mapping_set:
 port_not_usable:

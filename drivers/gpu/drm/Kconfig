@@ -63,7 +63,11 @@ config DRM_FBDEV_EMULATION
 
 config DRM_LOAD_EDID_FIRMWARE
 	bool "Allow to specify an EDID data set instead of probing for it"
+<<<<<<< HEAD
 	depends on DRM_KMS_HELPER
+=======
+	depends on DRM
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	help
 	  Say Y here, if you want to use EDID data to be loaded from the
 	  /lib/firmware directory or one of the provided built-in

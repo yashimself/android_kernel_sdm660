@@ -261,7 +261,11 @@ struct port {
 	struct hss_plat_info *plat;
 	buffer_t *rx_buff_tab[RX_DESCS], *tx_buff_tab[TX_DESCS];
 	struct desc *desc_tab;	/* coherent */
+<<<<<<< HEAD
 	dma_addr_t desc_tab_phys;
+=======
+	u32 desc_tab_phys;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	unsigned int id;
 	unsigned int clock_type, clock_rate, loopback;
 	unsigned int initialized, carrier;
@@ -861,7 +865,11 @@ static int hss_hdlc_xmit(struct sk_buff *skb, struct net_device *dev)
 		dev->stats.tx_dropped++;
 		return NETDEV_TX_OK;
 	}
+<<<<<<< HEAD
 	memcpy_swab32(mem, (u32 *)((uintptr_t)skb->data & ~3), bytes / 4);
+=======
+	memcpy_swab32(mem, (u32 *)((int)skb->data & ~3), bytes / 4);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	dev_kfree_skb(skb);
 #endif
 

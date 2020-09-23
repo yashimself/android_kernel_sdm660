@@ -1350,9 +1350,12 @@ static int usb_serial_register(struct usb_serial_driver *driver)
 		return -EINVAL;
 	}
 
+<<<<<<< HEAD
 	/* Prevent individual ports from being unbound. */
 	driver->driver.suppress_bind_attrs = true;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	usb_serial_operations_init(driver);
 
 	/* Add this device to our list of devices */

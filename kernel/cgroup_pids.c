@@ -48,7 +48,11 @@ struct pids_cgroup {
 	 * %PIDS_MAX = (%PID_MAX_LIMIT + 1).
 	 */
 	atomic64_t			counter;
+<<<<<<< HEAD
 	atomic64_t			limit;
+=======
+	int64_t				limit;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 static struct pids_cgroup *css_pids(struct cgroup_subsys_state *css)
@@ -70,8 +74,13 @@ pids_css_alloc(struct cgroup_subsys_state *parent)
 	if (!pids)
 		return ERR_PTR(-ENOMEM);
 
+<<<<<<< HEAD
 	atomic64_set(&pids->counter, 0);
 	atomic64_set(&pids->limit, PIDS_MAX);
+=======
+	pids->limit = PIDS_MAX;
+	atomic64_set(&pids->counter, 0);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return &pids->css;
 }
 
@@ -142,14 +151,21 @@ static int pids_try_charge(struct pids_cgroup *pids, int num)
 
 	for (p = pids; parent_pids(p); p = parent_pids(p)) {
 		int64_t new = atomic64_add_return(num, &p->counter);
+<<<<<<< HEAD
 		int64_t limit = atomic64_read(&p->limit);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		/*
 		 * Since new is capped to the maximum number of pid_t, if
 		 * p->limit is %PIDS_MAX then we know that this test will never
 		 * fail.
 		 */
+<<<<<<< HEAD
 		if (new > limit)
+=======
+		if (new > p->limit)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			goto revert;
 	}
 
@@ -263,7 +279,11 @@ set_limit:
 	 * Limit updates don't need to be mutex'd, since it isn't
 	 * critical that any racing fork()s follow the new limit.
 	 */
+<<<<<<< HEAD
 	atomic64_set(&pids->limit, limit);
+=======
+	pids->limit = limit;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return nbytes;
 }
 
@@ -271,7 +291,11 @@ static int pids_max_show(struct seq_file *sf, void *v)
 {
 	struct cgroup_subsys_state *css = seq_css(sf);
 	struct pids_cgroup *pids = css_pids(css);
+<<<<<<< HEAD
 	int64_t limit = atomic64_read(&pids->limit);
+=======
+	int64_t limit = pids->limit;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (limit >= PIDS_MAX)
 		seq_printf(sf, "%s\n", PIDS_MAX_STR);

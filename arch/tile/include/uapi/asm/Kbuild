@@ -1,6 +1,7 @@
 # UAPI Header export list
 include include/uapi/asm-generic/Kbuild.asm
 
+<<<<<<< HEAD
 header-y += auxvec.h
 header-y += bitsperlong.h
 header-y += byteorder.h
@@ -18,4 +19,6 @@ header-y += swab.h
 header-y += ucontext.h
 header-y += unistd.h
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 generic-y += ucontext.h

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2018, 2020, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -20,7 +24,10 @@
 #include <linux/slab.h>
 #include <linux/iopoll.h>
 #include <linux/kthread.h>
+<<<<<<< HEAD
 #include <linux/errno.h>
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #include <linux/msm-bus.h>
 
@@ -1137,11 +1144,15 @@ static int mdss_dsi_read_status(struct mdss_dsi_ctrl_pdata *ctrl)
 	int i, rc, *lenp;
 	int start = 0;
 	struct dcs_cmd_req cmdreq;
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 	int times = 0;
 
 	*ctrl->status_buf.data = 0;
 #endif
+=======
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	rc = 1;
 	lenp = ctrl->status_valid_params ?: ctrl->status_cmds_rlen;
 
@@ -1151,11 +1162,14 @@ static int mdss_dsi_read_status(struct mdss_dsi_ctrl_pdata *ctrl)
 	}
 
 	for (i = 0; i < ctrl->status_cmds.cmd_cnt; ++i) {
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 		while (times < 2 && ((*ctrl->status_buf.data) != 0x0c) &&
 			((*ctrl->status_buf.data) != 0x9c) &&
 			((*ctrl->status_buf.data) != 0x98)) {
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		memset(&cmdreq, 0, sizeof(cmdreq));
 		cmdreq.cmds = ctrl->status_cmds.cmds + i;
 		cmdreq.cmds_cnt = 1;
@@ -1170,10 +1184,13 @@ static int mdss_dsi_read_status(struct mdss_dsi_ctrl_pdata *ctrl)
 			cmdreq.flags |= CMD_REQ_HS_MODE;
 
 		rc = mdss_dsi_cmdlist_put(ctrl, &cmdreq);
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 		times++;
 		}
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (rc <= 0) {
 			if (!mdss_dsi_sync_wait_enable(ctrl) ||
 				mdss_dsi_sync_wait_trigger(ctrl))
@@ -1250,9 +1267,12 @@ int mdss_dsi_reg_status_check(struct mdss_dsi_ctrl_pdata *ctrl_pdata)
 		else if (sctrl_pdata)
 			ret = ctrl_pdata->check_read_status(sctrl_pdata);
 	} else {
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_X01BD
 		ret = -ENOTSUPP;
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		pr_err("%s: Read status register returned error\n", __func__);
 	}
 
@@ -2685,7 +2705,11 @@ int mdss_dsi_cmdlist_rx(struct mdss_dsi_ctrl_pdata *ctrl,
 }
 
 static inline bool mdss_dsi_delay_cmd(struct mdss_dsi_ctrl_pdata *ctrl,
+<<<<<<< HEAD
 	bool from_mdp)
+=======
+	bool from_mdp, struct dcs_cmd_req *req)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	unsigned long flags;
 	bool mdp_busy = false;
@@ -2695,9 +2719,15 @@ static inline bool mdss_dsi_delay_cmd(struct mdss_dsi_ctrl_pdata *ctrl,
 		goto exit;
 
 	/* delay only for split dsi, cmd mode and burst mode enabled cases */
+<<<<<<< HEAD
 	if (!mdss_dsi_is_hw_config_split(ctrl->shared_data) ||
 	    !(ctrl->panel_mode == DSI_CMD_MODE) ||
 	    !ctrl->burst_mode_enabled)
+=======
+	if ((!mdss_dsi_is_hw_config_split(ctrl->shared_data) ||
+	    !(ctrl->panel_mode == DSI_CMD_MODE) ||
+	    !ctrl->burst_mode_enabled) && !(req->flags & CMD_REQ_DCS))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		goto exit;
 
 	/* delay only if cmd is not from mdp and panel has been initialized */
@@ -2706,8 +2736,15 @@ static inline bool mdss_dsi_delay_cmd(struct mdss_dsi_ctrl_pdata *ctrl,
 
 	/* if broadcast enabled, apply delay only if this is the ctrl trigger */
 	if (mdss_dsi_sync_wait_enable(ctrl) &&
+<<<<<<< HEAD
 	   !mdss_dsi_sync_wait_trigger(ctrl))
 		goto exit;
+=======
+	   (!mdss_dsi_sync_wait_trigger(ctrl) && !(req->flags & CMD_REQ_DCS)))
+		goto exit;
+	else
+		need_wait = true;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	spin_lock_irqsave(&ctrl->mdp_lock, flags);
 	if (ctrl->mdp_busy == true)
@@ -2847,7 +2884,11 @@ int mdss_dsi_cmdlist_commit(struct mdss_dsi_ctrl_pdata *ctrl, int from_mdp)
 	 * mdp path
 	 */
 	mutex_lock(&ctrl->mutex);
+<<<<<<< HEAD
 	if (mdss_dsi_delay_cmd(ctrl, from_mdp))
+=======
+	if (mdss_dsi_delay_cmd(ctrl, from_mdp, req))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		ctrl->mdp_callback->fxn(ctrl->mdp_callback->data,
 			MDP_INTF_CALLBACK_DSI_WAIT);
 	mutex_unlock(&ctrl->mutex);

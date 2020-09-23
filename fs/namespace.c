@@ -3187,8 +3187,13 @@ SYSCALL_DEFINE2(pivot_root, const char __user *, new_root,
 	/* make certain new is below the root */
 	if (!is_path_reachable(new_mnt, new.dentry, &root))
 		goto out4;
+<<<<<<< HEAD
 	lock_mount_hash();
 	root_mp->m_count++; /* pin it so it won't go away */
+=======
+	root_mp->m_count++; /* pin it so it won't go away */
+	lock_mount_hash();
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	detach_mnt(new_mnt, &parent_path);
 	detach_mnt(root_mnt, &root_parent);
 	if (root_mnt->mnt.mnt_flags & MNT_LOCKED) {

@@ -128,7 +128,11 @@ ieee80211_ibss_build_presp(struct ieee80211_sub_if_data *sdata,
 		}
 	}
 
+<<<<<<< HEAD
 	if (sband->band == NL80211_BAND_2GHZ) {
+=======
+	if (sband->band == IEEE80211_BAND_2GHZ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		*pos++ = WLAN_EID_DS_PARAMS;
 		*pos++ = 1;
 		*pos++ = ieee80211_frequency_to_channel(
@@ -350,11 +354,19 @@ static void __ieee80211_sta_join_ibss(struct ieee80211_sub_if_data *sdata,
 	 *
 	 * HT follows these specifications (IEEE 802.11-2012 20.3.18)
 	 */
+<<<<<<< HEAD
 	sdata->vif.bss_conf.use_short_slot = chan->band == NL80211_BAND_5GHZ;
 	bss_change |= BSS_CHANGED_ERP_SLOT;
 
 	/* cf. IEEE 802.11 9.2.12 */
 	if (chan->band == NL80211_BAND_2GHZ && have_higher_than_11mbit)
+=======
+	sdata->vif.bss_conf.use_short_slot = chan->band == IEEE80211_BAND_5GHZ;
+	bss_change |= BSS_CHANGED_ERP_SLOT;
+
+	/* cf. IEEE 802.11 9.2.12 */
+	if (chan->band == IEEE80211_BAND_2GHZ && have_higher_than_11mbit)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		sdata->flags |= IEEE80211_SDATA_OPERATING_GMODE;
 	else
 		sdata->flags &= ~IEEE80211_SDATA_OPERATING_GMODE;
@@ -991,7 +1003,11 @@ static void ieee80211_update_sta_info(struct ieee80211_sub_if_data *sdata,
 				      struct ieee80211_channel *channel)
 {
 	struct sta_info *sta;
+<<<<<<< HEAD
 	enum nl80211_band band = rx_status->band;
+=======
+	enum ieee80211_band band = rx_status->band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	enum nl80211_bss_scan_width scan_width;
 	struct ieee80211_local *local = sdata->local;
 	struct ieee80211_supported_band *sband = local->hw.wiphy->bands[band];
@@ -1113,7 +1129,11 @@ static void ieee80211_rx_bss_info(struct ieee80211_sub_if_data *sdata,
 	struct ieee80211_channel *channel;
 	u64 beacon_timestamp, rx_timestamp;
 	u32 supp_rates = 0;
+<<<<<<< HEAD
 	enum nl80211_band band = rx_status->band;
+=======
+	enum ieee80211_band band = rx_status->band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	channel = ieee80211_get_channel(local->hw.wiphy, rx_status->freq);
 	if (!channel)

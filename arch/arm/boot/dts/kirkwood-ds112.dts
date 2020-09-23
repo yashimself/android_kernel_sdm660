@@ -14,7 +14,11 @@
 #include "kirkwood-synology.dtsi"
 
 / {
+<<<<<<< HEAD
 	model = "Synology DS112";
+=======
+	model = "Synology DS111";
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	compatible = "synology,ds111", "marvell,kirkwood";
 
 	memory {

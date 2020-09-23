@@ -17,6 +17,7 @@
 
 #if defined(__thumb__) || defined(__ARM_EABI__)
 #define __NR_SYSCALL_BASE	0
+<<<<<<< HEAD
 #else
 #define __NR_SYSCALL_BASE	__NR_OABI_SYSCALL_BASE
 #endif
@@ -417,6 +418,16 @@
 #define __NR_userfaultfd		(__NR_SYSCALL_BASE+388)
 #define __NR_membarrier			(__NR_SYSCALL_BASE+389)
 #define __NR_mlock2			(__NR_SYSCALL_BASE+390)
+=======
+#include <asm/unistd-eabi.h>
+#else
+#define __NR_SYSCALL_BASE	__NR_OABI_SYSCALL_BASE
+#include <asm/unistd-oabi.h>
+#endif
+
+#include <asm/unistd-common.h>
+#define __NR_sync_file_range2           __NR_arm_sync_file_range
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 /*
  * The following SWIs are ARM private.
@@ -428,6 +439,7 @@
 #define __ARM_NR_usr32			(__ARM_NR_BASE+4)
 #define __ARM_NR_set_tls		(__ARM_NR_BASE+5)
 
+<<<<<<< HEAD
 /*
  * The following syscalls are obsolete and no longer available for EABI.
  */
@@ -448,4 +460,6 @@
 #endif
 #endif
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #endif /* _UAPI__ASM_ARM_UNISTD_H */

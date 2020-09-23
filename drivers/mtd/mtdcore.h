@@ -6,7 +6,11 @@
 extern struct mutex mtd_table_mutex;
 
 struct mtd_info *__mtd_next_device(int i);
+<<<<<<< HEAD
 int __must_check add_mtd_device(struct mtd_info *mtd);
+=======
+int add_mtd_device(struct mtd_info *mtd);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 int del_mtd_device(struct mtd_info *mtd);
 int add_mtd_partitions(struct mtd_info *, const struct mtd_partition *, int);
 int del_mtd_partitions(struct mtd_info *);

@@ -1,5 +1,6 @@
 # UAPI Header export list
 include include/uapi/asm-generic/Kbuild.asm
+<<<<<<< HEAD
 
 header-y += ../arch-v10/arch/
 header-y += ../arch-v32/arch/
@@ -42,3 +43,5 @@ header-y += termbits.h
 header-y += termios.h
 header-y += types.h
 header-y += unistd.h
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

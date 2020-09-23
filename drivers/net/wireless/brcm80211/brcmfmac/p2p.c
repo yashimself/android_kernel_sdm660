@@ -1434,8 +1434,13 @@ int brcmf_p2p_notify_action_frame_rx(struct brcmf_if *ifp,
 
 	freq = ieee80211_channel_to_frequency(ch.chnum,
 					      ch.band == BRCMU_CHAN_BAND_2G ?
+<<<<<<< HEAD
 					      NL80211_BAND_2GHZ :
 					      NL80211_BAND_5GHZ);
+=======
+					      IEEE80211_BAND_2GHZ :
+					      IEEE80211_BAND_5GHZ);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	wdev = &ifp->vif->wdev;
 	cfg80211_rx_mgmt(wdev, freq, 0, (u8 *)mgmt_frame, mgmt_frame_len, 0);
@@ -1917,8 +1922,13 @@ s32 brcmf_p2p_notify_rx_mgmt_p2p_probereq(struct brcmf_if *ifp,
 	mgmt_frame_len = e->datalen - sizeof(*rxframe);
 	freq = ieee80211_channel_to_frequency(ch.chnum,
 					      ch.band == BRCMU_CHAN_BAND_2G ?
+<<<<<<< HEAD
 					      NL80211_BAND_2GHZ :
 					      NL80211_BAND_5GHZ);
+=======
+					      IEEE80211_BAND_2GHZ :
+					      IEEE80211_BAND_5GHZ);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	cfg80211_rx_mgmt(&vif->wdev, freq, 0, mgmt_frame, mgmt_frame_len, 0);
 

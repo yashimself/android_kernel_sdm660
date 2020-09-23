@@ -87,6 +87,10 @@ void crypto_alg_tested(const char *name, int err);
 void crypto_remove_spawns(struct crypto_alg *alg, struct list_head *list,
 			  struct crypto_alg *nalg);
 void crypto_remove_final(struct list_head *list);
+<<<<<<< HEAD
+=======
+void crypto_shoot_alg(struct crypto_alg *alg);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 struct crypto_tfm *__crypto_alloc_tfm(struct crypto_alg *alg, u32 type,
 				      u32 mask);
 void *crypto_create_tfm(struct crypto_alg *alg,

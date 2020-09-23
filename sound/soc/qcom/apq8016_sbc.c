@@ -98,34 +98,54 @@ static struct apq8016_sbc_data *apq8016_sbc_parse_of(struct snd_soc_card *card)
 
 		if (!cpu || !codec) {
 			dev_err(dev, "Can't find cpu/codec DT node\n");
+<<<<<<< HEAD
 			ret = -EINVAL;
 			goto error;
+=======
+			return ERR_PTR(-EINVAL);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 
 		link->cpu_of_node = of_parse_phandle(cpu, "sound-dai", 0);
 		if (!link->cpu_of_node) {
 			dev_err(card->dev, "error getting cpu phandle\n");
+<<<<<<< HEAD
 			ret = -EINVAL;
 			goto error;
+=======
+			return ERR_PTR(-EINVAL);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 
 		link->codec_of_node = of_parse_phandle(codec, "sound-dai", 0);
 		if (!link->codec_of_node) {
 			dev_err(card->dev, "error getting codec phandle\n");
+<<<<<<< HEAD
 			ret = -EINVAL;
 			goto error;
+=======
+			return ERR_PTR(-EINVAL);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 
 		ret = snd_soc_of_get_dai_name(cpu, &link->cpu_dai_name);
 		if (ret) {
 			dev_err(card->dev, "error getting cpu dai name\n");
+<<<<<<< HEAD
 			goto error;
+=======
+			return ERR_PTR(ret);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 
 		ret = snd_soc_of_get_dai_name(codec, &link->codec_dai_name);
 		if (ret) {
 			dev_err(card->dev, "error getting codec dai name\n");
+<<<<<<< HEAD
 			goto error;
+=======
+			return ERR_PTR(ret);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 
 		link->platform_of_node = link->cpu_of_node;
@@ -135,12 +155,17 @@ static struct apq8016_sbc_data *apq8016_sbc_parse_of(struct snd_soc_card *card)
 		ret = of_property_read_string(np, "link-name", &link->name);
 		if (ret) {
 			dev_err(card->dev, "error getting codec dai_link name\n");
+<<<<<<< HEAD
 			goto error;
+=======
+			return ERR_PTR(ret);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 
 		link->stream_name = link->name;
 		link->init = apq8016_sbc_dai_init;
 		link++;
+<<<<<<< HEAD
 
 		of_node_put(cpu);
 		of_node_put(codec);
@@ -153,6 +178,11 @@ static struct apq8016_sbc_data *apq8016_sbc_parse_of(struct snd_soc_card *card)
 	of_node_put(cpu);
 	of_node_put(codec);
 	return ERR_PTR(ret);
+=======
+	}
+
+	return data;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static int apq8016_sbc_platform_probe(struct platform_device *pdev)

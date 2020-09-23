@@ -267,18 +267,25 @@ static int __do_cpuid_ent_emulated(struct kvm_cpuid_entry2 *entry,
 {
 	switch (func) {
 	case 0:
+<<<<<<< HEAD
 		entry->eax = 7;
+=======
+		entry->eax = 1;		/* only one leaf currently */
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		++*nent;
 		break;
 	case 1:
 		entry->ecx = F(MOVBE);
 		++*nent;
 		break;
+<<<<<<< HEAD
 	case 7:
 		entry->flags |= KVM_CPUID_FLAG_SIGNIFCANT_INDEX;
 		if (index == 0)
 			entry->ecx = F(RDPID);
 		++*nent;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	default:
 		break;
 	}
@@ -378,7 +385,11 @@ static inline int __do_cpuid_ent(struct kvm_cpuid_entry2 *entry, u32 function,
 
 	r = -E2BIG;
 
+<<<<<<< HEAD
 	if (WARN_ON(*nent >= maxnent))
+=======
+	if (*nent >= maxnent)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		goto out;
 
 	do_cpuid_1_ent(entry, function, index);
@@ -457,8 +468,12 @@ static inline int __do_cpuid_ent(struct kvm_cpuid_entry2 *entry, u32 function,
 				entry->edx |= F(SPEC_CTRL);
 			if (boot_cpu_has(X86_FEATURE_STIBP))
 				entry->edx |= F(INTEL_STIBP);
+<<<<<<< HEAD
 			if (boot_cpu_has(X86_FEATURE_SPEC_CTRL_SSBD) ||
 			    boot_cpu_has(X86_FEATURE_AMD_SSBD))
+=======
+			if (boot_cpu_has(X86_FEATURE_SSBD))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				entry->edx |= F(SPEC_CTRL_SSBD);
 			/*
 			 * We emulate ARCH_CAPABILITIES in software even
@@ -675,9 +690,12 @@ out:
 static int do_cpuid_ent(struct kvm_cpuid_entry2 *entry, u32 func,
 			u32 idx, int *nent, int maxnent, unsigned int type)
 {
+<<<<<<< HEAD
 	if (*nent >= maxnent)
 		return -E2BIG;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (type == KVM_GET_EMULATED_CPUID)
 		return __do_cpuid_ent_emulated(entry, func, idx, nent, maxnent);
 

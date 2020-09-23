@@ -1079,7 +1079,11 @@ void cw1200_rx_cb(struct cw1200_common *priv,
 
 	hdr->band = ((arg->channel_number & 0xff00) ||
 		     (arg->channel_number > 14)) ?
+<<<<<<< HEAD
 			NL80211_BAND_5GHZ : NL80211_BAND_2GHZ;
+=======
+			IEEE80211_BAND_5GHZ : IEEE80211_BAND_2GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	hdr->freq = ieee80211_channel_to_frequency(
 			arg->channel_number,
 			hdr->band);

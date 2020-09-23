@@ -516,7 +516,11 @@ static int tipc_nl_compat_link_stat_dump(struct tipc_nl_compat_msg *msg,
 	if (len <= 0)
 		return -EINVAL;
 
+<<<<<<< HEAD
 	len = min_t(int, len, TIPC_MAX_LINK_NAME);
+=======
+	len = min_t(int, len, TIPC_MAX_BEARER_NAME);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!string_is_valid(name, len))
 		return -EINVAL;
 
@@ -791,7 +795,11 @@ static int tipc_nl_compat_link_reset_stats(struct tipc_nl_compat_cmd_doit *cmd,
 	if (len <= 0)
 		return -EINVAL;
 
+<<<<<<< HEAD
 	len = min_t(int, len, TIPC_MAX_LINK_NAME);
+=======
+	len = min_t(int, len, TIPC_MAX_BEARER_NAME);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!string_is_valid(name, len))
 		return -EINVAL;
 
@@ -926,10 +934,13 @@ static int tipc_nl_compat_publ_dump(struct tipc_nl_compat_msg *msg, u32 sock)
 
 	hdr = genlmsg_put(args, 0, 0, &tipc_genl_family, NLM_F_MULTI,
 			  TIPC_NL_PUBL_GET);
+<<<<<<< HEAD
 	if (!hdr) {
 		kfree_skb(args);
 		return -EMSGSIZE;
 	}
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	nest = nla_nest_start(args, TIPC_NLA_SOCK);
 	if (!nest) {

@@ -1439,15 +1439,24 @@ int pcm512x_probe(struct device *dev, struct regmap *regmap)
 	}
 
 	pcm512x->sclk = devm_clk_get(dev, NULL);
+<<<<<<< HEAD
 	if (PTR_ERR(pcm512x->sclk) == -EPROBE_DEFER) {
 		ret = -EPROBE_DEFER;
 		goto err;
 	}
+=======
+	if (PTR_ERR(pcm512x->sclk) == -EPROBE_DEFER)
+		return -EPROBE_DEFER;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!IS_ERR(pcm512x->sclk)) {
 		ret = clk_prepare_enable(pcm512x->sclk);
 		if (ret != 0) {
 			dev_err(dev, "Failed to enable SCLK: %d\n", ret);
+<<<<<<< HEAD
 			goto err;
+=======
+			return ret;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 	}
 

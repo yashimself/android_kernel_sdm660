@@ -10,7 +10,10 @@
 #include <linux/smp.h>
 #include <linux/kernel.h>
 #include <linux/mm_types.h>
+<<<<<<< HEAD
 #include <linux/elf.h>
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #include <asm/processor.h>
 #include <asm/vdso.h>

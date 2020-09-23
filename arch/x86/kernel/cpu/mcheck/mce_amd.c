@@ -560,12 +560,18 @@ static const struct sysfs_ops threshold_ops = {
 	.store			= store,
 };
 
+<<<<<<< HEAD
 static void threshold_block_release(struct kobject *kobj);
 
 static struct kobj_type threshold_ktype = {
 	.sysfs_ops		= &threshold_ops,
 	.default_attrs		= default_attrs,
 	.release		= threshold_block_release,
+=======
+static struct kobj_type threshold_ktype = {
+	.sysfs_ops		= &threshold_ops,
+	.default_attrs		= default_attrs,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 static int allocate_threshold_blocks(unsigned int cpu, unsigned int bank,
@@ -768,12 +774,17 @@ static int threshold_create_device(unsigned int cpu)
 	return err;
 }
 
+<<<<<<< HEAD
 static void threshold_block_release(struct kobject *kobj)
 {
 	kfree(to_block(kobj));
 }
 
 static void deallocate_threshold_block(unsigned int cpu, unsigned int bank)
+=======
+static void deallocate_threshold_block(unsigned int cpu,
+						 unsigned int bank)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	struct threshold_block *pos = NULL;
 	struct threshold_block *tmp = NULL;
@@ -783,11 +794,21 @@ static void deallocate_threshold_block(unsigned int cpu, unsigned int bank)
 		return;
 
 	list_for_each_entry_safe(pos, tmp, &head->blocks->miscj, miscj) {
+<<<<<<< HEAD
 		list_del(&pos->miscj);
 		kobject_put(&pos->kobj);
 	}
 
 	kobject_put(&head->blocks->kobj);
+=======
+		kobject_put(&pos->kobj);
+		list_del(&pos->miscj);
+		kfree(pos);
+	}
+
+	kfree(per_cpu(threshold_banks, cpu)[bank]->blocks);
+	per_cpu(threshold_banks, cpu)[bank]->blocks = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static void __threshold_remove_blocks(struct threshold_bank *b)

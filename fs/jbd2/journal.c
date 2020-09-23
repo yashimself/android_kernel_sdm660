@@ -1656,11 +1656,14 @@ int jbd2_journal_load(journal_t *journal)
 		       journal->j_devname);
 		return -EFSCORRUPTED;
 	}
+<<<<<<< HEAD
 	/*
 	 * clear JBD2_ABORT flag initialized in journal_init_common
 	 * here to update log tail information with the newest seq.
 	 */
 	journal->j_flags &= ~JBD2_ABORT;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* OK, we've finished with the dynamic journal bits:
 	 * reinitialise the dynamic contents of the superblock in memory
@@ -1668,6 +1671,10 @@ int jbd2_journal_load(journal_t *journal)
 	if (journal_reset(journal))
 		goto recovery_error;
 
+<<<<<<< HEAD
+=======
+	journal->j_flags &= ~JBD2_ABORT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	journal->j_flags |= JBD2_LOADED;
 	return 0;
 
@@ -2086,10 +2093,19 @@ static void __journal_abort_soft (journal_t *journal, int errno)
 
 	__jbd2_journal_abort_hard(journal);
 
+<<<<<<< HEAD
 	jbd2_journal_update_sb_errno(journal);
 	write_lock(&journal->j_state_lock);
 	journal->j_flags |= JBD2_REC_ERR;
 	write_unlock(&journal->j_state_lock);
+=======
+	if (errno) {
+		jbd2_journal_update_sb_errno(journal);
+		write_lock(&journal->j_state_lock);
+		journal->j_flags |= JBD2_REC_ERR;
+		write_unlock(&journal->j_state_lock);
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /**
@@ -2131,6 +2147,14 @@ static void __journal_abort_soft (journal_t *journal, int errno)
  * failure to disk.  ext3_error, for example, now uses this
  * functionality.
  *
+<<<<<<< HEAD
+=======
+ * Errors which originate from within the journaling layer will NOT
+ * supply an errno; a null errno implies that absolutely no further
+ * writes are done to the journal (unless there are any already in
+ * progress).
+ *
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  */
 
 void jbd2_journal_abort(journal_t *journal, int errno)

@@ -40,9 +40,15 @@
 #ifdef __KERNEL__
 #define STACK_TOP_MAX		TASK_SIZE_64
 #ifdef CONFIG_COMPAT
+<<<<<<< HEAD
 #define AARCH32_KUSER_HELPERS_BASE 0xffff0000
 #define STACK_TOP		(test_thread_flag(TIF_32BIT) ? \
 				AARCH32_KUSER_HELPERS_BASE : STACK_TOP_MAX)
+=======
+#define AARCH32_VECTORS_BASE	0xffff0000
+#define STACK_TOP		(test_thread_flag(TIF_32BIT) ? \
+				AARCH32_VECTORS_BASE : STACK_TOP_MAX)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #else
 #define STACK_TOP		STACK_TOP_MAX
 #endif /* CONFIG_COMPAT */

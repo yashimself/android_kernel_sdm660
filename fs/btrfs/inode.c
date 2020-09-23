@@ -5506,6 +5506,10 @@ static void inode_tree_del(struct inode *inode)
 	spin_unlock(&root->inode_lock);
 
 	if (empty && btrfs_root_refs(&root->root_item) == 0) {
+<<<<<<< HEAD
+=======
+		synchronize_srcu(&root->fs_info->subvol_srcu);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		spin_lock(&root->inode_lock);
 		empty = RB_EMPTY_ROOT(&root->inode_tree);
 		spin_unlock(&root->inode_lock);
@@ -6440,7 +6444,12 @@ static int btrfs_mknod(struct inode *dir, struct dentry *dentry,
 		goto out_unlock_inode;
 	} else {
 		btrfs_update_inode(trans, root, inode);
+<<<<<<< HEAD
 		d_instantiate_new(dentry, inode);
+=======
+		unlock_new_inode(inode);
+		d_instantiate(dentry, inode);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 out_unlock:
@@ -6515,7 +6524,12 @@ static int btrfs_create(struct inode *dir, struct dentry *dentry,
 		goto out_unlock_inode;
 
 	BTRFS_I(inode)->io_tree.ops = &btrfs_extent_io_ops;
+<<<<<<< HEAD
 	d_instantiate_new(dentry, inode);
+=======
+	unlock_new_inode(inode);
+	d_instantiate(dentry, inode);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 out_unlock:
 	btrfs_end_transaction(trans, root);
@@ -6658,7 +6672,16 @@ static int btrfs_mkdir(struct inode *dir, struct dentry *dentry, umode_t mode)
 	if (err)
 		goto out_fail_inode;
 
+<<<<<<< HEAD
 	d_instantiate_new(dentry, inode);
+=======
+	d_instantiate(dentry, inode);
+	/*
+	 * mkdir is special.  We're unlocking after we call d_instantiate
+	 * to avoid a race with nfsd calling d_instantiate.
+	 */
+	unlock_new_inode(inode);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	drop_on_err = 0;
 
 out_fail:
@@ -9809,7 +9832,12 @@ static int btrfs_symlink(struct inode *dir, struct dentry *dentry,
 		goto out_unlock_inode;
 	}
 
+<<<<<<< HEAD
 	d_instantiate_new(dentry, inode);
+=======
+	unlock_new_inode(inode);
+	d_instantiate(dentry, inode);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 out_unlock:
 	btrfs_end_transaction(trans, root);

@@ -738,12 +738,16 @@ static int __feat_register_sp(struct list_head *fn, u8 feat, u8 is_local,
 	if (dccp_feat_clone_sp_val(&fval, sp_val, sp_len))
 		return -ENOMEM;
 
+<<<<<<< HEAD
 	if (dccp_feat_push_change(fn, feat, is_local, mandatory, &fval)) {
 		kfree(fval.sp.vec);
 		return -ENOMEM;
 	}
 
 	return 0;
+=======
+	return dccp_feat_push_change(fn, feat, is_local, mandatory, &fval);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /**

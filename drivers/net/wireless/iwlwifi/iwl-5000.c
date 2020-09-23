@@ -66,7 +66,11 @@ static const struct iwl_base_params iwl5000_base_params = {
 
 static const struct iwl_ht_params iwl5000_ht_params = {
 	.ht_greenfield_support = true,
+<<<<<<< HEAD
 	.ht40_bands = BIT(NL80211_BAND_2GHZ) | BIT(NL80211_BAND_5GHZ),
+=======
+	.ht40_bands = BIT(IEEE80211_BAND_2GHZ) | BIT(IEEE80211_BAND_5GHZ),
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 static const struct iwl_eeprom_params iwl5000_eeprom_params = {

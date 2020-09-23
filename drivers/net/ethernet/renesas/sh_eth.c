@@ -3040,16 +3040,23 @@ static struct sh_eth_plat_data *sh_eth_parse_dt(struct device *dev)
 	struct device_node *np = dev->of_node;
 	struct sh_eth_plat_data *pdata;
 	const char *mac_addr;
+<<<<<<< HEAD
 	int ret;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	pdata = devm_kzalloc(dev, sizeof(*pdata), GFP_KERNEL);
 	if (!pdata)
 		return NULL;
 
+<<<<<<< HEAD
 	ret = of_get_phy_mode(np);
 	if (ret < 0)
 		return NULL;
 	pdata->phy_interface = ret;
+=======
+	pdata->phy_interface = of_get_phy_mode(np);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	mac_addr = of_get_mac_address(np);
 	if (mac_addr)

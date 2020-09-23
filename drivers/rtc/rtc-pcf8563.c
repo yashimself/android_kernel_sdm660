@@ -568,6 +568,10 @@ static int pcf8563_probe(struct i2c_client *client,
 	struct pcf8563 *pcf8563;
 	int err;
 	unsigned char buf;
+<<<<<<< HEAD
+=======
+	unsigned char alm_pending;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	dev_dbg(&client->dev, "%s\n", __func__);
 
@@ -593,6 +597,7 @@ static int pcf8563_probe(struct i2c_client *client,
 		return err;
 	}
 
+<<<<<<< HEAD
 	/* Clear flags and disable interrupts */
 	buf = 0;
 	err = pcf8563_write_block_data(client, PCF8563_REG_ST2, 1, &buf);
@@ -600,6 +605,15 @@ static int pcf8563_probe(struct i2c_client *client,
 		dev_err(&client->dev, "%s: write error\n", __func__);
 		return err;
 	}
+=======
+	err = pcf8563_get_alarm_mode(client, NULL, &alm_pending);
+	if (err) {
+		dev_err(&client->dev, "%s: read error\n", __func__);
+		return err;
+	}
+	if (alm_pending)
+		pcf8563_set_alarm_mode(client, 0);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	pcf8563->rtc = devm_rtc_device_register(&client->dev,
 				pcf8563_driver.driver.name,

@@ -475,6 +475,7 @@ static int msg_enable;
  */
 
 /**
+<<<<<<< HEAD
  * ks_check_endian - Check whether endianness of the bus is correct
  * @ks	  : The chip information
  *
@@ -516,6 +517,23 @@ static int ks_check_endian(struct ks_net *ks)
 	netdev_err(ks->netdev, "incorrect EESK endian strap setting\n");
 
 	return -EINVAL;
+=======
+ * ks_rdreg8 - read 8 bit register from device
+ * @ks	  : The chip information
+ * @offset: The register address
+ *
+ * Read a 8bit register from the chip, returning the result
+ */
+static u8 ks_rdreg8(struct ks_net *ks, int offset)
+{
+	u16 data;
+	u8 shift_bit = offset & 0x03;
+	u8 shift_data = (offset & 1) << 3;
+	ks->cmd_reg_cache = (u16) offset | (u16)(BE0 << shift_bit);
+	iowrite16(ks->cmd_reg_cache, ks->hw_addr_cmd);
+	data  = ioread16(ks->hw_addr);
+	return (u8)(data >> shift_data);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /**
@@ -534,6 +552,25 @@ static u16 ks_rdreg16(struct ks_net *ks, int offset)
 }
 
 /**
+<<<<<<< HEAD
+=======
+ * ks_wrreg8 - write 8bit register value to chip
+ * @ks: The chip information
+ * @offset: The register address
+ * @value: The value to write
+ *
+ */
+static void ks_wrreg8(struct ks_net *ks, int offset, u8 value)
+{
+	u8  shift_bit = (offset & 0x03);
+	u16 value_write = (u16)(value << ((offset & 1) << 3));
+	ks->cmd_reg_cache = (u16)offset | (BE0 << shift_bit);
+	iowrite16(ks->cmd_reg_cache, ks->hw_addr_cmd);
+	iowrite16(value_write, ks->hw_addr);
+}
+
+/**
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * ks_wrreg16 - write 16bit register value to chip
  * @ks: The chip information
  * @offset: The register address
@@ -652,7 +689,12 @@ static void ks_read_config(struct ks_net *ks)
 	u16 reg_data = 0;
 
 	/* Regardless of bus width, 8 bit read should always work.*/
+<<<<<<< HEAD
 	reg_data = ks_rdreg16(ks, KS_CCR);
+=======
+	reg_data = ks_rdreg8(ks, KS_CCR) & 0x00FF;
+	reg_data |= ks_rdreg8(ks, KS_CCR+1) << 8;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* addr/data bus are multiplexed */
 	ks->sharedbus = (reg_data & CCR_SHARED) == CCR_SHARED;
@@ -756,7 +798,11 @@ static inline void ks_read_qmu(struct ks_net *ks, u16 *buf, u32 len)
 
 	/* 1. set sudo DMA mode */
 	ks_wrreg16(ks, KS_RXFDPR, RXFDPR_RXFPAI);
+<<<<<<< HEAD
 	ks_wrreg16(ks, KS_RXQCR, ks->rc_rxqcr | RXQCR_SDA);
+=======
+	ks_wrreg8(ks, KS_RXQCR, (ks->rc_rxqcr | RXQCR_SDA) & 0xff);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* 2. read prepend data */
 	/**
@@ -773,7 +819,11 @@ static inline void ks_read_qmu(struct ks_net *ks, u16 *buf, u32 len)
 	ks_inblk(ks, buf, ALIGN(len, 4));
 
 	/* 4. reset sudo DMA Mode */
+<<<<<<< HEAD
 	ks_wrreg16(ks, KS_RXQCR, ks->rc_rxqcr);
+=======
+	ks_wrreg8(ks, KS_RXQCR, ks->rc_rxqcr);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /**
@@ -875,17 +925,25 @@ static irqreturn_t ks_irq(int irq, void *pw)
 {
 	struct net_device *netdev = pw;
 	struct ks_net *ks = netdev_priv(netdev);
+<<<<<<< HEAD
 	unsigned long flags;
 	u16 status;
 
 	spin_lock_irqsave(&ks->statelock, flags);
+=======
+	u16 status;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/*this should be the first in IRQ handler */
 	ks_save_cmd_reg(ks);
 
 	status = ks_rdreg16(ks, KS_ISR);
 	if (unlikely(!status)) {
 		ks_restore_cmd_reg(ks);
+<<<<<<< HEAD
 		spin_unlock_irqrestore(&ks->statelock, flags);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return IRQ_NONE;
 	}
 
@@ -911,7 +969,10 @@ static irqreturn_t ks_irq(int irq, void *pw)
 		ks->netdev->stats.rx_over_errors++;
 	/* this should be the last in IRQ handler*/
 	ks_restore_cmd_reg(ks);
+<<<<<<< HEAD
 	spin_unlock_irqrestore(&ks->statelock, flags);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return IRQ_HANDLED;
 }
 
@@ -981,7 +1042,10 @@ static int ks_net_stop(struct net_device *netdev)
 
 	/* shutdown RX/TX QMU */
 	ks_disable_qmu(ks);
+<<<<<<< HEAD
 	ks_disable_int(ks);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* set powermode to soft power down to save power */
 	ks_set_powermode(ks, PMECR_PM_SOFTDOWN);
@@ -1011,13 +1075,21 @@ static void ks_write_qmu(struct ks_net *ks, u8 *pdata, u16 len)
 	ks->txh.txw[1] = cpu_to_le16(len);
 
 	/* 1. set sudo-DMA mode */
+<<<<<<< HEAD
 	ks_wrreg16(ks, KS_RXQCR, ks->rc_rxqcr | RXQCR_SDA);
+=======
+	ks_wrreg8(ks, KS_RXQCR, (ks->rc_rxqcr | RXQCR_SDA) & 0xff);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* 2. write status/lenth info */
 	ks_outblk(ks, ks->txh.txw, 4);
 	/* 3. write pkt data */
 	ks_outblk(ks, (u16 *)pdata, ALIGN(len, 4));
 	/* 4. reset sudo-DMA mode */
+<<<<<<< HEAD
 	ks_wrreg16(ks, KS_RXQCR, ks->rc_rxqcr);
+=======
+	ks_wrreg8(ks, KS_RXQCR, ks->rc_rxqcr);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* 5. Enqueue Tx(move the pkt from TX buffer into TXQ) */
 	ks_wrreg16(ks, KS_TXQCR, TXQCR_METFE);
 	/* 6. wait until TXQCR_METFE is auto-cleared */
@@ -1038,9 +1110,16 @@ static netdev_tx_t ks_start_xmit(struct sk_buff *skb, struct net_device *netdev)
 {
 	netdev_tx_t retv = NETDEV_TX_OK;
 	struct ks_net *ks = netdev_priv(netdev);
+<<<<<<< HEAD
 	unsigned long flags;
 
 	spin_lock_irqsave(&ks->statelock, flags);
+=======
+
+	disable_irq(netdev->irq);
+	ks_disable_int(ks);
+	spin_lock(&ks->statelock);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* Extra space are required:
 	*  4 byte for alignment, 4 for status/length, 4 for CRC
@@ -1054,7 +1133,13 @@ static netdev_tx_t ks_start_xmit(struct sk_buff *skb, struct net_device *netdev)
 		dev_kfree_skb(skb);
 	} else
 		retv = NETDEV_TX_BUSY;
+<<<<<<< HEAD
 	spin_unlock_irqrestore(&ks->statelock, flags);
+=======
+	spin_unlock(&ks->statelock);
+	ks_enable_int(ks);
+	enable_irq(netdev->irq);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return retv;
 }
 
@@ -1579,10 +1664,13 @@ static int ks8851_probe(struct platform_device *pdev)
 		goto err_free;
 	}
 
+<<<<<<< HEAD
 	err = ks_check_endian(ks);
 	if (err)
 		goto err_free;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	netdev->irq = platform_get_irq(pdev, 0);
 
 	if ((int)netdev->irq < 0) {

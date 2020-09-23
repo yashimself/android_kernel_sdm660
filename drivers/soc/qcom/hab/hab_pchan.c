@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2016-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2016-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -47,7 +51,11 @@ static void hab_pchan_free(struct kref *ref)
 {
 	struct physical_channel *pchan =
 		container_of(ref, struct physical_channel, refcount);
+<<<<<<< HEAD
 	struct virtual_channel *vchan;
+=======
+	struct virtual_channel *vchan = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	pr_debug("pchan %s refcnt %d\n", pchan->name,
 			get_refcnt(pchan->refcount));
@@ -67,14 +75,21 @@ static void hab_pchan_free(struct kref *ref)
 	}
 	read_unlock(&pchan->vchans_lock);
 
+<<<<<<< HEAD
 	kfree(pchan->hyp_data);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	kfree(pchan);
 }
 
 struct physical_channel *
 hab_pchan_find_domid(struct hab_device *dev, int dom_id)
 {
+<<<<<<< HEAD
 	struct physical_channel *pchan;
+=======
+	struct physical_channel *pchan = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	spin_lock_bh(&dev->pchan_lock);
 	list_for_each_entry(pchan, &dev->pchannels, node)
@@ -104,5 +119,9 @@ void hab_pchan_get(struct physical_channel *pchan)
 void hab_pchan_put(struct physical_channel *pchan)
 {
 	if (pchan)
+<<<<<<< HEAD
 		kref_put(&pchan->refcount, hab_pchan_free);
+=======
+		kref_put(&pchan->refcount, &hab_pchan_free);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }

@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2015, 2017, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2015, 2017, 2020, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -301,6 +305,10 @@ void sdhci_msm_ice_hci_update_noncq_cfg(struct sdhci_host *host,
 	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
 	struct sdhci_msm_host *msm_host = pltfm_host->priv;
 	unsigned int crypto_params = 0;
+<<<<<<< HEAD
+=======
+	unsigned int crypto_enable = !bypass;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/*
 	 * The naming convention got changed between ICE2.0 and ICE3.0
 	 * registers fields. Below is the equivalent names for
@@ -311,7 +319,11 @@ void sdhci_msm_ice_hci_update_noncq_cfg(struct sdhci_host *host,
 	 */
 	/* Configure ICE bypass mode */
 	crypto_params |=
+<<<<<<< HEAD
 		(!(bypass & MASK_SDHCI_MSM_ICE_HCI_PARAM_CE))
+=======
+		(crypto_enable & MASK_SDHCI_MSM_ICE_HCI_PARAM_CE)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			<< OFFSET_SDHCI_MSM_ICE_HCI_PARAM_CE;
 	/* Configure Crypto Configure Index (CCI) */
 	crypto_params |= (key_index &

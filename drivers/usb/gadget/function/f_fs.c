@@ -958,7 +958,10 @@ retry:
 
 			ret = usb_ep_queue(ep->ep, req, GFP_ATOMIC);
 			if (unlikely(ret)) {
+<<<<<<< HEAD
 				io_data->req = NULL;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				usb_ep_free_request(ep->ep, req);
 				goto error_lock;
 			}
@@ -989,13 +992,22 @@ retry:
 			 * still busy.
 			 */
 			if (!(io_data->read && ep->is_busy)) {
+<<<<<<< HEAD
 				ret = usb_ep_queue(ep->ep, req, GFP_ATOMIC);
 				ep->is_busy = true;
+=======
+				ep->is_busy = true;
+				ret = usb_ep_queue(ep->ep, req, GFP_ATOMIC);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			}
 
 			spin_unlock_irq(&epfile->ffs->eps_lock);
 
 			if (unlikely(ret < 0)) {
+<<<<<<< HEAD
+=======
+				ep->is_busy = false;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				ret = -EIO;
 			} else if (unlikely(
 				   wait_for_completion_interruptible(done))) {
@@ -1136,7 +1148,10 @@ static int ffs_aio_cancel(struct kiocb *kiocb)
 {
 	struct ffs_io_data *io_data = kiocb->private;
 	struct ffs_epfile *epfile = kiocb->ki_filp->private_data;
+<<<<<<< HEAD
 	unsigned long flags;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int value;
 
 	ENTER();
@@ -1144,14 +1159,22 @@ static int ffs_aio_cancel(struct kiocb *kiocb)
 	ffs_log("enter:state %d setup_state %d flag %lu", epfile->ffs->state,
 		epfile->ffs->setup_state, epfile->ffs->flags);
 
+<<<<<<< HEAD
 	spin_lock_irqsave(&epfile->ffs->eps_lock, flags);
+=======
+	spin_lock_irq(&epfile->ffs->eps_lock);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (likely(io_data && io_data->ep && io_data->req))
 		value = usb_ep_dequeue(io_data->ep, io_data->req);
 	else
 		value = -EINVAL;
 
+<<<<<<< HEAD
 	spin_unlock_irqrestore(&epfile->ffs->eps_lock, flags);
+=======
+	spin_unlock_irq(&epfile->ffs->eps_lock);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	ffs_log("exit: value %d", value);
 
@@ -1888,10 +1911,13 @@ static void ffs_data_reset(struct ffs_data *ffs)
 	ffs->setup_state = FFS_NO_SETUP;
 	ffs->flags = 0;
 
+<<<<<<< HEAD
 	ffs->ms_os_descs_ext_prop_count = 0;
 	ffs->ms_os_descs_ext_prop_name_len = 0;
 	ffs->ms_os_descs_ext_prop_data_len = 0;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	ffs_log("exit: state %d setup_state %d flag %lu", ffs->state,
 		ffs->setup_state, ffs->flags);
 }

@@ -895,6 +895,7 @@ struct ieee80211_sub_if_data {
 	struct ieee80211_if_ap *bss;
 
 	/* bitmap of allowed (non-MCS) rate indexes for rate control */
+<<<<<<< HEAD
 	u32 rc_rateidx_mask[NUM_NL80211_BANDS];
 
 	bool rc_has_mcs_mask[NUM_NL80211_BANDS];
@@ -902,6 +903,15 @@ struct ieee80211_sub_if_data {
 
 	bool rc_has_vht_mcs_mask[NUM_NL80211_BANDS];
 	u16 rc_rateidx_vht_mcs_mask[NUM_NL80211_BANDS][NL80211_VHT_NSS_MAX];
+=======
+	u32 rc_rateidx_mask[IEEE80211_NUM_BANDS];
+
+	bool rc_has_mcs_mask[IEEE80211_NUM_BANDS];
+	u8  rc_rateidx_mcs_mask[IEEE80211_NUM_BANDS][IEEE80211_HT_MCS_MASK_LEN];
+
+	bool rc_has_vht_mcs_mask[IEEE80211_NUM_BANDS];
+	u16 rc_rateidx_vht_mcs_mask[IEEE80211_NUM_BANDS][NL80211_VHT_NSS_MAX];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	union {
 		struct ieee80211_if_ap ap;
@@ -956,10 +966,17 @@ sdata_assert_lock(struct ieee80211_sub_if_data *sdata)
 	lockdep_assert_held(&sdata->wdev.mtx);
 }
 
+<<<<<<< HEAD
 static inline enum nl80211_band
 ieee80211_get_sdata_band(struct ieee80211_sub_if_data *sdata)
 {
 	enum nl80211_band band = NL80211_BAND_2GHZ;
+=======
+static inline enum ieee80211_band
+ieee80211_get_sdata_band(struct ieee80211_sub_if_data *sdata)
+{
+	enum ieee80211_band band = IEEE80211_BAND_2GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct ieee80211_chanctx_conf *chanctx_conf;
 
 	rcu_read_lock();
@@ -1230,7 +1247,11 @@ struct ieee80211_local {
 	struct cfg80211_scan_request __rcu *scan_req;
 	struct ieee80211_scan_request *hw_scan_req;
 	struct cfg80211_chan_def scan_chandef;
+<<<<<<< HEAD
 	enum nl80211_band hw_scan_band;
+=======
+	enum ieee80211_band hw_scan_band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int scan_channel_idx;
 	int scan_ies_len;
 	int hw_scan_ies_bufsize;
@@ -1707,6 +1728,7 @@ ieee80211_vht_cap_ie_to_sta_vht_cap(struct ieee80211_sub_if_data *sdata,
 enum ieee80211_sta_rx_bandwidth ieee80211_sta_cap_rx_bw(struct sta_info *sta);
 enum ieee80211_sta_rx_bandwidth ieee80211_sta_cur_vht_bw(struct sta_info *sta);
 void ieee80211_sta_set_rx_nss(struct sta_info *sta);
+<<<<<<< HEAD
 enum ieee80211_sta_rx_bandwidth
 ieee80211_chan_width_to_rx_bw(enum nl80211_chan_width width);
 enum nl80211_chan_width ieee80211_sta_cap_chan_bw(struct sta_info *sta);
@@ -1717,6 +1739,14 @@ u32 __ieee80211_vht_handle_opmode(struct ieee80211_sub_if_data *sdata,
 void ieee80211_vht_handle_opmode(struct ieee80211_sub_if_data *sdata,
 				 struct sta_info *sta, u8 opmode,
 				 enum nl80211_band band);
+=======
+u32 __ieee80211_vht_handle_opmode(struct ieee80211_sub_if_data *sdata,
+                                  struct sta_info *sta, u8 opmode,
+				  enum ieee80211_band band);
+void ieee80211_vht_handle_opmode(struct ieee80211_sub_if_data *sdata,
+				 struct sta_info *sta, u8 opmode,
+				 enum ieee80211_band band);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 void ieee80211_apply_vhtcap_overrides(struct ieee80211_sub_if_data *sdata,
 				      struct ieee80211_sta_vht_cap *vht_cap);
 void ieee80211_get_vht_mask_from_cap(__le16 vht_cap,
@@ -1744,7 +1774,11 @@ void ieee80211_process_measurement_req(struct ieee80211_sub_if_data *sdata,
  */
 int ieee80211_parse_ch_switch_ie(struct ieee80211_sub_if_data *sdata,
 				 struct ieee802_11_elems *elems,
+<<<<<<< HEAD
 				 enum nl80211_band current_band,
+=======
+				 enum ieee80211_band current_band,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				 u32 sta_flags, u8 *bssid,
 				 struct ieee80211_csa_ie *csa_ie);
 
@@ -1769,7 +1803,11 @@ static inline int __ieee80211_resume(struct ieee80211_hw *hw)
 
 /* utility functions/constants */
 extern const void *const mac80211_wiphy_privid; /* for wiphy privid */
+<<<<<<< HEAD
 int ieee80211_frame_duration(enum nl80211_band band, size_t len,
+=======
+int ieee80211_frame_duration(enum ieee80211_band band, size_t len,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			     int rate, int erp, int short_preamble,
 			     int shift);
 void ieee80211_set_wmm_default(struct ieee80211_sub_if_data *sdata,
@@ -1779,12 +1817,20 @@ void ieee80211_xmit(struct ieee80211_sub_if_data *sdata,
 
 void __ieee80211_tx_skb_tid_band(struct ieee80211_sub_if_data *sdata,
 				 struct sk_buff *skb, int tid,
+<<<<<<< HEAD
 				 enum nl80211_band band);
+=======
+				 enum ieee80211_band band);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 static inline void
 ieee80211_tx_skb_tid_band(struct ieee80211_sub_if_data *sdata,
 			  struct sk_buff *skb, int tid,
+<<<<<<< HEAD
 			  enum nl80211_band band)
+=======
+			  enum ieee80211_band band)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	rcu_read_lock();
 	__ieee80211_tx_skb_tid_band(sdata, skb, tid, band);
@@ -1953,7 +1999,11 @@ void ieee80211_send_probe_req(struct ieee80211_sub_if_data *sdata,
 
 u32 ieee80211_sta_get_rates(struct ieee80211_sub_if_data *sdata,
 			    struct ieee802_11_elems *elems,
+<<<<<<< HEAD
 			    enum nl80211_band band, u32 *basic_rates);
+=======
+			    enum ieee80211_band band, u32 *basic_rates);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 int __ieee80211_request_smps_mgd(struct ieee80211_sub_if_data *sdata,
 				 enum ieee80211_smps_mode smps_mode);
 int __ieee80211_request_smps_ap(struct ieee80211_sub_if_data *sdata,
@@ -1976,10 +2026,17 @@ int ieee80211_parse_bitrates(struct cfg80211_chan_def *chandef,
 			     const u8 *srates, int srates_len, u32 *rates);
 int ieee80211_add_srates_ie(struct ieee80211_sub_if_data *sdata,
 			    struct sk_buff *skb, bool need_basic,
+<<<<<<< HEAD
 			    enum nl80211_band band);
 int ieee80211_add_ext_srates_ie(struct ieee80211_sub_if_data *sdata,
 				struct sk_buff *skb, bool need_basic,
 				enum nl80211_band band);
+=======
+			    enum ieee80211_band band);
+int ieee80211_add_ext_srates_ie(struct ieee80211_sub_if_data *sdata,
+				struct sk_buff *skb, bool need_basic,
+				enum ieee80211_band band);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 u8 *ieee80211_add_wmm_info_ie(u8 *buf, u8 qosinfo);
 
 /* channel management */

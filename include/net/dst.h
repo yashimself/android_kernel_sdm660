@@ -113,7 +113,11 @@ struct dst_entry {
 struct dst_metrics {
 	u32		metrics[RTAX_MAX];
 	atomic_t	refcnt;
+<<<<<<< HEAD
 } __aligned(4);		/* Low pointer bits contain DST_METRICS_FLAGS */
+=======
+};
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 extern const struct dst_metrics dst_default_metrics;
 
 u32 *dst_cow_metrics_generic(struct dst_entry *dst, unsigned long old);

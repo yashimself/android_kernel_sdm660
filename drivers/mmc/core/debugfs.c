@@ -191,7 +191,11 @@ static int mmc_ios_show(struct seq_file *s, void *data)
 		str = "invalid";
 		break;
 	}
+<<<<<<< HEAD
 	seq_printf(s, "signal voltage:\t%u (%s)\n", ios->signal_voltage, str);
+=======
+	seq_printf(s, "signal voltage:\t%u (%s)\n", ios->chip_select, str);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	switch (ios->drv_type) {
 	case MMC_SET_DRIVER_TYPE_A:

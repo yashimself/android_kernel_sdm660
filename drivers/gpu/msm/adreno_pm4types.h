@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2002,2007-2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2002,2007-2016,2020, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -97,6 +101,11 @@
 /* A5XX Enable yield in RB only */
 #define CP_YIELD_ENABLE 0x1C
 
+<<<<<<< HEAD
+=======
+#define CP_WHERE_AM_I 0x62
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /* Enable/Disable/Defer A5x global preemption model */
 #define CP_PREEMPT_ENABLE_GLOBAL    0x69
 

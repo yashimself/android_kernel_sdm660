@@ -3305,7 +3305,11 @@ static void mvpp2_cls_init(struct mvpp2 *priv)
 	mvpp2_write(priv, MVPP2_CLS_MODE_REG, MVPP2_CLS_MODE_ACTIVE_MASK);
 
 	/* Clear classifier flow table */
+<<<<<<< HEAD
 	memset(&fe.data, 0, sizeof(fe.data));
+=======
+	memset(&fe.data, 0, MVPP2_CLS_FLOWS_TBL_DATA_WORDS);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	for (index = 0; index < MVPP2_CLS_FLOWS_TBL_SIZE; index++) {
 		fe.index = index;
 		mvpp2_cls_flow_write(priv, &fe);

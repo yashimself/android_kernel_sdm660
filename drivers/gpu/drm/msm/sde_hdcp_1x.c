@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2017, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2017-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -1310,10 +1314,13 @@ static int sde_hdcp_1x_authentication_part2(struct sde_hdcp_1x *hdcp)
 	}
 
 	do {
+<<<<<<< HEAD
 		rc = sde_hdcp_1x_transfer_v_h(hdcp);
 		if (rc)
 			goto error;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		/*
 		 * Do not proceed further if no device connected
 		 * If no downstream devices are attached to the repeater
@@ -1325,6 +1332,13 @@ static int sde_hdcp_1x_authentication_part2(struct sde_hdcp_1x *hdcp)
 			goto error;
 		}
 
+<<<<<<< HEAD
+=======
+		rc = sde_hdcp_1x_transfer_v_h(hdcp);
+		if (rc)
+			goto error;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		rc = sde_hdcp_1x_write_ksv_fifo(hdcp);
 	} while (--v_retry && rc);
 error:
@@ -1359,6 +1373,12 @@ static void sde_hdcp_1x_notify_topology(void)
 
 static void sde_hdcp_1x_update_auth_status(struct sde_hdcp_1x *hdcp)
 {
+<<<<<<< HEAD
+=======
+	if (sde_hdcp_1x_state(HDCP_STATE_AUTH_FAIL))
+		hdcp->init_data.avmute_sink(hdcp->init_data.cb_data);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (sde_hdcp_1x_state(HDCP_STATE_AUTHENTICATED)) {
 		sde_hdcp_1x_cache_topology(hdcp);
 		sde_hdcp_1x_notify_topology();
@@ -1853,7 +1873,12 @@ void *sde_hdcp_1x_init(struct sde_hdcp_init_data *init_data)
 
 	if (!init_data || !init_data->core_io || !init_data->qfprom_io ||
 		!init_data->mutex || !init_data->notify_status ||
+<<<<<<< HEAD
 		!init_data->workq || !init_data->cb_data) {
+=======
+		!init_data->workq || !init_data->cb_data ||
+		!init_data->avmute_sink) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		pr_err("invalid input\n");
 		goto error;
 	}

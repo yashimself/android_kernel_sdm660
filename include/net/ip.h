@@ -599,9 +599,12 @@ extern int sysctl_icmp_msgs_burst;
 int ip_misc_proc_init(void);
 #endif
 
+<<<<<<< HEAD
 static inline bool inetdev_valid_mtu(unsigned int mtu)
 {
 	return likely(mtu >= IPV4_MIN_MTU);
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #endif	/* _IP_H */

@@ -329,6 +329,10 @@ static inline unsigned long copy_from_user(void *to,
 		const void __user *from, unsigned long n)
 {
 	if (likely(access_ok(VERIFY_READ, from, n))) {
+<<<<<<< HEAD
+=======
+		check_object_size(to, n, false);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		barrier_nospec();
 		return __copy_tofrom_user((__force void __user *)to, from, n);
 	}
@@ -339,8 +343,15 @@ static inline unsigned long copy_from_user(void *to,
 static inline unsigned long copy_to_user(void __user *to,
 		const void *from, unsigned long n)
 {
+<<<<<<< HEAD
 	if (access_ok(VERIFY_WRITE, to, n))
 		return __copy_tofrom_user(to, (__force void __user *)from, n);
+=======
+	if (access_ok(VERIFY_WRITE, to, n)) {
+		check_object_size(from, n, true);
+		return __copy_tofrom_user(to, (__force void __user *)from, n);
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return n;
 }
 
@@ -386,6 +397,11 @@ static inline unsigned long __copy_from_user_inatomic(void *to,
 			return 0;
 	}
 
+<<<<<<< HEAD
+=======
+	check_object_size(to, n, false);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	barrier_nospec();
 	return __copy_tofrom_user((__force void __user *)to, from, n);
 }
@@ -414,6 +430,11 @@ static inline unsigned long __copy_to_user_inatomic(void __user *to,
 			return 0;
 	}
 
+<<<<<<< HEAD
+=======
+	check_object_size(from, n, true);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return __copy_tofrom_user(to, (__force const void __user *)from, n);
 }
 

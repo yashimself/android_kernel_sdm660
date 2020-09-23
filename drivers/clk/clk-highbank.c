@@ -294,7 +294,10 @@ static __init struct clk *hb_clk_init(struct device_node *node, const struct clk
 	/* Map system registers */
 	srnp = of_find_compatible_node(NULL, NULL, "calxeda,hb-sregs");
 	hb_clk->reg = of_iomap(srnp, 0);
+<<<<<<< HEAD
 	of_node_put(srnp);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	BUG_ON(!hb_clk->reg);
 	hb_clk->reg += reg;
 

@@ -55,7 +55,11 @@
 
 int ocrdma_query_pkey(struct ib_device *ibdev, u8 port, u16 index, u16 *pkey)
 {
+<<<<<<< HEAD
 	if (index > 0)
+=======
+	if (index > 1)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return -EINVAL;
 
 	*pkey = 0xffff;

@@ -23,7 +23,10 @@
 #include <linux/kvm_host.h>
 #include "kvm_cache_regs.h"
 #include <linux/module.h>
+<<<<<<< HEAD
 #include <linux/nospec.h>
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #include <asm/kvm_emulate.h>
 #include <linux/stringify.h>
 #include <asm/debugreg.h>
@@ -3519,6 +3522,7 @@ static int em_cwd(struct x86_emulate_ctxt *ctxt)
 	return X86EMUL_CONTINUE;
 }
 
+<<<<<<< HEAD
 static int em_rdpid(struct x86_emulate_ctxt *ctxt)
 {
 	u64 tsc_aux = 0;
@@ -3529,6 +3533,8 @@ static int em_rdpid(struct x86_emulate_ctxt *ctxt)
 	return X86EMUL_CONTINUE;
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int em_rdtsc(struct x86_emulate_ctxt *ctxt)
 {
 	u64 tsc = 0;
@@ -4389,6 +4395,7 @@ static const struct opcode group8[] = {
 	F(DstMem | SrcImmByte | Lock | PageTable,	em_btc),
 };
 
+<<<<<<< HEAD
 /*
  * The "memory" destination is actually always a register, since we come
  * from the register case of group9.
@@ -4403,6 +4410,12 @@ static const struct group_dual group9 = { {
 }, {
 	N, N, N, N, N, N, N,
 	GP(0, &pfx_0f_c7_7),
+=======
+static const struct group_dual group9 = { {
+	N, I(DstMem64 | Lock | PageTable, em_cmpxchg8b), N, N, N, N, N, N,
+}, {
+	N, N, N, N, N, N, N, N,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 } };
 
 static const struct opcode group11[] = {
@@ -5010,7 +5023,10 @@ int x86_decode_insn(struct x86_emulate_ctxt *ctxt, void *insn, int insn_len)
 	ctxt->fetch.ptr = ctxt->fetch.data;
 	ctxt->fetch.end = ctxt->fetch.data + insn_len;
 	ctxt->opcode_len = 1;
+<<<<<<< HEAD
 	ctxt->intercept = x86_intercept_none;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (insn_len > 0)
 		memcpy(ctxt->fetch.data, insn, insn_len);
 	else {
@@ -5063,6 +5079,7 @@ int x86_decode_insn(struct x86_emulate_ctxt *ctxt, void *insn, int insn_len)
 				ctxt->ad_bytes = def_ad_bytes ^ 6;
 			break;
 		case 0x26:	/* ES override */
+<<<<<<< HEAD
 			has_seg_override = true;
 			ctxt->seg_override = VCPU_SREG_ES;
 			break;
@@ -5085,6 +5102,18 @@ int x86_decode_insn(struct x86_emulate_ctxt *ctxt, void *insn, int insn_len)
 		case 0x65:	/* GS override */
 			has_seg_override = true;
 			ctxt->seg_override = VCPU_SREG_GS;
+=======
+		case 0x2e:	/* CS override */
+		case 0x36:	/* SS override */
+		case 0x3e:	/* DS override */
+			has_seg_override = true;
+			ctxt->seg_override = (ctxt->b >> 3) & 3;
+			break;
+		case 0x64:	/* FS override */
+		case 0x65:	/* GS override */
+			has_seg_override = true;
+			ctxt->seg_override = ctxt->b & 7;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			break;
 		case 0x40 ... 0x4f: /* REX */
 			if (mode != X86EMUL_MODE_PROT64)
@@ -5168,6 +5197,7 @@ done_prefixes:
 			}
 			break;
 		case Escape:
+<<<<<<< HEAD
 			if (ctxt->modrm > 0xbf) {
 				size_t size = ARRAY_SIZE(opcode.u.esc->high);
 				u32 index = array_index_nospec(
@@ -5177,6 +5207,12 @@ done_prefixes:
 			} else {
 				opcode = opcode.u.esc->op[(ctxt->modrm >> 3) & 7];
 			}
+=======
+			if (ctxt->modrm > 0xbf)
+				opcode = opcode.u.esc->high[ctxt->modrm - 0xc0];
+			else
+				opcode = opcode.u.esc->op[(ctxt->modrm >> 3) & 7];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			break;
 		case InstrDual:
 			if ((ctxt->modrm >> 6) == 3)

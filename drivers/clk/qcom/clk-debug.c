@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2013-2014, 2016-2017,
+=======
+ * Copyright (c) 2013-2014, 2016-2017, 2020,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * The Linux Foundation. All rights reserved.
  *
@@ -177,6 +181,7 @@ static int clk_debug_mux_set_parent(struct clk_hw *hw, u8 index)
 
 		regval |= (meas->parent[index].next_sel & meas->mask);
 
+<<<<<<< HEAD
 		if (meas->parent[index].en_mask == 0xFF)
 			/* Skip en_mask */
 			regval = (u32) regval;
@@ -184,6 +189,14 @@ static int clk_debug_mux_set_parent(struct clk_hw *hw, u8 index)
 			regval |= meas->parent[index].en_mask;
 		else
 			regval |= meas->en_mask;
+=======
+		if (meas->parent[index].en_mask != 0xFF) {
+			if (meas->parent[index].en_mask)
+				regval |= meas->parent[index].en_mask;
+			else
+				regval |= meas->en_mask;
+		}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		regmap_write(meas->regmap[dbg_cc], 0x0, regval);
 	}

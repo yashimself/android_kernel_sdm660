@@ -1164,6 +1164,31 @@ struct ipa_gsi_ep_config {
 	int ee;
 };
 
+<<<<<<< HEAD
+=======
+/**
+ * union ipa_bam_sw_peer_desc - IPA sps sw peer desc
+ *
+ * @sw_dsc_ofst: software desc offset
+ * @sw_ofst_in_desc: offset in desc
+ * @p_dsc_fifo_peer_ofst: peer desc offset
+ * @p_bytes_consumed: bytes consumed
+ */
+union ipa_bam_sw_peer_desc {
+	struct sw_ofsts_reg {
+		u32 sw_dsc_ofst:16;
+		u32 sw_ofst_in_desc:15;
+	} sw_desc;
+
+	struct evnt_reg {
+		u32 p_dsc_fifo_peer_ofst:16;
+		u32 p_bytes_consumed:15;
+	} peer_desc;
+
+	u32 read_reg;
+};
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #if defined CONFIG_IPA || defined CONFIG_IPA3
 
 /*

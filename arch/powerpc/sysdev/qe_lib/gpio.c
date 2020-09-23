@@ -155,10 +155,15 @@ struct qe_pin *qe_pin_request(struct device_node *np, int index)
 	if (err < 0)
 		goto err0;
 	gc = gpio_to_chip(err);
+<<<<<<< HEAD
 	if (WARN_ON(!gc)) {
 		err = -ENODEV;
 		goto err0;
 	}
+=======
+	if (WARN_ON(!gc))
+		goto err0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (!of_device_is_compatible(gc->of_node, "fsl,mpc8323-qe-pario-bank")) {
 		pr_debug("%s: tried to get a non-qe pin\n", __func__);

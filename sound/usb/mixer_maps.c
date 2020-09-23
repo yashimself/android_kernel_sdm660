@@ -361,6 +361,7 @@ static const struct usbmix_name_map dell_alc4020_map[] = {
 	{ 0 }
 };
 
+<<<<<<< HEAD
 /* Some mobos shipped with a dummy HD-audio show the invalid GET_MIN/GET_MAX
  * response for Input Gain Pad (id=19, control=12).  Skip it.
  */
@@ -369,6 +370,8 @@ static const struct usbmix_name_map asus_rog_map[] = {
 	{}
 };
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /*
  * Control map entries
  */
@@ -488,6 +491,7 @@ static struct usbmix_ctl_map usbmix_ctl_maps[] = {
 		.id = USB_ID(0x05a7, 0x1020),
 		.map = bose_companion5_map,
 	},
+<<<<<<< HEAD
 	{	/* Gigabyte TRX40 Aorus Pro WiFi */
 		.id = USB_ID(0x0414, 0xa002),
 		.map = asus_rog_map,
@@ -508,6 +512,8 @@ static struct usbmix_ctl_map usbmix_ctl_maps[] = {
 		.id = USB_ID(0x0db0, 0x543d),
 		.map = asus_rog_map,
 	},
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	{ 0 } /* terminator */
 };
 

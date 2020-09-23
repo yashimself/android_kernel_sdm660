@@ -1453,6 +1453,7 @@ clock_set:
 }
 EXPORT_SYMBOL_GPL(sdhci_set_clock);
 
+<<<<<<< HEAD
 static void sdhci_set_power_reg(struct sdhci_host *host, unsigned char mode,
 				unsigned short vdd)
 {
@@ -1472,6 +1473,26 @@ void sdhci_set_power(struct sdhci_host *host, unsigned char mode,
 		     unsigned short vdd)
 {
 	u8 pwr = 0;
+=======
+static void sdhci_set_power(struct sdhci_host *host, unsigned char mode,
+			    unsigned short vdd)
+{
+	struct mmc_host *mmc = host->mmc;
+	u8 pwr = 0;
+
+	if (!IS_ERR(mmc->supply.vmmc)) {
+		spin_unlock_irq(&host->lock);
+		mmc_regulator_set_ocr(mmc, mmc->supply.vmmc, vdd);
+		spin_lock_irq(&host->lock);
+
+		if (mode != MMC_POWER_OFF)
+			sdhci_writeb(host, SDHCI_POWER_ON, SDHCI_POWER_CONTROL);
+		else
+			sdhci_writeb(host, 0, SDHCI_POWER_CONTROL);
+
+		return;
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (mode != MMC_POWER_OFF) {
 		switch (1 << vdd) {
@@ -1504,6 +1525,10 @@ void sdhci_set_power(struct sdhci_host *host, unsigned char mode,
 			host->ops->check_power_status(host, REQ_BUS_OFF);
 		if (host->quirks2 & SDHCI_QUIRK2_CARD_ON_NEEDS_BUS_ON)
 			sdhci_runtime_pm_bus_off(host);
+<<<<<<< HEAD
+=======
+		vdd = 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	} else {
 		/*
 		 * Spec says that we should clear the power reg before setting
@@ -1542,6 +1567,7 @@ void sdhci_set_power(struct sdhci_host *host, unsigned char mode,
 			mdelay(10);
 	}
 }
+<<<<<<< HEAD
 EXPORT_SYMBOL_GPL(sdhci_set_power);
 
 static void __sdhci_set_power(struct sdhci_host *host, unsigned char mode,
@@ -1556,6 +1582,8 @@ static void __sdhci_set_power(struct sdhci_host *host, unsigned char mode,
 	else
 		sdhci_set_power(host, mode, vdd);
 }
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 /*****************************************************************************\
  *                                                                           *
@@ -1597,6 +1625,30 @@ static void sdhci_notify_halt(struct mmc_host *mmc, bool halt)
 	}
 }
 
+<<<<<<< HEAD
+=======
+static int sdhci_reg_temp_callback(struct mmc_host *mmc)
+{
+	struct sdhci_host *host = mmc_priv(mmc);
+
+	return host->ops->reg_temp_callback(host);
+}
+
+static int sdhci_check_temp(struct mmc_host *mmc)
+{
+	struct sdhci_host *host = mmc_priv(mmc);
+
+	return host->ops->check_temp(host);
+}
+
+static int sdhci_dereg_temp_callback(struct mmc_host *mmc)
+{
+	struct sdhci_host *host = mmc_priv(mmc);
+
+	return host->ops->dereg_temp_callback(host);
+}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static inline void sdhci_update_power_policy(struct sdhci_host *host,
 		enum sdhci_power_policy policy)
 {
@@ -1838,7 +1890,13 @@ void sdhci_set_uhs_signaling(struct sdhci_host *host, unsigned timing)
 		ctrl_2 |= SDHCI_CTRL_UHS_SDR104;
 	else if (timing == MMC_TIMING_UHS_SDR12)
 		ctrl_2 |= SDHCI_CTRL_UHS_SDR12;
+<<<<<<< HEAD
 	else if (timing == MMC_TIMING_UHS_SDR25)
+=======
+	else if (timing == MMC_TIMING_SD_HS ||
+		 timing == MMC_TIMING_MMC_HS ||
+		 timing == MMC_TIMING_UHS_SDR25)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		ctrl_2 |= SDHCI_CTRL_UHS_SDR25;
 	else if (timing == MMC_TIMING_UHS_SDR50)
 		ctrl_2 |= SDHCI_CTRL_UHS_SDR50;
@@ -1945,7 +2003,11 @@ static void sdhci_do_set_ios(struct sdhci_host *host, struct mmc_ios *ios)
 	if (!host->ops->enable_controller_clock && (ios->power_mode &
 						    (MMC_POWER_UP |
 						     MMC_POWER_ON)))
+<<<<<<< HEAD
 		__sdhci_set_power(host, ios->power_mode, ios->vdd);
+=======
+		sdhci_set_power(host, ios->power_mode, ios->vdd);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	spin_lock_irqsave(&host->lock, flags);
 
@@ -2527,7 +2589,11 @@ static int sdhci_execute_tuning(struct mmc_host *mmc, u32 opcode)
 		spin_lock_irqsave(&host->lock, flags);
 
 		if (!host->tuning_done) {
+<<<<<<< HEAD
 			pr_debug(DRIVER_NAME ": Timeout waiting for "
+=======
+			pr_info(DRIVER_NAME ": Timeout waiting for "
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				"Buffer Read Ready interrupt during tuning "
 				"procedure, falling back to fixed sampling "
 				"clock\n");
@@ -2783,6 +2849,12 @@ static const struct mmc_host_ops sdhci_ops = {
 	.notify_load	= sdhci_notify_load,
 	.notify_halt	= sdhci_notify_halt,
 	.force_err_irq	= sdhci_force_err_irq,
+<<<<<<< HEAD
+=======
+	.check_temp     = sdhci_check_temp,
+	.dereg_temp_callback    = sdhci_dereg_temp_callback,
+	.reg_temp_callback      = sdhci_reg_temp_callback,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 /*****************************************************************************\
@@ -4068,6 +4140,7 @@ int sdhci_add_host(struct sdhci_host *host)
 	if (host->ops->get_min_clock)
 		mmc->f_min = host->ops->get_min_clock(host);
 	else if (host->version >= SDHCI_SPEC_300) {
+<<<<<<< HEAD
 		if (host->clk_mul)
 			max_clk = host->max_clk * host->clk_mul;
 		/*
@@ -4075,6 +4148,13 @@ int sdhci_add_host(struct sdhci_host *host)
 		 * Programmable Clock Mode minimum clock rate.
 		 */
 		mmc->f_min = host->max_clk / SDHCI_MAX_DIV_SPEC_300;
+=======
+		if (host->clk_mul) {
+			mmc->f_min = (host->max_clk * host->clk_mul) / 1024;
+			max_clk = host->max_clk * host->clk_mul;
+		} else
+			mmc->f_min = host->max_clk / SDHCI_MAX_DIV_SPEC_300;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	} else
 		mmc->f_min = host->max_clk / SDHCI_MAX_DIV_SPEC_200;
 

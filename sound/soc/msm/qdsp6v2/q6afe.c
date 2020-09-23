@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2019, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2020, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -30,9 +34,12 @@
 #include <linux/qdsp6v2/apr_tal.h>
 #include <sound/q6core.h>
 
+<<<<<<< HEAD
 #define AFE_PARAM_ID_TFADSP_RX_CFG 	(0x1000B921)
 #define AFE_MODULE_ID_TFADSP_RX		(0x1000B911)
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #define WAKELOCK_TIMEOUT	5000
 enum {
 	AFE_COMMON_RX_CAL = 0,
@@ -131,10 +138,13 @@ struct afe_ctl {
 	bool alloced_rddma[AFE_MAX_RDDMA];
 	int num_alloced_wrdma;
 	bool alloced_wrdma[AFE_MAX_WRDMA];
+<<<<<<< HEAD
 #ifdef CONFIG_SND_SOC_TFA9874
 	struct rtac_cal_block_data tfa_cal;
 	atomic_t tfa_state;
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 static atomic_t afe_ports_mad_type[SLIMBUS_PORT_LAST - SLIMBUS_0_RX];
@@ -605,6 +615,7 @@ static int32_t afe_callback(struct apr_client_data *data, void *priv)
 			av_dev_drift_afe_cb_handler(data->opcode, data->payload,
 						    data->payload_size);
 		} else {
+<<<<<<< HEAD
 			if (rtac_make_afe_callback(data->payload,
 						   data->payload_size))
 				return 0;
@@ -626,6 +637,8 @@ static int32_t afe_callback(struct apr_client_data *data, void *priv)
 			}
 #endif
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			if (sp_make_afe_callback(data->opcode, data->payload,
 						 data->payload_size))
 				return -EINVAL;
@@ -668,6 +681,7 @@ static int32_t afe_callback(struct apr_client_data *data, void *priv)
 				if (rtac_make_afe_callback(payload,
 							   data->payload_size))
 					return 0;
+<<<<<<< HEAD
 
 #ifdef CONFIG_SND_SOC_TFA9874
 				if (atomic_read(&this_afe.tfa_state) == 1) {
@@ -686,6 +700,8 @@ static int32_t afe_callback(struct apr_client_data *data, void *priv)
 					return 0;
 				}
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			case AFE_PORT_CMD_DEVICE_STOP:
 			case AFE_PORT_CMD_DEVICE_START:
 			case AFE_PSEUDOPORT_CMD_START:
@@ -831,6 +847,11 @@ int afe_get_port_type(u16 port_id)
 	case VOICE_PLAYBACK_TX:
 	case VOICE2_PLAYBACK_TX:
 	case RT_PROXY_PORT_001_RX:
+<<<<<<< HEAD
+=======
+	case RT_PROXY_PORT_002_RX:
+	case RT_PROXY_PORT_002_TX:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	case AUDIO_PORT_ID_I2S_RX:
 	case AFE_PORT_ID_PRIMARY_MI2S_RX:
 	case AFE_PORT_ID_SECONDARY_MI2S_RX:
@@ -882,6 +903,21 @@ int afe_get_port_type(u16 port_id)
 	case AFE_PORT_ID_INT4_MI2S_RX:
 	case AFE_PORT_ID_INT5_MI2S_RX:
 	case AFE_PORT_ID_INT6_MI2S_RX:
+<<<<<<< HEAD
+=======
+	case AFE_PORT_ID_SECONDARY_MI2S_RX_1:
+	case AFE_PORT_ID_SECONDARY_MI2S_RX_2:
+	case AFE_PORT_ID_SECONDARY_MI2S_RX_3:
+	case AFE_PORT_ID_SECONDARY_MI2S_RX_4:
+	case AFE_PORT_ID_TERTIARY_MI2S_RX_1:
+	case AFE_PORT_ID_TERTIARY_MI2S_RX_2:
+	case AFE_PORT_ID_TERTIARY_MI2S_RX_3:
+	case AFE_PORT_ID_TERTIARY_MI2S_RX_4:
+	case AFE_PORT_ID_QUATERNARY_MI2S_RX_1:
+	case AFE_PORT_ID_QUATERNARY_MI2S_RX_2:
+	case AFE_PORT_ID_QUATERNARY_MI2S_RX_3:
+	case AFE_PORT_ID_QUATERNARY_MI2S_RX_4:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		ret = MSM_AFE_PORT_TYPE_RX;
 		break;
 
@@ -953,6 +989,21 @@ int afe_get_port_type(u16 port_id)
 	case AFE_PORT_ID_INT4_MI2S_TX:
 	case AFE_PORT_ID_INT5_MI2S_TX:
 	case AFE_PORT_ID_INT6_MI2S_TX:
+<<<<<<< HEAD
+=======
+	case AFE_PORT_ID_SECONDARY_MI2S_TX_1:
+	case AFE_PORT_ID_SECONDARY_MI2S_TX_2:
+	case AFE_PORT_ID_SECONDARY_MI2S_TX_3:
+	case AFE_PORT_ID_SECONDARY_MI2S_TX_4:
+	case AFE_PORT_ID_TERTIARY_MI2S_TX_1:
+	case AFE_PORT_ID_TERTIARY_MI2S_TX_2:
+	case AFE_PORT_ID_TERTIARY_MI2S_TX_3:
+	case AFE_PORT_ID_TERTIARY_MI2S_TX_4:
+	case AFE_PORT_ID_QUATERNARY_MI2S_TX_1:
+	case AFE_PORT_ID_QUATERNARY_MI2S_TX_2:
+	case AFE_PORT_ID_QUATERNARY_MI2S_TX_3:
+	case AFE_PORT_ID_QUATERNARY_MI2S_TX_4:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		ret = MSM_AFE_PORT_TYPE_TX;
 		break;
 
@@ -1691,9 +1742,12 @@ static int afe_spk_prot_prepare(int src_port, int dst_port, int param_id,
 	case AFE_PARAM_ID_SP_V2_EX_VI_FTM_CFG:
 		param_info.module_id = AFE_MODULE_SPEAKER_PROTECTION_V2_EX_VI;
 		break;
+<<<<<<< HEAD
 	case AFE_PARAM_ID_TFADSP_RX_CFG:
 		param_info.module_id = AFE_MODULE_ID_TFADSP_RX;
 		break;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	default:
 		pr_err("%s: default case 0x%x\n", __func__, param_id);
 		goto fail_cmd;
@@ -2834,6 +2888,121 @@ int afe_send_custom_tdm_header_cfg(
 	return ret;
 }
 
+<<<<<<< HEAD
+=======
+int afe_i2s_port_start(u16 port_id, struct afe_i2s_port_config *i2s_port,
+		       u32 rate, u16 num_groups)
+{
+	struct param_hdr_v3 param_hdr = {0};
+	int index = 0;
+	uint16_t port_index = 0;
+	enum afe_mad_type mad_type = MAD_HW_NONE;
+	int ret = 0;
+
+	if (!i2s_port) {
+		pr_err("%s: Error, no configuration data\n", __func__);
+		return -EINVAL;
+	}
+
+	pr_debug("%s: port id: 0x%x\n", __func__, port_id);
+
+	index = q6audio_get_port_index(port_id);
+	if (index < 0 || index >= AFE_MAX_PORTS) {
+		pr_err("%s: AFE port index[%d] invalid!\n",
+				__func__, index);
+		return -EINVAL;
+	}
+	ret = q6audio_validate_port(port_id);
+	if (ret < 0) {
+		pr_err("%s: port id: 0x%x ret %d\n", __func__, port_id, ret);
+		return -EINVAL;
+	}
+
+	ret = afe_q6_interface_prepare();
+	if (ret != 0) {
+		pr_err("%s: Q6 interface prepare failed %d\n", __func__, ret);
+		return ret;
+	}
+
+	if ((index >= 0) && (index < AFE_MAX_PORTS)) {
+		this_afe.afe_sample_rates[index] = rate;
+
+		if (this_afe.rt_cb)
+			this_afe.dev_acdb_id[index] = this_afe.rt_cb(port_id);
+	}
+
+	/* Also send the topology id here if multiple ports: */
+	port_index = afe_get_port_index(port_id);
+	if (!(this_afe.afe_cal_mode[port_index] == AFE_CAL_MODE_NONE) &&
+	    num_groups > 1) {
+		/* One time call: only for first time */
+		afe_send_custom_topology();
+		afe_send_port_topology_id(port_id);
+		afe_send_cal(port_id);
+		afe_send_hw_delay(port_id, rate);
+	}
+
+	/* Start SW MAD module */
+	mad_type = afe_port_get_mad_type(port_id);
+	pr_debug("%s: port_id 0x%x, mad_type %d\n", __func__, port_id,
+		 mad_type);
+	if (mad_type != MAD_HW_NONE && mad_type != MAD_SW_AUDIO) {
+		if (!afe_has_config(AFE_CDC_REGISTERS_CONFIG) ||
+			!afe_has_config(AFE_SLIMBUS_SLAVE_CONFIG)) {
+			pr_err("%s: AFE isn't configured yet for\n"
+				"HW MAD try Again\n", __func__);
+			ret = -EAGAIN;
+			goto fail_cmd;
+		}
+		ret = afe_turn_onoff_hw_mad(mad_type, true);
+		if (ret) {
+			pr_err("%s: afe_turn_onoff_hw_mad failed %d\n",
+			       __func__, ret);
+			goto fail_cmd;
+		}
+	}
+
+	param_hdr.module_id = AFE_MODULE_AUDIO_DEV_INTERFACE;
+	param_hdr.instance_id = INSTANCE_ID_0;
+	param_hdr.param_id = AFE_PARAM_ID_I2S_CONFIG;
+	param_hdr.param_size = sizeof(struct afe_param_id_i2s_cfg);
+
+	ret = q6afe_pack_and_set_param_in_band(port_id,
+					       q6audio_get_port_index(port_id),
+					       param_hdr,
+					       (u8 *) &i2s_port->i2s_cfg);
+	if (ret) {
+		pr_err("%s: AFE enable for port 0x%x failed ret = %d\n",
+				__func__, port_id, ret);
+		goto fail_cmd;
+	}
+
+	port_index = afe_get_port_index(port_id);
+	if ((port_index >= 0) && (port_index < AFE_MAX_PORTS)) {
+		this_afe.afe_sample_rates[port_index] = rate;
+	} else {
+		pr_err("%s: Invalid port index %d\n", __func__, port_index);
+		ret = -EINVAL;
+		goto fail_cmd;
+	}
+	/* slot mapping is not need if there is only one group */
+	if (num_groups > 1) {
+		ret = afe_send_slot_mapping_cfg(
+				&i2s_port->slot_mapping,
+				port_id);
+		if (ret < 0) {
+			pr_err("%s: afe send failed %d\n", __func__, ret);
+			goto fail_cmd;
+		}
+	}
+
+	ret = afe_send_cmd_port_start(port_id);
+
+fail_cmd:
+	return ret;
+}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 int afe_tdm_port_start(u16 port_id, struct afe_tdm_port_config *tdm_port,
 		       u32 rate, u16 num_groups)
 {
@@ -3335,6 +3504,11 @@ static int __afe_port_start(u16 port_id, union afe_port_config *afe_config,
 		break;
 	case RT_PROXY_PORT_001_RX:
 	case RT_PROXY_PORT_001_TX:
+<<<<<<< HEAD
+=======
+	case RT_PROXY_PORT_002_RX:
+	case RT_PROXY_PORT_002_TX:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		cfg_type = AFE_PARAM_ID_RT_PROXY_CONFIG;
 		break;
 	case INT_BT_SCO_RX:
@@ -3698,6 +3872,61 @@ int afe_get_port_index(u16 port_id)
 		return IDX_AFE_PORT_ID_INT6_MI2S_RX;
 	case AFE_PORT_ID_INT6_MI2S_TX:
 		return IDX_AFE_PORT_ID_INT6_MI2S_TX;
+<<<<<<< HEAD
+=======
+	case AFE_PORT_ID_SECONDARY_MI2S_TX_1:
+		return IDX_AFE_PORT_ID_SECONDARY_MI2S_TX_1;
+	case AFE_PORT_ID_SECONDARY_MI2S_TX_2:
+		return IDX_AFE_PORT_ID_SECONDARY_MI2S_TX_2;
+	case AFE_PORT_ID_SECONDARY_MI2S_TX_3:
+		return IDX_AFE_PORT_ID_SECONDARY_MI2S_TX_3;
+	case AFE_PORT_ID_SECONDARY_MI2S_TX_4:
+		return IDX_AFE_PORT_ID_SECONDARY_MI2S_TX_4;
+	case AFE_PORT_ID_TERTIARY_MI2S_TX_1:
+		return IDX_AFE_PORT_ID_TERTIARY_MI2S_TX_1;
+	case AFE_PORT_ID_TERTIARY_MI2S_TX_2:
+		return IDX_AFE_PORT_ID_TERTIARY_MI2S_TX_2;
+	case AFE_PORT_ID_TERTIARY_MI2S_TX_3:
+		return IDX_AFE_PORT_ID_TERTIARY_MI2S_TX_3;
+	case AFE_PORT_ID_TERTIARY_MI2S_TX_4:
+		return IDX_AFE_PORT_ID_TERTIARY_MI2S_TX_4;
+	case AFE_PORT_ID_QUATERNARY_MI2S_TX_1:
+		return IDX_AFE_PORT_ID_QUATERNARY_MI2S_TX_1;
+	case AFE_PORT_ID_QUATERNARY_MI2S_TX_2:
+		return IDX_AFE_PORT_ID_QUATERNARY_MI2S_TX_2;
+	case AFE_PORT_ID_QUATERNARY_MI2S_TX_3:
+		return IDX_AFE_PORT_ID_QUATERNARY_MI2S_TX_3;
+	case AFE_PORT_ID_QUATERNARY_MI2S_TX_4:
+		return IDX_AFE_PORT_ID_QUATERNARY_MI2S_TX_4;
+	case AFE_PORT_ID_SECONDARY_MI2S_RX_1:
+		return IDX_AFE_PORT_ID_SECONDARY_MI2S_RX_1;
+	case AFE_PORT_ID_SECONDARY_MI2S_RX_2:
+		return IDX_AFE_PORT_ID_SECONDARY_MI2S_RX_2;
+	case AFE_PORT_ID_SECONDARY_MI2S_RX_3:
+		return IDX_AFE_PORT_ID_SECONDARY_MI2S_RX_3;
+	case AFE_PORT_ID_SECONDARY_MI2S_RX_4:
+		return IDX_AFE_PORT_ID_SECONDARY_MI2S_RX_4;
+	case AFE_PORT_ID_TERTIARY_MI2S_RX_1:
+		return IDX_AFE_PORT_ID_TERTIARY_MI2S_RX_1;
+	case AFE_PORT_ID_TERTIARY_MI2S_RX_2:
+		return IDX_AFE_PORT_ID_TERTIARY_MI2S_RX_2;
+	case AFE_PORT_ID_TERTIARY_MI2S_RX_3:
+		return IDX_AFE_PORT_ID_TERTIARY_MI2S_RX_3;
+	case AFE_PORT_ID_TERTIARY_MI2S_RX_4:
+		return IDX_AFE_PORT_ID_TERTIARY_MI2S_RX_4;
+	case AFE_PORT_ID_QUATERNARY_MI2S_RX_1:
+		return IDX_AFE_PORT_ID_QUATERNARY_MI2S_RX_1;
+	case AFE_PORT_ID_QUATERNARY_MI2S_RX_2:
+		return IDX_AFE_PORT_ID_QUATERNARY_MI2S_RX_2;
+	case AFE_PORT_ID_QUATERNARY_MI2S_RX_3:
+		return IDX_AFE_PORT_ID_QUATERNARY_MI2S_RX_3;
+	case AFE_PORT_ID_QUATERNARY_MI2S_RX_4:
+		return IDX_AFE_PORT_ID_QUATERNARY_MI2S_RX_4;
+	case RT_PROXY_PORT_002_RX:
+		return IDX_RT_PROXY_PORT_002_RX;
+	case RT_PROXY_PORT_002_TX:
+		return IDX_RT_PROXY_PORT_002_TX;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	default:
 		pr_err("%s: port 0x%x\n", __func__, port_id);
 		return -EINVAL;
@@ -4122,6 +4351,157 @@ int afe_port_group_set_param(u16 group_id,
 	return ret;
 }
 
+<<<<<<< HEAD
+=======
+static int afe_port_group_mi2s_set_param(u16 group_id,
+	struct afe_param_id_group_device_i2s_cfg_v1 *afe_group_config)
+{
+	struct param_hdr_v3 param_hdr = {0};
+	int cfg_type;
+	int ret;
+
+	if (!afe_group_config) {
+		pr_err("%s: Error, no configuration data\n", __func__);
+		return -EINVAL;
+	}
+
+	pr_debug("%s: group id: 0x%x\n", __func__, group_id);
+
+	ret = afe_q6_interface_prepare();
+	if (ret != 0) {
+		pr_err("%s: Q6 interface prepare failed %d\n", __func__, ret);
+		return ret;
+	}
+
+	switch (group_id) {
+	case AFE_GROUP_DEVICE_ID_SECONDARY_MI2S_RX:
+	case AFE_GROUP_DEVICE_ID_SECONDARY_MI2S_TX:
+	case AFE_GROUP_DEVICE_ID_TERTIARY_MI2S_RX:
+	case AFE_GROUP_DEVICE_ID_TERTIARY_MI2S_TX:
+	case AFE_GROUP_DEVICE_ID_QUATERNARY_MI2S_RX:
+	case AFE_GROUP_DEVICE_ID_QUATERNARY_MI2S_TX:
+		cfg_type = AFE_PARAM_ID_GROUP_DEVICE_I2S_CONFIG;
+		break;
+	default:
+		pr_err("%s: Invalid group id 0x%x\n", __func__, group_id);
+		return -EINVAL;
+	}
+
+	param_hdr.module_id = AFE_MODULE_GROUP_DEVICE;
+	param_hdr.instance_id = INSTANCE_ID_0;
+	param_hdr.param_id = cfg_type;
+	param_hdr.param_size =
+		sizeof(struct afe_param_id_group_device_i2s_cfg_v1);
+
+	ret = q6afe_svc_pack_and_set_param_in_band(IDX_GLOBAL_CFG, param_hdr,
+						   (u8 *) afe_group_config);
+	if (ret)
+		pr_err("%s: AFE_PARAM_ID_GROUP_DEVICE_CFG failed %d\n",
+			__func__, ret);
+
+	return ret;
+}
+
+static atomic_t mi2s_gp_en_ref[IDX_GROUP_MI2S_MAX];
+static int afe_get_mi2s_group_idx(u16 group_id)
+{
+	int gp_idx = -1;
+
+	switch (group_id) {
+	case AFE_GROUP_DEVICE_ID_SECONDARY_MI2S_RX:
+		gp_idx = IDX_GROUP_SECONDARY_MI2S_RX;
+		break;
+	case AFE_GROUP_DEVICE_ID_SECONDARY_MI2S_TX:
+		gp_idx = IDX_GROUP_SECONDARY_MI2S_TX;
+		break;
+	case AFE_GROUP_DEVICE_ID_TERTIARY_MI2S_RX:
+		gp_idx = IDX_GROUP_TERTIARY_MI2S_RX;
+		break;
+	case AFE_GROUP_DEVICE_ID_TERTIARY_MI2S_TX:
+		gp_idx = IDX_GROUP_TERTIARY_MI2S_TX;
+		break;
+	case AFE_GROUP_DEVICE_ID_QUATERNARY_MI2S_RX:
+		gp_idx = IDX_GROUP_QUATERNARY_MI2S_RX;
+		break;
+	case AFE_GROUP_DEVICE_ID_QUATERNARY_MI2S_TX:
+		gp_idx = IDX_GROUP_QUATERNARY_MI2S_TX;
+		break;
+	default:
+		break;
+	}
+
+	return gp_idx;
+}
+
+int afe_port_group_mi2s_enable(u16 group_id,
+	union afe_port_group_mi2s_config *afe_group_config,
+	u16 enable)
+{
+	struct afe_param_id_group_device_enable group_enable = {0};
+	struct param_hdr_v3 param_hdr = {0};
+	int ret = 0;
+	int gp_idx;
+
+	pr_debug("%s: group id: 0x%x enable: %d\n", __func__,
+		group_id, enable);
+
+	gp_idx = afe_get_mi2s_group_idx(group_id);
+
+	if ((gp_idx >= 0) && (gp_idx < IDX_GROUP_MI2S_MAX)) {
+
+		atomic_t *gp_ref = &mi2s_gp_en_ref[gp_idx];
+
+		if (enable)
+			atomic_inc(gp_ref);
+		else
+			atomic_dec(gp_ref);
+
+		if ((enable) && (atomic_read(gp_ref) > 1)) {
+			pr_err("%s: this TDM group is enabled already %d  refs_cnt %d\n",
+				__func__, group_id, atomic_read(gp_ref));
+			goto rtn;
+		}
+
+		if ((!enable) && (atomic_read(gp_ref) > 0)) {
+			pr_err("%s: this TDM group will be disabled in last call %d refs_cnt %d\n",
+				__func__, group_id, atomic_read(gp_ref));
+			goto rtn;
+		}
+	}
+
+	ret = afe_q6_interface_prepare();
+	if (ret != 0) {
+		pr_err("%s: Q6 interface prepare failed %d\n", __func__, ret);
+		return ret;
+	}
+
+	if (enable) {
+		ret = afe_port_group_mi2s_set_param(
+			group_id, &afe_group_config->i2s_cfg);
+		if (ret < 0) {
+			pr_err("%s: afe send failed %d\n", __func__, ret);
+			return ret;
+		}
+	}
+
+	param_hdr.module_id = AFE_MODULE_GROUP_DEVICE;
+	param_hdr.instance_id = INSTANCE_ID_0;
+	param_hdr.param_id = AFE_PARAM_ID_GROUP_DEVICE_ENABLE;
+	param_hdr.param_size = sizeof(struct afe_group_device_enable);
+	group_enable.group_id = group_id;
+	group_enable.enable = enable;
+
+	ret = q6afe_svc_pack_and_set_param_in_band(IDX_GLOBAL_CFG, param_hdr,
+						   (u8 *) &group_enable);
+	if (ret)
+		pr_err("%s: AFE_PARAM_ID_GROUP_DEVICE_ENABLE failed %d\n",
+			__func__, ret);
+
+rtn:
+	return ret;
+}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 int afe_port_group_enable(u16 group_id,
 	union afe_port_group_config *afe_group_config,
 	u16 enable)
@@ -5527,6 +5907,11 @@ int afe_validate_port(u16 port_id)
 	case AFE_PORT_ID_INT4_MI2S_TX:
 	case AFE_PORT_ID_INT5_MI2S_TX:
 	case AFE_PORT_ID_INT6_MI2S_TX:
+<<<<<<< HEAD
+=======
+	case RT_PROXY_PORT_002_RX:
+	case RT_PROXY_PORT_002_TX:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	{
 		ret = 0;
 		break;
@@ -6986,6 +7371,7 @@ done:
 }
 EXPORT_SYMBOL(afe_release_all_dma_resources);
 
+<<<<<<< HEAD
 #ifdef CONFIG_SND_SOC_TFA9874
 #ifdef CONFIG_BROKEN
 static int fill_afe_apr_hdr(struct apr_hdr *apr_hdr, uint32_t port,
@@ -7189,6 +7575,8 @@ int send_tfa_cal_in_band(void *buf, int cmd_size)
 }
 #endif /* CONFIG_SND_SOC_TFA9874 */
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int __init afe_init(void)
 {
 	int i = 0, ret;
@@ -7226,9 +7614,12 @@ static int __init afe_init(void)
 
 static void __exit afe_exit(void)
 {
+<<<<<<< HEAD
 #ifdef CONFIG_SND_SOC_TFA9874
 	afe_unmap_rtac_block(&this_afe.tfa_cal.map_data.map_handle);
 #endif
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	afe_delete_cal_data();
 
 	config_debug_fs_exit();

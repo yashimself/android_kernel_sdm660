@@ -164,7 +164,11 @@ int mlx4_en_DUMP_ETH_STATS(struct mlx4_en_dev *mdev, u8 port, u8 reset)
 		return PTR_ERR(mailbox);
 	err = mlx4_cmd_box(mdev->dev, 0, mailbox->dma, in_mod, 0,
 			   MLX4_CMD_DUMP_ETH_STATS, MLX4_CMD_TIME_CLASS_B,
+<<<<<<< HEAD
 			   MLX4_CMD_NATIVE);
+=======
+			   MLX4_CMD_WRAPPED);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (err)
 		goto out;
 
@@ -325,7 +329,11 @@ int mlx4_en_DUMP_ETH_STATS(struct mlx4_en_dev *mdev, u8 port, u8 reset)
 		err = mlx4_cmd_box(mdev->dev, 0, mailbox->dma,
 				   in_mod | MLX4_DUMP_ETH_STATS_FLOW_CONTROL,
 				   0, MLX4_CMD_DUMP_ETH_STATS,
+<<<<<<< HEAD
 				   MLX4_CMD_TIME_CLASS_B, MLX4_CMD_NATIVE);
+=======
+				   MLX4_CMD_TIME_CLASS_B, MLX4_CMD_WRAPPED);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (err)
 			goto out;
 	}

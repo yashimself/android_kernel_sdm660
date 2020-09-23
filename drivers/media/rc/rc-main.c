@@ -61,7 +61,11 @@ struct rc_map *rc_map_get(const char *name)
 	struct rc_map_list *map;
 
 	map = seek_rc_map(name);
+<<<<<<< HEAD
 #ifdef CONFIG_MODULES
+=======
+#ifdef MODULE
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!map) {
 		int rc = request_module("%s", name);
 		if (rc < 0) {

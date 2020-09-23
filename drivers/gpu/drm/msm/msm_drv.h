@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2016-2018, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2016-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * Copyright (C) 2013 Red Hat
  * Author: Rob Clark <robdclark@gmail.com>
  *
@@ -196,12 +200,20 @@ enum msm_display_compression {
  * @MSM_DISPLAY_CAP_CMD_MODE:           Command mode supported
  * @MSM_DISPLAY_CAP_HOT_PLUG:           Hot plug detection supported
  * @MSM_DISPLAY_CAP_EDID:               EDID supported
+<<<<<<< HEAD
+=======
+ * @MSM_DISPLAY_CAP_SHARED:             Display is shared
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  */
 enum msm_display_caps {
 	MSM_DISPLAY_CAP_VID_MODE	= BIT(0),
 	MSM_DISPLAY_CAP_CMD_MODE	= BIT(1),
 	MSM_DISPLAY_CAP_HOT_PLUG	= BIT(2),
 	MSM_DISPLAY_CAP_EDID		= BIT(3),
+<<<<<<< HEAD
+=======
+	MSM_DISPLAY_CAP_SHARED		= BIT(4),
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 /**
@@ -317,6 +329,10 @@ struct msm_drm_private {
 
 	/* crtcs pending async atomic updates: */
 	uint32_t pending_crtcs;
+<<<<<<< HEAD
+=======
+	uint32_t pending_planes;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	wait_queue_head_t pending_crtcs_event;
 
 	/* Registered address spaces.. currently this is fixed per # of

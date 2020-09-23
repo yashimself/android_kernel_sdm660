@@ -496,7 +496,11 @@ static inline unsigned int regulator_get_mode(struct regulator *regulator)
 
 static inline int regulator_set_load(struct regulator *regulator, int load_uA)
 {
+<<<<<<< HEAD
 	return 0;
+=======
+	return REGULATOR_MODE_NORMAL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static inline int regulator_allow_bypass(struct regulator *regulator,

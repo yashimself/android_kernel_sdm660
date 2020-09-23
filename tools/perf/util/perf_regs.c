@@ -12,6 +12,7 @@ int perf_reg_value(u64 *valp, struct regs_dump *regs, int id)
 	int i, idx = 0;
 	u64 mask = regs->mask;
 
+<<<<<<< HEAD
 	if (regs->cache_mask & (1ULL << id))
 		goto out;
 
@@ -24,6 +25,20 @@ int perf_reg_value(u64 *valp, struct regs_dump *regs, int id)
 	}
 
 	regs->cache_mask |= (1ULL << id);
+=======
+	if (regs->cache_mask & (1 << id))
+		goto out;
+
+	if (!(mask & (1 << id)))
+		return -EINVAL;
+
+	for (i = 0; i < id; i++) {
+		if (mask & (1 << i))
+			idx++;
+	}
+
+	regs->cache_mask |= (1 << id);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	regs->cache_regs[id] = regs->regs[idx];
 
 out:

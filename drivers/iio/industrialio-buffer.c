@@ -527,7 +527,11 @@ static int iio_compute_scan_bytes(struct iio_dev *indio_dev,
 {
 	const struct iio_chan_spec *ch;
 	unsigned bytes = 0;
+<<<<<<< HEAD
 	int length, i, largest = 0;
+=======
+	int length, i;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* How much space will the demuxed element take? */
 	for_each_set_bit(i, mask,
@@ -540,7 +544,10 @@ static int iio_compute_scan_bytes(struct iio_dev *indio_dev,
 			length = ch->scan_type.storagebits / 8;
 		bytes = ALIGN(bytes, length);
 		bytes += length;
+<<<<<<< HEAD
 		largest = max(largest, length);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 	if (timestamp) {
 		ch = iio_find_channel_from_si(indio_dev,
@@ -552,10 +559,14 @@ static int iio_compute_scan_bytes(struct iio_dev *indio_dev,
 			length = ch->scan_type.storagebits / 8;
 		bytes = ALIGN(bytes, length);
 		bytes += length;
+<<<<<<< HEAD
 		largest = max(largest, length);
 	}
 
 	bytes = ALIGN(bytes, largest);
+=======
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return bytes;
 }
 

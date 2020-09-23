@@ -281,6 +281,10 @@ Optional Properties:
 						suspending USB path for fake
 						battery.
 - qcom,vchg_sns-vadc		Phandle of the VADC node.
+<<<<<<< HEAD
+=======
+- qcom,usbin-vadc		Phandle of the VADC node.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 - qcom,vchg-adc-channel-id	The ADC channel to which the VCHG is routed.
 
 Example:

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2015-2016, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2015-2016, 2020, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -67,6 +71,10 @@ struct cec_ops {
 	int (*send_msg)(void *data,
 		struct cec_msg *msg);
 	void (*wt_logical_addr)(void *data, u8 addr);
+<<<<<<< HEAD
+=======
+	void (*clear_logical_addr)(void *data, bool flag);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	void (*wakeup_en)(void *data, bool en);
 	bool (*is_wakeup_en)(void *data);
 	void (*device_suspend)(void *data, bool suspend);

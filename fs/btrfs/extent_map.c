@@ -227,6 +227,7 @@ static void try_merge_map(struct extent_map_tree *tree, struct extent_map *em)
 	struct extent_map *merge = NULL;
 	struct rb_node *rb;
 
+<<<<<<< HEAD
 	/*
 	 * We can't modify an extent map that is in the tree and that is being
 	 * used by another task, as it can cause that other task to see it in
@@ -238,6 +239,8 @@ static void try_merge_map(struct extent_map_tree *tree, struct extent_map *em)
 	if (atomic_read(&em->refs) > 2)
 		return;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (em->start != 0) {
 		rb = rb_prev(&em->rb_node);
 		if (rb)

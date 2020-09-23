@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ARCH=x86_64
 BRANCH=android-4.4
 CLANG_TRIPLE=x86_64-linux-gnu-
@@ -14,3 +15,10 @@ vmlinux
 System.map
 "
 STOP_SHIP_TRACEPRINTK=1
+=======
+. ${ROOT_DIR}/common/build.config.common
+. ${ROOT_DIR}/common/build.config.x86_64
+
+DEFCONFIG=x86_64_cuttlefish_defconfig
+POST_DEFCONFIG_CMDS="check_defconfig"
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

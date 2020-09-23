@@ -945,7 +945,11 @@ static void rpmsg_ns_cb(struct rpmsg_channel *rpdev, void *data, int len,
 static int rpmsg_probe(struct virtio_device *vdev)
 {
 	vq_callback_t *vq_cbs[] = { rpmsg_recv_done, rpmsg_xmit_done };
+<<<<<<< HEAD
 	const char *names[] = { "input", "output" };
+=======
+	static const char * const names[] = { "input", "output" };
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct virtqueue *vqs[2];
 	struct virtproc_info *vrp;
 	void *bufs_va;

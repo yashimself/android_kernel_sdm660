@@ -10,8 +10,11 @@ endif
 obj-$(CONFIG_CRYPTO_DEV_QCRYPTO) += qcrypto.o
 obj-$(CONFIG_CRYPTO_DEV_OTA_CRYPTO) += ota_crypto.o
 obj-$(CONFIG_CRYPTO_DEV_QCOM_ICE) += ice.o
+<<<<<<< HEAD
 
 # TODO: remove me b/62058353
 subdir-ccflags-y += \
 	$(call cc-option,-Wno-frame-larger-than=) \
 	-Wno-ignored-attributes
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

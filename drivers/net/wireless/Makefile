@@ -51,6 +51,11 @@ obj-$(CONFIG_ATH_CARDS)		+= ath/
 
 obj-$(CONFIG_MAC80211_HWSIM)	+= mac80211_hwsim.o
 
+<<<<<<< HEAD
+=======
+obj-$(CONFIG_VIRT_WIFI)	+= virt_wifi.o
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 obj-$(CONFIG_WL_TI)	+= ti/
 
 obj-$(CONFIG_MWIFIEX)	+= mwifiex/

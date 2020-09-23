@@ -3114,6 +3114,7 @@ static const struct alg_test_desc alg_test_descs[] = {
 			}
 		}
 	}, {
+<<<<<<< HEAD
 		.alg = "ecb(speck128)",
 		.test = alg_test_skcipher,
 		.suite = {
@@ -3144,6 +3145,8 @@ static const struct alg_test_desc alg_test_descs[] = {
 			}
 		}
 	}, {
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		.alg = "ecb(tea)",
 		.test = alg_test_skcipher,
 		.suite = {
@@ -3889,6 +3892,7 @@ static const struct alg_test_desc alg_test_descs[] = {
 			}
 		}
 	}, {
+<<<<<<< HEAD
 		.alg = "xts(speck128)",
 		.test = alg_test_skcipher,
 		.suite = {
@@ -3919,6 +3923,8 @@ static const struct alg_test_desc alg_test_descs[] = {
 			}
 		}
 	}, {
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		.alg = "xts(twofish)",
 		.test = alg_test_skcipher,
 		.suite = {

@@ -1206,7 +1206,10 @@ void rtl92de_enable_interrupt(struct ieee80211_hw *hw)
 
 	rtl_write_dword(rtlpriv, REG_HIMR, rtlpci->irq_mask[0] & 0xFFFFFFFF);
 	rtl_write_dword(rtlpriv, REG_HIMRE, rtlpci->irq_mask[1] & 0xFFFFFFFF);
+<<<<<<< HEAD
 	rtlpci->irq_enabled = true;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 void rtl92de_disable_interrupt(struct ieee80211_hw *hw)
@@ -1216,7 +1219,11 @@ void rtl92de_disable_interrupt(struct ieee80211_hw *hw)
 
 	rtl_write_dword(rtlpriv, REG_HIMR, IMR8190_DISABLED);
 	rtl_write_dword(rtlpriv, REG_HIMRE, IMR8190_DISABLED);
+<<<<<<< HEAD
 	rtlpci->irq_enabled = false;
+=======
+	synchronize_irq(rtlpci->pdev->irq);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static void _rtl92de_poweroff_adapter(struct ieee80211_hw *hw)
@@ -1387,7 +1394,11 @@ void rtl92de_set_beacon_related_registers(struct ieee80211_hw *hw)
 
 	bcn_interval = mac->beacon_interval;
 	atim_window = 2;
+<<<<<<< HEAD
 	rtl92de_disable_interrupt(hw);
+=======
+	/*rtl92de_disable_interrupt(hw);  */
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	rtl_write_word(rtlpriv, REG_ATIMWND, atim_window);
 	rtl_write_word(rtlpriv, REG_BCN_INTERVAL, bcn_interval);
 	rtl_write_word(rtlpriv, REG_BCNTCFG, 0x660f);
@@ -1407,9 +1418,15 @@ void rtl92de_set_beacon_interval(struct ieee80211_hw *hw)
 
 	RT_TRACE(rtlpriv, COMP_BEACON, DBG_DMESG,
 		 "beacon_interval:%d\n", bcn_interval);
+<<<<<<< HEAD
 	rtl92de_disable_interrupt(hw);
 	rtl_write_word(rtlpriv, REG_BCN_INTERVAL, bcn_interval);
 	rtl92de_enable_interrupt(hw);
+=======
+	/* rtl92de_disable_interrupt(hw); */
+	rtl_write_word(rtlpriv, REG_BCN_INTERVAL, bcn_interval);
+	/* rtl92de_enable_interrupt(hw); */
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 void rtl92de_update_interrupt_mask(struct ieee80211_hw *hw,

@@ -413,8 +413,15 @@ static int __rfcomm_create_dev(struct sock *sk, void __user *arg)
 		dlc = rfcomm_dlc_exists(&req.src, &req.dst, req.channel);
 		if (IS_ERR(dlc))
 			return PTR_ERR(dlc);
+<<<<<<< HEAD
 		if (dlc)
 			return -EBUSY;
+=======
+		else if (dlc) {
+			rfcomm_dlc_put(dlc);
+			return -EBUSY;
+		}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		dlc = rfcomm_dlc_alloc(GFP_KERNEL);
 		if (!dlc)
 			return -ENOMEM;

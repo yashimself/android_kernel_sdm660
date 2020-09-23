@@ -911,7 +911,11 @@ static void rt2x00lib_channel(struct ieee80211_channel *entry,
 			      const int value)
 {
 	/* XXX: this assumption about the band is wrong for 802.11j */
+<<<<<<< HEAD
 	entry->band = channel <= 14 ? NL80211_BAND_2GHZ : NL80211_BAND_5GHZ;
+=======
+	entry->band = channel <= 14 ? IEEE80211_BAND_2GHZ : IEEE80211_BAND_5GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	entry->center_freq = ieee80211_channel_to_frequency(channel,
 							    entry->band);
 	entry->hw_value = value;
@@ -975,6 +979,7 @@ static int rt2x00lib_probe_hw_modes(struct rt2x00_dev *rt2x00dev,
 	 * Channels: 2.4 GHz
 	 */
 	if (spec->supported_bands & SUPPORT_BAND_2GHZ) {
+<<<<<<< HEAD
 		rt2x00dev->bands[NL80211_BAND_2GHZ].n_channels = 14;
 		rt2x00dev->bands[NL80211_BAND_2GHZ].n_bitrates = num_rates;
 		rt2x00dev->bands[NL80211_BAND_2GHZ].channels = channels;
@@ -982,6 +987,15 @@ static int rt2x00lib_probe_hw_modes(struct rt2x00_dev *rt2x00dev,
 		hw->wiphy->bands[NL80211_BAND_2GHZ] =
 		    &rt2x00dev->bands[NL80211_BAND_2GHZ];
 		memcpy(&rt2x00dev->bands[NL80211_BAND_2GHZ].ht_cap,
+=======
+		rt2x00dev->bands[IEEE80211_BAND_2GHZ].n_channels = 14;
+		rt2x00dev->bands[IEEE80211_BAND_2GHZ].n_bitrates = num_rates;
+		rt2x00dev->bands[IEEE80211_BAND_2GHZ].channels = channels;
+		rt2x00dev->bands[IEEE80211_BAND_2GHZ].bitrates = rates;
+		hw->wiphy->bands[IEEE80211_BAND_2GHZ] =
+		    &rt2x00dev->bands[IEEE80211_BAND_2GHZ];
+		memcpy(&rt2x00dev->bands[IEEE80211_BAND_2GHZ].ht_cap,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		       &spec->ht, sizeof(spec->ht));
 	}
 
@@ -991,6 +1005,7 @@ static int rt2x00lib_probe_hw_modes(struct rt2x00_dev *rt2x00dev,
 	 * Channels: OFDM, UNII, HiperLAN2.
 	 */
 	if (spec->supported_bands & SUPPORT_BAND_5GHZ) {
+<<<<<<< HEAD
 		rt2x00dev->bands[NL80211_BAND_5GHZ].n_channels =
 		    spec->num_channels - 14;
 		rt2x00dev->bands[NL80211_BAND_5GHZ].n_bitrates =
@@ -1000,6 +1015,17 @@ static int rt2x00lib_probe_hw_modes(struct rt2x00_dev *rt2x00dev,
 		hw->wiphy->bands[NL80211_BAND_5GHZ] =
 		    &rt2x00dev->bands[NL80211_BAND_5GHZ];
 		memcpy(&rt2x00dev->bands[NL80211_BAND_5GHZ].ht_cap,
+=======
+		rt2x00dev->bands[IEEE80211_BAND_5GHZ].n_channels =
+		    spec->num_channels - 14;
+		rt2x00dev->bands[IEEE80211_BAND_5GHZ].n_bitrates =
+		    num_rates - 4;
+		rt2x00dev->bands[IEEE80211_BAND_5GHZ].channels = &channels[14];
+		rt2x00dev->bands[IEEE80211_BAND_5GHZ].bitrates = &rates[4];
+		hw->wiphy->bands[IEEE80211_BAND_5GHZ] =
+		    &rt2x00dev->bands[IEEE80211_BAND_5GHZ];
+		memcpy(&rt2x00dev->bands[IEEE80211_BAND_5GHZ].ht_cap,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		       &spec->ht, sizeof(spec->ht));
 	}
 
@@ -1016,11 +1042,19 @@ static void rt2x00lib_remove_hw(struct rt2x00_dev *rt2x00dev)
 	if (test_bit(DEVICE_STATE_REGISTERED_HW, &rt2x00dev->flags))
 		ieee80211_unregister_hw(rt2x00dev->hw);
 
+<<<<<<< HEAD
 	if (likely(rt2x00dev->hw->wiphy->bands[NL80211_BAND_2GHZ])) {
 		kfree(rt2x00dev->hw->wiphy->bands[NL80211_BAND_2GHZ]->channels);
 		kfree(rt2x00dev->hw->wiphy->bands[NL80211_BAND_2GHZ]->bitrates);
 		rt2x00dev->hw->wiphy->bands[NL80211_BAND_2GHZ] = NULL;
 		rt2x00dev->hw->wiphy->bands[NL80211_BAND_5GHZ] = NULL;
+=======
+	if (likely(rt2x00dev->hw->wiphy->bands[IEEE80211_BAND_2GHZ])) {
+		kfree(rt2x00dev->hw->wiphy->bands[IEEE80211_BAND_2GHZ]->channels);
+		kfree(rt2x00dev->hw->wiphy->bands[IEEE80211_BAND_2GHZ]->bitrates);
+		rt2x00dev->hw->wiphy->bands[IEEE80211_BAND_2GHZ] = NULL;
+		rt2x00dev->hw->wiphy->bands[IEEE80211_BAND_5GHZ] = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	kfree(rt2x00dev->spec.channels_info);

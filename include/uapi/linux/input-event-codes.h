@@ -604,6 +604,7 @@
 #define KEY_BRIGHTNESS_MIN		0x250	/* Set Brightness to Minimum */
 #define KEY_BRIGHTNESS_MAX		0x251	/* Set Brightness to Maximum */
 
+<<<<<<< HEAD
 #if defined(CONFIG_MACH_ASUS_X00TD) || defined(CONFIG_MACH_ASUS_X01BD)
 #define FP_KEY_UP		0x258
 #define FP_KEY_DOWN		0x259
@@ -614,6 +615,8 @@
 #define FP_KEY_LONG_PRESS	0x25e
 #endif
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #define KEY_KBDINPUTASSIST_PREV		0x260
 #define KEY_KBDINPUTASSIST_NEXT		0x261
 #define KEY_KBDINPUTASSIST_PREVGROUP		0x262
@@ -663,6 +666,7 @@
 #define BTN_TRIGGER_HAPPY39		0x2e6
 #define BTN_TRIGGER_HAPPY40		0x2e7
 
+<<<<<<< HEAD
 #ifdef CONFIG_MACH_ASUS_SDM660
 #ifdef CONFIG_INPUT_SX9310
 #define KEY_SARSENSOR_NEAR		0x2ea
@@ -679,6 +683,8 @@
 #define KEY_TP_GESTURE_Z 		0x2EF
 #endif
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /* We avoid low common keys in module aliases so they don't get huge. */
 #define KEY_MIN_INTERESTING	KEY_MUTE
 #define KEY_MAX			0x2ff

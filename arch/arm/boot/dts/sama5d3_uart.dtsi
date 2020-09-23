@@ -42,13 +42,21 @@
 					uart0_clk: uart0_clk {
 						#clock-cells = <0>;
 						reg = <16>;
+<<<<<<< HEAD
 						atmel,clk-output-range = <0 83000000>;
+=======
+						atmel,clk-output-range = <0 66000000>;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 					};
 
 					uart1_clk: uart1_clk {
 						#clock-cells = <0>;
 						reg = <17>;
+<<<<<<< HEAD
 						atmel,clk-output-range = <0 83000000>;
+=======
+						atmel,clk-output-range = <0 66000000>;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 					};
 				};
 			};

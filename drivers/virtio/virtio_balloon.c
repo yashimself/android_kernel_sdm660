@@ -401,7 +401,11 @@ static int init_vqs(struct virtio_balloon *vb)
 {
 	struct virtqueue *vqs[3];
 	vq_callback_t *callbacks[] = { balloon_ack, balloon_ack, stats_request };
+<<<<<<< HEAD
 	const char *names[] = { "inflate", "deflate", "stats" };
+=======
+	static const char * const names[] = { "inflate", "deflate", "stats" };
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int err, nvqs;
 
 	/*
@@ -473,6 +477,7 @@ static int virtballoon_migratepage(struct balloon_dev_info *vb_dev_info,
 
 	get_page(newpage); /* balloon reference */
 
+<<<<<<< HEAD
 	/*
 	  * When we migrate a page to a different zone and adjusted the
 	  * managed page count when inflating, we have to fixup the count of
@@ -484,6 +489,8 @@ static int virtballoon_migratepage(struct balloon_dev_info *vb_dev_info,
 		adjust_managed_page_count(newpage, -1);
 	}
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* balloon's page migration 1st step  -- inflate "newpage" */
 	spin_lock_irqsave(&vb_dev_info->pages_lock, flags);
 	balloon_page_insert(vb_dev_info, newpage);

@@ -812,6 +812,7 @@ static void __init of_unittest_platform_populate(void)
 
 	of_platform_populate(np, match, NULL, &test_bus->dev);
 	for_each_child_of_node(np, child) {
+<<<<<<< HEAD
 		for_each_child_of_node(child, grandchild) {
 			pdev = of_find_device_by_node(grandchild);
 			unittest(pdev,
@@ -819,6 +820,12 @@ static void __init of_unittest_platform_populate(void)
 				 grandchild->name);
 			of_dev_put(pdev);
 		}
+=======
+		for_each_child_of_node(child, grandchild)
+			unittest(of_find_device_by_node(grandchild),
+				 "Could not create device for node '%s'\n",
+				 grandchild->name);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	of_platform_depopulate(&test_bus->dev);

@@ -205,10 +205,15 @@ static bool lmb_is_removable(struct of_drconf_cell *lmb)
 
 	for (i = 0; i < scns_per_block; i++) {
 		pfn = PFN_DOWN(phys_addr);
+<<<<<<< HEAD
 		if (!pfn_present(pfn)) {
 			phys_addr += MIN_MEMORY_BLOCK_SIZE;
 			continue;
 		}
+=======
+		if (!pfn_present(pfn))
+			continue;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		rc &= is_mem_section_removable(pfn, PAGES_PER_SECTION);
 		phys_addr += MIN_MEMORY_BLOCK_SIZE;

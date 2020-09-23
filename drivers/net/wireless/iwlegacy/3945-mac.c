@@ -1399,9 +1399,14 @@ il3945_dump_nic_error_log(struct il_priv *il)
 }
 
 static void
+<<<<<<< HEAD
 il3945_irq_tasklet(unsigned long data)
 {
 	struct il_priv *il = (struct il_priv *)data;
+=======
+il3945_irq_tasklet(struct il_priv *il)
+{
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	u32 inta, handled = 0;
 	u32 inta_fh;
 	unsigned long flags;
@@ -1548,7 +1553,11 @@ il3945_irq_tasklet(unsigned long data)
 }
 
 static int
+<<<<<<< HEAD
 il3945_get_channels_for_scan(struct il_priv *il, enum nl80211_band band,
+=======
+il3945_get_channels_for_scan(struct il_priv *il, enum ieee80211_band band,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			     u8 is_active, u8 n_probes,
 			     struct il3945_scan_channel *scan_ch,
 			     struct ieee80211_vif *vif)
@@ -1619,7 +1628,11 @@ il3945_get_channels_for_scan(struct il_priv *il, enum nl80211_band band,
 		/* scan_pwr_info->tpc.dsp_atten; */
 
 		/*scan_pwr_info->tpc.tx_gain; */
+<<<<<<< HEAD
 		if (band == NL80211_BAND_5GHZ)
+=======
+		if (band == IEEE80211_BAND_5GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			scan_ch->tpc.tx_gain = ((1 << 5) | (3 << 3)) | 3;
 		else {
 			scan_ch->tpc.tx_gain = ((1 << 5) | (5 << 3));
@@ -2535,7 +2548,11 @@ il3945_request_scan(struct il_priv *il, struct ieee80211_vif *vif)
 	};
 	struct il3945_scan_cmd *scan;
 	u8 n_probes = 0;
+<<<<<<< HEAD
 	enum nl80211_band band;
+=======
+	enum ieee80211_band band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	bool is_active = false;
 	int ret;
 	u16 len;
@@ -2616,6 +2633,7 @@ il3945_request_scan(struct il_priv *il, struct ieee80211_vif *vif)
 	/* flags + rate selection */
 
 	switch (il->scan_band) {
+<<<<<<< HEAD
 	case NL80211_BAND_2GHZ:
 		scan->flags = RXON_FLG_BAND_24G_MSK | RXON_FLG_AUTO_DETECT_MSK;
 		scan->tx_cmd.rate = RATE_1M_PLCP;
@@ -2624,6 +2642,16 @@ il3945_request_scan(struct il_priv *il, struct ieee80211_vif *vif)
 	case NL80211_BAND_5GHZ:
 		scan->tx_cmd.rate = RATE_6M_PLCP;
 		band = NL80211_BAND_5GHZ;
+=======
+	case IEEE80211_BAND_2GHZ:
+		scan->flags = RXON_FLG_BAND_24G_MSK | RXON_FLG_AUTO_DETECT_MSK;
+		scan->tx_cmd.rate = RATE_1M_PLCP;
+		band = IEEE80211_BAND_2GHZ;
+		break;
+	case IEEE80211_BAND_5GHZ:
+		scan->tx_cmd.rate = RATE_6M_PLCP;
+		band = IEEE80211_BAND_5GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	default:
 		IL_WARN("Invalid scan band\n");
@@ -3433,7 +3461,11 @@ il3945_setup_deferred_work(struct il_priv *il)
 	setup_timer(&il->watchdog, il_bg_watchdog, (unsigned long)il);
 
 	tasklet_init(&il->irq_tasklet,
+<<<<<<< HEAD
 		     il3945_irq_tasklet,
+=======
+		     (void (*)(unsigned long))il3945_irq_tasklet,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		     (unsigned long)il);
 }
 
@@ -3508,7 +3540,11 @@ il3945_init_drv(struct il_priv *il)
 
 	il->ieee_channels = NULL;
 	il->ieee_rates = NULL;
+<<<<<<< HEAD
 	il->band = NL80211_BAND_2GHZ;
+=======
+	il->band = IEEE80211_BAND_2GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	il->iw_mode = NL80211_IFTYPE_STATION;
 	il->missed_beacon_threshold = IL_MISSED_BEACON_THRESHOLD_DEF;
@@ -3583,6 +3619,7 @@ il3945_setup_mac(struct il_priv *il)
 	/* Default value; 4 EDCA QOS priorities */
 	hw->queues = 4;
 
+<<<<<<< HEAD
 	if (il->bands[NL80211_BAND_2GHZ].n_channels)
 		il->hw->wiphy->bands[NL80211_BAND_2GHZ] =
 		    &il->bands[NL80211_BAND_2GHZ];
@@ -3590,6 +3627,15 @@ il3945_setup_mac(struct il_priv *il)
 	if (il->bands[NL80211_BAND_5GHZ].n_channels)
 		il->hw->wiphy->bands[NL80211_BAND_5GHZ] =
 		    &il->bands[NL80211_BAND_5GHZ];
+=======
+	if (il->bands[IEEE80211_BAND_2GHZ].n_channels)
+		il->hw->wiphy->bands[IEEE80211_BAND_2GHZ] =
+		    &il->bands[IEEE80211_BAND_2GHZ];
+
+	if (il->bands[IEEE80211_BAND_5GHZ].n_channels)
+		il->hw->wiphy->bands[IEEE80211_BAND_5GHZ] =
+		    &il->bands[IEEE80211_BAND_5GHZ];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	il_leds_init(il);
 
@@ -3762,7 +3808,11 @@ il3945_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
 		goto out_release_irq;
 	}
 
+<<<<<<< HEAD
 	il_set_rxon_channel(il, &il->bands[NL80211_BAND_2GHZ].channels[5]);
+=======
+	il_set_rxon_channel(il, &il->bands[IEEE80211_BAND_2GHZ].channels[5]);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	il3945_setup_deferred_work(il);
 	il3945_setup_handlers(il);
 	il_power_initialize(il);

@@ -151,6 +151,10 @@ bool ovl_dentry_is_opaque(struct dentry *dentry);
 void ovl_dentry_set_opaque(struct dentry *dentry, bool opaque);
 bool ovl_is_whiteout(struct dentry *dentry);
 const struct cred *ovl_override_creds(struct super_block *sb);
+<<<<<<< HEAD
+=======
+void ovl_revert_creds(const struct cred *oldcred);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 void ovl_dentry_update(struct dentry *dentry, struct dentry *upperdentry);
 struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
 			  unsigned int flags);

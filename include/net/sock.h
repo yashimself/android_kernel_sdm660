@@ -1208,6 +1208,7 @@ static inline void memcg_memory_allocated_add(struct cg_proto *prot,
 					      unsigned long amt,
 					      int *parent_status)
 {
+<<<<<<< HEAD
 	struct page_counter *counter;
 
 	if (page_counter_try_charge(&prot->memory_allocated, amt, &counter))
@@ -1215,6 +1216,13 @@ static inline void memcg_memory_allocated_add(struct cg_proto *prot,
 
 	page_counter_charge(&prot->memory_allocated, amt);
 	*parent_status = OVER_LIMIT;
+=======
+	page_counter_charge(&prot->memory_allocated, amt);
+
+	if (page_counter_read(&prot->memory_allocated) >
+	    prot->memory_allocated.limit)
+		*parent_status = OVER_LIMIT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static inline void memcg_memory_allocated_sub(struct cg_proto *prot,
@@ -1288,7 +1296,11 @@ static inline void sk_sockets_allocated_inc(struct sock *sk)
 	percpu_counter_inc(prot->sockets_allocated);
 }
 
+<<<<<<< HEAD
 static inline u64
+=======
+static inline int
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 sk_sockets_allocated_read_positive(struct sock *sk)
 {
 	struct proto *prot = sk->sk_prot;
@@ -1657,6 +1669,7 @@ static inline void sock_put(struct sock *sk)
  */
 void sock_gen_put(struct sock *sk);
 
+<<<<<<< HEAD
 int __sk_receive_skb(struct sock *sk, struct sk_buff *skb, const int nested,
 		     unsigned int trim_cap);
 static inline int sk_receive_skb(struct sock *sk, struct sk_buff *skb,
@@ -1664,6 +1677,9 @@ static inline int sk_receive_skb(struct sock *sk, struct sk_buff *skb,
 {
 	return __sk_receive_skb(sk, skb, nested, 1);
 }
+=======
+int sk_receive_skb(struct sock *sk, struct sk_buff *skb, const int nested);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 static inline void sk_tx_queue_set(struct sock *sk, int tx_queue)
 {

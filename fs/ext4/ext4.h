@@ -589,8 +589,11 @@ enum {
 #define EXT4_ENCRYPTION_MODE_AES_256_GCM	2
 #define EXT4_ENCRYPTION_MODE_AES_256_CBC	3
 #define EXT4_ENCRYPTION_MODE_AES_256_CTS	4
+<<<<<<< HEAD
 #define EXT4_ENCRYPTION_MODE_SPECK128_256_XTS	7
 #define EXT4_ENCRYPTION_MODE_SPECK128_256_CTS	8
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #define EXT4_ENCRYPTION_MODE_PRIVATE		127
 #define EXT4_ENCRYPTION_MODE_AES_256_HEH	126
 
@@ -1307,7 +1310,11 @@ struct ext4_sb_info {
 	loff_t s_bitmap_maxbytes;	/* max bytes for bitmap files */
 	struct buffer_head * s_sbh;	/* Buffer containing the super block */
 	struct ext4_super_block *s_es;	/* Pointer to the super block in the buffer */
+<<<<<<< HEAD
 	struct buffer_head * __rcu *s_group_desc;
+=======
+	struct buffer_head **s_group_desc;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	unsigned int s_mount_opt;
 	unsigned int s_mount_opt2;
 	unsigned int s_mount_flags;
@@ -1367,7 +1374,11 @@ struct ext4_sb_info {
 #endif
 
 	/* for buddy allocator */
+<<<<<<< HEAD
 	struct ext4_group_info ** __rcu *s_group_info;
+=======
+	struct ext4_group_info ***s_group_info;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct inode *s_buddy_cache;
 	spinlock_t s_md_lock;
 	unsigned short *s_mb_offsets;
@@ -1414,7 +1425,11 @@ struct ext4_sb_info {
 	unsigned int s_extent_max_zeroout_kb;
 
 	unsigned int s_log_groups_per_flex;
+<<<<<<< HEAD
 	struct flex_groups * __rcu *s_flex_groups;
+=======
+	struct flex_groups *s_flex_groups;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	ext4_group_t s_flex_groups_allocated;
 
 	/* workqueue for reserved extent conversions (buffered io) */
@@ -1496,6 +1511,7 @@ static inline void ext4_inode_aio_set(struct inode *inode, ext4_io_end_t *io)
 }
 
 /*
+<<<<<<< HEAD
  * Returns: sbi->field[index]
  * Used to access an array element from the following sbi fields which require
  * rcu protection to avoid dereferencing an invalid pointer due to reassignment
@@ -1513,6 +1529,8 @@ static inline void ext4_inode_aio_set(struct inode *inode, ext4_io_end_t *io)
 })
 
 /*
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * Inode dynamic state flags
  */
 enum {
@@ -2274,7 +2292,11 @@ int ext4_get_policy(struct inode *inode,
 
 /* crypto.c */
 extern struct kmem_cache *ext4_crypt_info_cachep;
+<<<<<<< HEAD
 bool ext4_valid_enc_modes(uint32_t contents_mode, uint32_t filenames_mode);
+=======
+bool ext4_valid_contents_enc_mode(uint32_t mode);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 uint32_t ext4_validate_encryption_key_size(uint32_t mode, uint32_t size);
 extern struct workqueue_struct *ext4_read_workqueue;
 struct ext4_crypto_ctx *ext4_get_crypto_ctx(struct inode *inode,
@@ -2306,6 +2328,10 @@ static inline int ext4_sb_has_crypto(struct super_block *sb)
 #endif
 
 /* crypto_fname.c */
+<<<<<<< HEAD
+=======
+bool ext4_valid_filenames_enc_mode(uint32_t mode);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 u32 ext4_fname_crypto_round_up(u32 size, u32 blksize);
 unsigned ext4_fname_encrypted_size(struct inode *inode, u32 ilen);
 int ext4_fname_crypto_alloc_buffer(struct inode *inode,
@@ -2426,11 +2452,16 @@ int ext4_insert_dentry(struct inode *dir,
 		       struct ext4_filename *fname);
 static inline void ext4_update_dx_flag(struct inode *inode)
 {
+<<<<<<< HEAD
 	if (!ext4_has_feature_dir_index(inode->i_sb)) {
 		/* ext4_iget() should have caught this... */
 		WARN_ON_ONCE(ext4_has_feature_metadata_csum(inode->i_sb));
 		ext4_clear_inode_flag(inode, EXT4_INODE_INDEX);
 	}
+=======
+	if (!ext4_has_feature_dir_index(inode->i_sb))
+		ext4_clear_inode_flag(inode, EXT4_INODE_INDEX);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 static unsigned char ext4_filetype_table[] = {
 	DT_UNKNOWN, DT_REG, DT_DIR, DT_CHR, DT_BLK, DT_FIFO, DT_SOCK, DT_LNK
@@ -2526,6 +2557,7 @@ int do_journal_get_write_access(handle_t *handle,
 #define FALL_BACK_TO_NONDELALLOC 1
 #define CONVERT_INLINE_DATA	 2
 
+<<<<<<< HEAD
 typedef enum {
 	EXT4_IGET_NORMAL =	0,
 	EXT4_IGET_SPECIAL =	0x0001, /* OK to iget a system inode */
@@ -2539,6 +2571,10 @@ extern struct inode *__ext4_iget(struct super_block *sb, unsigned long ino,
 #define ext4_iget(sb, ino, flags) \
 	__ext4_iget((sb), (ino), (flags), __func__, __LINE__)
 
+=======
+extern struct inode *ext4_iget(struct super_block *, unsigned long);
+extern struct inode *ext4_iget_normal(struct super_block *, unsigned long);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 extern int  ext4_write_inode(struct inode *, struct writeback_control *);
 extern int  ext4_setattr(struct dentry *, struct iattr *);
 extern int  ext4_getattr(struct vfsmount *mnt, struct dentry *dentry,
@@ -2614,7 +2650,10 @@ extern int ext4_generic_delete_entry(handle_t *handle,
 extern int ext4_empty_dir(struct inode *inode);
 
 /* resize.c */
+<<<<<<< HEAD
 extern void ext4_kvfree_array_rcu(void *to_free);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 extern int ext4_group_add(struct super_block *sb,
 				struct ext4_new_group_data *input);
 extern int ext4_group_extend(struct super_block *sb,
@@ -2855,6 +2894,7 @@ static inline
 struct ext4_group_info *ext4_get_group_info(struct super_block *sb,
 					    ext4_group_t group)
 {
+<<<<<<< HEAD
 	 struct ext4_group_info **grp_info;
 	 long indexv, indexh;
 	 BUG_ON(group >= EXT4_SB(sb)->s_groups_count);
@@ -2862,6 +2902,15 @@ struct ext4_group_info *ext4_get_group_info(struct super_block *sb,
 	 indexh = group & ((EXT4_DESC_PER_BLOCK(sb)) - 1);
 	 grp_info = sbi_array_rcu_deref(EXT4_SB(sb), s_group_info, indexv);
 	 return grp_info[indexh];
+=======
+	 struct ext4_group_info ***grp_info;
+	 long indexv, indexh;
+	 BUG_ON(group >= EXT4_SB(sb)->s_groups_count);
+	 grp_info = EXT4_SB(sb)->s_group_info;
+	 indexv = group >> (EXT4_DESC_PER_BLOCK_BITS(sb));
+	 indexh = group & ((EXT4_DESC_PER_BLOCK(sb)) - 1);
+	 return grp_info[indexv][indexh];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /*
@@ -2911,7 +2960,11 @@ static inline void ext4_update_i_disksize(struct inode *inode, loff_t newsize)
 		     !mutex_is_locked(&inode->i_mutex));
 	down_write(&EXT4_I(inode)->i_data_sem);
 	if (newsize > EXT4_I(inode)->i_disksize)
+<<<<<<< HEAD
 		WRITE_ONCE(EXT4_I(inode)->i_disksize, newsize);
+=======
+		EXT4_I(inode)->i_disksize = newsize;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	up_write(&EXT4_I(inode)->i_data_sem);
 }
 

@@ -1031,7 +1031,11 @@ static int dsa_slave_phy_setup(struct dsa_slave_priv *p,
 	p->phy_interface = mode;
 
 	phy_dn = of_parse_phandle(port_dn, "phy-handle", 0);
+<<<<<<< HEAD
 	if (!phy_dn && of_phy_is_fixed_link(port_dn)) {
+=======
+	if (of_phy_is_fixed_link(port_dn)) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		/* In the case of a fixed PHY, the DT node associated
 		 * to the fixed PHY is the Port DT node
 		 */
@@ -1041,7 +1045,11 @@ static int dsa_slave_phy_setup(struct dsa_slave_priv *p,
 			return ret;
 		}
 		phy_is_fixed = true;
+<<<<<<< HEAD
 		phy_dn = of_node_get(port_dn);
+=======
+		phy_dn = port_dn;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	if (ds->drv->get_phy_flags)
@@ -1060,7 +1068,10 @@ static int dsa_slave_phy_setup(struct dsa_slave_priv *p,
 			ret = dsa_slave_phy_connect(p, slave_dev, phy_id);
 			if (ret) {
 				netdev_err(slave_dev, "failed to connect to phy%d: %d\n", phy_id, ret);
+<<<<<<< HEAD
 				of_node_put(phy_dn);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				return ret;
 			}
 		} else {
@@ -1069,8 +1080,11 @@ static int dsa_slave_phy_setup(struct dsa_slave_priv *p,
 						phy_flags,
 						p->phy_interface);
 		}
+<<<<<<< HEAD
 
 		of_node_put(phy_dn);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	if (p->phy && phy_is_fixed)

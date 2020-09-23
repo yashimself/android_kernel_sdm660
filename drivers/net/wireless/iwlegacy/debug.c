@@ -544,7 +544,11 @@ il_dbgfs_channels_read(struct file *file, char __user *user_buf, size_t count,
 		return -ENOMEM;
 	}
 
+<<<<<<< HEAD
 	supp_band = il_get_hw_mode(il, NL80211_BAND_2GHZ);
+=======
+	supp_band = il_get_hw_mode(il, IEEE80211_BAND_2GHZ);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (supp_band) {
 		channels = supp_band->channels;
 
@@ -571,7 +575,11 @@ il_dbgfs_channels_read(struct file *file, char __user *user_buf, size_t count,
 				      flags & IEEE80211_CHAN_NO_IR ?
 				      "passive only" : "active/passive");
 	}
+<<<<<<< HEAD
 	supp_band = il_get_hw_mode(il, NL80211_BAND_5GHZ);
+=======
+	supp_band = il_get_hw_mode(il, IEEE80211_BAND_5GHZ);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (supp_band) {
 		channels = supp_band->channels;
 

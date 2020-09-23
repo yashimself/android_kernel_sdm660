@@ -2285,7 +2285,14 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
 			return ret;
 		}
 
+<<<<<<< HEAD
 		ret = __cpufreq_governor(policy, CPUFREQ_GOV_POLICY_EXIT);
+=======
+		up_write(&policy->rwsem);
+		ret = __cpufreq_governor(policy, CPUFREQ_GOV_POLICY_EXIT);
+		down_write(&policy->rwsem);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (ret) {
 			pr_err("%s: Failed to Exit Governor: %s (%d)\n",
 			       __func__, old_gov->name, ret);
@@ -2301,7 +2308,13 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
 		if (!ret)
 			goto out;
 
+<<<<<<< HEAD
 		__cpufreq_governor(policy, CPUFREQ_GOV_POLICY_EXIT);
+=======
+		up_write(&policy->rwsem);
+		__cpufreq_governor(policy, CPUFREQ_GOV_POLICY_EXIT);
+		down_write(&policy->rwsem);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	/* new governor failed, so re-start old one */
@@ -2538,6 +2551,7 @@ int cpufreq_register_driver(struct cpufreq_driver *driver_data)
 	if (cpufreq_disabled())
 		return -ENODEV;
 
+<<<<<<< HEAD
 	/*
 	 * The cpufreq core depends heavily on the availability of device
 	 * structure, make sure they are available before proceeding further.
@@ -2545,6 +2559,8 @@ int cpufreq_register_driver(struct cpufreq_driver *driver_data)
 	if (!get_cpu_device(0))
 		return -EPROBE_DEFER;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!driver_data || !driver_data->verify || !driver_data->init ||
 	    !(driver_data->setpolicy || driver_data->target_index ||
 		    driver_data->target) ||

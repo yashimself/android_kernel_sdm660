@@ -392,8 +392,12 @@ static struct notifier_block xen_memory_nb = {
 #else
 static enum bp_state reserve_additional_memory(void)
 {
+<<<<<<< HEAD
 	balloon_stats.target_pages = balloon_stats.current_pages +
 				     balloon_stats.target_unpopulated;
+=======
+	balloon_stats.target_pages = balloon_stats.current_pages;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return BP_ECANCELED;
 }
 #endif /* CONFIG_XEN_BALLOON_MEMORY_HOTPLUG */
@@ -584,6 +588,7 @@ static void balloon_process(struct work_struct *work)
 				state = reserve_additional_memory();
 		}
 
+<<<<<<< HEAD
 		if (credit < 0) {
 			long n_pages;
 
@@ -593,6 +598,10 @@ static void balloon_process(struct work_struct *work)
 			    n_pages < totalreserve_pages)
 				state = BP_EAGAIN;
 		}
+=======
+		if (credit < 0)
+			state = decrease_reservation(-credit, GFP_BALLOON);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		state = update_schedule(state);
 
@@ -631,9 +640,12 @@ static int add_ballooned_pages(int nr_pages)
 		}
 	}
 
+<<<<<<< HEAD
 	if (si_mem_available() < nr_pages)
 		return -ENOMEM;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	st = decrease_reservation(nr_pages, GFP_USER);
 	if (st != BP_DONE)
 		return -ENOMEM;
@@ -757,7 +769,11 @@ static int __init balloon_init(void)
 	balloon_stats.schedule_delay = 1;
 	balloon_stats.max_schedule_delay = 32;
 	balloon_stats.retry_count = 1;
+<<<<<<< HEAD
 	balloon_stats.max_retry_count = 4;
+=======
+	balloon_stats.max_retry_count = RETRY_UNLIMITED;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #ifdef CONFIG_XEN_BALLOON_MEMORY_HOTPLUG
 	set_online_page_callback(&xen_online_page);

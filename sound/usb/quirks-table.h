@@ -3293,14 +3293,29 @@ AU0828_DEVICE(0x2040, 0x7270, "Hauppauge", "HVR-950Q"),
 				.ifnum = 0,
 				.type = QUIRK_AUDIO_STANDARD_MIXER,
 			},
+<<<<<<< HEAD
 			/* Playback */
 			{
 				.ifnum = 1,
+=======
+			/* Capture */
+			{
+				.ifnum = 1,
+				.type = QUIRK_IGNORE_INTERFACE,
+			},
+			/* Playback */
+			{
+				.ifnum = 2,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
 				.data = &(const struct audioformat) {
 					.formats = SNDRV_PCM_FMTBIT_S16_LE,
 					.channels = 2,
+<<<<<<< HEAD
 					.iface = 1,
+=======
+					.iface = 2,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 					.altsetting = 1,
 					.altset_idx = 1,
 					.attributes = UAC_EP_CS_ATTR_FILL_MAX |

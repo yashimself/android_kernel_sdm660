@@ -742,7 +742,11 @@ ssize_t ipa_read(struct file *filp, char __user *buf, size_t count,
 				break;
 			}
 			if (copy_to_user(buf, &msg->meta,
+<<<<<<< HEAD
 					  sizeof(struct ipa_msg_meta))) {
+=======
+					sizeof(struct ipa_msg_meta))) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				kfree(msg);
 				msg = NULL;
 				ret = -EFAULT;
@@ -753,7 +757,11 @@ ssize_t ipa_read(struct file *filp, char __user *buf, size_t count,
 			if (msg->buff) {
 				if (count >= msg->meta.msg_len) {
 					if (copy_to_user(buf, msg->buff,
+<<<<<<< HEAD
 							  msg->meta.msg_len)) {
+=======
+							msg->meta.msg_len)) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 						kfree(msg);
 						msg = NULL;
 						ret = -EFAULT;

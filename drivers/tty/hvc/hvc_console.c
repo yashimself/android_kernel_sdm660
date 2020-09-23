@@ -289,6 +289,13 @@ int hvc_instantiate(uint32_t vtermno, int index, const struct hv_ops *ops)
 	vtermnos[index] = vtermno;
 	cons_ops[index] = ops;
 
+<<<<<<< HEAD
+=======
+	/* reserve all indices up to and including this index */
+	if (last_hvc < index)
+		last_hvc = index;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* check if we need to re-register the kernel console */
 	hvc_check_console(index);
 
@@ -892,6 +899,7 @@ struct hvc_struct *hvc_alloc(uint32_t vtermno, int data,
 		    cons_ops[i] == hp->ops)
 			break;
 
+<<<<<<< HEAD
 	if (i >= MAX_NR_HVC_CONSOLES) {
 
 		/* find 'empty' slot for console */
@@ -908,6 +916,15 @@ struct hvc_struct *hvc_alloc(uint32_t vtermno, int data,
 		cons_ops[i] = ops;
 		vtermnos[i] = vtermno;
 	}
+=======
+	/* no matching slot, just use a counter */
+	if (i >= MAX_NR_HVC_CONSOLES)
+		i = ++last_hvc;
+
+	hp->index = i;
+	cons_ops[i] = ops;
+	vtermnos[i] = vtermno;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	list_add_tail(&(hp->next), &hvc_structs);
 	spin_unlock(&hvc_structs_lock);

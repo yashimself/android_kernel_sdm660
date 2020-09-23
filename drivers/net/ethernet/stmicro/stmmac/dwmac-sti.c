@@ -365,6 +365,7 @@ static int sti_dwmac_probe(struct platform_device *pdev)
 	if (ret)
 		return ret;
 
+<<<<<<< HEAD
 	ret = stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
 	if (ret)
 		goto err_dwmac_exit;
@@ -375,6 +376,9 @@ err_dwmac_exit:
 	sti_dwmac_exit(pdev, plat_dat->bsp_priv);
 
 	return ret;
+=======
+	return stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static const struct sti_dwmac_of_data stih4xx_dwmac_data = {

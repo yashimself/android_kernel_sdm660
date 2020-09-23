@@ -1576,12 +1576,23 @@ struct btrfs_fs_info {
 	struct list_head delayed_iputs;
 	struct mutex cleaner_delayed_iput_mutex;
 
+<<<<<<< HEAD
 	atomic64_t tree_mod_seq;
 
 	/* this protects tree_mod_log and tree_mod_seq_list */
 	rwlock_t tree_mod_log_lock;
 	struct rb_root tree_mod_log;
 	struct list_head tree_mod_seq_list;
+=======
+	/* this protects tree_mod_seq_list */
+	spinlock_t tree_mod_seq_lock;
+	atomic64_t tree_mod_seq;
+	struct list_head tree_mod_seq_list;
+
+	/* this protects tree_mod_log */
+	rwlock_t tree_mod_log_lock;
+	struct rb_root tree_mod_log;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	atomic_t nr_async_submits;
 	atomic_t async_submit_draining;

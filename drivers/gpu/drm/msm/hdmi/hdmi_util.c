@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2017 The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2017-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify it
  * under the terms of the GNU General Public License version 2 as published by
@@ -19,14 +23,29 @@
 
 void init_ddc(struct hdmi *hdmi)
 {
+<<<<<<< HEAD
+=======
+
+	uint32_t ddc_speed;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	hdmi_write(hdmi, REG_HDMI_DDC_CTRL,
 			HDMI_DDC_CTRL_SW_STATUS_RESET);
 	hdmi_write(hdmi, REG_HDMI_DDC_CTRL,
 			HDMI_DDC_CTRL_SOFT_RESET);
 
+<<<<<<< HEAD
 	hdmi_write(hdmi, REG_HDMI_DDC_SPEED,
 			HDMI_DDC_SPEED_THRESHOLD(2) |
 			HDMI_DDC_SPEED_PRESCALE(10));
+=======
+	ddc_speed = hdmi_read(hdmi, REG_HDMI_DDC_SPEED);
+	ddc_speed |= HDMI_DDC_SPEED_THRESHOLD(2);
+	ddc_speed |= HDMI_DDC_SPEED_PRESCALE(12);
+
+	hdmi_write(hdmi, REG_HDMI_DDC_SPEED,
+			ddc_speed);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	hdmi_write(hdmi, REG_HDMI_DDC_SETUP,
 			HDMI_DDC_SETUP_TIMEOUT(0xff));

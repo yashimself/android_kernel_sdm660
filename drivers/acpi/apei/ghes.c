@@ -198,28 +198,46 @@ static int ghes_estatus_pool_init(void)
 	return 0;
 }
 
+<<<<<<< HEAD
 static void ghes_estatus_pool_free_chunk(struct gen_pool *pool,
 					      struct gen_pool_chunk *chunk,
 					      void *data)
 {
 	vfree((void *)chunk->start_addr);
+=======
+static void ghes_estatus_pool_free_chunk_page(struct gen_pool *pool,
+					      struct gen_pool_chunk *chunk,
+					      void *data)
+{
+	free_page(chunk->start_addr);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static void ghes_estatus_pool_exit(void)
 {
 	gen_pool_for_each_chunk(ghes_estatus_pool,
+<<<<<<< HEAD
 				ghes_estatus_pool_free_chunk, NULL);
+=======
+				ghes_estatus_pool_free_chunk_page, NULL);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	gen_pool_destroy(ghes_estatus_pool);
 }
 
 static int ghes_estatus_pool_expand(unsigned long len)
 {
+<<<<<<< HEAD
 	unsigned long size, addr;
+=======
+	unsigned long i, pages, size, addr;
+	int ret;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	ghes_estatus_pool_size_request += PAGE_ALIGN(len);
 	size = gen_pool_size(ghes_estatus_pool);
 	if (size >= ghes_estatus_pool_size_request)
 		return 0;
+<<<<<<< HEAD
 
 	addr = (unsigned long)vmalloc(PAGE_ALIGN(len));
 	if (!addr)
@@ -232,6 +250,19 @@ static int ghes_estatus_pool_expand(unsigned long len)
 	vmalloc_sync_mappings();
 
 	return gen_pool_add(ghes_estatus_pool, addr, PAGE_ALIGN(len), -1);
+=======
+	pages = (ghes_estatus_pool_size_request - size) / PAGE_SIZE;
+	for (i = 0; i < pages; i++) {
+		addr = __get_free_page(GFP_KERNEL);
+		if (!addr)
+			return -ENOMEM;
+		ret = gen_pool_add(ghes_estatus_pool, addr, PAGE_SIZE, -1);
+		if (ret)
+			return ret;
+	}
+
+	return 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static struct ghes *ghes_new(struct acpi_hest_generic *generic)

@@ -1,7 +1,10 @@
 00-INDEX
 	- This file
+<<<<<<< HEAD
 bfq-iosched.txt
 	- BFQ IO scheduler and its tunables
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 biodoc.txt
 	- Notes on the Generic Block Layer Rewrite in Linux 2.5
 capability.txt

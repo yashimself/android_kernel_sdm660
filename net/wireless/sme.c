@@ -106,7 +106,11 @@ static int cfg80211_conn_scan(struct wireless_dev *wdev)
 		return -ENOMEM;
 
 	if (wdev->conn->params.channel) {
+<<<<<<< HEAD
 		enum nl80211_band band = wdev->conn->params.channel->band;
+=======
+		enum ieee80211_band band = wdev->conn->params.channel->band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		struct ieee80211_supported_band *sband =
 			wdev->wiphy->bands[band];
 
@@ -118,11 +122,19 @@ static int cfg80211_conn_scan(struct wireless_dev *wdev)
 		request->rates[band] = (1 << sband->n_bitrates) - 1;
 	} else {
 		int i = 0, j;
+<<<<<<< HEAD
 		enum nl80211_band band;
 		struct ieee80211_supported_band *bands;
 		struct ieee80211_channel *channel;
 
 		for (band = 0; band < NUM_NL80211_BANDS; band++) {
+=======
+		enum ieee80211_band band;
+		struct ieee80211_supported_band *bands;
+		struct ieee80211_channel *channel;
+
+		for (band = 0; band < IEEE80211_NUM_BANDS; band++) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			bands = wdev->wiphy->bands[band];
 			if (!bands)
 				continue;
@@ -498,7 +510,11 @@ static int cfg80211_sme_get_conn_ies(struct wireless_dev *wdev,
 	if (!buf)
 		return -ENOMEM;
 
+<<<<<<< HEAD
 	if (ies_len) {
+=======
+	if (ies_len && ies) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		static const u8 before_extcapa[] = {
 			/* not listing IEs expected to be created by driver */
 			WLAN_EID_RSN,

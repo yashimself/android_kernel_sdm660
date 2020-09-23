@@ -128,7 +128,11 @@ void release_thread(struct task_struct *dead_task)
 		if (dead_task->mm->context.ldt) {
 			pr_warn("WARNING: dead process %s still has LDT? <%p/%d>\n",
 				dead_task->comm,
+<<<<<<< HEAD
 				dead_task->mm->context.ldt->entries,
+=======
+				dead_task->mm->context.ldt,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				dead_task->mm->context.ldt->size);
 			BUG();
 		}

@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 include include/uapi/asm-generic/Kbuild.asm
 
 header-y += elf.h
 
+=======
+# UAPI Header export list
+include include/uapi/asm-generic/Kbuild.asm
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 generic-y += ucontext.h

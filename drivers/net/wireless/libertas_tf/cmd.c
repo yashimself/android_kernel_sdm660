@@ -69,7 +69,11 @@ static void lbtf_geo_init(struct lbtf_private *priv)
 			break;
 		}
 
+<<<<<<< HEAD
 	for (ch = range->start; ch < range->end; ch++)
+=======
+	for (ch = priv->range.start; ch < priv->range.end; ch++)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		priv->channels[CHAN_TO_IDX(ch)].flags = 0;
 }
 

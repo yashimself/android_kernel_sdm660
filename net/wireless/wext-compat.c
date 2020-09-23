@@ -32,13 +32,21 @@ int cfg80211_wext_giwname(struct net_device *dev,
 	if (!wdev)
 		return -EOPNOTSUPP;
 
+<<<<<<< HEAD
 	sband = wdev->wiphy->bands[NL80211_BAND_5GHZ];
+=======
+	sband = wdev->wiphy->bands[IEEE80211_BAND_5GHZ];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (sband) {
 		is_a = true;
 		is_ht |= sband->ht_cap.ht_supported;
 	}
 
+<<<<<<< HEAD
 	sband = wdev->wiphy->bands[NL80211_BAND_2GHZ];
+=======
+	sband = wdev->wiphy->bands[IEEE80211_BAND_2GHZ];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (sband) {
 		int i;
 		/* Check for mandatory rates */
@@ -143,7 +151,11 @@ int cfg80211_wext_giwrange(struct net_device *dev,
 {
 	struct wireless_dev *wdev = dev->ieee80211_ptr;
 	struct iw_range *range = (struct iw_range *) extra;
+<<<<<<< HEAD
 	enum nl80211_band band;
+=======
+	enum ieee80211_band band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int i, c = 0;
 
 	if (!wdev)
@@ -215,7 +227,11 @@ int cfg80211_wext_giwrange(struct net_device *dev,
 		}
 	}
 
+<<<<<<< HEAD
 	for (band = 0; band < NUM_NL80211_BANDS; band ++) {
+=======
+	for (band = 0; band < IEEE80211_NUM_BANDS; band ++) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		struct ieee80211_supported_band *sband;
 
 		sband = wdev->wiphy->bands[band];
@@ -265,11 +281,19 @@ int cfg80211_wext_freq(struct iw_freq *freq)
 	 * -EINVAL for impossible things.
 	 */
 	if (freq->e == 0) {
+<<<<<<< HEAD
 		enum nl80211_band band = NL80211_BAND_2GHZ;
 		if (freq->m < 0)
 			return 0;
 		if (freq->m > 14)
 			band = NL80211_BAND_5GHZ;
+=======
+		enum ieee80211_band band = IEEE80211_BAND_2GHZ;
+		if (freq->m < 0)
+			return 0;
+		if (freq->m > 14)
+			band = IEEE80211_BAND_5GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return ieee80211_channel_to_frequency(freq->m, band);
 	} else {
 		int i, div = 1000000;
@@ -1245,7 +1269,11 @@ static int cfg80211_wext_siwrate(struct net_device *dev,
 		maxrate = rate->value / 100000;
 	}
 
+<<<<<<< HEAD
 	for (band = 0; band < NUM_NL80211_BANDS; band++) {
+=======
+	for (band = 0; band < IEEE80211_NUM_BANDS; band++) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		sband = wdev->wiphy->bands[band];
 		if (sband == NULL)
 			continue;

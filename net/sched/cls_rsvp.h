@@ -455,8 +455,15 @@ static u32 gen_tunnel(struct rsvp_head *data)
 
 static const struct nla_policy rsvp_policy[TCA_RSVP_MAX + 1] = {
 	[TCA_RSVP_CLASSID]	= { .type = NLA_U32 },
+<<<<<<< HEAD
 	[TCA_RSVP_DST]		= { .len = RSVP_DST_LEN * sizeof(u32) },
 	[TCA_RSVP_SRC]		= { .len = RSVP_DST_LEN * sizeof(u32) },
+=======
+	[TCA_RSVP_DST]		= { .type = NLA_BINARY,
+				    .len = RSVP_DST_LEN * sizeof(u32) },
+	[TCA_RSVP_SRC]		= { .type = NLA_BINARY,
+				    .len = RSVP_DST_LEN * sizeof(u32) },
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	[TCA_RSVP_PINFO]	= { .len = sizeof(struct tc_rsvp_pinfo) },
 };
 

@@ -87,11 +87,14 @@ static int skb_to_mamac(const struct sk_buff *skb, struct mbo *mbo)
 	unsigned int payload_len = skb->len - ETH_HLEN;
 	unsigned int mdp_len = payload_len + MDP_HDR_LEN;
 
+<<<<<<< HEAD
 	if (mdp_len < skb->len) {
 		pr_err("drop: too large packet! (%u)\n", skb->len);
 		return -EINVAL;
 	}
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (mbo->buffer_length < mdp_len) {
 		pr_err("drop: too small buffer! (%d for %d)\n",
 		       mbo->buffer_length, mdp_len);
@@ -139,11 +142,14 @@ static int skb_to_mep(const struct sk_buff *skb, struct mbo *mbo)
 	u8 *buff = mbo->virt_address;
 	unsigned int mep_len = skb->len + MEP_HDR_LEN;
 
+<<<<<<< HEAD
 	if (mep_len < skb->len) {
 		pr_err("drop: too large packet! (%u)\n", skb->len);
 		return -EINVAL;
 	}
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (mbo->buffer_length < mep_len) {
 		pr_err("drop: too small buffer! (%d for %d)\n",
 		       mbo->buffer_length, mep_len);

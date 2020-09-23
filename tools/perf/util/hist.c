@@ -131,8 +131,11 @@ void hists__calc_col_len(struct hists *hists, struct hist_entry *h)
 			symlen = unresolved_col_width + 4 + 2;
 			hists__new_col_len(hists, HISTC_MEM_DADDR_SYMBOL,
 					   symlen);
+<<<<<<< HEAD
 			hists__new_col_len(hists, HISTC_MEM_DCACHELINE,
 					   symlen);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 
 		if (h->mem_info->iaddr.sym) {

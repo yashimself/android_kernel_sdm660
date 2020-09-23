@@ -250,6 +250,7 @@ smb2_reconnect(__le16 smb2_command, struct cifs_tcon *tcon)
 	 */
 	mutex_lock(&tcon->ses->session_mutex);
 	rc = cifs_negotiate_protocol(0, tcon->ses);
+<<<<<<< HEAD
 	if (!rc && tcon->ses->need_reconnect) {
 		rc = cifs_setup_session(0, tcon->ses, nls_codepage);
 		if ((rc == -EACCES) && !tcon->retry) {
@@ -258,6 +259,11 @@ smb2_reconnect(__le16 smb2_command, struct cifs_tcon *tcon)
 			goto failed;
 		}
 	}
+=======
+	if (!rc && tcon->ses->need_reconnect)
+		rc = cifs_setup_session(0, tcon->ses, nls_codepage);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (rc || !tcon->need_reconnect) {
 		mutex_unlock(&tcon->ses->session_mutex);
 		goto out;
@@ -291,7 +297,10 @@ out:
 	case SMB2_SET_INFO:
 		rc = -EAGAIN;
 	}
+<<<<<<< HEAD
 failed:
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	unload_nls(nls_codepage);
 	return rc;
 }

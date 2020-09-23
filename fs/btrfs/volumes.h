@@ -312,6 +312,10 @@ struct btrfs_bio {
 	u64 map_type; /* get from map_lookup->type */
 	bio_end_io_t *end_io;
 	struct bio *orig_bio;
+<<<<<<< HEAD
+=======
+	unsigned long flags;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	void *private;
 	atomic_t error;
 	int max_errors;

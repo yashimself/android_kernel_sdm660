@@ -25,7 +25,10 @@
 #include "lvb_table.h"
 #include "user.h"
 #include "ast.h"
+<<<<<<< HEAD
 #include "config.h"
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 static const char name_prefix[] = "dlm";
 static const struct file_operations device_fops;
@@ -403,7 +406,11 @@ static int device_create_lockspace(struct dlm_lspace_params *params)
 	if (!capable(CAP_SYS_ADMIN))
 		return -EPERM;
 
+<<<<<<< HEAD
 	error = dlm_new_lockspace(params->name, dlm_config.ci_cluster_name, params->flags,
+=======
+	error = dlm_new_lockspace(params->name, NULL, params->flags,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				  DLM_USER_LVB_LEN, NULL, NULL, NULL,
 				  &lockspace);
 	if (error)

@@ -42,7 +42,11 @@ int usbtv_set_regs(struct usbtv *usbtv, const u16 regs[][2], int size)
 
 		ret = usb_control_msg(usbtv->udev, pipe, USBTV_REQUEST_REG,
 			USB_DIR_OUT | USB_TYPE_VENDOR | USB_RECIP_DEVICE,
+<<<<<<< HEAD
 			value, index, NULL, 0, USB_CTRL_GET_TIMEOUT);
+=======
+			value, index, NULL, 0, 0);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (ret < 0)
 			return ret;
 	}

@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2016-2019, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2016-2020, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -78,6 +82,33 @@
 #define MSM_HIFI_ON 1
 
 enum {
+<<<<<<< HEAD
+=======
+	PRIMARY_TDM_RX_0,
+	PRIMARY_TDM_RX_1,
+	PRIMARY_TDM_RX_2,
+	PRIMARY_TDM_RX_3,
+	PRIMARY_TDM_RX_4,
+	PRIMARY_TDM_RX_5,
+	PRIMARY_TDM_RX_6,
+	PRIMARY_TDM_RX_7,
+	TDM_MAX_RX,
+};
+
+enum {
+	PRIMARY_TDM_TX_0,
+	PRIMARY_TDM_TX_1,
+	PRIMARY_TDM_TX_2,
+	PRIMARY_TDM_TX_3,
+	PRIMARY_TDM_TX_4,
+	PRIMARY_TDM_TX_5,
+	PRIMARY_TDM_TX_6,
+	PRIMARY_TDM_TX_7,
+	TDM_MAX_TX,
+};
+
+enum {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	SLIM_RX_0 = 0,
 	SLIM_RX_1,
 	SLIM_RX_2,
@@ -306,6 +337,7 @@ static struct dev_config tdm_tx_cfg[TDM_INTERFACE_MAX][TDM_PORT_MAX] = {
 	}
 };
 
+<<<<<<< HEAD
 /*TDM default offset currently only supporting TDM_RX_0 and TDM_TX_0 */
 static unsigned int tdm_slot_offset[TDM_PORT_MAX][TDM_SLOT_OFFSET_MAX] = {
 	{0, 4, 8, 12, 16, 20, 24, 28},/* TX_0 | RX_0 */
@@ -318,6 +350,8 @@ static unsigned int tdm_slot_offset[TDM_PORT_MAX][TDM_SLOT_OFFSET_MAX] = {
 	{AFE_SLOT_MAPPING_OFFSET_INVALID},/* TX_7 | RX_7 */
 };
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /* Default configuration of slimbus channels */
 static struct dev_config slim_rx_cfg[] = {
 	[SLIM_RX_0] = {SAMPLING_RATE_48KHZ, SNDRV_PCM_FORMAT_S16_LE, 1},
@@ -3210,18 +3244,54 @@ static const struct snd_kcontrol_new msm_snd_controls[] = {
 	SOC_ENUM_EXT("PRI_TDM_TX_0 SampleRate", tdm_tx_sample_rate,
 			tdm_tx_sample_rate_get,
 			tdm_tx_sample_rate_put),
+<<<<<<< HEAD
+=======
+	SOC_ENUM_EXT("PRI_TDM_TX_1 SampleRate", tdm_tx_sample_rate,
+			tdm_tx_sample_rate_get,
+			tdm_tx_sample_rate_put),
+	SOC_ENUM_EXT("PRI_TDM_TX_2 SampleRate", tdm_tx_sample_rate,
+			tdm_tx_sample_rate_get,
+			tdm_tx_sample_rate_put),
+	SOC_ENUM_EXT("PRI_TDM_TX_3 SampleRate", tdm_tx_sample_rate,
+			tdm_tx_sample_rate_get,
+			tdm_tx_sample_rate_put),
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	SOC_ENUM_EXT("PRI_TDM_RX_0 Format", tdm_rx_format,
 			tdm_rx_format_get,
 			tdm_rx_format_put),
 	SOC_ENUM_EXT("PRI_TDM_TX_0 Format", tdm_tx_format,
 			tdm_tx_format_get,
 			tdm_tx_format_put),
+<<<<<<< HEAD
+=======
+	SOC_ENUM_EXT("PRI_TDM_TX_1 Format", tdm_tx_format,
+			tdm_tx_format_get,
+			tdm_tx_format_put),
+	SOC_ENUM_EXT("PRI_TDM_TX_2 Format", tdm_tx_format,
+			tdm_tx_format_get,
+			tdm_tx_format_put),
+	SOC_ENUM_EXT("PRI_TDM_TX_3 Format", tdm_tx_format,
+			tdm_tx_format_get,
+			tdm_tx_format_put),
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	SOC_ENUM_EXT("PRI_TDM_RX_0 Channels", tdm_rx_chs,
 			tdm_rx_ch_get,
 			tdm_rx_ch_put),
 	SOC_ENUM_EXT("PRI_TDM_TX_0 Channels", tdm_tx_chs,
 			tdm_tx_ch_get,
 			tdm_tx_ch_put),
+<<<<<<< HEAD
+=======
+	SOC_ENUM_EXT("PRI_TDM_TX_1 Channels", tdm_tx_chs,
+			tdm_tx_ch_get,
+			tdm_tx_ch_put),
+	SOC_ENUM_EXT("PRI_TDM_TX_2 Channels", tdm_tx_chs,
+			tdm_tx_ch_get,
+			tdm_tx_ch_put),
+	SOC_ENUM_EXT("PRI_TDM_TX_3 Channels", tdm_tx_chs,
+			tdm_tx_ch_get,
+			tdm_tx_ch_put),
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	SOC_ENUM_EXT("SEC_TDM_RX_0 SampleRate", tdm_rx_sample_rate,
 			tdm_rx_sample_rate_get,
 			tdm_rx_sample_rate_put),
@@ -3264,18 +3334,54 @@ static const struct snd_kcontrol_new msm_snd_controls[] = {
 	SOC_ENUM_EXT("QUAT_TDM_TX_0 SampleRate", tdm_tx_sample_rate,
 			tdm_tx_sample_rate_get,
 			tdm_tx_sample_rate_put),
+<<<<<<< HEAD
+=======
+	SOC_ENUM_EXT("QUAT_TDM_TX_1 SampleRate", tdm_tx_sample_rate,
+			tdm_tx_sample_rate_get,
+			tdm_tx_sample_rate_put),
+	SOC_ENUM_EXT("QUAT_TDM_TX_2 SampleRate", tdm_tx_sample_rate,
+			tdm_tx_sample_rate_get,
+			tdm_tx_sample_rate_put),
+	SOC_ENUM_EXT("QUAT_TDM_TX_3 SampleRate", tdm_tx_sample_rate,
+			tdm_tx_sample_rate_get,
+			tdm_tx_sample_rate_put),
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	SOC_ENUM_EXT("QUAT_TDM_RX_0 Format", tdm_rx_format,
 			tdm_rx_format_get,
 			tdm_rx_format_put),
 	SOC_ENUM_EXT("QUAT_TDM_TX_0 Format", tdm_tx_format,
 			tdm_tx_format_get,
 			tdm_tx_format_put),
+<<<<<<< HEAD
+=======
+	SOC_ENUM_EXT("QUAT_TDM_TX_1 Format", tdm_tx_format,
+			tdm_tx_format_get,
+			tdm_tx_format_put),
+	SOC_ENUM_EXT("QUAT_TDM_TX_2 Format", tdm_tx_format,
+			tdm_tx_format_get,
+			tdm_tx_format_put),
+	SOC_ENUM_EXT("QUAT_TDM_TX_3 Format", tdm_tx_format,
+			tdm_tx_format_get,
+			tdm_tx_format_put),
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	SOC_ENUM_EXT("QUAT_TDM_RX_0 Channels", tdm_rx_chs,
 			tdm_rx_ch_get,
 			tdm_rx_ch_put),
 	SOC_ENUM_EXT("QUAT_TDM_TX_0 Channels", tdm_tx_chs,
 			tdm_tx_ch_get,
 			tdm_tx_ch_put),
+<<<<<<< HEAD
+=======
+	SOC_ENUM_EXT("QUAT_TDM_TX_1 Channels", tdm_tx_chs,
+			tdm_tx_ch_get,
+			tdm_tx_ch_put),
+	SOC_ENUM_EXT("QUAT_TDM_TX_2 Channels", tdm_tx_chs,
+			tdm_tx_ch_get,
+			tdm_tx_ch_put),
+	SOC_ENUM_EXT("QUAT_TDM_TX_3 Channels", tdm_tx_chs,
+			tdm_tx_ch_get,
+			tdm_tx_ch_put),
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	SOC_ENUM_EXT("PRI_TDM SlotNumber", tdm_slot_num,
 			tdm_slot_num_get, tdm_slot_num_put),
 	SOC_ENUM_EXT("PRI_TDM SlotWidth", tdm_slot_width,
@@ -5663,6 +5769,7 @@ static int msm_tdm_be_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
 	return 0;
 }
 
+<<<<<<< HEAD
 static unsigned int tdm_param_set_slot_mask(int slots)
 {
 	unsigned int slot_mask = 0;
@@ -5676,6 +5783,86 @@ static unsigned int tdm_param_set_slot_mask(int slots)
 	for (i = 0; i < slots ; i++)
 		slot_mask |= 1 << i;
 
+=======
+static unsigned int msm8998_tdm_param_set_slot_mask(u16 port_id, int slot_width,
+		int slots, int tdm_interface)
+{
+	unsigned int slot_mask = 0;
+	int upper, lower, i, j, rx_path = 0;
+	unsigned int *slot_offset;
+
+	switch (port_id) {
+	case AFE_PORT_ID_PRIMARY_TDM_RX:
+	case AFE_PORT_ID_PRIMARY_TDM_RX_1:
+	case AFE_PORT_ID_PRIMARY_TDM_RX_2:
+	case AFE_PORT_ID_PRIMARY_TDM_RX_3:
+	case AFE_PORT_ID_PRIMARY_TDM_RX_4:
+	case AFE_PORT_ID_PRIMARY_TDM_RX_5:
+	case AFE_PORT_ID_PRIMARY_TDM_RX_6:
+	case AFE_PORT_ID_PRIMARY_TDM_RX_7:
+		lower = PRIMARY_TDM_RX_0;
+		upper = PRIMARY_TDM_RX_7;
+		rx_path = 1;
+		break;
+	case AFE_PORT_ID_QUATERNARY_TDM_RX:
+	case AFE_PORT_ID_QUATERNARY_TDM_RX_1:
+	case AFE_PORT_ID_QUATERNARY_TDM_RX_2:
+	case AFE_PORT_ID_QUATERNARY_TDM_RX_3:
+	case AFE_PORT_ID_QUATERNARY_TDM_RX_4:
+	case AFE_PORT_ID_QUATERNARY_TDM_RX_5:
+	case AFE_PORT_ID_QUATERNARY_TDM_RX_6:
+	case AFE_PORT_ID_QUATERNARY_TDM_RX_7:
+		lower = PRIMARY_TDM_RX_0;
+		upper = PRIMARY_TDM_RX_7;
+		rx_path = 1;
+		break;
+
+	case AFE_PORT_ID_PRIMARY_TDM_TX:
+	case AFE_PORT_ID_PRIMARY_TDM_TX_1:
+	case AFE_PORT_ID_PRIMARY_TDM_TX_2:
+	case AFE_PORT_ID_PRIMARY_TDM_TX_3:
+	case AFE_PORT_ID_PRIMARY_TDM_TX_4:
+	case AFE_PORT_ID_PRIMARY_TDM_TX_5:
+	case AFE_PORT_ID_PRIMARY_TDM_TX_6:
+	case AFE_PORT_ID_PRIMARY_TDM_TX_7:
+		lower = PRIMARY_TDM_TX_0;
+		upper = PRIMARY_TDM_TX_7;
+		break;
+	case AFE_PORT_ID_QUATERNARY_TDM_TX:
+	case AFE_PORT_ID_QUATERNARY_TDM_TX_1:
+	case AFE_PORT_ID_QUATERNARY_TDM_TX_2:
+	case AFE_PORT_ID_QUATERNARY_TDM_TX_3:
+	case AFE_PORT_ID_QUATERNARY_TDM_TX_4:
+	case AFE_PORT_ID_QUATERNARY_TDM_TX_5:
+	case AFE_PORT_ID_QUATERNARY_TDM_TX_6:
+	case AFE_PORT_ID_QUATERNARY_TDM_TX_7:
+		lower = PRIMARY_TDM_TX_0;
+		upper = PRIMARY_TDM_TX_7;
+		break;
+	default:
+		return slot_mask;
+	}
+
+	for (i = lower; i <= upper; i++) {
+		if (rx_path)
+			slot_offset = tdm_rx_slot_offset[tdm_interface][i];
+		else
+			slot_offset = tdm_tx_slot_offset[tdm_interface][i];
+
+		for (j = 0; j < TDM_SLOT_OFFSET_MAX; j++) {
+			if (slot_offset[j] != AFE_SLOT_MAPPING_OFFSET_INVALID) {
+				/*
+				 * set the mask of active slot according to
+				 * the offset table for the group of devices
+				 */
+				slot_mask |=
+				(1 << ((slot_offset[j] * 8) / slot_width));
+			} else {
+				break;
+			}
+		}
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return slot_mask;
 }
 
@@ -5685,7 +5872,11 @@ static int msm8998_tdm_snd_hw_params(struct snd_pcm_substream *substream,
 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
 	int ret = 0;
+<<<<<<< HEAD
 	int channels, slot_width, slots, rate, format;
+=======
+	int channels, slot_width, slots, rate, format, tdm_interface;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	unsigned int slot_mask;
 	unsigned int *slot_offset;
 	int offset_channels = 0;
@@ -5720,321 +5911,577 @@ static int msm8998_tdm_snd_hw_params(struct snd_pcm_substream *substream,
 		slots = tdm_slot[TDM_PRI].num;
 		slot_width = tdm_slot[TDM_PRI].width;
 		slot_offset = tdm_rx_slot_offset[TDM_PRI][TDM_0];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_PRI;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_PRIMARY_TDM_RX_1:
 		slots = tdm_slot[TDM_PRI].num;
 		slot_width = tdm_slot[TDM_PRI].width;
 		slot_offset = tdm_rx_slot_offset[TDM_PRI][TDM_1];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_PRI;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_PRIMARY_TDM_RX_2:
 		slots = tdm_slot[TDM_PRI].num;
 		slot_width = tdm_slot[TDM_PRI].width;
 		slot_offset = tdm_rx_slot_offset[TDM_PRI][TDM_2];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_PRI;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_PRIMARY_TDM_RX_3:
 		slots = tdm_slot[TDM_PRI].num;
 		slot_width = tdm_slot[TDM_PRI].width;
 		slot_offset = tdm_rx_slot_offset[TDM_PRI][TDM_3];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_PRI;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_PRIMARY_TDM_RX_4:
 		slots = tdm_slot[TDM_PRI].num;
 		slot_width = tdm_slot[TDM_PRI].width;
 		slot_offset = tdm_rx_slot_offset[TDM_PRI][TDM_4];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_PRI;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_PRIMARY_TDM_RX_5:
 		slots = tdm_slot[TDM_PRI].num;
 		slot_width = tdm_slot[TDM_PRI].width;
 		slot_offset = tdm_rx_slot_offset[TDM_PRI][TDM_5];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_PRI;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_PRIMARY_TDM_RX_6:
 		slots = tdm_slot[TDM_PRI].num;
 		slot_width = tdm_slot[TDM_PRI].width;
 		slot_offset = tdm_rx_slot_offset[TDM_PRI][TDM_6];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_PRI;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_PRIMARY_TDM_RX_7:
 		slots = tdm_slot[TDM_PRI].num;
 		slot_width = tdm_slot[TDM_PRI].width;
 		slot_offset = tdm_rx_slot_offset[TDM_PRI][TDM_7];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_PRI;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_PRIMARY_TDM_TX:
 		slots = tdm_slot[TDM_PRI].num;
 		slot_width = tdm_slot[TDM_PRI].width;
 		slot_offset = tdm_tx_slot_offset[TDM_PRI][TDM_0];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_PRI;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_PRIMARY_TDM_TX_1:
 		slots = tdm_slot[TDM_PRI].num;
 		slot_width = tdm_slot[TDM_PRI].width;
 		slot_offset = tdm_tx_slot_offset[TDM_PRI][TDM_1];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_PRI;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_PRIMARY_TDM_TX_2:
 		slots = tdm_slot[TDM_PRI].num;
 		slot_width = tdm_slot[TDM_PRI].width;
 		slot_offset = tdm_tx_slot_offset[TDM_PRI][TDM_2];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_PRI;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_PRIMARY_TDM_TX_3:
 		slots = tdm_slot[TDM_PRI].num;
 		slot_width = tdm_slot[TDM_PRI].width;
 		slot_offset = tdm_tx_slot_offset[TDM_PRI][TDM_3];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_PRI;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_PRIMARY_TDM_TX_4:
 		slots = tdm_slot[TDM_PRI].num;
 		slot_width = tdm_slot[TDM_PRI].width;
 		slot_offset = tdm_tx_slot_offset[TDM_PRI][TDM_4];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_PRI;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_PRIMARY_TDM_TX_5:
 		slots = tdm_slot[TDM_PRI].num;
 		slot_width = tdm_slot[TDM_PRI].width;
 		slot_offset = tdm_tx_slot_offset[TDM_PRI][TDM_5];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_PRI;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_PRIMARY_TDM_TX_6:
 		slots = tdm_slot[TDM_PRI].num;
 		slot_width = tdm_slot[TDM_PRI].width;
 		slot_offset = tdm_tx_slot_offset[TDM_PRI][TDM_6];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_PRI;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_PRIMARY_TDM_TX_7:
 		slots = tdm_slot[TDM_PRI].num;
 		slot_width = tdm_slot[TDM_PRI].width;
 		slot_offset = tdm_tx_slot_offset[TDM_PRI][TDM_7];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_PRI;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_SECONDARY_TDM_RX:
 		slots = tdm_slot[TDM_SEC].num;
 		slot_width = tdm_slot[TDM_SEC].width;
 		slot_offset = tdm_rx_slot_offset[TDM_SEC][TDM_0];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_SEC;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_SECONDARY_TDM_RX_1:
 		slots = tdm_slot[TDM_SEC].num;
 		slot_width = tdm_slot[TDM_SEC].width;
 		slot_offset = tdm_rx_slot_offset[TDM_SEC][TDM_1];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_SEC;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_SECONDARY_TDM_RX_2:
 		slots = tdm_slot[TDM_SEC].num;
 		slot_width = tdm_slot[TDM_SEC].width;
 		slot_offset = tdm_rx_slot_offset[TDM_SEC][TDM_2];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_SEC;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_SECONDARY_TDM_RX_3:
 		slots = tdm_slot[TDM_SEC].num;
 		slot_width = tdm_slot[TDM_SEC].width;
 		slot_offset = tdm_rx_slot_offset[TDM_SEC][TDM_3];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_SEC;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_SECONDARY_TDM_RX_4:
 		slots = tdm_slot[TDM_SEC].num;
 		slot_width = tdm_slot[TDM_SEC].width;
 		slot_offset = tdm_rx_slot_offset[TDM_SEC][TDM_4];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_SEC;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_SECONDARY_TDM_RX_5:
 		slots = tdm_slot[TDM_SEC].num;
 		slot_width = tdm_slot[TDM_SEC].width;
 		slot_offset = tdm_rx_slot_offset[TDM_SEC][TDM_5];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_SEC;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_SECONDARY_TDM_RX_6:
 		slots = tdm_slot[TDM_SEC].num;
 		slot_width = tdm_slot[TDM_SEC].width;
 		slot_offset = tdm_rx_slot_offset[TDM_SEC][TDM_6];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_SEC;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_SECONDARY_TDM_RX_7:
 		slots = tdm_slot[TDM_SEC].num;
 		slot_width = tdm_slot[TDM_SEC].width;
 		slot_offset = tdm_rx_slot_offset[TDM_SEC][TDM_7];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_SEC;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_SECONDARY_TDM_TX:
 		slots = tdm_slot[TDM_SEC].num;
 		slot_width = tdm_slot[TDM_SEC].width;
 		slot_offset = tdm_tx_slot_offset[TDM_SEC][TDM_0];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_SEC;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_SECONDARY_TDM_TX_1:
 		slots = tdm_slot[TDM_SEC].num;
 		slot_width = tdm_slot[TDM_SEC].width;
 		slot_offset = tdm_tx_slot_offset[TDM_SEC][TDM_1];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_SEC;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_SECONDARY_TDM_TX_2:
 		slots = tdm_slot[TDM_SEC].num;
 		slot_width = tdm_slot[TDM_SEC].width;
 		slot_offset = tdm_tx_slot_offset[TDM_SEC][TDM_2];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_SEC;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_SECONDARY_TDM_TX_3:
 		slots = tdm_slot[TDM_SEC].num;
 		slot_width = tdm_slot[TDM_SEC].width;
 		slot_offset = tdm_tx_slot_offset[TDM_SEC][TDM_3];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_SEC;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_SECONDARY_TDM_TX_4:
 		slots = tdm_slot[TDM_SEC].num;
 		slot_width = tdm_slot[TDM_SEC].width;
 		slot_offset = tdm_tx_slot_offset[TDM_SEC][TDM_4];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_SEC;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_SECONDARY_TDM_TX_5:
 		slots = tdm_slot[TDM_SEC].num;
 		slot_width = tdm_slot[TDM_SEC].width;
 		slot_offset = tdm_tx_slot_offset[TDM_SEC][TDM_5];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_SEC;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_SECONDARY_TDM_TX_6:
 		slots = tdm_slot[TDM_SEC].num;
 		slot_width = tdm_slot[TDM_SEC].width;
 		slot_offset = tdm_tx_slot_offset[TDM_SEC][TDM_6];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_SEC;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_SECONDARY_TDM_TX_7:
 		slots = tdm_slot[TDM_SEC].num;
 		slot_width = tdm_slot[TDM_SEC].width;
 		slot_offset = tdm_tx_slot_offset[TDM_SEC][TDM_7];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_SEC;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_TERTIARY_TDM_RX:
 		slots = tdm_slot[TDM_TERT].num;
 		slot_width = tdm_slot[TDM_TERT].width;
 		slot_offset = tdm_rx_slot_offset[TDM_TERT][TDM_0];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_TERT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_TERTIARY_TDM_RX_1:
 		slots = tdm_slot[TDM_TERT].num;
 		slot_width = tdm_slot[TDM_TERT].width;
 		slot_offset = tdm_rx_slot_offset[TDM_TERT][TDM_1];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_TERT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_TERTIARY_TDM_RX_2:
 		slots = tdm_slot[TDM_TERT].num;
 		slot_width = tdm_slot[TDM_TERT].width;
 		slot_offset = tdm_rx_slot_offset[TDM_TERT][TDM_2];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_TERT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_TERTIARY_TDM_RX_3:
 		slots = tdm_slot[TDM_TERT].num;
 		slot_width = tdm_slot[TDM_TERT].width;
 		slot_offset = tdm_rx_slot_offset[TDM_TERT][TDM_3];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_TERT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_TERTIARY_TDM_RX_4:
 		slots = tdm_slot[TDM_TERT].num;
 		slot_width = tdm_slot[TDM_TERT].width;
 		slot_offset = tdm_rx_slot_offset[TDM_TERT][TDM_4];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_TERT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_TERTIARY_TDM_RX_5:
 		slots = tdm_slot[TDM_TERT].num;
 		slot_width = tdm_slot[TDM_TERT].width;
 		slot_offset = tdm_rx_slot_offset[TDM_TERT][TDM_5];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_TERT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_TERTIARY_TDM_RX_6:
 		slots = tdm_slot[TDM_TERT].num;
 		slot_width = tdm_slot[TDM_TERT].width;
 		slot_offset = tdm_rx_slot_offset[TDM_TERT][TDM_6];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_TERT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_TERTIARY_TDM_RX_7:
 		slots = tdm_slot[TDM_TERT].num;
 		slot_width = tdm_slot[TDM_TERT].width;
 		slot_offset = tdm_rx_slot_offset[TDM_TERT][TDM_7];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_TERT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_TERTIARY_TDM_TX:
 		slots = tdm_slot[TDM_TERT].num;
 		slot_width = tdm_slot[TDM_TERT].width;
 		slot_offset = tdm_tx_slot_offset[TDM_TERT][TDM_0];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_TERT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_TERTIARY_TDM_TX_1:
 		slots = tdm_slot[TDM_TERT].num;
 		slot_width = tdm_slot[TDM_TERT].width;
 		slot_offset = tdm_tx_slot_offset[TDM_TERT][TDM_1];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_TERT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_TERTIARY_TDM_TX_2:
 		slots = tdm_slot[TDM_TERT].num;
 		slot_width = tdm_slot[TDM_TERT].width;
 		slot_offset = tdm_tx_slot_offset[TDM_TERT][TDM_2];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_TERT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_TERTIARY_TDM_TX_3:
 		slots = tdm_slot[TDM_TERT].num;
 		slot_width = tdm_slot[TDM_TERT].width;
 		slot_offset = tdm_tx_slot_offset[TDM_TERT][TDM_3];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_TERT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_TERTIARY_TDM_TX_4:
 		slots = tdm_slot[TDM_TERT].num;
 		slot_width = tdm_slot[TDM_TERT].width;
 		slot_offset = tdm_tx_slot_offset[TDM_TERT][TDM_4];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_TERT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_TERTIARY_TDM_TX_5:
 		slots = tdm_slot[TDM_TERT].num;
 		slot_width = tdm_slot[TDM_TERT].width;
 		slot_offset = tdm_tx_slot_offset[TDM_TERT][TDM_5];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_TERT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_TERTIARY_TDM_TX_6:
 		slots = tdm_slot[TDM_TERT].num;
 		slot_width = tdm_slot[TDM_TERT].width;
 		slot_offset = tdm_tx_slot_offset[TDM_TERT][TDM_6];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_TERT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_TERTIARY_TDM_TX_7:
 		slots = tdm_slot[TDM_TERT].num;
 		slot_width = tdm_slot[TDM_TERT].width;
 		slot_offset = tdm_tx_slot_offset[TDM_TERT][TDM_7];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_TERT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_QUATERNARY_TDM_RX:
 		slots = tdm_slot[TDM_QUAT].num;
 		slot_width = tdm_slot[TDM_QUAT].width;
 		slot_offset = tdm_rx_slot_offset[TDM_QUAT][TDM_0];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_QUAT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_QUATERNARY_TDM_RX_1:
 		slots = tdm_slot[TDM_QUAT].num;
 		slot_width = tdm_slot[TDM_QUAT].width;
 		slot_offset = tdm_rx_slot_offset[TDM_QUAT][TDM_1];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_QUAT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_QUATERNARY_TDM_RX_2:
 		slots = tdm_slot[TDM_QUAT].num;
 		slot_width = tdm_slot[TDM_QUAT].width;
 		slot_offset = tdm_rx_slot_offset[TDM_QUAT][TDM_2];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_QUAT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_QUATERNARY_TDM_RX_3:
 		slots = tdm_slot[TDM_QUAT].num;
 		slot_width = tdm_slot[TDM_QUAT].width;
 		slot_offset = tdm_rx_slot_offset[TDM_QUAT][TDM_3];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_QUAT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_QUATERNARY_TDM_RX_4:
 		slots = tdm_slot[TDM_QUAT].num;
 		slot_width = tdm_slot[TDM_QUAT].width;
 		slot_offset = tdm_rx_slot_offset[TDM_QUAT][TDM_4];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_QUAT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_QUATERNARY_TDM_RX_5:
 		slots = tdm_slot[TDM_QUAT].num;
 		slot_width = tdm_slot[TDM_QUAT].width;
 		slot_offset = tdm_rx_slot_offset[TDM_QUAT][TDM_5];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_QUAT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_QUATERNARY_TDM_RX_6:
 		slots = tdm_slot[TDM_QUAT].num;
 		slot_width = tdm_slot[TDM_QUAT].width;
 		slot_offset = tdm_rx_slot_offset[TDM_QUAT][TDM_6];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_QUAT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_QUATERNARY_TDM_RX_7:
 		slots = tdm_slot[TDM_QUAT].num;
 		slot_width = tdm_slot[TDM_QUAT].width;
 		slot_offset = tdm_rx_slot_offset[TDM_QUAT][TDM_7];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_QUAT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_QUATERNARY_TDM_TX:
 		slots = tdm_slot[TDM_QUAT].num;
 		slot_width = tdm_slot[TDM_QUAT].width;
 		slot_offset = tdm_tx_slot_offset[TDM_QUAT][TDM_0];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_QUAT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_QUATERNARY_TDM_TX_1:
 		slots = tdm_slot[TDM_QUAT].num;
 		slot_width = tdm_slot[TDM_QUAT].width;
 		slot_offset = tdm_tx_slot_offset[TDM_QUAT][TDM_1];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_QUAT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_QUATERNARY_TDM_TX_2:
 		slots = tdm_slot[TDM_QUAT].num;
 		slot_width = tdm_slot[TDM_QUAT].width;
 		slot_offset = tdm_tx_slot_offset[TDM_QUAT][TDM_2];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_QUAT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_QUATERNARY_TDM_TX_3:
 		slots = tdm_slot[TDM_QUAT].num;
 		slot_width = tdm_slot[TDM_QUAT].width;
 		slot_offset = tdm_tx_slot_offset[TDM_QUAT][TDM_3];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_QUAT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_QUATERNARY_TDM_TX_4:
 		slots = tdm_slot[TDM_QUAT].num;
 		slot_width = tdm_slot[TDM_QUAT].width;
 		slot_offset = tdm_tx_slot_offset[TDM_QUAT][TDM_4];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_QUAT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_QUATERNARY_TDM_TX_5:
 		slots = tdm_slot[TDM_QUAT].num;
 		slot_width = tdm_slot[TDM_QUAT].width;
 		slot_offset = tdm_tx_slot_offset[TDM_QUAT][TDM_5];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_QUAT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_QUATERNARY_TDM_TX_6:
 		slots = tdm_slot[TDM_QUAT].num;
 		slot_width = tdm_slot[TDM_QUAT].width;
 		slot_offset = tdm_tx_slot_offset[TDM_QUAT][TDM_6];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_QUAT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case AFE_PORT_ID_QUATERNARY_TDM_TX_7:
 		slots = tdm_slot[TDM_QUAT].num;
 		slot_width = tdm_slot[TDM_QUAT].width;
 		slot_offset = tdm_tx_slot_offset[TDM_QUAT][TDM_7];
+<<<<<<< HEAD
+=======
+		tdm_interface = TDM_QUAT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	default:
 		pr_err("%s: dai id 0x%x not supported\n",
@@ -6061,7 +6508,14 @@ static int msm8998_tdm_snd_hw_params(struct snd_pcm_substream *substream,
 		return -EINVAL;
 	}
 
+<<<<<<< HEAD
 	slot_mask = tdm_param_set_slot_mask(slots);
+=======
+	slot_mask = msm8998_tdm_param_set_slot_mask(cpu_dai->id,
+				slot_width, slots, tdm_interface);
+	pr_debug("%s: slot_mask :%x\n", __func__, slot_mask);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!slot_mask) {
 		pr_err("%s: invalid slot_mask 0x%x\n",
 			__func__, slot_mask);
@@ -6282,6 +6736,7 @@ static struct snd_soc_ops msm_aux_pcm_be_ops = {
 	.shutdown = msm_aux_pcm_snd_shutdown,
 };
 
+<<<<<<< HEAD
 static int msm_tdm_snd_hw_params(struct snd_pcm_substream *substream,
 				     struct snd_pcm_hw_params *params)
 {
@@ -6409,6 +6864,8 @@ end:
 	return ret;
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static struct snd_soc_ops msm_be_ops = {
 	.hw_params = msm_snd_hw_params,
 };
@@ -6425,10 +6882,13 @@ static struct snd_soc_ops msm_wcn_ops = {
 	.hw_params = msm_wcn_hw_params,
 };
 
+<<<<<<< HEAD
 static struct snd_soc_ops msm_tdm_be_ops = {
 	.hw_params = msm_tdm_snd_hw_params
 };
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /* Digital audio interface glue - connects codec <---> CPU */
 static struct snd_soc_dai_link msm_common_dai_links[] = {
 	/* FrontEnd DAI Links */
@@ -7282,6 +7742,81 @@ static struct snd_soc_dai_link msm_common_misc_fe_dai_links[] = {
 	},
 };
 
+<<<<<<< HEAD
+=======
+static struct snd_soc_dai_link msm_ext_common_fe_dai[] = {
+	/* Extra FrontEnd DAI Links after compress fe*/
+	{/* hw:x,66 */
+		.name = MSM_DAILINK_NAME(Media30),
+		.stream_name = "MultiMedia30",
+		.cpu_dai_name = "MultiMedia30",
+		.platform_name  = "msm-pcm-dsp.0",
+		.dynamic = 1,
+		.dpcm_capture = 1,
+		.dpcm_playback = 1,
+		.trigger = {SND_SOC_DPCM_TRIGGER_POST,
+			 SND_SOC_DPCM_TRIGGER_POST},
+		.codec_dai_name = "snd-soc-dummy-dai",
+		.codec_name = "snd-soc-dummy",
+		.ignore_suspend = 1,
+		.ignore_pmdown_time = 1,
+		 /* this dai link has playback support */
+		.be_id = MSM_FRONTEND_DAI_MULTIMEDIA30,
+	},
+	{/* hw:x,67 */
+		.name = MSM_DAILINK_NAME(Media31),
+		.stream_name = "MultiMedia31",
+		.cpu_dai_name = "MultiMedia31",
+		.platform_name  = "msm-pcm-dsp.0",
+		.dynamic = 1,
+		.dpcm_capture = 1,
+		.dpcm_playback = 1,
+		.trigger = {SND_SOC_DPCM_TRIGGER_POST,
+			 SND_SOC_DPCM_TRIGGER_POST},
+		.codec_dai_name = "snd-soc-dummy-dai",
+		.codec_name = "snd-soc-dummy",
+		.ignore_suspend = 1,
+		.ignore_pmdown_time = 1,
+		 /* this dai link has playback support */
+		.be_id = MSM_FRONTEND_DAI_MULTIMEDIA31,
+	},
+	{/* hw:x,68 */
+		.name = MSM_DAILINK_NAME(Media32),
+		.stream_name = "MultiMedia32",
+		.cpu_dai_name = "MultiMedia32",
+		.platform_name  = "msm-pcm-dsp.0",
+		.dynamic = 1,
+		.dpcm_capture = 1,
+		.dpcm_playback = 1,
+		.trigger = {SND_SOC_DPCM_TRIGGER_POST,
+			 SND_SOC_DPCM_TRIGGER_POST},
+		.codec_dai_name = "snd-soc-dummy-dai",
+		.codec_name = "snd-soc-dummy",
+		.ignore_suspend = 1,
+		.ignore_pmdown_time = 1,
+		 /* this dai link has playback support */
+		.be_id = MSM_FRONTEND_DAI_MULTIMEDIA32,
+	},
+	{/* hw:x,69 */
+		.name = MSM_DAILINK_NAME(Media33),
+		.stream_name = "MultiMedia33",
+		.cpu_dai_name = "MultiMedia33",
+		.platform_name  = "msm-pcm-dsp.0",
+		.dynamic = 1,
+		.dpcm_capture = 1,
+		.dpcm_playback = 1,
+		.trigger = {SND_SOC_DPCM_TRIGGER_POST,
+			 SND_SOC_DPCM_TRIGGER_POST},
+		.codec_dai_name = "snd-soc-dummy-dai",
+		.codec_name = "snd-soc-dummy",
+		.ignore_suspend = 1,
+		.ignore_pmdown_time = 1,
+		 /* this dai link has playback support */
+		.be_id = MSM_FRONTEND_DAI_MULTIMEDIA33,
+	},
+};
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static struct snd_soc_dai_link msm_common_be_dai_links[] = {
 	/* Backend AFE DAI Links */
 	{
@@ -7434,7 +7969,11 @@ static struct snd_soc_dai_link msm_common_be_dai_links[] = {
 		.dpcm_playback = 1,
 		.be_id = MSM_BACKEND_DAI_SEC_TDM_RX_0,
 		.be_hw_params_fixup = msm_be_hw_params_fixup,
+<<<<<<< HEAD
 		.ops = &msm_tdm_be_ops,
+=======
+		.ops = &msm8998_tdm_be_ops,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		.ignore_suspend = 1,
 	},
 	{
@@ -7448,7 +7987,11 @@ static struct snd_soc_dai_link msm_common_be_dai_links[] = {
 		.dpcm_capture = 1,
 		.be_id = MSM_BACKEND_DAI_SEC_TDM_TX_0,
 		.be_hw_params_fixup = msm_be_hw_params_fixup,
+<<<<<<< HEAD
 		.ops = &msm_tdm_be_ops,
+=======
+		.ops = &msm8998_tdm_be_ops,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		.ignore_suspend = 1,
 	},
 	{
@@ -7462,7 +8005,11 @@ static struct snd_soc_dai_link msm_common_be_dai_links[] = {
 		.dpcm_playback = 1,
 		.be_id = MSM_BACKEND_DAI_TERT_TDM_RX_0,
 		.be_hw_params_fixup = msm_be_hw_params_fixup,
+<<<<<<< HEAD
 		.ops = &msm_tdm_be_ops,
+=======
+		.ops = &msm8998_tdm_be_ops,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		.ignore_suspend = 1,
 	},
 	{
@@ -7476,7 +8023,11 @@ static struct snd_soc_dai_link msm_common_be_dai_links[] = {
 		.dpcm_capture = 1,
 		.be_id = MSM_BACKEND_DAI_TERT_TDM_TX_0,
 		.be_hw_params_fixup = msm_be_hw_params_fixup,
+<<<<<<< HEAD
 		.ops = &msm_tdm_be_ops,
+=======
+		.ops = &msm8998_tdm_be_ops,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		.ignore_suspend = 1,
 	},
 	{
@@ -8201,6 +8752,96 @@ static struct snd_soc_dai_link msm_auxpcm_be_dai_links[] = {
 	},
 };
 
+<<<<<<< HEAD
+=======
+static struct snd_soc_dai_link msm_ext_tdm_tx_group_be_dai[] = {
+	{
+		.name = LPASS_BE_PRI_TDM_TX_1,
+		.stream_name = "Primary TDM1 Capture",
+		.cpu_dai_name = "msm-dai-q6-tdm.36867",
+		.platform_name = "msm-pcm-routing",
+		.codec_name = "msm-stub-codec.1",
+		.codec_dai_name = "msm-stub-tx",
+		.no_pcm = 1,
+		.dpcm_capture = 1,
+		.be_id = MSM_BACKEND_DAI_PRI_TDM_TX_1,
+		.be_hw_params_fixup = msm_tdm_be_hw_params_fixup,
+		.ops = &msm8998_tdm_be_ops,
+		.ignore_suspend = 1,
+	},
+	{
+		.name = LPASS_BE_PRI_TDM_TX_2,
+		.stream_name = "Primary TDM2 Capture",
+		.cpu_dai_name = "msm-dai-q6-tdm.36869",
+		.platform_name = "msm-pcm-routing",
+		.codec_name = "msm-stub-codec.1",
+		.codec_dai_name = "msm-stub-tx",
+		.no_pcm = 1,
+		.dpcm_capture = 1,
+		.be_id = MSM_BACKEND_DAI_PRI_TDM_TX_2,
+		.be_hw_params_fixup = msm_tdm_be_hw_params_fixup,
+		.ops = &msm8998_tdm_be_ops,
+		.ignore_suspend = 1,
+	},
+	{
+		.name = LPASS_BE_PRI_TDM_TX_3,
+		.stream_name = "Primary TDM3 Capture",
+		.cpu_dai_name = "msm-dai-q6-tdm.36871",
+		.platform_name = "msm-pcm-routing",
+		.codec_name = "msm-stub-codec.1",
+		.codec_dai_name = "msm-stub-tx",
+		.no_pcm = 1,
+		.dpcm_capture = 1,
+		.be_id = MSM_BACKEND_DAI_PRI_TDM_TX_3,
+		.be_hw_params_fixup = msm_tdm_be_hw_params_fixup,
+		.ops = &msm8998_tdm_be_ops,
+		.ignore_suspend = 1,
+	},
+	{
+		.name = LPASS_BE_QUAT_TDM_TX_1,
+		.stream_name = "Quaternary TDM1 Capture",
+		.cpu_dai_name = "msm-dai-q6-tdm.36915",
+		.platform_name = "msm-pcm-routing",
+		.codec_name = "msm-stub-codec.1",
+		.codec_dai_name = "msm-stub-tx",
+		.no_pcm = 1,
+		.dpcm_capture = 1,
+		.be_id = MSM_BACKEND_DAI_QUAT_TDM_TX_1,
+		.be_hw_params_fixup = msm_tdm_be_hw_params_fixup,
+		.ops = &msm8998_tdm_be_ops,
+		.ignore_suspend = 1,
+	},
+	{
+		.name = LPASS_BE_QUAT_TDM_TX_2,
+		.stream_name = "Quaternary TDM2 Capture",
+		.cpu_dai_name = "msm-dai-q6-tdm.36917",
+		.platform_name = "msm-pcm-routing",
+		.codec_name = "msm-stub-codec.1",
+		.codec_dai_name = "msm-stub-tx",
+		.no_pcm = 1,
+		.dpcm_capture = 1,
+		.be_id = MSM_BACKEND_DAI_QUAT_TDM_TX_2,
+		.be_hw_params_fixup = msm_tdm_be_hw_params_fixup,
+		.ops = &msm8998_tdm_be_ops,
+		.ignore_suspend = 1,
+	},
+	{
+		.name = LPASS_BE_QUAT_TDM_TX_3,
+		.stream_name = "Quaternary TDM3 Capture",
+		.cpu_dai_name = "msm-dai-q6-tdm.36919",
+		.platform_name = "msm-pcm-routing",
+		.codec_name = "msm-stub-codec.1",
+		.codec_dai_name = "msm-stub-tx",
+		.no_pcm = 1,
+		.dpcm_capture = 1,
+		.be_id = MSM_BACKEND_DAI_QUAT_TDM_TX_3,
+		.be_hw_params_fixup = msm_tdm_be_hw_params_fixup,
+		.ops = &msm8998_tdm_be_ops,
+		.ignore_suspend = 1,
+	},
+};
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static struct snd_soc_dai_link msm_tasha_dai_links[
 			 ARRAY_SIZE(msm_common_dai_links) +
 			 ARRAY_SIZE(msm_tasha_fe_dai_links) +
@@ -8210,7 +8851,13 @@ static struct snd_soc_dai_link msm_tasha_dai_links[
 			 ARRAY_SIZE(msm_wcn_be_dai_links) +
 			 ARRAY_SIZE(ext_disp_be_dai_link) +
 			 ARRAY_SIZE(msm_mi2s_be_dai_links) +
+<<<<<<< HEAD
 			 ARRAY_SIZE(msm_auxpcm_be_dai_links)];
+=======
+			 ARRAY_SIZE(msm_auxpcm_be_dai_links) +
+			 ARRAY_SIZE(msm_ext_tdm_tx_group_be_dai) +
+			 ARRAY_SIZE(msm_ext_common_fe_dai)];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 static struct snd_soc_dai_link msm_tavil_dai_links[
 			 ARRAY_SIZE(msm_common_dai_links) +
@@ -8549,7 +9196,11 @@ static struct snd_soc_card *populate_snd_card_dailinks(struct device *dev)
 {
 	struct snd_soc_card *card = NULL;
 	struct snd_soc_dai_link *dailink;
+<<<<<<< HEAD
 	int len_1, len_2, len_3, len_4;
+=======
+	int len_1, len_2, len_3, len_4, len3_t;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int total_links;
 	const struct of_device_id *match;
 
@@ -8565,7 +9216,12 @@ static struct snd_soc_card *populate_snd_card_dailinks(struct device *dev)
 		len_1 = ARRAY_SIZE(msm_common_dai_links);
 		len_2 = len_1 + ARRAY_SIZE(msm_tasha_fe_dai_links);
 		len_3 = len_2 + ARRAY_SIZE(msm_common_misc_fe_dai_links);
+<<<<<<< HEAD
 		len_4 = len_3 + ARRAY_SIZE(msm_common_be_dai_links);
+=======
+		len3_t = len_3 + ARRAY_SIZE(msm_ext_common_fe_dai);
+		len_4 = len3_t + ARRAY_SIZE(msm_common_be_dai_links);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		total_links = len_4 + ARRAY_SIZE(msm_tasha_be_dai_links);
 		memcpy(msm_tasha_dai_links,
 		       msm_common_dai_links,
@@ -8577,6 +9233,12 @@ static struct snd_soc_card *populate_snd_card_dailinks(struct device *dev)
 		       msm_common_misc_fe_dai_links,
 		       sizeof(msm_common_misc_fe_dai_links));
 		memcpy(msm_tasha_dai_links + len_3,
+<<<<<<< HEAD
+=======
+		       msm_ext_common_fe_dai,
+		       sizeof(msm_ext_common_fe_dai));
+		memcpy(msm_tasha_dai_links + len3_t,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		       msm_common_be_dai_links,
 		       sizeof(msm_common_be_dai_links));
 		memcpy(msm_tasha_dai_links + len_4,
@@ -8615,6 +9277,17 @@ static struct snd_soc_card *populate_snd_card_dailinks(struct device *dev)
 			       sizeof(msm_auxpcm_be_dai_links));
 			total_links += ARRAY_SIZE(msm_auxpcm_be_dai_links);
 		}
+<<<<<<< HEAD
+=======
+		if (of_property_read_bool(dev->of_node,
+					  "qcom,tdm-tx-group-enable")) {
+			dev_dbg(dev, "%s(): TDM Tx group enable\n", __func__);
+			memcpy(msm_tasha_dai_links + total_links,
+			       msm_ext_tdm_tx_group_be_dai,
+			       sizeof(msm_ext_tdm_tx_group_be_dai));
+			total_links += ARRAY_SIZE(msm_ext_tdm_tx_group_be_dai);
+		}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		dailink = msm_tasha_dai_links;
 	}  else if (!strcmp(match->data, "tavil_codec")) {
 		card = &snd_soc_card_tavil_msm;

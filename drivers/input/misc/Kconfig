@@ -844,6 +844,7 @@ config INPUT_STMVL53L0
 	 To compile this driver as a module, choose M here: the
 	 module will be called stmvl53l0.
 
+<<<<<<< HEAD
 config INPUT_SX9310
 	tristate "Semtech SX9310 SAR sensor"
 	depends on MACH_ASUS_X00TD && INPUT && I2C
@@ -854,4 +855,6 @@ config INPUT_SX9310
 	  To compile this driver as a module, choose M here: the
 	  module will be called sx9310.
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 endif

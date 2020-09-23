@@ -2095,6 +2095,7 @@ static void bnx2x_vf_mbx_request(struct bnx2x *bp, struct bnx2x_virtf *vf,
 {
 	int i;
 
+<<<<<<< HEAD
 	if (vf->state == VF_LOST) {
 		/* Just ack the FW and return if VFs are lost
 		 * in case of parity error. VFs are supposed to be timedout
@@ -2107,6 +2108,8 @@ static void bnx2x_vf_mbx_request(struct bnx2x *bp, struct bnx2x_virtf *vf,
 		return;
 	}
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* check if tlv type is known */
 	if (bnx2x_tlv_supported(mbx->first_tlv.tl.type)) {
 		/* Lock the per vf op mutex and note the locker's identity.

@@ -432,7 +432,11 @@ u16 il_eeprom_query16(const struct il_priv *il, size_t offset);
 int il_init_channel_map(struct il_priv *il);
 void il_free_channel_map(struct il_priv *il);
 const struct il_channel_info *il_get_channel_info(const struct il_priv *il,
+<<<<<<< HEAD
 						  enum nl80211_band band,
+=======
+						  enum ieee80211_band band,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 						  u16 channel);
 
 #define IL_NUM_SCAN_RATES         (2)
@@ -497,7 +501,11 @@ struct il_channel_info {
 
 	u8 group_idx;		/* 0-4, maps channel to group1/2/3/4/5 */
 	u8 band_idx;		/* 0-4, maps channel to band1/2/3/4/5 */
+<<<<<<< HEAD
 	enum nl80211_band band;
+=======
+	enum ieee80211_band band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* HT40 channel info */
 	s8 ht40_max_power_avg;	/* (dBm) regul. eeprom, normal Tx, any rate */
@@ -811,7 +819,11 @@ struct il_sensitivity_ranges {
  * @rx_wrt_ptr_reg: FH{39}_RSCSR_CHNL0_WPTR
  * @max_stations:
  * @ht40_channel: is 40MHz width possible in band 2.4
+<<<<<<< HEAD
  * BIT(NL80211_BAND_5GHZ) BIT(NL80211_BAND_5GHZ)
+=======
+ * BIT(IEEE80211_BAND_5GHZ) BIT(IEEE80211_BAND_5GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * @sw_crypto: 0 for hw, 1 for sw
  * @max_xxx_size: for ucode uses
  * @ct_kill_threshold: temperature threshold
@@ -1141,13 +1153,21 @@ struct il_priv {
 	struct list_head free_frames;
 	int frames_count;
 
+<<<<<<< HEAD
 	enum nl80211_band band;
+=======
+	enum ieee80211_band band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int alloc_rxb_page;
 
 	void (*handlers[IL_CN_MAX]) (struct il_priv *il,
 				     struct il_rx_buf *rxb);
 
+<<<<<<< HEAD
 	struct ieee80211_supported_band bands[NUM_NL80211_BANDS];
+=======
+	struct ieee80211_supported_band bands[IEEE80211_NUM_BANDS];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* spectrum measurement report caching */
 	struct il_spectrum_notification measure_report;
@@ -1176,10 +1196,17 @@ struct il_priv {
 	unsigned long scan_start;
 	unsigned long scan_start_tsf;
 	void *scan_cmd;
+<<<<<<< HEAD
 	enum nl80211_band scan_band;
 	struct cfg80211_scan_request *scan_request;
 	struct ieee80211_vif *scan_vif;
 	u8 scan_tx_ant[NUM_NL80211_BANDS];
+=======
+	enum ieee80211_band scan_band;
+	struct cfg80211_scan_request *scan_request;
+	struct ieee80211_vif *scan_vif;
+	u8 scan_tx_ant[IEEE80211_NUM_BANDS];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	u8 mgmt_tx_ant;
 
 	/* spinlock */
@@ -1479,7 +1506,11 @@ il_is_channel_radar(const struct il_channel_info *ch_info)
 static inline u8
 il_is_channel_a_band(const struct il_channel_info *ch_info)
 {
+<<<<<<< HEAD
 	return ch_info->band == NL80211_BAND_5GHZ;
+=======
+	return ch_info->band == IEEE80211_BAND_5GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static inline int
@@ -1673,7 +1704,11 @@ struct il_cfg {
 	/* params not likely to change within a device family */
 	struct il_base_params *base_params;
 	/* params likely to change within a device family */
+<<<<<<< HEAD
 	u8 scan_rx_antennas[NUM_NL80211_BANDS];
+=======
+	u8 scan_rx_antennas[IEEE80211_NUM_BANDS];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	enum il_led_mode led_mode;
 
 	int eeprom_size;
@@ -1707,9 +1742,15 @@ void il_set_rxon_hwcrypto(struct il_priv *il, int hw_decrypt);
 int il_check_rxon_cmd(struct il_priv *il);
 int il_full_rxon_required(struct il_priv *il);
 int il_set_rxon_channel(struct il_priv *il, struct ieee80211_channel *ch);
+<<<<<<< HEAD
 void il_set_flags_for_band(struct il_priv *il, enum nl80211_band band,
 			   struct ieee80211_vif *vif);
 u8 il_get_single_channel_number(struct il_priv *il, enum nl80211_band band);
+=======
+void il_set_flags_for_band(struct il_priv *il, enum ieee80211_band band,
+			   struct ieee80211_vif *vif);
+u8 il_get_single_channel_number(struct il_priv *il, enum ieee80211_band band);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 void il_set_rxon_ht(struct il_priv *il, struct il_ht_config *ht_conf);
 bool il_is_ht40_tx_allowed(struct il_priv *il,
 			   struct ieee80211_sta_ht_cap *ht_cap);
@@ -1793,9 +1834,15 @@ int il_force_reset(struct il_priv *il, bool external);
 u16 il_fill_probe_req(struct il_priv *il, struct ieee80211_mgmt *frame,
 		      const u8 *ta, const u8 *ie, int ie_len, int left);
 void il_setup_rx_scan_handlers(struct il_priv *il);
+<<<<<<< HEAD
 u16 il_get_active_dwell_time(struct il_priv *il, enum nl80211_band band,
 			     u8 n_probes);
 u16 il_get_passive_dwell_time(struct il_priv *il, enum nl80211_band band,
+=======
+u16 il_get_active_dwell_time(struct il_priv *il, enum ieee80211_band band,
+			     u8 n_probes);
+u16 il_get_passive_dwell_time(struct il_priv *il, enum ieee80211_band band,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			      struct ieee80211_vif *vif);
 void il_setup_scan_deferred_work(struct il_priv *il);
 void il_cancel_scan_deferred_work(struct il_priv *il);
@@ -1955,7 +2002,11 @@ il_commit_rxon(struct il_priv *il)
 }
 
 static inline const struct ieee80211_supported_band *
+<<<<<<< HEAD
 il_get_hw_mode(struct il_priv *il, enum nl80211_band band)
+=======
+il_get_hw_mode(struct il_priv *il, enum ieee80211_band band)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	return il->hw->wiphy->bands[band];
 }
@@ -2813,7 +2864,11 @@ struct il_lq_sta {
 	u8 action_counter;	/* # mode-switch actions tried */
 	u8 is_green;
 	u8 is_dup;
+<<<<<<< HEAD
 	enum nl80211_band band;
+=======
+	enum ieee80211_band band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* The following are bitmaps of rates; RATE_6M_MASK, etc. */
 	u32 supp_rates;

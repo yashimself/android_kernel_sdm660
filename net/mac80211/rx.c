@@ -321,7 +321,11 @@ ieee80211_add_rx_radiotap_header(struct ieee80211_local *local,
 	else if (status->flag & RX_FLAG_5MHZ)
 		channel_flags |= IEEE80211_CHAN_QUARTER;
 
+<<<<<<< HEAD
 	if (status->band == NL80211_BAND_5GHZ)
+=======
+	if (status->band == IEEE80211_BAND_5GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		channel_flags |= IEEE80211_CHAN_OFDM | IEEE80211_CHAN_5GHZ;
 	else if (status->flag & (RX_FLAG_HT | RX_FLAG_VHT))
 		channel_flags |= IEEE80211_CHAN_DYN | IEEE80211_CHAN_2GHZ;
@@ -1111,7 +1115,12 @@ ieee80211_rx_h_check_dup(struct ieee80211_rx_data *rx)
 		return RX_CONTINUE;
 
 	if (ieee80211_is_ctl(hdr->frame_control) ||
+<<<<<<< HEAD
 	    ieee80211_is_any_nullfunc(hdr->frame_control) ||
+=======
+	    ieee80211_is_nullfunc(hdr->frame_control) ||
+	    ieee80211_is_qos_nullfunc(hdr->frame_control) ||
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	    is_multicast_ether_addr(hdr->addr1))
 		return RX_CONTINUE;
 
@@ -1487,7 +1496,12 @@ ieee80211_rx_h_sta_process(struct ieee80211_rx_data *rx)
 	 * Drop (qos-)data::nullfunc frames silently, since they
 	 * are used only to control station power saving mode.
 	 */
+<<<<<<< HEAD
 	if (ieee80211_is_any_nullfunc(hdr->frame_control)) {
+=======
+	if (ieee80211_is_nullfunc(hdr->frame_control) ||
+	    ieee80211_is_qos_nullfunc(hdr->frame_control)) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		I802_DEBUG_INC(rx->local->rx_handlers_drop_nullfunc);
 
 		/*
@@ -1976,7 +1990,11 @@ static int ieee80211_drop_unencrypted(struct ieee80211_rx_data *rx, __le16 fc)
 
 	/* Drop unencrypted frames if key is set. */
 	if (unlikely(!ieee80211_has_protected(fc) &&
+<<<<<<< HEAD
 		     !ieee80211_is_any_nullfunc(fc) &&
+=======
+		     !ieee80211_is_nullfunc(fc) &&
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		     ieee80211_is_data(fc) && rx->key))
 		return -EACCES;
 
@@ -2815,7 +2833,11 @@ ieee80211_rx_h_action(struct ieee80211_rx_data *rx)
 
 		switch (mgmt->u.action.u.measurement.action_code) {
 		case WLAN_ACTION_SPCT_MSR_REQ:
+<<<<<<< HEAD
 			if (status->band != NL80211_BAND_5GHZ)
+=======
+			if (status->band != IEEE80211_BAND_5GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				break;
 
 			if (len < (IEEE80211_MIN_ACTION_SIZE +
@@ -3039,6 +3061,7 @@ ieee80211_rx_h_mgmt(struct ieee80211_rx_data *rx)
 	case cpu_to_le16(IEEE80211_STYPE_PROBE_RESP):
 		/* process for all: mesh, mlme, ibss */
 		break;
+<<<<<<< HEAD
 	case cpu_to_le16(IEEE80211_STYPE_DEAUTH):
 		if (is_multicast_ether_addr(mgmt->da) &&
 		    !is_broadcast_ether_addr(mgmt->da))
@@ -3051,6 +3074,11 @@ ieee80211_rx_h_mgmt(struct ieee80211_rx_data *rx)
 		break;
 	case cpu_to_le16(IEEE80211_STYPE_ASSOC_RESP):
 	case cpu_to_le16(IEEE80211_STYPE_REASSOC_RESP):
+=======
+	case cpu_to_le16(IEEE80211_STYPE_ASSOC_RESP):
+	case cpu_to_le16(IEEE80211_STYPE_REASSOC_RESP):
+	case cpu_to_le16(IEEE80211_STYPE_DEAUTH):
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	case cpu_to_le16(IEEE80211_STYPE_DISASSOC):
 		if (is_multicast_ether_addr(mgmt->da) &&
 		    !is_broadcast_ether_addr(mgmt->da))
@@ -3630,7 +3658,11 @@ void ieee80211_rx_napi(struct ieee80211_hw *hw, struct ieee80211_sta *pubsta,
 
 	WARN_ON_ONCE(softirq_count() == 0);
 
+<<<<<<< HEAD
 	if (WARN_ON(status->band >= NUM_NL80211_BANDS))
+=======
+	if (WARN_ON(status->band >= IEEE80211_NUM_BANDS))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		goto drop;
 
 	sband = local->hw.wiphy->bands[status->band];

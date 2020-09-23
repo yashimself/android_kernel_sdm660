@@ -595,6 +595,7 @@ static int spear_mtd_read(struct mtd_info *mtd, loff_t from, size_t len,
 	return 0;
 }
 
+<<<<<<< HEAD
 /*
  * The purpose of this function is to ensure a memcpy_toio() with byte writes
  * only. Its structure is inspired from the ARM implementation of _memcpy_toio()
@@ -615,6 +616,8 @@ static void spear_smi_memcpy_toio_b(volatile void __iomem *dest,
 	}
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static inline int spear_smi_cpy_toio(struct spear_smi *dev, u32 bank,
 		void __iomem *dest, const void *src, size_t len)
 {
@@ -637,6 +640,7 @@ static inline int spear_smi_cpy_toio(struct spear_smi *dev, u32 bank,
 	ctrlreg1 = readl(dev->io_base + SMI_CR1);
 	writel((ctrlreg1 | WB_MODE) & ~SW_MODE, dev->io_base + SMI_CR1);
 
+<<<<<<< HEAD
 	/*
 	 * In Write Burst mode (WB_MODE), the specs states that writes must be:
 	 * - incremental
@@ -654,6 +658,9 @@ static inline int spear_smi_cpy_toio(struct spear_smi *dev, u32 bank,
 		memcpy_toio(dest, src, len);
 	else
 		spear_smi_memcpy_toio_b(dest, src, len);
+=======
+	memcpy_toio(dest, src, len);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	writel(ctrlreg1, dev->io_base + SMI_CR1);
 

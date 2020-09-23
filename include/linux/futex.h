@@ -34,6 +34,7 @@ handle_futex_death(u32 __user *uaddr, struct task_struct *curr, int pi);
 
 union futex_key {
 	struct {
+<<<<<<< HEAD
 		u64 i_seq;
 		unsigned long pgoff;
 		unsigned int offset;
@@ -54,6 +55,25 @@ union futex_key {
 };
 
 #define FUTEX_KEY_INIT (union futex_key) { .both = { .ptr = 0ULL } }
+=======
+		unsigned long pgoff;
+		struct inode *inode;
+		int offset;
+	} shared;
+	struct {
+		unsigned long address;
+		struct mm_struct *mm;
+		int offset;
+	} private;
+	struct {
+		unsigned long word;
+		void *ptr;
+		int offset;
+	} both;
+};
+
+#define FUTEX_KEY_INIT (union futex_key) { .both = { .ptr = NULL } }
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #ifdef CONFIG_FUTEX
 extern void exit_robust_list(struct task_struct *curr);

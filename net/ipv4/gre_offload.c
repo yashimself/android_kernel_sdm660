@@ -151,6 +151,7 @@ static struct sk_buff **gre_gro_receive(struct sk_buff **head,
 	if ((greh->flags & ~(GRE_KEY|GRE_CSUM)) != 0)
 		goto out;
 
+<<<<<<< HEAD
 	/* We can only support GRE_CSUM if we can track the location of
 	 * the GRE header.  In the case of FOU/GUE we cannot because the
 	 * outer UDP header displaces the GRE header leaving us in a state
@@ -159,6 +160,8 @@ static struct sk_buff **gre_gro_receive(struct sk_buff **head,
 	if ((greh->flags & GRE_CSUM) && NAPI_GRO_CB(skb)->is_fou)
 		goto out;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	type = greh->protocol;
 
 	rcu_read_lock();

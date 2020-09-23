@@ -108,7 +108,11 @@
 		qcom,mdss-dsi-on-command-state = "dsi_lp_mode";
 		qcom,mdss-dsi-off-command-state = "dsi_lp_mode";
 		qcom,mdss-dsi-bl-pmic-control-type = "bl_ctrl_wled";
+<<<<<<< HEAD
 		qcom,mdss-dsi-reset-sequence = <1 200>, <0 200>, <1 200>;
+=======
+		qcom,mdss-dsi-reset-sequence = <1 400>, <0 400>, <1 400>;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		qcom,mdss-dsi-tx-eot-append;
 		qcom,mdss-dsi-post-init-delay = <1>;
 	};

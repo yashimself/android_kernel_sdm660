@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2015, Sony Mobile Communications AB.
+<<<<<<< HEAD
  * Copyright (c) 2013, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2013, 2018 The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -379,7 +383,11 @@ static int pm8xxx_pin_config_set(struct pinctrl_dev *pctldev,
 			banks |= BIT(0);
 			break;
 		case PM8XXX_QCOM_DRIVE_STRENGH:
+<<<<<<< HEAD
 			if (arg > PMIC_GPIO_STRENGTH_LOW) {
+=======
+			if (arg > PM8921_GPIO_STRENGTH_LOW) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				dev_err(pctrl->dev, "invalid drive strength\n");
 				return -EINVAL;
 			}
@@ -762,6 +770,7 @@ static int pm8xxx_gpio_probe(struct platform_device *pdev)
 		goto unregister_pinctrl;
 	}
 
+<<<<<<< HEAD
 	/*
 	 * For DeviceTree-supported systems, the gpio core checks the
 	 * pinctrl's device node for the "gpio-ranges" property.
@@ -779,6 +788,14 @@ static int pm8xxx_gpio_probe(struct platform_device *pdev)
 			dev_err(pctrl->dev, "failed to add pin range\n");
 			goto unregister_gpiochip;
 		}
+=======
+	ret = gpiochip_add_pin_range(&pctrl->chip,
+				     dev_name(pctrl->dev),
+				     0, 0, pctrl->chip.ngpio);
+	if (ret) {
+		dev_err(pctrl->dev, "failed to add pin range\n");
+		goto unregister_gpiochip;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	platform_set_drvdata(pdev, pctrl);

@@ -100,6 +100,7 @@ enum ad_link_speed_type {
 #define MAC_ADDRESS_EQUAL(A, B)	\
 	ether_addr_equal_64bits((const u8 *)A, (const u8 *)B)
 
+<<<<<<< HEAD
 static const u8 null_mac_addr[ETH_ALEN + 2] __long_aligned = {
 	0, 0, 0, 0, 0, 0
 };
@@ -108,6 +109,13 @@ static const int ad_delta_in_ticks = (AD_TIMER_INTERVAL * HZ) / 1000;
 
 static const u8 lacpdu_mcast_addr[ETH_ALEN + 2] __long_aligned =
 	MULTICAST_LACPDU_ADDR;
+=======
+static struct mac_addr null_mac_addr = { { 0, 0, 0, 0, 0, 0 } };
+static u16 ad_ticks_per_sec;
+static const int ad_delta_in_ticks = (AD_TIMER_INTERVAL * HZ) / 1000;
+
+static const u8 lacpdu_mcast_addr[ETH_ALEN] = MULTICAST_LACPDU_ADDR;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 /* ================= main 802.3ad protocol functions ================== */
 static int ad_lacpdu_send(struct port *port);
@@ -1704,7 +1712,11 @@ static void ad_clear_agg(struct aggregator *aggregator)
 		aggregator->is_individual = false;
 		aggregator->actor_admin_aggregator_key = 0;
 		aggregator->actor_oper_aggregator_key = 0;
+<<<<<<< HEAD
 		eth_zero_addr(aggregator->partner_system.mac_addr_value);
+=======
+		aggregator->partner_system = null_mac_addr;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		aggregator->partner_system_priority = 0;
 		aggregator->partner_oper_aggregator_key = 0;
 		aggregator->receive_state = 0;
@@ -1726,7 +1738,11 @@ static void ad_initialize_agg(struct aggregator *aggregator)
 	if (aggregator) {
 		ad_clear_agg(aggregator);
 
+<<<<<<< HEAD
 		eth_zero_addr(aggregator->aggregator_mac_address.mac_addr_value);
+=======
+		aggregator->aggregator_mac_address = null_mac_addr;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		aggregator->aggregator_identifier = 0;
 		aggregator->slave = NULL;
 	}

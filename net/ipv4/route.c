@@ -131,6 +131,11 @@ static int ip_rt_min_advmss __read_mostly	= 256;
 
 static int ip_rt_gc_timeout __read_mostly	= RT_GC_TIMEOUT;
 
+<<<<<<< HEAD
+=======
+static int ip_min_valid_pmtu __read_mostly	= IPV4_MIN_MTU;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /*
  *	Interface to generic destination cache.
  */
@@ -477,11 +482,16 @@ u32 ip_idents_reserve(u32 hash, int segs)
 	atomic_t *p_id = ip_idents + hash % IP_IDENTS_SZ;
 	u32 old = ACCESS_ONCE(*p_tstamp);
 	u32 now = (u32)jiffies;
+<<<<<<< HEAD
 	u32 new, delta = 0;
+=======
+	u32 delta = 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (old != now && cmpxchg(p_tstamp, old, now) == old)
 		delta = prandom_u32_max(now - old);
 
+<<<<<<< HEAD
 	/* Do not use atomic_add_return() as it makes UBSAN unhappy */
 	do {
 		old = (u32)atomic_read(p_id);
@@ -489,6 +499,9 @@ u32 ip_idents_reserve(u32 hash, int segs)
 	} while (atomic_cmpxchg(p_id, old, new) != old);
 
 	return new - segs;
+=======
+	return atomic_add_return(segs + delta, p_id) - segs;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 EXPORT_SYMBOL(ip_idents_reserve);
 
@@ -993,22 +1006,36 @@ out:	kfree_skb(skb);
 static void __ip_rt_update_pmtu(struct rtable *rt, struct flowi4 *fl4, u32 mtu)
 {
 	struct dst_entry *dst = &rt->dst;
+<<<<<<< HEAD
 	u32 old_mtu = ipv4_mtu(dst);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct fib_result res;
 	bool lock = false;
 
 	if (ip_mtu_locked(dst))
 		return;
 
+<<<<<<< HEAD
 	if (old_mtu < mtu)
+=======
+	if (ipv4_mtu(dst) < mtu)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return;
 
 	if (mtu < ip_rt_min_pmtu) {
 		lock = true;
+<<<<<<< HEAD
 		mtu = min(old_mtu, ip_rt_min_pmtu);
 	}
 
 	if (rt->rt_pmtu == mtu && !lock &&
+=======
+		mtu = ip_rt_min_pmtu;
+	}
+
+	if (rt->rt_pmtu == mtu &&
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	    time_before(jiffies, dst->expires - ip_rt_mtu_expires / 2))
 		return;
 
@@ -1506,9 +1533,15 @@ static void rt_set_nexthop(struct rtable *rt, __be32 daddr,
 #endif
 }
 
+<<<<<<< HEAD
 struct rtable *rt_dst_alloc(struct net_device *dev,
 			    unsigned int flags, u16 type,
 			    bool nopolicy, bool noxfrm, bool will_cache)
+=======
+static struct rtable *rt_dst_alloc(struct net_device *dev,
+				   unsigned int flags, u16 type,
+				   bool nopolicy, bool noxfrm, bool will_cache)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	struct rtable *rt;
 
@@ -1537,7 +1570,10 @@ struct rtable *rt_dst_alloc(struct net_device *dev,
 
 	return rt;
 }
+<<<<<<< HEAD
 EXPORT_SYMBOL(rt_dst_alloc);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 /* called in rcu_read_lock() section */
 static int ip_route_input_mc(struct sk_buff *skb, __be32 daddr, __be32 saddr,
@@ -2727,7 +2763,10 @@ void ip_rt_multicast_event(struct in_device *in_dev)
 static int ip_rt_gc_interval __read_mostly  = 60 * HZ;
 static int ip_rt_gc_min_interval __read_mostly	= HZ / 2;
 static int ip_rt_gc_elasticity __read_mostly	= 8;
+<<<<<<< HEAD
 static int ip_min_valid_pmtu __read_mostly	= IPV4_MIN_MTU;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 static int ipv4_sysctl_rtcache_flush(struct ctl_table *__ctl, int write,
 					void __user *buffer,

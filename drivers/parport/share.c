@@ -228,6 +228,7 @@ static int port_check(struct device *dev, void *dev_drv)
 	return 0;
 }
 
+<<<<<<< HEAD
 /*
  * Iterates through all the devices connected to the bus and return 1
  * if the device is a parallel port.
@@ -240,6 +241,8 @@ static int port_detect(struct device *dev, void *dev_drv)
 	return 0;
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /**
  *	parport_register_driver - register a parallel port device driver
  *	@drv: structure describing the driver
@@ -292,6 +295,7 @@ int __parport_register_driver(struct parport_driver *drv, struct module *owner,
 		if (ret)
 			return ret;
 
+<<<<<<< HEAD
 		/*
 		 * check if bus has any parallel port registered, if
 		 * none is found then load the lowlevel driver.
@@ -301,6 +305,8 @@ int __parport_register_driver(struct parport_driver *drv, struct module *owner,
 		if (!ret)
 			get_lowlevel_driver();
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		mutex_lock(&registration_lock);
 		if (drv->match_port)
 			bus_for_each_dev(&parport_bus_type, NULL, drv,

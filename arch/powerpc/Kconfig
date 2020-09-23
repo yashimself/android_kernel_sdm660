@@ -93,7 +93,10 @@ config PPC
 	select BINFMT_ELF
 	select ARCH_HAS_ELF_RANDOMIZE
 	select OF
+<<<<<<< HEAD
 	select OF_DMA_DEFAULT_COHERENT		if !NOT_COHERENT_CACHE
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	select OF_EARLY_FLATTREE
 	select OF_RESERVED_MEM
 	select HAVE_FTRACE_MCOUNT_RECORD

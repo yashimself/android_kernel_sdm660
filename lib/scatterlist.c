@@ -317,7 +317,11 @@ int __sg_alloc_table(struct sg_table *table, unsigned int nents,
 			if (prv)
 				table->nents = ++table->orig_nents;
 
+<<<<<<< HEAD
 			return -ENOMEM;
+=======
+ 			return -ENOMEM;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 
 		sg_init_table(sg, alloc_size);

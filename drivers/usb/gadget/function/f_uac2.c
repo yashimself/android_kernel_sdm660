@@ -13,6 +13,7 @@
 
 #include <linux/usb/audio.h>
 #include <linux/usb/audio-v2.h>
+<<<<<<< HEAD
 #include <linux/platform_device.h>
 #include <linux/module.h>
 
@@ -25,6 +26,13 @@
 /* Keep everyone on toes */
 #define USB_XFERS	2
 
+=======
+#include <linux/module.h>
+
+#include "u_audio.h"
+#include "u_uac2.h"
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /*
  * The driver implements a simple UAC_2 topology.
  * USB-OUT -> IT_1 -> OT_3 -> ALSA_Capture
@@ -54,6 +62,7 @@
 #define UNFLW_CTRL	8
 #define OVFLW_CTRL	10
 
+<<<<<<< HEAD
 static const char *uac2_name = "snd_uac2";
 
 struct uac2_req {
@@ -150,10 +159,26 @@ struct snd_uac2_chip *pdev_to_uac2(struct platform_device *p)
 
 static inline
 struct f_uac2_opts *agdev_to_uac2_opts(struct audio_dev *agdev)
+=======
+struct f_uac2 {
+	struct g_audio g_audio;
+	u8 ac_intf, as_in_intf, as_out_intf;
+	u8 ac_alt, as_in_alt, as_out_alt;	/* needed for get_alt() */
+};
+
+static inline struct f_uac2 *func_to_uac2(struct usb_function *f)
+{
+	return container_of(f, struct f_uac2, g_audio.func);
+}
+
+static inline
+struct f_uac2_opts *g_audio_to_uac2_opts(struct g_audio *agdev)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	return container_of(agdev->func.fi, struct f_uac2_opts, func_inst);
 }
 
+<<<<<<< HEAD
 static inline
 uint num_channels(uint chanmask)
 {
@@ -552,6 +577,8 @@ static void alsa_uac2_exit(struct audio_dev *agdev)
 }
 
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /* --------- USB Function Interface ------------- */
 
 enum {
@@ -939,6 +966,7 @@ struct cntrl_range_lay3 {
 	__le32	dRES;
 } __packed;
 
+<<<<<<< HEAD
 static inline void
 free_ep(struct uac2_rtd_params *prm, struct usb_ep *ep)
 {
@@ -963,6 +991,8 @@ free_ep(struct uac2_rtd_params *prm, struct usb_ep *ep)
 			"%s:%d Error!\n", __func__, __LINE__);
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static void set_ep_max_packet_size(const struct f_uac2_opts *uac2_opts,
 	struct usb_endpoint_descriptor *ep_desc,
 	unsigned int factor, bool is_playback)
@@ -989,12 +1019,20 @@ static void set_ep_max_packet_size(const struct f_uac2_opts *uac2_opts,
 static int
 afunc_bind(struct usb_configuration *cfg, struct usb_function *fn)
 {
+<<<<<<< HEAD
 	struct audio_dev *agdev = func_to_agdev(fn);
 	struct snd_uac2_chip *uac2 = &agdev->uac2;
 	struct usb_composite_dev *cdev = cfg->cdev;
 	struct usb_gadget *gadget = cdev->gadget;
 	struct device *dev = &uac2->pdev.dev;
 	struct uac2_rtd_params *prm;
+=======
+	struct f_uac2 *uac2 = func_to_uac2(fn);
+	struct g_audio *agdev = func_to_g_audio(fn);
+	struct usb_composite_dev *cdev = cfg->cdev;
+	struct usb_gadget *gadget = cdev->gadget;
+	struct device *dev = &gadget->dev;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct f_uac2_opts *uac2_opts;
 	struct usb_string *us;
 	int ret;
@@ -1043,8 +1081,13 @@ afunc_bind(struct usb_configuration *cfg, struct usb_function *fn)
 	iad_desc.bFirstInterface = ret;
 
 	std_ac_if_desc.bInterfaceNumber = ret;
+<<<<<<< HEAD
 	agdev->ac_intf = ret;
 	agdev->ac_alt = 0;
+=======
+	uac2->ac_intf = ret;
+	uac2->ac_alt = 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	ret = usb_interface_id(cfg, fn);
 	if (ret < 0) {
@@ -1053,8 +1096,13 @@ afunc_bind(struct usb_configuration *cfg, struct usb_function *fn)
 	}
 	std_as_out_if0_desc.bInterfaceNumber = ret;
 	std_as_out_if1_desc.bInterfaceNumber = ret;
+<<<<<<< HEAD
 	agdev->as_out_intf = ret;
 	agdev->as_out_alt = 0;
+=======
+	uac2->as_out_intf = ret;
+	uac2->as_out_alt = 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	ret = usb_interface_id(cfg, fn);
 	if (ret < 0) {
@@ -1063,8 +1111,19 @@ afunc_bind(struct usb_configuration *cfg, struct usb_function *fn)
 	}
 	std_as_in_if0_desc.bInterfaceNumber = ret;
 	std_as_in_if1_desc.bInterfaceNumber = ret;
+<<<<<<< HEAD
 	agdev->as_in_intf = ret;
 	agdev->as_in_alt = 0;
+=======
+	uac2->as_in_intf = ret;
+	uac2->as_in_alt = 0;
+
+	/* Calculate wMaxPacketSize according to audio bandwidth */
+	set_ep_max_packet_size(uac2_opts, &fs_epin_desc, 1000, true);
+	set_ep_max_packet_size(uac2_opts, &fs_epout_desc, 1000, false);
+	set_ep_max_packet_size(uac2_opts, &hs_epin_desc, 8000, true);
+	set_ep_max_packet_size(uac2_opts, &hs_epout_desc, 8000, false);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	agdev->out_ep = usb_ep_autoconfig(gadget, &fs_epout_desc);
 	if (!agdev->out_ep) {
@@ -1078,6 +1137,7 @@ afunc_bind(struct usb_configuration *cfg, struct usb_function *fn)
 		return ret;
 	}
 
+<<<<<<< HEAD
 	uac2->p_prm.uac2 = uac2;
 	uac2->c_prm.uac2 = uac2;
 
@@ -1086,6 +1146,12 @@ afunc_bind(struct usb_configuration *cfg, struct usb_function *fn)
 	set_ep_max_packet_size(uac2_opts, &fs_epout_desc, 1000, false);
 	set_ep_max_packet_size(uac2_opts, &hs_epin_desc, 8000, true);
 	set_ep_max_packet_size(uac2_opts, &hs_epout_desc, 8000, false);
+=======
+	agdev->in_ep_maxpsize = max(fs_epin_desc.wMaxPacketSize,
+					hs_epin_desc.wMaxPacketSize);
+	agdev->out_ep_maxpsize = max(fs_epout_desc.wMaxPacketSize,
+					hs_epout_desc.wMaxPacketSize);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	hs_epout_desc.bEndpointAddress = fs_epout_desc.bEndpointAddress;
 	hs_epin_desc.bEndpointAddress = fs_epin_desc.bEndpointAddress;
@@ -1094,6 +1160,7 @@ afunc_bind(struct usb_configuration *cfg, struct usb_function *fn)
 	if (ret)
 		return ret;
 
+<<<<<<< HEAD
 	prm = &agdev->uac2.c_prm;
 	prm->max_psize = hs_epout_desc.wMaxPacketSize;
 	prm->rbuf = kzalloc(prm->max_psize * USB_XFERS, GFP_KERNEL);
@@ -1121,12 +1188,33 @@ err:
 err_free_descs:
 	usb_free_all_descriptors(fn);
 	return -EINVAL;
+=======
+	agdev->gadget = gadget;
+
+	agdev->params.p_chmask = uac2_opts->p_chmask;
+	agdev->params.p_srate = uac2_opts->p_srate;
+	agdev->params.p_ssize = uac2_opts->p_ssize;
+	agdev->params.c_chmask = uac2_opts->c_chmask;
+	agdev->params.c_srate = uac2_opts->c_srate;
+	agdev->params.c_ssize = uac2_opts->c_ssize;
+	agdev->params.req_number = uac2_opts->req_number;
+	ret = g_audio_setup(agdev, "UAC2 PCM", "UAC2_Gadget");
+	if (ret)
+		goto err_free_descs;
+	return 0;
+
+err_free_descs:
+	usb_free_all_descriptors(fn);
+	agdev->gadget = NULL;
+	return ret;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static int
 afunc_set_alt(struct usb_function *fn, unsigned intf, unsigned alt)
 {
 	struct usb_composite_dev *cdev = fn->config->cdev;
+<<<<<<< HEAD
 	struct audio_dev *agdev = func_to_agdev(fn);
 	struct snd_uac2_chip *uac2 = &agdev->uac2;
 	struct usb_gadget *gadget = cdev->gadget;
@@ -1135,6 +1223,12 @@ afunc_set_alt(struct usb_function *fn, unsigned intf, unsigned alt)
 	struct usb_ep *ep;
 	struct uac2_rtd_params *prm;
 	int req_len, i;
+=======
+	struct f_uac2 *uac2 = func_to_uac2(fn);
+	struct usb_gadget *gadget = cdev->gadget;
+	struct device *dev = &gadget->dev;
+	int ret = 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* No i/f has more than 2 alt settings */
 	if (alt > 1) {
@@ -1142,7 +1236,11 @@ afunc_set_alt(struct usb_function *fn, unsigned intf, unsigned alt)
 		return -EINVAL;
 	}
 
+<<<<<<< HEAD
 	if (intf == agdev->ac_intf) {
+=======
+	if (intf == uac2->ac_intf) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		/* Control I/f has only 1 AltSetting - 0 */
 		if (alt) {
 			dev_err(dev, "%s:%d Error!\n", __func__, __LINE__);
@@ -1151,6 +1249,7 @@ afunc_set_alt(struct usb_function *fn, unsigned intf, unsigned alt)
 		return 0;
 	}
 
+<<<<<<< HEAD
 	if (intf == agdev->as_out_intf) {
 		ep = agdev->out_ep;
 		prm = &uac2->c_prm;
@@ -1191,11 +1290,28 @@ afunc_set_alt(struct usb_function *fn, unsigned intf, unsigned alt)
 
 		req_len = uac2->p_pktsize;
 		uac2->p_residue = 0;
+=======
+	if (intf == uac2->as_out_intf) {
+		uac2->as_out_alt = alt;
+
+		if (alt)
+			ret = u_audio_start_capture(&uac2->g_audio);
+		else
+			u_audio_stop_capture(&uac2->g_audio);
+	} else if (intf == uac2->as_in_intf) {
+		uac2->as_in_alt = alt;
+
+		if (alt)
+			ret = u_audio_start_playback(&uac2->g_audio);
+		else
+			u_audio_stop_playback(&uac2->g_audio);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	} else {
 		dev_err(dev, "%s:%d Error!\n", __func__, __LINE__);
 		return -EINVAL;
 	}
 
+<<<<<<< HEAD
 	if (alt == 0) {
 		free_ep(prm, ep);
 		return 0;
@@ -1225,11 +1341,15 @@ afunc_set_alt(struct usb_function *fn, unsigned intf, unsigned alt)
 	}
 
 	return 0;
+=======
+	return ret;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static int
 afunc_get_alt(struct usb_function *fn, unsigned intf)
 {
+<<<<<<< HEAD
 	struct audio_dev *agdev = func_to_agdev(fn);
 	struct snd_uac2_chip *uac2 = &agdev->uac2;
 
@@ -1241,6 +1361,19 @@ afunc_get_alt(struct usb_function *fn, unsigned intf)
 		return agdev->as_in_alt;
 	else
 		dev_err(&uac2->pdev.dev,
+=======
+	struct f_uac2 *uac2 = func_to_uac2(fn);
+	struct g_audio *agdev = func_to_g_audio(fn);
+
+	if (intf == uac2->ac_intf)
+		return uac2->ac_alt;
+	else if (intf == uac2->as_out_intf)
+		return uac2->as_out_alt;
+	else if (intf == uac2->as_in_intf)
+		return uac2->as_in_alt;
+	else
+		dev_err(&agdev->gadget->dev,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			"%s:%d Invalid Interface %d!\n",
 			__func__, __LINE__, intf);
 
@@ -1250,6 +1383,7 @@ afunc_get_alt(struct usb_function *fn, unsigned intf)
 static void
 afunc_disable(struct usb_function *fn)
 {
+<<<<<<< HEAD
 	struct audio_dev *agdev = func_to_agdev(fn);
 	struct snd_uac2_chip *uac2 = &agdev->uac2;
 
@@ -1258,14 +1392,26 @@ afunc_disable(struct usb_function *fn)
 
 	free_ep(&uac2->c_prm, agdev->out_ep);
 	agdev->as_out_alt = 0;
+=======
+	struct f_uac2 *uac2 = func_to_uac2(fn);
+
+	uac2->as_in_alt = 0;
+	uac2->as_out_alt = 0;
+	u_audio_stop_capture(&uac2->g_audio);
+	u_audio_stop_playback(&uac2->g_audio);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static int
 in_rq_cur(struct usb_function *fn, const struct usb_ctrlrequest *cr)
 {
 	struct usb_request *req = fn->config->cdev->req;
+<<<<<<< HEAD
 	struct audio_dev *agdev = func_to_agdev(fn);
 	struct snd_uac2_chip *uac2 = &agdev->uac2;
+=======
+	struct g_audio *agdev = func_to_g_audio(fn);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct f_uac2_opts *opts;
 	u16 w_length = le16_to_cpu(cr->wLength);
 	u16 w_index = le16_to_cpu(cr->wIndex);
@@ -1275,7 +1421,11 @@ in_rq_cur(struct usb_function *fn, const struct usb_ctrlrequest *cr)
 	int value = -EOPNOTSUPP;
 	int p_srate, c_srate;
 
+<<<<<<< HEAD
 	opts = agdev_to_uac2_opts(agdev);
+=======
+	opts = g_audio_to_uac2_opts(agdev);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	p_srate = opts->p_srate;
 	c_srate = opts->c_srate;
 
@@ -1294,7 +1444,11 @@ in_rq_cur(struct usb_function *fn, const struct usb_ctrlrequest *cr)
 		*(u8 *)req->buf = 1;
 		value = min_t(unsigned, w_length, 1);
 	} else {
+<<<<<<< HEAD
 		dev_err(&uac2->pdev.dev,
+=======
+		dev_err(&agdev->gadget->dev,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			"%s:%d control_selector=%d TODO!\n",
 			__func__, __LINE__, control_selector);
 	}
@@ -1306,8 +1460,12 @@ static int
 in_rq_range(struct usb_function *fn, const struct usb_ctrlrequest *cr)
 {
 	struct usb_request *req = fn->config->cdev->req;
+<<<<<<< HEAD
 	struct audio_dev *agdev = func_to_agdev(fn);
 	struct snd_uac2_chip *uac2 = &agdev->uac2;
+=======
+	struct g_audio *agdev = func_to_g_audio(fn);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct f_uac2_opts *opts;
 	u16 w_length = le16_to_cpu(cr->wLength);
 	u16 w_index = le16_to_cpu(cr->wIndex);
@@ -1318,7 +1476,11 @@ in_rq_range(struct usb_function *fn, const struct usb_ctrlrequest *cr)
 	int value = -EOPNOTSUPP;
 	int p_srate, c_srate;
 
+<<<<<<< HEAD
 	opts = agdev_to_uac2_opts(agdev);
+=======
+	opts = g_audio_to_uac2_opts(agdev);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	p_srate = opts->p_srate;
 	c_srate = opts->c_srate;
 
@@ -1337,7 +1499,11 @@ in_rq_range(struct usb_function *fn, const struct usb_ctrlrequest *cr)
 		value = min_t(unsigned, w_length, sizeof r);
 		memcpy(req->buf, &r, value);
 	} else {
+<<<<<<< HEAD
 		dev_err(&uac2->pdev.dev,
+=======
+		dev_err(&agdev->gadget->dev,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			"%s:%d control_selector=%d TODO!\n",
 			__func__, __LINE__, control_selector);
 	}
@@ -1372,6 +1538,7 @@ out_rq_cur(struct usb_function *fn, const struct usb_ctrlrequest *cr)
 static int
 setup_rq_inf(struct usb_function *fn, const struct usb_ctrlrequest *cr)
 {
+<<<<<<< HEAD
 	struct audio_dev *agdev = func_to_agdev(fn);
 	struct snd_uac2_chip *uac2 = &agdev->uac2;
 	u16 w_index = le16_to_cpu(cr->wIndex);
@@ -1379,6 +1546,15 @@ setup_rq_inf(struct usb_function *fn, const struct usb_ctrlrequest *cr)
 
 	if (intf != agdev->ac_intf) {
 		dev_err(&uac2->pdev.dev,
+=======
+	struct f_uac2 *uac2 = func_to_uac2(fn);
+	struct g_audio *agdev = func_to_g_audio(fn);
+	u16 w_index = le16_to_cpu(cr->wIndex);
+	u8 intf = w_index & 0xff;
+
+	if (intf != uac2->ac_intf) {
+		dev_err(&agdev->gadget->dev,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			"%s:%d Error!\n", __func__, __LINE__);
 		return -EOPNOTSUPP;
 	}
@@ -1395,8 +1571,12 @@ static int
 afunc_setup(struct usb_function *fn, const struct usb_ctrlrequest *cr)
 {
 	struct usb_composite_dev *cdev = fn->config->cdev;
+<<<<<<< HEAD
 	struct audio_dev *agdev = func_to_agdev(fn);
 	struct snd_uac2_chip *uac2 = &agdev->uac2;
+=======
+	struct g_audio *agdev = func_to_g_audio(fn);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct usb_request *req = cdev->req;
 	u16 w_length = le16_to_cpu(cr->wLength);
 	int value = -EOPNOTSUPP;
@@ -1408,14 +1588,23 @@ afunc_setup(struct usb_function *fn, const struct usb_ctrlrequest *cr)
 	if ((cr->bRequestType & USB_RECIP_MASK) == USB_RECIP_INTERFACE)
 		value = setup_rq_inf(fn, cr);
 	else
+<<<<<<< HEAD
 		dev_err(&uac2->pdev.dev, "%s:%d Error!\n", __func__, __LINE__);
+=======
+		dev_err(&agdev->gadget->dev, "%s:%d Error!\n",
+				__func__, __LINE__);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (value >= 0) {
 		req->length = value;
 		req->zero = value < w_length;
 		value = usb_ep_queue(cdev->gadget->ep0, req, GFP_ATOMIC);
 		if (value < 0) {
+<<<<<<< HEAD
 			dev_err(&uac2->pdev.dev,
+=======
+			dev_err(&agdev->gadget->dev,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				"%s:%d Error!\n", __func__, __LINE__);
 			req->status = 0;
 		}
@@ -1488,6 +1677,10 @@ UAC2_ATTRIBUTE(p_ssize);
 UAC2_ATTRIBUTE(c_chmask);
 UAC2_ATTRIBUTE(c_srate);
 UAC2_ATTRIBUTE(c_ssize);
+<<<<<<< HEAD
+=======
+UAC2_ATTRIBUTE(req_number);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 static struct configfs_attribute *f_uac2_attrs[] = {
 	&f_uac2_opts_attr_p_chmask,
@@ -1496,6 +1689,10 @@ static struct configfs_attribute *f_uac2_attrs[] = {
 	&f_uac2_opts_attr_c_chmask,
 	&f_uac2_opts_attr_c_srate,
 	&f_uac2_opts_attr_c_ssize,
+<<<<<<< HEAD
+=======
+	&f_uac2_opts_attr_req_number,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	NULL,
 };
 
@@ -1533,15 +1730,26 @@ static struct usb_function_instance *afunc_alloc_inst(void)
 	opts->c_chmask = UAC2_DEF_CCHMASK;
 	opts->c_srate = UAC2_DEF_CSRATE;
 	opts->c_ssize = UAC2_DEF_CSSIZE;
+<<<<<<< HEAD
+=======
+	opts->req_number = UAC2_DEF_REQ_NUM;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return &opts->func_inst;
 }
 
 static void afunc_free(struct usb_function *f)
 {
+<<<<<<< HEAD
 	struct audio_dev *agdev;
 	struct f_uac2_opts *opts;
 
 	agdev = func_to_agdev(f);
+=======
+	struct g_audio *agdev;
+	struct f_uac2_opts *opts;
+
+	agdev = func_to_g_audio(f);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	opts = container_of(f->fi, struct f_uac2_opts, func_inst);
 	kfree(agdev);
 	mutex_lock(&opts->lock);
@@ -1551,6 +1759,7 @@ static void afunc_free(struct usb_function *f)
 
 static void afunc_unbind(struct usb_configuration *c, struct usb_function *f)
 {
+<<<<<<< HEAD
 	struct audio_dev *agdev = func_to_agdev(f);
 	struct uac2_rtd_params *prm;
 
@@ -1562,15 +1771,31 @@ static void afunc_unbind(struct usb_configuration *c, struct usb_function *f)
 	prm = &agdev->uac2.c_prm;
 	kfree(prm->rbuf);
 	usb_free_all_descriptors(f);
+=======
+	struct g_audio *agdev = func_to_g_audio(f);
+
+	g_audio_cleanup(agdev);
+	usb_free_all_descriptors(f);
+
+	agdev->gadget = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static struct usb_function *afunc_alloc(struct usb_function_instance *fi)
 {
+<<<<<<< HEAD
 	struct audio_dev *agdev;
 	struct f_uac2_opts *opts;
 
 	agdev = kzalloc(sizeof(*agdev), GFP_KERNEL);
 	if (agdev == NULL)
+=======
+	struct f_uac2	*uac2;
+	struct f_uac2_opts *opts;
+
+	uac2 = kzalloc(sizeof(*uac2), GFP_KERNEL);
+	if (uac2 == NULL)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return ERR_PTR(-ENOMEM);
 
 	opts = container_of(fi, struct f_uac2_opts, func_inst);
@@ -1578,6 +1803,7 @@ static struct usb_function *afunc_alloc(struct usb_function_instance *fi)
 	++opts->refcnt;
 	mutex_unlock(&opts->lock);
 
+<<<<<<< HEAD
 	agdev->func.name = "uac2_func";
 	agdev->func.bind = afunc_bind;
 	agdev->func.unbind = afunc_unbind;
@@ -1588,6 +1814,18 @@ static struct usb_function *afunc_alloc(struct usb_function_instance *fi)
 	agdev->func.free_func = afunc_free;
 
 	return &agdev->func;
+=======
+	uac2->g_audio.func.name = "uac2_func";
+	uac2->g_audio.func.bind = afunc_bind;
+	uac2->g_audio.func.unbind = afunc_unbind;
+	uac2->g_audio.func.set_alt = afunc_set_alt;
+	uac2->g_audio.func.get_alt = afunc_get_alt;
+	uac2->g_audio.func.disable = afunc_disable;
+	uac2->g_audio.func.setup = afunc_setup;
+	uac2->g_audio.func.free_func = afunc_free;
+
+	return &uac2->g_audio.func;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 DECLARE_USB_FUNCTION_INIT(uac2, afunc_alloc_inst, afunc_alloc);

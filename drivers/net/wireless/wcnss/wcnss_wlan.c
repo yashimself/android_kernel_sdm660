@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2011-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2011-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -2144,9 +2148,14 @@ unlock_exit:
 	return;
 }
 
+<<<<<<< HEAD
 static void wcnssctrl_rx_handler(struct work_struct *worker)
 {
 	int len = 0;
+=======
+static void wcnss_process_smd_msg(int len)
+{
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int rc = 0;
 	unsigned char buf[sizeof(struct wcnss_version)];
 	unsigned char build[WCNSS_MAX_BUILD_VER_LEN+1];
@@ -2156,6 +2165,7 @@ static void wcnssctrl_rx_handler(struct work_struct *worker)
 	int hw_type;
 	unsigned char fw_status = 0;
 
+<<<<<<< HEAD
 	len = smd_read_avail(penv->smd_ch);
 	if (len > WCNSS_MAX_FRAME_SIZE) {
 		pr_err("wcnss: frame larger than the allowed size\n");
@@ -2167,6 +2177,8 @@ static void wcnssctrl_rx_handler(struct work_struct *worker)
 		return;
 	}
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	rc = smd_read(penv->smd_ch, buf, sizeof(struct smd_msg_hdr));
 	if (rc < sizeof(struct smd_msg_hdr)) {
 		pr_err("wcnss: incomplete header read from smd\n");
@@ -2276,6 +2288,36 @@ static void wcnssctrl_rx_handler(struct work_struct *worker)
 	return;
 }
 
+<<<<<<< HEAD
+=======
+static void wcnssctrl_rx_handler(struct work_struct *worker)
+{
+	int len;
+
+	while (1) {
+		len = smd_read_avail(penv->smd_ch);
+		if (len == 0) {
+			pr_debug("wcnss: No more data to be read\n");
+			return;
+		}
+
+		if (len > WCNSS_MAX_FRAME_SIZE) {
+			pr_err("wcnss: frame larger than the allowed size\n");
+			smd_read(penv->smd_ch, NULL, len);
+			return;
+		}
+
+		if (len < sizeof(struct smd_msg_hdr)) {
+			pr_err("wcnss: incomplete header available len = %d\n",
+			       len);
+			return;
+		}
+
+		wcnss_process_smd_msg(len);
+	}
+}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static void wcnss_send_version_req(struct work_struct *worker)
 {
 	struct smd_msg_hdr smd_msg;
@@ -2368,6 +2410,15 @@ static void wcnss_nvbin_dnld(void)
 		goto out;
 	}
 
+<<<<<<< HEAD
+=======
+	if (nv->size <= 4) {
+		pr_err("wcnss: %s: request_firmware failed for %s (file size = %zu)\n",
+		       __func__, NVBIN_FILE, nv->size);
+		goto out;
+	}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* First 4 bytes in nv blob is validity bitmap.
 	 * We cannot validate nv, so skip those 4 bytes.
 	 */

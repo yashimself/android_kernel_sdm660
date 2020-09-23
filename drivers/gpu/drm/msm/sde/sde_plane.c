@@ -1232,6 +1232,10 @@ static int _sde_plane_mode_set(struct drm_plane *plane,
 	uint32_t nplanes, src_flags = 0x0;
 	struct sde_plane *psde;
 	struct sde_plane_state *pstate;
+<<<<<<< HEAD
+=======
+	struct sde_crtc_state *cstate;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	const struct sde_format *fmt;
 	struct drm_crtc *crtc;
 	struct drm_framebuffer *fb;
@@ -1379,6 +1383,26 @@ static int _sde_plane_mode_set(struct drm_plane *plane,
 				src.x += src.w * pp->index;
 				dst.x += dst.w * pp->index;
 			}
+<<<<<<< HEAD
+=======
+
+			/* add extra offset for shared display */
+			if (crtc->state) {
+				cstate = to_sde_crtc_state(crtc->state);
+				if (cstate->is_shared) {
+					dst.x += cstate->shared_roi.x;
+					dst.y += cstate->shared_roi.y;
+
+					if (sde_plane_get_property(pstate,
+						PLANE_PROP_SRC_CONFIG) &
+						BIT(SDE_DRM_LINEPADDING)) {
+						src.h = cstate->shared_roi.h;
+						dst.h = cstate->shared_roi.h;
+					}
+				}
+			}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			pp->pipe_cfg.src_rect = src;
 			pp->pipe_cfg.dst_rect = dst;
 
@@ -1795,7 +1819,12 @@ static void _sde_plane_install_properties(struct drm_plane *plane,
 		{SDE_DRM_BLEND_OP_COVERAGE,       "coverage"}
 	};
 	static const struct drm_prop_enum_list e_src_config[] = {
+<<<<<<< HEAD
 		{SDE_DRM_DEINTERLACE, "deinterlace"}
+=======
+		{SDE_DRM_DEINTERLACE, "deinterlace"},
+		{SDE_DRM_LINEPADDING, "linepadding"},
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	};
 	static const struct drm_prop_enum_list e_fb_translation_mode[] = {
 		{SDE_DRM_FB_NON_SEC, "non_sec"},
@@ -1852,7 +1881,11 @@ static void _sde_plane_install_properties(struct drm_plane *plane,
 	}
 
 	if (sde_is_custom_client()) {
+<<<<<<< HEAD
 		if (catalog->mixer_count && catalog->mixer &&
+=======
+		if (catalog->mixer_count &&
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				catalog->mixer[0].sblk->maxblendstages) {
 			zpos_max = catalog->mixer[0].sblk->maxblendstages - 1;
 			if (zpos_max > SDE_STAGE_MAX - SDE_STAGE_0 - 1)
@@ -2143,6 +2176,15 @@ static inline void _sde_plane_set_scaler_v2(struct sde_phy_plane *pp,
 		return;
 	}
 
+<<<<<<< HEAD
+=======
+	/* detach/ignore user data if 'disabled' */
+	if (!scale_v2.enable) {
+		SDE_DEBUG_PLANE(psde, "scale data removed\n");
+		return;
+	}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* populate from user space */
 	pe = &(pp->pixel_ext);
 	memset(pe, 0, sizeof(struct sde_hw_pixel_ext));
@@ -2726,6 +2768,27 @@ end:
 	return rc;
 }
 
+<<<<<<< HEAD
+=======
+void sde_plane_update_blob_property(struct drm_plane *plane,
+				const char *key,
+				int32_t value)
+{
+	char *kms_info_str = NULL;
+	struct sde_plane *sde_plane = to_sde_plane(plane);
+	size_t len;
+
+	kms_info_str = (char *)msm_property_get_blob(&sde_plane->property_info,
+				&sde_plane->blob_info, &len, 0);
+	if (!kms_info_str) {
+		SDE_ERROR("get plane property_info failed\n");
+		return;
+	}
+
+	sde_kms_info_update_keystr(kms_info_str, key, value);
+}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /* initialize plane */
 struct drm_plane *sde_plane_init(struct drm_device *dev,
 		uint32_t pipe, bool primary_plane,

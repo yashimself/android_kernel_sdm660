@@ -35,7 +35,10 @@
 #include <linux/interrupt.h>
 #include <linux/genalloc.h>
 #include <linux/of_device.h>
+<<<<<<< HEAD
 #include <linux/vmalloc.h>
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 static inline size_t chunk_size(const struct gen_pool_chunk *chunk)
 {
@@ -188,7 +191,11 @@ int gen_pool_add_virt(struct gen_pool *pool, unsigned long virt, phys_addr_t phy
 	int nbytes = sizeof(struct gen_pool_chunk) +
 				BITS_TO_LONGS(nbits) * sizeof(long);
 
+<<<<<<< HEAD
 	chunk = vzalloc_node(nbytes, nid);
+=======
+	chunk = kzalloc_node(nbytes, GFP_KERNEL, nid);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (unlikely(chunk == NULL))
 		return -ENOMEM;
 
@@ -252,7 +259,11 @@ void gen_pool_destroy(struct gen_pool *pool)
 		bit = find_next_bit(chunk->bits, end_bit, 0);
 		BUG_ON(bit < end_bit);
 
+<<<<<<< HEAD
 		vfree(chunk);
+=======
+		kfree(chunk);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 	kfree_const(pool->name);
 	kfree(pool);

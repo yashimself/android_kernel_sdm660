@@ -312,6 +312,12 @@ cifs_new_fileinfo(struct cifs_fid *fid, struct file *file,
 	INIT_LIST_HEAD(&fdlocks->locks);
 	fdlocks->cfile = cfile;
 	cfile->llist = fdlocks;
+<<<<<<< HEAD
+=======
+	cifs_down_write(&cinode->lock_sem);
+	list_add(&fdlocks->llist, &cinode->llist);
+	up_write(&cinode->lock_sem);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	cfile->count = 1;
 	cfile->pid = current->tgid;
@@ -335,10 +341,13 @@ cifs_new_fileinfo(struct cifs_fid *fid, struct file *file,
 		oplock = 0;
 	}
 
+<<<<<<< HEAD
 	cifs_down_write(&cinode->lock_sem);
 	list_add(&fdlocks->llist, &cinode->llist);
 	up_write(&cinode->lock_sem);
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	spin_lock(&tcon->open_file_lock);
 	if (fid->pending_open->oplock != CIFS_OPLOCK_NO_CHANGE && oplock)
 		oplock = fid->pending_open->oplock;
@@ -703,6 +712,7 @@ cifs_reopen_file(struct cifsFileInfo *cfile, bool can_flush)
 	if (backup_cred(cifs_sb))
 		create_options |= CREATE_OPEN_BACKUP_INTENT;
 
+<<<<<<< HEAD
 	/* O_SYNC also has bit for O_DSYNC so following check picks up either */
 	if (cfile->f_flags & O_SYNC)
 		create_options |= CREATE_WRITE_THROUGH;
@@ -710,6 +720,8 @@ cifs_reopen_file(struct cifsFileInfo *cfile, bool can_flush)
 	if (cfile->f_flags & O_DIRECT)
 		create_options |= CREATE_NO_BUFFER;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (server->ops->get_lease_key)
 		server->ops->get_lease_key(inode, &cfile->fid);
 
@@ -3451,13 +3463,21 @@ readpages_get_pages(struct address_space *mapping, struct list_head *page_list,
 	 * should have access to this page, we're safe to simply set
 	 * PG_locked without checking it first.
 	 */
+<<<<<<< HEAD
 	__set_page_locked(page);
+=======
+	__SetPageLocked(page);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	rc = add_to_page_cache_locked(page, mapping,
 				      page->index, gfp);
 
 	/* give up if we can't stick it in the cache */
 	if (rc) {
+<<<<<<< HEAD
 		__clear_page_locked(page);
+=======
+		__ClearPageLocked(page);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return rc;
 	}
 
@@ -3478,9 +3498,15 @@ readpages_get_pages(struct address_space *mapping, struct list_head *page_list,
 		if (*bytes + PAGE_CACHE_SIZE > rsize)
 			break;
 
+<<<<<<< HEAD
 		__set_page_locked(page);
 		if (add_to_page_cache_locked(page, mapping, page->index, gfp)) {
 			__clear_page_locked(page);
+=======
+		__SetPageLocked(page);
+		if (add_to_page_cache_locked(page, mapping, page->index, gfp)) {
+			__ClearPageLocked(page);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			break;
 		}
 		list_move_tail(&page->lru, tmplist);

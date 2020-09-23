@@ -126,6 +126,12 @@ struct usb_phy {
 
 	/* reset the PHY clocks */
 	int	(*reset)(struct usb_phy *x);
+<<<<<<< HEAD
+=======
+
+	/* return linestate with Idp_src (used for DCD with USB2 PHY) */
+	int (*dpdm_with_idp_src)(struct usb_phy *x);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 /**
@@ -209,6 +215,18 @@ usb_phy_reset(struct usb_phy *x)
 	return 0;
 }
 
+<<<<<<< HEAD
+=======
+static inline int
+usb_phy_dpdm_with_idp_src(struct usb_phy *x)
+{
+	if (x && x->dpdm_with_idp_src)
+		return x->dpdm_with_idp_src(x);
+
+	return 0;
+}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /* for usb host and peripheral controller drivers */
 #if IS_ENABLED(CONFIG_USB_PHY)
 extern struct usb_phy *usb_get_phy(enum usb_phy_type type);

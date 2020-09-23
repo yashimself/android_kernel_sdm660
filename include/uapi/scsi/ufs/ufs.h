@@ -51,7 +51,12 @@ enum desc_idn {
 	QUERY_DESC_IDN_RFU_1		= 0x6,
 	QUERY_DESC_IDN_GEOMETRY		= 0x7,
 	QUERY_DESC_IDN_POWER		= 0x8,
+<<<<<<< HEAD
 	QUERY_DESC_IDN_RFU_2		= 0x9,
+=======
+	QUERY_DESC_IDN_HEALTH		= 0x9,
+	QUERY_DESC_IDN_RFU_2		= 0x0A,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	QUERY_DESC_IDN_MAX,
 };
 

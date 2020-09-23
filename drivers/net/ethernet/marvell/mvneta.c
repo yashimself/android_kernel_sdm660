@@ -3058,25 +3058,44 @@ static void mvneta_ethtool_update_stats(struct mvneta_port *pp)
 	const struct mvneta_statistic *s;
 	void __iomem *base = pp->base;
 	u32 high, low, val;
+<<<<<<< HEAD
 	u64 val64;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int i;
 
 	for (i = 0, s = mvneta_statistics;
 	     s < mvneta_statistics + ARRAY_SIZE(mvneta_statistics);
 	     s++, i++) {
+<<<<<<< HEAD
 		switch (s->type) {
 		case T_REG_32:
 			val = readl_relaxed(base + s->offset);
 			pp->ethtool_stats[i] += val;
+=======
+		val = 0;
+
+		switch (s->type) {
+		case T_REG_32:
+			val = readl_relaxed(base + s->offset);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			break;
 		case T_REG_64:
 			/* Docs say to read low 32-bit then high */
 			low = readl_relaxed(base + s->offset);
 			high = readl_relaxed(base + s->offset + 4);
+<<<<<<< HEAD
 			val64 = (u64)high << 32 | low;
 			pp->ethtool_stats[i] += val64;
 			break;
 		}
+=======
+			val = (u64)high << 32 | low;
+			break;
+		}
+
+		pp->ethtool_stats[i] += val;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 }
 
@@ -3405,7 +3424,11 @@ static int mvneta_probe(struct platform_device *pdev)
 	dev->features = NETIF_F_SG | NETIF_F_IP_CSUM | NETIF_F_TSO;
 	dev->hw_features |= dev->features;
 	dev->vlan_features |= dev->features;
+<<<<<<< HEAD
 	dev->priv_flags |= IFF_LIVE_ADDR_CHANGE;
+=======
+	dev->priv_flags |= IFF_UNICAST_FLT | IFF_LIVE_ADDR_CHANGE;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	dev->gso_max_segs = MVNETA_MAX_TSO_SEGS;
 
 	err = register_netdev(dev);

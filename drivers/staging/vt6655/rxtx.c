@@ -1303,7 +1303,11 @@ int vnt_generate_fifo_header(struct vnt_private *priv, u32 dma_idx,
 	}
 
 	if (current_rate > RATE_11M) {
+<<<<<<< HEAD
 		if (info->band == NL80211_BAND_5GHZ) {
+=======
+		if (info->band == IEEE80211_BAND_5GHZ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			pkt_type = PK_TYPE_11A;
 		} else {
 			if (tx_rate->flags & IEEE80211_TX_RC_USE_CTS_PROTECT)

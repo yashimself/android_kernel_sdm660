@@ -652,7 +652,10 @@ static void rndis_disable(struct usb_function *f)
 	gether_disconnect(&rndis->port);
 
 	usb_ep_disable(rndis->notify);
+<<<<<<< HEAD
 	rndis->notify->desc = NULL;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /*-------------------------------------------------------------------------*/

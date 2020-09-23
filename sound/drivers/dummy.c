@@ -925,7 +925,11 @@ static void print_formats(struct snd_dummy *dummy,
 {
 	int i;
 
+<<<<<<< HEAD
 	for (i = 0; i <= SNDRV_PCM_FORMAT_LAST; i++) {
+=======
+	for (i = 0; i < SNDRV_PCM_FORMAT_LAST; i++) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (dummy->pcm_hw.formats & (1ULL << i))
 			snd_iprintf(buffer, " %s", snd_pcm_format_name(i));
 	}

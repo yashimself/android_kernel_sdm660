@@ -86,8 +86,12 @@ static void cpu_psci_cpu_die(unsigned int cpu)
 
 static int cpu_psci_cpu_kill(unsigned int cpu)
 {
+<<<<<<< HEAD
 	int err;
 	unsigned long start, end;
+=======
+	int err, i;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (!psci_ops.affinity_info)
 		return 0;
@@ -97,6 +101,7 @@ static int cpu_psci_cpu_kill(unsigned int cpu)
 	 * while it is dying. So, try again a few times.
 	 */
 
+<<<<<<< HEAD
 	start = jiffies;
 	end = start + msecs_to_jiffies(100);
 	do {
@@ -109,6 +114,18 @@ static int cpu_psci_cpu_kill(unsigned int cpu)
 
 		usleep_range(100, 1000);
 	} while (time_before(jiffies, end));
+=======
+	for (i = 0; i < 10; i++) {
+		err = psci_ops.affinity_info(cpu_logical_map(cpu), 0);
+		if (err == PSCI_0_2_AFFINITY_LEVEL_OFF) {
+			pr_debug("CPU%d killed.\n", cpu);
+			return 0;
+		}
+
+		msleep(10);
+		pr_debug("Retrying again to check for CPU kill\n");
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	pr_warn("CPU%d may not have shut down cleanly (AFFINITY_INFO reports %d)\n",
 			cpu, err);

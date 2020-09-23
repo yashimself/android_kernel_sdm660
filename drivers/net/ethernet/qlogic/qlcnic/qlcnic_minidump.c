@@ -703,7 +703,10 @@ static u32 qlcnic_read_memory_test_agent(struct qlcnic_adapter *adapter,
 		addr += 16;
 		reg_read -= 16;
 		ret += 16;
+<<<<<<< HEAD
 		cond_resched();
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 out:
 	mutex_unlock(&adapter->ahw->mem_lock);
@@ -1384,7 +1387,10 @@ int qlcnic_dump_fw(struct qlcnic_adapter *adapter)
 		buf_offset += entry->hdr.cap_size;
 		entry_offset += entry->hdr.offset;
 		buffer = fw_dump->data + buf_offset;
+<<<<<<< HEAD
 		cond_resched();
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	fw_dump->clr = 1;
@@ -1419,7 +1425,10 @@ void qlcnic_83xx_get_minidump_template(struct qlcnic_adapter *adapter)
 	struct qlcnic_fw_dump *fw_dump = &ahw->fw_dump;
 	struct pci_dev *pdev = adapter->pdev;
 	bool extended = false;
+<<<<<<< HEAD
 	int ret;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	prev_version = adapter->fw_version;
 	current_version = qlcnic_83xx_get_fw_version(adapter);
@@ -1430,11 +1439,16 @@ void qlcnic_83xx_get_minidump_template(struct qlcnic_adapter *adapter)
 		if (qlcnic_83xx_md_check_extended_dump_capability(adapter))
 			extended = !qlcnic_83xx_extend_md_capab(adapter);
 
+<<<<<<< HEAD
 		ret = qlcnic_fw_cmd_get_minidump_temp(adapter);
 		if (ret)
 			return;
 
 		dev_info(&pdev->dev, "Supports FW dump capability\n");
+=======
+		if (!qlcnic_fw_cmd_get_minidump_temp(adapter))
+			dev_info(&pdev->dev, "Supports FW dump capability\n");
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		/* Once we have minidump template with extended iSCSI dump
 		 * capability, update the minidump capture mask to 0x1f as

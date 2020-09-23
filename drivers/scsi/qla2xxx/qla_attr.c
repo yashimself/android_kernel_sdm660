@@ -760,8 +760,12 @@ qla2x00_sysfs_write_reset(struct file *filp, struct kobject *kobj,
 			break;
 		} else {
 			/* Make sure FC side is not in reset */
+<<<<<<< HEAD
 			WARN_ON_ONCE(qla2x00_wait_for_hba_online(vha) !=
 				     QLA_SUCCESS);
+=======
+			qla2x00_wait_for_hba_online(vha);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 			/* Issue MPI reset */
 			scsi_block_requests(vha->host);

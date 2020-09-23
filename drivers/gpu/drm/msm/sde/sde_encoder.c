@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2014-2018, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2014-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  * Copyright (C) 2013 Red Hat
  * Author: Rob Clark <robdclark@gmail.com>
  *
@@ -196,6 +200,11 @@ struct sde_encoder_virt {
 	atomic_t last_underrun_ts;
 	atomic_t underrun_cnt_dwork;
 	struct delayed_work dwork;
+<<<<<<< HEAD
+=======
+
+	bool is_shared;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 #define to_sde_encoder_virt(x) container_of(x, struct sde_encoder_virt, base)
@@ -326,6 +335,10 @@ static int sde_encoder_virt_atomic_check(
 	struct sde_kms *sde_kms;
 	const struct drm_display_mode *mode;
 	struct drm_display_mode *adj_mode;
+<<<<<<< HEAD
+=======
+	struct sde_connector *sde_conn = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int i = 0;
 	int ret = 0;
 
@@ -362,6 +375,16 @@ static int sde_encoder_virt_atomic_check(
 		}
 	}
 
+<<<<<<< HEAD
+=======
+	sde_conn = to_sde_connector(conn_state->connector);
+	if (sde_conn) {
+		if (sde_conn->ops.set_topology_ctl)
+			sde_conn->ops.set_topology_ctl(conn_state->connector,
+					adj_mode, sde_conn->display);
+	}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* Reserve dynamic resources now. Indicating AtomicTest phase */
 	if (!ret)
 		ret = sde_rm_reserve(&sde_kms->rm, drm_enc, crtc_state,
@@ -384,6 +407,10 @@ static void sde_encoder_virt_mode_set(struct drm_encoder *drm_enc,
 	struct sde_kms *sde_kms;
 	struct list_head *connector_list;
 	struct drm_connector *conn = NULL, *conn_iter;
+<<<<<<< HEAD
+=======
+	struct sde_connector *sde_conn = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct sde_rm_hw_iter pp_iter;
 	int i = 0, ret;
 
@@ -413,6 +440,16 @@ static void sde_encoder_virt_mode_set(struct drm_encoder *drm_enc,
 		return;
 	}
 
+<<<<<<< HEAD
+=======
+	sde_conn = to_sde_connector(conn);
+	if (sde_conn) {
+		if (sde_conn->ops.set_topology_ctl)
+			sde_conn->ops.set_topology_ctl(conn,
+					adj_mode, sde_conn->display);
+	}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* Reserve dynamic resources now. Indicating non-AtomicTest phase */
 	ret = sde_rm_reserve(&sde_kms->rm, drm_enc, drm_enc->crtc->state,
 			conn->state, false);
@@ -434,7 +471,11 @@ static void sde_encoder_virt_mode_set(struct drm_encoder *drm_enc,
 		struct sde_encoder_phys *phys = sde_enc->phys_encs[i];
 
 		if (phys) {
+<<<<<<< HEAD
 			if (!sde_enc->hw_pp[i]) {
+=======
+			if (!sde_enc->hw_pp[i] && !sde_enc->is_shared) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				SDE_ERROR_ENC(sde_enc,
 				    "invalid pingpong block for the encoder\n");
 				return;
@@ -545,6 +586,16 @@ static void sde_encoder_virt_disable(struct drm_encoder *drm_enc)
 	if (sde_enc->cur_master && sde_enc->cur_master->ops.disable)
 		sde_enc->cur_master->ops.disable(sde_enc->cur_master);
 
+<<<<<<< HEAD
+=======
+	for (i = 0; i < sde_enc->num_phys_encs; i++) {
+		struct sde_encoder_phys *phys = sde_enc->phys_encs[i];
+
+		if (phys && phys->ops.post_disable)
+			phys->ops.post_disable(phys);
+	}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	sde_enc->cur_master = NULL;
 	SDE_DEBUG_ENC(sde_enc, "cleared master\n");
 
@@ -771,6 +822,11 @@ static inline void _sde_encoder_trigger_flush(struct drm_encoder *drm_enc,
 	if (extra_flush_bits && ctl->ops.update_pending_flush)
 		ctl->ops.update_pending_flush(ctl, extra_flush_bits);
 
+<<<<<<< HEAD
+=======
+	phys->splash_flush_bits = phys->sde_kms->splash_info.flush_bits;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	ctl->ops.trigger_flush(ctl);
 	SDE_EVT32(DRMID(drm_enc), ctl->idx);
 }
@@ -1278,6 +1334,36 @@ static int sde_encoder_virt_add_phys_enc_wb(struct sde_encoder_virt *sde_enc,
 	return 0;
 }
 
+<<<<<<< HEAD
+=======
+static int sde_encoder_virt_add_phys_enc_shd(struct sde_encoder_virt *sde_enc,
+		struct sde_enc_phys_init_params *params)
+{
+	struct sde_encoder_phys *enc = NULL;
+
+	if (sde_enc->num_phys_encs + 1 >= ARRAY_SIZE(sde_enc->phys_encs)) {
+		SDE_ERROR_ENC(sde_enc, "too many physical encoders %d\n",
+			  sde_enc->num_phys_encs);
+		return -EINVAL;
+	}
+
+	enc = sde_encoder_phys_shd_init(params);
+
+	if (IS_ERR(enc)) {
+		SDE_ERROR_ENC(sde_enc, "failed to init shd enc: %ld\n",
+			PTR_ERR(enc));
+		return PTR_ERR(enc);
+	}
+
+	sde_enc->is_shared = true;
+
+	sde_enc->phys_encs[sde_enc->num_phys_encs] = enc;
+	++sde_enc->num_phys_encs;
+
+	return 0;
+}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int sde_encoder_setup_display(struct sde_encoder_virt *sde_enc,
 				 struct sde_kms *sde_kms,
 				 struct msm_display_info *disp_info,
@@ -1348,7 +1434,14 @@ static int sde_encoder_setup_display(struct sde_encoder_virt *sde_enc,
 		SDE_DEBUG("h_tile_instance %d = %d, split_role %d\n",
 				i, controller_id, phys_params.split_role);
 
+<<<<<<< HEAD
 		if (intf_type == INTF_WB) {
+=======
+		if (disp_info->capabilities & MSM_DISPLAY_CAP_SHARED) {
+			phys_params.wb_idx = WB_MAX;
+			phys_params.intf_idx = controller_id + INTF_0;
+		} else if (intf_type == INTF_WB) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			phys_params.intf_idx = INTF_MAX;
 			phys_params.wb_idx = sde_encoder_get_wb(
 					sde_kms->catalog,
@@ -1373,7 +1466,14 @@ static int sde_encoder_setup_display(struct sde_encoder_virt *sde_enc,
 		}
 
 		if (!ret) {
+<<<<<<< HEAD
 			if (intf_type == INTF_WB)
+=======
+			if (disp_info->capabilities & MSM_DISPLAY_CAP_SHARED) {
+				ret = sde_encoder_virt_add_phys_enc_shd(sde_enc,
+						&phys_params);
+			} else if (intf_type == INTF_WB)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				ret = sde_encoder_virt_add_phys_enc_wb(sde_enc,
 						&phys_params);
 			else

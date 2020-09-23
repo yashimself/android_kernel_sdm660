@@ -1188,7 +1188,11 @@ int t4vf_eth_xmit(struct sk_buff *skb, struct net_device *dev)
 
 	/* Discard the packet if the length is greater than mtu */
 	max_pkt_len = ETH_HLEN + dev->mtu;
+<<<<<<< HEAD
 	if (skb_vlan_tagged(skb))
+=======
+	if (skb_vlan_tag_present(skb))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		max_pkt_len += VLAN_HLEN;
 	if (!skb_shinfo(skb)->gso_size && (unlikely(skb->len > max_pkt_len)))
 		goto out_free;

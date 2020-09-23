@@ -2064,9 +2064,15 @@ static int mv88e6xxx_setup_port(struct dsa_switch *ds, int port)
 	 * the other bits clear.
 	 */
 	reg = 1 << port;
+<<<<<<< HEAD
 	/* Disable learning for CPU port */
 	if (dsa_is_cpu_port(ds, port))
 		reg = 0;
+=======
+	/* Disable learning for DSA and CPU ports */
+	if (dsa_is_cpu_port(ds, port) || dsa_is_dsa_port(ds, port))
+		reg = PORT_ASSOC_VECTOR_LOCKED_PORT;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	ret = _mv88e6xxx_reg_write(ds, REG_PORT(port), PORT_ASSOC_VECTOR, reg);
 	if (ret)
@@ -2150,8 +2156,12 @@ static int mv88e6xxx_setup_port(struct dsa_switch *ds, int port)
 	 * database, and allow every port to egress frames on all other ports.
 	 */
 	reg = BIT(ps->num_ports) - 1; /* all ports */
+<<<<<<< HEAD
 	reg &= ~BIT(port); /* except itself */
 	ret = _mv88e6xxx_port_vlan_map_set(ds, port, reg);
+=======
+	ret = _mv88e6xxx_port_vlan_map_set(ds, port, reg & ~port);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (ret)
 		goto abort;
 

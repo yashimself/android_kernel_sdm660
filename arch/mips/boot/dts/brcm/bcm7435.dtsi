@@ -7,7 +7,11 @@
 		#address-cells = <1>;
 		#size-cells = <0>;
 
+<<<<<<< HEAD
 		mips-hpt-frequency = <175625000>;
+=======
+		mips-hpt-frequency = <163125000>;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		cpu@0 {
 			compatible = "brcm,bmips5200";

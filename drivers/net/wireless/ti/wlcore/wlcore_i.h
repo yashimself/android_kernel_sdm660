@@ -392,7 +392,11 @@ struct wl12xx_vif {
 	u8 ssid_len;
 
 	/* The current band */
+<<<<<<< HEAD
 	enum nl80211_band band;
+=======
+	enum ieee80211_band band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	int channel;
 	enum nl80211_channel_type channel_type;
 

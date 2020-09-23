@@ -47,11 +47,24 @@
 #include <linux/vmalloc.h>
 #include <linux/mman.h>
 #include <asm/cacheflush.h>
+<<<<<<< HEAD
+=======
+#include <linux/list.h>
+#include <linux/sched.h>
+#include <linux/uaccess.h>
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #ifdef CONFIG_IDE
 #include <linux/ide.h>
 #endif
 
+<<<<<<< HEAD
+=======
+struct lkdtm_list {
+	struct list_head node;
+};
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /*
  * Make sure our attempts to over run the kernel stack doesn't trigger
  * a compiler warning when CONFIG_FRAME_WARN is set. Then make sure we
@@ -88,6 +101,12 @@ enum ctype {
 	CT_EXCEPTION,
 	CT_LOOP,
 	CT_OVERFLOW,
+<<<<<<< HEAD
+=======
+	CT_CORRUPT_LIST_ADD,
+	CT_CORRUPT_LIST_DEL,
+	CT_CORRUPT_USER_DS,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	CT_CORRUPT_STACK,
 	CT_UNALIGNED_LOAD_STORE_WRITE,
 	CT_OVERWRITE_ALLOCATION,
@@ -126,6 +145,12 @@ static char* cp_type[] = {
 	"EXCEPTION",
 	"LOOP",
 	"OVERFLOW",
+<<<<<<< HEAD
+=======
+	"CORRUPT_LIST_ADD",
+	"CORRUPT_LIST_DEL",
+	"CORRUPT_USER_DS",
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	"CORRUPT_STACK",
 	"UNALIGNED_LOAD_STORE_WRITE",
 	"OVERWRITE_ALLOCATION",
@@ -335,7 +360,11 @@ static noinline void corrupt_stack(void)
 	/* Use default char array length that triggers stack protection. */
 	char data[8];
 
+<<<<<<< HEAD
 	memset((void *)data, 0, 64);
+=======
+	memset((void *)data, 0, sizeof(char)*8);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static void execute_location(void *dst)
@@ -368,6 +397,10 @@ static void execute_user_location(void *dst)
 
 static void lkdtm_do_action(enum ctype which)
 {
+<<<<<<< HEAD
+=======
+	int *ptr = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	switch (which) {
 	case CT_PANIC:
 		panic("dumptest");
@@ -379,7 +412,11 @@ static void lkdtm_do_action(enum ctype which)
 		WARN_ON(1);
 		break;
 	case CT_EXCEPTION:
+<<<<<<< HEAD
 		*((int *) 0) = 0;
+=======
+		*ptr = 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		break;
 	case CT_LOOP:
 		for (;;)
@@ -548,6 +585,78 @@ static void lkdtm_do_action(enum ctype which)
 		do_overwritten();
 		break;
 	}
+<<<<<<< HEAD
+=======
+	case CT_CORRUPT_LIST_ADD: {
+		/*
+		 * Initially, an empty list via LIST_HEAD:
+		 *	test_head.next = &test_head
+		 *	test_head.prev = &test_head
+		 */
+		LIST_HEAD(test_head);
+		struct lkdtm_list good, bad;
+		void *target[2] = { };
+		void *redirection = &target;
+
+		pr_info("attempting good list addition\n");
+
+		/*
+		 * Adding to the list performs these actions:
+		 *	test_head.next->prev = &good.node
+		 *	good.node.next = test_head.next
+		 *	good.node.prev = test_head
+		 *	test_head.next = good.node
+		 */
+		list_add(&good.node, &test_head);
+
+		pr_info("attempting corrupted list addition\n");
+		/*
+		 * In simulating this "write what where" primitive, the "what" is
+		 * the address of &bad.node, and the "where" is the address held
+		 * by "redirection".
+		 */
+		test_head.next = redirection;
+		list_add(&bad.node, &test_head);
+
+		if (target[0] == NULL && target[1] == NULL)
+			pr_err("Overwrite did not happen, but no BUG?!\n");
+		else
+			pr_err("list_add() corruption not detected!\n");
+		break;
+	}
+	case CT_CORRUPT_LIST_DEL: {
+		LIST_HEAD(test_head);
+		struct lkdtm_list item;
+		void *target[2] = { };
+		void *redirection = &target;
+
+		list_add(&item.node, &test_head);
+
+		pr_info("attempting good list removal\n");
+		list_del(&item.node);
+
+		pr_info("attempting corrupted list removal\n");
+		list_add(&item.node, &test_head);
+
+		/* As with the list_add() test above, this corrupts "next". */
+		item.node.next = redirection;
+		list_del(&item.node);
+
+		if (target[0] == NULL && target[1] == NULL)
+			pr_err("Overwrite did not happen, but no BUG?!\n");
+		else
+			pr_err("list_del() corruption not detected!\n");
+		break;
+	}
+	case CT_CORRUPT_USER_DS: {
+		pr_info("setting bad task size limit\n");
+		set_fs(KERNEL_DS);
+
+		/* Make sure we do not keep running with a KERNEL_DS! */
+		force_sig(SIGKILL, current);
+		break;
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	case CT_NONE:
 	default:
 		break;

@@ -1278,9 +1278,14 @@ static int fm_download_firmware(struct fmdev *fmdev, const u8 *fw_name)
 
 		switch (action->type) {
 		case ACTION_SEND_COMMAND:	/* Send */
+<<<<<<< HEAD
 			ret = fmc_send_cmd(fmdev, 0, 0, action->data,
 					   action->size, NULL, NULL);
 			if (ret)
+=======
+			if (fmc_send_cmd(fmdev, 0, 0, action->data,
+						action->size, NULL, NULL))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				goto rel_fw;
 
 			cmd_cnt++;

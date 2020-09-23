@@ -307,10 +307,16 @@ static void sg_complete(struct urb *urb)
 		 */
 		spin_unlock(&io->lock);
 		for (i = 0, found = 0; i < io->entries; i++) {
+<<<<<<< HEAD
 			if (!io->urbs[i])
 				continue;
 			if (found) {
 				usb_block_urb(io->urbs[i]);
+=======
+			if (!io->urbs[i] || !io->urbs[i]->dev)
+				continue;
+			if (found) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				retval = usb_unlink_urb(io->urbs[i]);
 				if (retval != -EINPROGRESS &&
 				    retval != -ENODEV &&
@@ -521,10 +527,19 @@ void usb_sg_wait(struct usb_sg_request *io)
 		int retval;
 
 		io->urbs[i]->dev = io->dev;
+<<<<<<< HEAD
 		spin_unlock_irq(&io->lock);
 
 		retval = usb_submit_urb(io->urbs[i], GFP_NOIO);
 
+=======
+		retval = usb_submit_urb(io->urbs[i], GFP_ATOMIC);
+
+		/* after we submit, let completions or cancellations fire;
+		 * we handshake using io->status.
+		 */
+		spin_unlock_irq(&io->lock);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		switch (retval) {
 			/* maybe we retrying will recover */
 		case -ENXIO:	/* hc didn't queue this one */
@@ -582,6 +597,7 @@ EXPORT_SYMBOL_GPL(usb_sg_wait);
 void usb_sg_cancel(struct usb_sg_request *io)
 {
 	unsigned long flags;
+<<<<<<< HEAD
 	int i, retval;
 
 	spin_lock_irqsave(&io->lock, flags);
@@ -610,6 +626,32 @@ void usb_sg_cancel(struct usb_sg_request *io)
 	io->count--;
 	if (!io->count)
 		complete(&io->complete);
+=======
+
+	spin_lock_irqsave(&io->lock, flags);
+
+	/* shut everything down, if it didn't already */
+	if (!io->status) {
+		int i;
+
+		io->status = -ECONNRESET;
+		spin_unlock(&io->lock);
+		for (i = 0; i < io->entries; i++) {
+			int retval;
+
+			if (!io->urbs[i]->dev)
+				continue;
+			retval = usb_unlink_urb(io->urbs[i]);
+			if (retval != -EINPROGRESS
+					&& retval != -ENODEV
+					&& retval != -EBUSY
+					&& retval != -EIDRM)
+				dev_warn(&io->dev->dev, "%s, unlink --> %d\n",
+					__func__, retval);
+		}
+		spin_lock(&io->lock);
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	spin_unlock_irqrestore(&io->lock, flags);
 }
 EXPORT_SYMBOL_GPL(usb_sg_cancel);

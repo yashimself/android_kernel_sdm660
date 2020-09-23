@@ -130,6 +130,7 @@ superio_select(struct w83627hf_sio_data *sio, int ld)
 	outb(ld,  sio->sioaddr + 1);
 }
 
+<<<<<<< HEAD
 static inline int
 superio_enter(struct w83627hf_sio_data *sio)
 {
@@ -140,13 +141,23 @@ superio_enter(struct w83627hf_sio_data *sio)
 	outb(0x87, sio->sioaddr);
 
 	return 0;
+=======
+static inline void
+superio_enter(struct w83627hf_sio_data *sio)
+{
+	outb(0x87, sio->sioaddr);
+	outb(0x87, sio->sioaddr);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static inline void
 superio_exit(struct w83627hf_sio_data *sio)
 {
 	outb(0xAA, sio->sioaddr);
+<<<<<<< HEAD
 	release_region(sio->sioaddr, 2);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 #define W627_DEVID 0x52
@@ -1281,7 +1292,11 @@ static DEVICE_ATTR(name, S_IRUGO, show_name, NULL);
 static int __init w83627hf_find(int sioaddr, unsigned short *addr,
 				struct w83627hf_sio_data *sio_data)
 {
+<<<<<<< HEAD
 	int err;
+=======
+	int err = -ENODEV;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	u16 val;
 
 	static __initconst char *const names[] = {
@@ -1293,11 +1308,15 @@ static int __init w83627hf_find(int sioaddr, unsigned short *addr,
 	};
 
 	sio_data->sioaddr = sioaddr;
+<<<<<<< HEAD
 	err = superio_enter(sio_data);
 	if (err)
 		return err;
 
 	err = -ENODEV;
+=======
+	superio_enter(sio_data);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	val = force_id ? force_id : superio_inb(sio_data, DEVID);
 	switch (val) {
 	case W627_DEVID:
@@ -1651,6 +1670,7 @@ static int w83627thf_read_gpio5(struct platform_device *pdev)
 	struct w83627hf_sio_data *sio_data = dev_get_platdata(&pdev->dev);
 	int res = 0xff, sel;
 
+<<<<<<< HEAD
 	if (superio_enter(sio_data)) {
 		/*
 		 * Some other driver reserved the address space for itself.
@@ -1666,6 +1686,11 @@ static int w83627thf_read_gpio5(struct platform_device *pdev)
 
 	res = 0xff;
 
+=======
+	superio_enter(sio_data);
+	superio_select(sio_data, W83627HF_LD_GPIO5);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* Make sure these GPIO pins are enabled */
 	if (!(superio_inb(sio_data, W83627THF_GPIO5_EN) & (1<<3))) {
 		dev_dbg(&pdev->dev, "GPIO5 disabled, no VID function\n");
@@ -1696,6 +1721,7 @@ static int w83687thf_read_vid(struct platform_device *pdev)
 	struct w83627hf_sio_data *sio_data = dev_get_platdata(&pdev->dev);
 	int res = 0xff;
 
+<<<<<<< HEAD
 	if (superio_enter(sio_data)) {
 		/*
 		 * Some other driver reserved the address space for itself.
@@ -1707,6 +1733,9 @@ static int w83687thf_read_vid(struct platform_device *pdev)
 		return res;
 	}
 
+=======
+	superio_enter(sio_data);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	superio_select(sio_data, W83627HF_LD_HWM);
 
 	/* Make sure these GPIO pins are enabled */

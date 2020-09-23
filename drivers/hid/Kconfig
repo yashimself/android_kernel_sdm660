@@ -726,6 +726,17 @@ config HID_SPEEDLINK
 	---help---
 	Support for Speedlink Vicious and Divine Cezanne mouse.
 
+<<<<<<< HEAD
+=======
+config HID_STEAM
+	tristate "Steam Controller support"
+	depends on HID
+	---help---
+	Say Y here if you have a Steam Controller if you want to use it
+	without running the Steam Client. It supports both the wired and
+	the wireless adaptor.
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 config HID_STEELSERIES
 	tristate "Steelseries SRW-S1 steering wheel support"
 	depends on HID

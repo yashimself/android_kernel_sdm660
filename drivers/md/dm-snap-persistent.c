@@ -17,7 +17,11 @@
 #include "dm-bufio.h"
 
 #define DM_MSG_PREFIX "persistent snapshot"
+<<<<<<< HEAD
 #define DM_CHUNK_SIZE_DEFAULT_SECTORS 32U	/* 16KB */
+=======
+#define DM_CHUNK_SIZE_DEFAULT_SECTORS 32	/* 16KB */
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #define DM_PREFETCH_CHUNKS		12
 

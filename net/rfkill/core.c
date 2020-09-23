@@ -936,6 +936,7 @@ static void rfkill_sync_work(struct work_struct *work)
 int __must_check rfkill_register(struct rfkill *rfkill)
 {
 	static unsigned long rfkill_no;
+<<<<<<< HEAD
 	struct device *dev;
 	int error;
 
@@ -943,6 +944,12 @@ int __must_check rfkill_register(struct rfkill *rfkill)
 		return -EINVAL;
 
 	dev = &rfkill->dev;
+=======
+	struct device *dev = &rfkill->dev;
+	int error;
+
+	BUG_ON(!rfkill);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	mutex_lock(&rfkill_global_mutex);
 

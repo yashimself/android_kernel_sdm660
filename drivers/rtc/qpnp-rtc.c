@@ -22,7 +22,10 @@
 #include <linux/spmi.h>
 #include <linux/platform_device.h>
 #include <linux/spinlock.h>
+<<<<<<< HEAD
 #include <linux/alarmtimer.h>
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 /* RTC/ALARM Register offsets */
 #define REG_OFFSET_ALARM_RW	0x40
@@ -608,9 +611,12 @@ static int qpnp_rtc_probe(struct platform_device *pdev)
 		goto fail_rtc_enable;
 	}
 
+<<<<<<< HEAD
 	/* Init power_on_alarm after adding rtc device */
 	power_on_alarm_init();
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* Request the alarm IRQ */
 	rc = request_any_context_irq(rtc_dd->rtc_alarm_irq,
 				 qpnp_alarm_trigger, IRQF_TRIGGER_RISING,

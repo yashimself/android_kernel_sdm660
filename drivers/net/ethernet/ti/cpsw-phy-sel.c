@@ -154,12 +154,18 @@ void cpsw_phy_sel(struct device *dev, phy_interface_t phy_mode, int slave)
 	}
 
 	dev = bus_find_device(&platform_bus_type, NULL, node, match);
+<<<<<<< HEAD
 	of_node_put(node);
 	priv = dev_get_drvdata(dev);
 
 	priv->cpsw_phy_sel(priv, phy_mode, slave);
 
 	put_device(dev);
+=======
+	priv = dev_get_drvdata(dev);
+
+	priv->cpsw_phy_sel(priv, phy_mode, slave);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 EXPORT_SYMBOL_GPL(cpsw_phy_sel);
 

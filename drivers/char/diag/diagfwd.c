@@ -1648,7 +1648,11 @@ void diag_process_non_hdlc_pkt(unsigned char *buf, int len, int pid)
 		if (*(uint8_t *)(data_ptr + actual_pkt->length) !=
 						CONTROL_CHAR) {
 			mutex_unlock(&driver->hdlc_recovery_mutex);
+<<<<<<< HEAD
 			diag_hdlc_start_recovery(buf, len, pid);
+=======
+			diag_hdlc_start_recovery(buf, (len - read_bytes), pid);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			mutex_lock(&driver->hdlc_recovery_mutex);
 		}
 		err = diag_process_apps_pkt(data_ptr,
@@ -1674,8 +1678,13 @@ start:
 		pkt_len = actual_pkt->length;
 
 		if (actual_pkt->start != CONTROL_CHAR) {
+<<<<<<< HEAD
 			diag_hdlc_start_recovery(buf, len, pid);
 			diag_send_error_rsp(buf, len, pid);
+=======
+			diag_hdlc_start_recovery(buf, (len - read_bytes), pid);
+			diag_send_error_rsp(buf, (len - read_bytes), pid);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			goto end;
 		}
 		mutex_lock(&driver->hdlc_recovery_mutex);
@@ -1683,7 +1692,11 @@ start:
 			pr_err("diag: In %s, incoming data is too large for the request buffer %d\n",
 			       __func__, pkt_len);
 			mutex_unlock(&driver->hdlc_recovery_mutex);
+<<<<<<< HEAD
 			diag_hdlc_start_recovery(buf, len, pid);
+=======
+			diag_hdlc_start_recovery(buf, (len - read_bytes), pid);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			break;
 		}
 		if ((pkt_len + header_len) > (len - read_bytes)) {
@@ -1700,7 +1713,11 @@ start:
 		if (*(uint8_t *)(data_ptr + actual_pkt->length) !=
 						CONTROL_CHAR) {
 			mutex_unlock(&driver->hdlc_recovery_mutex);
+<<<<<<< HEAD
 			diag_hdlc_start_recovery(buf, len, pid);
+=======
+			diag_hdlc_start_recovery(buf, (len - read_bytes), pid);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			mutex_lock(&driver->hdlc_recovery_mutex);
 		}
 		else

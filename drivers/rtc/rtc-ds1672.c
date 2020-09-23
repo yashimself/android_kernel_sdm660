@@ -60,8 +60,12 @@ static int ds1672_get_datetime(struct i2c_client *client, struct rtc_time *tm)
 		"%s: raw read data - counters=%02x,%02x,%02x,%02x\n",
 		__func__, buf[0], buf[1], buf[2], buf[3]);
 
+<<<<<<< HEAD
 	time = ((unsigned long)buf[3] << 24) | (buf[2] << 16) |
 	       (buf[1] << 8) | buf[0];
+=======
+	time = (buf[3] << 24) | (buf[2] << 16) | (buf[1] << 8) | buf[0];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	rtc_time_to_tm(time, tm);
 

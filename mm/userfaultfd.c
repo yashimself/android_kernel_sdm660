@@ -182,6 +182,7 @@ retry:
 		goto out_unlock;
 
 	/*
+<<<<<<< HEAD
 	 * Be strict and only allow __mcopy_atomic on userfaultfd
 	 * registered ranges to prevent userland errors going
 	 * unnoticed. As far as the VM consistency is concerned, it
@@ -189,6 +190,11 @@ retry:
 	 * no useful usage for __mcopy_atomic ouside of userfaultfd
 	 * registered ranges. This is after all why these are ioctls
 	 * belonging to the userfaultfd and not syscalls.
+=======
+	 * Check the vma is registered in uffd, this is required to
+	 * enforce the VM_MAYWRITE check done at uffd registration
+	 * time.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	 */
 	if (!dst_vma->vm_userfaultfd_ctx.ctx)
 		goto out_unlock;

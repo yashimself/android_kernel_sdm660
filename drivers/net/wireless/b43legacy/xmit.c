@@ -565,7 +565,11 @@ void b43legacy_rx(struct b43legacy_wldev *dev,
 	switch (chanstat & B43legacy_RX_CHAN_PHYTYPE) {
 	case B43legacy_PHYTYPE_B:
 	case B43legacy_PHYTYPE_G:
+<<<<<<< HEAD
 		status.band = NL80211_BAND_2GHZ;
+=======
+		status.band = IEEE80211_BAND_2GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		status.freq = chanid + 2400;
 		break;
 	default:

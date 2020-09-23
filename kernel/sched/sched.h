@@ -1151,7 +1151,10 @@ extern unsigned int  __read_mostly sched_small_wakee_task_load;
 extern unsigned int  __read_mostly sched_spill_load;
 extern unsigned int  __read_mostly sched_upmigrate;
 extern unsigned int  __read_mostly sched_downmigrate;
+<<<<<<< HEAD
 extern unsigned int  __read_mostly sysctl_sched_spill_nr_run;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 extern unsigned int  __read_mostly sched_load_granule;
 
 extern void init_new_task_load(struct task_struct *p);

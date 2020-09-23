@@ -104,7 +104,10 @@ menu "DOS/FAT/NT Filesystems"
 
 source "fs/fat/Kconfig"
 source "fs/ntfs/Kconfig"
+<<<<<<< HEAD
 source "fs/sdfat/Kconfig"
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 endmenu
 endif # BLOCK

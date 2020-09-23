@@ -804,7 +804,11 @@ static void thermal_zone_device_set_polling(struct thermal_zone_device *tz,
 		mod_delayed_work(system_freezable_wq, &tz->poll_queue,
 				 msecs_to_jiffies(delay));
 	else
+<<<<<<< HEAD
 		cancel_delayed_work(&tz->poll_queue);
+=======
+		cancel_delayed_work_sync(&tz->poll_queue);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static void monitor_thermal_zone(struct thermal_zone_device *tz)
@@ -2460,7 +2464,11 @@ void thermal_zone_device_unregister(struct thermal_zone_device *tz)
 
 	mutex_unlock(&thermal_list_lock);
 
+<<<<<<< HEAD
 	cancel_delayed_work_sync(&tz->poll_queue);
+=======
+	thermal_zone_device_set_polling(tz, 0);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	if (tz->type[0])
 		device_remove_file(&tz->device, &dev_attr_type);

@@ -1892,6 +1892,7 @@ struct dentry *d_instantiate_unique(struct dentry *entry, struct inode *inode)
 
 EXPORT_SYMBOL(d_instantiate_unique);
 
+<<<<<<< HEAD
 /*
  * This should be equivalent to d_instantiate() + unlock_new_inode(),
  * with lockdep-related part of unlock_new_inode() done before
@@ -1914,6 +1915,8 @@ void d_instantiate_new(struct dentry *entry, struct inode *inode)
 }
 EXPORT_SYMBOL(d_instantiate_new);
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /**
  * d_instantiate_no_diralias - instantiate a non-aliased dentry
  * @entry: dentry to complete

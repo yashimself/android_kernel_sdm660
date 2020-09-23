@@ -1,4 +1,5 @@
 # UAPI Header export list
+<<<<<<< HEAD
 header-y += ib_user_cm.h
 header-y += ib_user_mad.h
 header-y += ib_user_sa.h
@@ -6,3 +7,5 @@ header-y += ib_user_verbs.h
 header-y += rdma_netlink.h
 header-y += rdma_user_cm.h
 header-y += hfi/
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

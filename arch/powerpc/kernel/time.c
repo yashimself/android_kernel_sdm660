@@ -245,7 +245,11 @@ static u64 scan_dispatch_log(u64 stop_tb)
  * Accumulate stolen time by scanning the dispatch trace log.
  * Called on entry from user mode.
  */
+<<<<<<< HEAD
 void notrace accumulate_stolen_time(void)
+=======
+void accumulate_stolen_time(void)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	u64 sst, ust;
 
@@ -829,7 +833,10 @@ void update_vsyscall_old(struct timespec *wall_time, struct timespec *wtm,
 	vdso_data->wtom_clock_nsec = wtm->tv_nsec;
 	vdso_data->stamp_xtime = *wall_time;
 	vdso_data->stamp_sec_fraction = frac_sec;
+<<<<<<< HEAD
 	vdso_data->hrtimer_res = hrtimer_resolution;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	smp_wmb();
 	++(vdso_data->tb_update_count);
 }

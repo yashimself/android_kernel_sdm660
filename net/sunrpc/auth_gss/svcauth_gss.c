@@ -1173,7 +1173,10 @@ static int gss_proxy_save_rsc(struct cache_detail *cd,
 		dprintk("RPC:       No creds found!\n");
 		goto out;
 	} else {
+<<<<<<< HEAD
 		struct timespec64 boot;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		/* steal creds */
 		rsci.cred = ud->creds;
@@ -1194,9 +1197,12 @@ static int gss_proxy_save_rsc(struct cache_detail *cd,
 						&expiry, GFP_KERNEL);
 		if (status)
 			goto out;
+<<<<<<< HEAD
 
 		getboottime64(&boot);
 		expiry -= boot.tv_sec;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	rsci.h.expiry_time = expiry;

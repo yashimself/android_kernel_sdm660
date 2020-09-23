@@ -2180,8 +2180,13 @@ static int32_t q6asm_callback(struct apr_client_data *data, void *priv)
 			buf_index = asm_token._token.buf_index;
 			if (buf_index < 0 ||
 					buf_index >= port->max_buf_cnt) {
+<<<<<<< HEAD
 				pr_err("%s: Invalid buffer index %u\n",
 					__func__, buf_index);
+=======
+				pr_debug("%s: Invalid buffer index %u\n",
+				__func__, buf_index);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				spin_unlock_irqrestore(&port->dsp_lock,
 								dsp_flags);
 				spin_unlock_irqrestore(
@@ -2300,8 +2305,13 @@ static int32_t q6asm_callback(struct apr_client_data *data, void *priv)
 			spin_lock_irqsave(&port->dsp_lock, dsp_flags);
 			buf_index = asm_token._token.buf_index;
 			if (buf_index < 0 || buf_index >= port->max_buf_cnt) {
+<<<<<<< HEAD
 				pr_err("%s: Invalid buffer index %u\n",
 					__func__, buf_index);
+=======
+				pr_debug("%s: Invalid buffer index %u\n",
+				__func__, buf_index);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				spin_unlock_irqrestore(&port->dsp_lock,
 								dsp_flags);
 				spin_unlock_irqrestore(
@@ -3369,6 +3379,12 @@ static int __q6asm_open_write(struct audio_client *ac, uint32_t format,
 	case FORMAT_APTX:
 		open.dec_fmt_id = ASM_MEDIA_FMT_APTX;
 		break;
+<<<<<<< HEAD
+=======
+	case FORMAT_APTXHD:
+		open.dec_fmt_id = ASM_MEDIA_FMT_APTX_HD;
+		break;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	case FORMAT_GEN_COMPR:
 		open.dec_fmt_id = ASM_MEDIA_FMT_GENERIC_COMPRESSED;
 		break;
@@ -7947,7 +7963,11 @@ fail_cmd:
 int q6asm_audio_map_shm_fd(struct audio_client *ac, struct ion_client **client,
 			struct ion_handle **handle, int fd)
 {
+<<<<<<< HEAD
 	ion_phys_addr_t paddr;
+=======
+	ion_phys_addr_t paddr = 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	size_t pa_len = 0;
 	int ret;
 	int sz = 0;

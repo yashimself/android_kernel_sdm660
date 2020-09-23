@@ -441,8 +441,13 @@ static int pcan_usb_decode_error(struct pcan_usb_msg_context *mc, u8 n,
 		}
 		if ((n & PCAN_USB_ERROR_BUS_LIGHT) == 0) {
 			/* no error (back to active state) */
+<<<<<<< HEAD
 			new_state = CAN_STATE_ERROR_ACTIVE;
 			break;
+=======
+			mc->pdev->dev.can.state = CAN_STATE_ERROR_ACTIVE;
+			return 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 		break;
 
@@ -465,9 +470,15 @@ static int pcan_usb_decode_error(struct pcan_usb_msg_context *mc, u8 n,
 		}
 
 		if ((n & PCAN_USB_ERROR_BUS_HEAVY) == 0) {
+<<<<<<< HEAD
 			/* no error (back to warning state) */
 			new_state = CAN_STATE_ERROR_WARNING;
 			break;
+=======
+			/* no error (back to active state) */
+			mc->pdev->dev.can.state = CAN_STATE_ERROR_ACTIVE;
+			return 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 		break;
 
@@ -506,11 +517,14 @@ static int pcan_usb_decode_error(struct pcan_usb_msg_context *mc, u8 n,
 		mc->pdev->dev.can.can_stats.error_warning++;
 		break;
 
+<<<<<<< HEAD
 	case CAN_STATE_ERROR_ACTIVE:
 		cf->can_id |= CAN_ERR_CRTL;
 		cf->data[1] = CAN_ERR_CRTL_ACTIVE;
 		break;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	default:
 		/* CAN_STATE_MAX (trick to handle other errors) */
 		cf->can_id |= CAN_ERR_CRTL;

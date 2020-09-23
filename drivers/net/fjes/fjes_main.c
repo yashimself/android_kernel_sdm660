@@ -149,9 +149,12 @@ static int fjes_acpi_add(struct acpi_device *device)
 	/* create platform_device */
 	plat_dev = platform_device_register_simple(DRV_NAME, 0, fjes_resource,
 						   ARRAY_SIZE(fjes_resource));
+<<<<<<< HEAD
 	if (IS_ERR(plat_dev))
 		return PTR_ERR(plat_dev);
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	device->driver_data = plat_dev;
 
 	return 0;

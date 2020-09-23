@@ -101,7 +101,11 @@ static int vnt_int_report_rate(struct vnt_private *priv, u8 pkt_no, u8 tsr)
 		else if (context->fb_option == AUTO_FB_1)
 			tx_rate = fallback_rate1[tx_rate][retry];
 
+<<<<<<< HEAD
 		if (info->band == NL80211_BAND_5GHZ)
+=======
+		if (info->band == IEEE80211_BAND_5GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			idx = tx_rate - RATE_6M;
 		else
 			idx = tx_rate;
@@ -111,11 +115,17 @@ static int vnt_int_report_rate(struct vnt_private *priv, u8 pkt_no, u8 tsr)
 
 	info->status.rates[0].count = tx_retry;
 
+<<<<<<< HEAD
 	if (!(tsr & TSR_TMO)) {
 		info->status.rates[0].idx = idx;
 
 		if (!(info->flags & IEEE80211_TX_CTL_NO_ACK))
 			info->flags |= IEEE80211_TX_STAT_ACK;
+=======
+	if (!(tsr & (TSR_TMO | TSR_RETRYTMO))) {
+		info->status.rates[0].idx = idx;
+		info->flags |= IEEE80211_TX_STAT_ACK;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	ieee80211_tx_status_irqsafe(priv->hw, context->skb);
@@ -157,8 +167,12 @@ void vnt_int_process_data(struct vnt_private *priv)
 				priv->wake_up_count =
 					priv->hw->conf.listen_interval;
 
+<<<<<<< HEAD
 			if (priv->wake_up_count)
 				--priv->wake_up_count;
+=======
+			--priv->wake_up_count;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 			/* Turn on wake up to listen next beacon */
 			if (priv->wake_up_count == 1)

@@ -46,7 +46,10 @@ struct uas_dev_info {
 	struct scsi_cmnd *cmnd[MAX_CMNDS];
 	spinlock_t lock;
 	struct work_struct work;
+<<<<<<< HEAD
 	struct work_struct scan_work;      /* for async scanning */
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 enum {
@@ -82,6 +85,7 @@ static void uas_free_streams(struct uas_dev_info *devinfo);
 static void uas_log_cmd_state(struct scsi_cmnd *cmnd, const char *prefix,
 				int status);
 
+<<<<<<< HEAD
 /*
  * This driver needs its own workqueue, as we need to control memory allocation.
  *
@@ -95,6 +99,8 @@ static void uas_log_cmd_state(struct scsi_cmnd *cmnd, const char *prefix,
  */
 static struct workqueue_struct *workqueue;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static void uas_do_work(struct work_struct *work)
 {
 	struct uas_dev_info *devinfo =
@@ -123,12 +129,17 @@ static void uas_do_work(struct work_struct *work)
 		if (!err)
 			cmdinfo->state &= ~IS_IN_WORK_LIST;
 		else
+<<<<<<< HEAD
 			queue_work(workqueue, &devinfo->work);
+=======
+			schedule_work(&devinfo->work);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 out:
 	spin_unlock_irqrestore(&devinfo->lock, flags);
 }
 
+<<<<<<< HEAD
 static void uas_scan_work(struct work_struct *work)
 {
 	struct uas_dev_info *devinfo =
@@ -140,6 +151,8 @@ static void uas_scan_work(struct work_struct *work)
 	dev_dbg(&devinfo->intf->dev, "scan complete\n");
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static void uas_add_work(struct uas_cmd_info *cmdinfo)
 {
 	struct scsi_pointer *scp = (void *)cmdinfo;
@@ -148,7 +161,11 @@ static void uas_add_work(struct uas_cmd_info *cmdinfo)
 
 	lockdep_assert_held(&devinfo->lock);
 	cmdinfo->state |= IS_IN_WORK_LIST;
+<<<<<<< HEAD
 	queue_work(workqueue, &devinfo->work);
+=======
+	schedule_work(&devinfo->work);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static void uas_zap_pending(struct uas_dev_info *devinfo, int result)
@@ -204,9 +221,12 @@ static void uas_log_cmd_state(struct scsi_cmnd *cmnd, const char *prefix,
 	struct uas_cmd_info *ci = (void *)&cmnd->SCp;
 	struct uas_cmd_info *cmdinfo = (void *)&cmnd->SCp;
 
+<<<<<<< HEAD
 	if (status == -ENODEV) /* too late */
 		return;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	scmd_printk(KERN_INFO, cmnd,
 		    "%s %d uas-tag %d inflight:%s%s%s%s%s%s%s%s%s%s%s%s ",
 		    prefix, status, cmdinfo->uas_tag,
@@ -957,7 +977,10 @@ static int uas_probe(struct usb_interface *intf, const struct usb_device_id *id)
 	init_usb_anchor(&devinfo->data_urbs);
 	spin_lock_init(&devinfo->lock);
 	INIT_WORK(&devinfo->work, uas_do_work);
+<<<<<<< HEAD
 	INIT_WORK(&devinfo->scan_work, uas_scan_work);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	result = uas_configure_endpoints(devinfo);
 	if (result)
@@ -974,9 +997,13 @@ static int uas_probe(struct usb_interface *intf, const struct usb_device_id *id)
 	if (result)
 		goto free_streams;
 
+<<<<<<< HEAD
 	/* Submit the delayed_work for SCSI-device scanning */
 	schedule_work(&devinfo->scan_work);
 
+=======
+	scsi_scan_host(shost);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return result;
 
 free_streams:
@@ -1144,12 +1171,15 @@ static void uas_disconnect(struct usb_interface *intf)
 	usb_kill_anchored_urbs(&devinfo->data_urbs);
 	uas_zap_pending(devinfo, DID_NO_CONNECT);
 
+<<<<<<< HEAD
 	/*
 	 * Prevent SCSI scanning (if it hasn't started yet)
 	 * or wait for the SCSI-scanning routine to stop.
 	 */
 	cancel_work_sync(&devinfo->scan_work);
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	scsi_remove_host(shost);
 	uas_free_streams(devinfo);
 	scsi_host_put(shost);
@@ -1189,6 +1219,7 @@ static struct usb_driver uas_driver = {
 	.id_table = uas_usb_ids,
 };
 
+<<<<<<< HEAD
 static int __init uas_init(void)
 {
 	int rv;
@@ -1214,6 +1245,9 @@ static void __exit uas_exit(void)
 
 module_init(uas_init);
 module_exit(uas_exit);
+=======
+module_usb_driver(uas_driver);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR(

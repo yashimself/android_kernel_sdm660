@@ -1491,7 +1491,11 @@ static struct blk_mq_tags *blk_mq_init_rq_map(struct blk_mq_tag_set *set,
 		int to_do;
 		void *p;
 
+<<<<<<< HEAD
 		while (this_order && left < order_to_size(this_order - 1))
+=======
+		while (left < order_to_size(this_order - 1) && this_order)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			this_order--;
 
 		do {

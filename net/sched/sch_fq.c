@@ -668,7 +668,10 @@ static const struct nla_policy fq_policy[TCA_FQ_MAX + 1] = {
 	[TCA_FQ_FLOW_MAX_RATE]		= { .type = NLA_U32 },
 	[TCA_FQ_BUCKETS_LOG]		= { .type = NLA_U32 },
 	[TCA_FQ_FLOW_REFILL_DELAY]	= { .type = NLA_U32 },
+<<<<<<< HEAD
 	[TCA_FQ_ORPHAN_MASK]		= { .type = NLA_U32 },
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 static int fq_change(struct Qdisc *sch, struct nlattr *opt)
@@ -707,7 +710,11 @@ static int fq_change(struct Qdisc *sch, struct nlattr *opt)
 	if (tb[TCA_FQ_QUANTUM]) {
 		u32 quantum = nla_get_u32(tb[TCA_FQ_QUANTUM]);
 
+<<<<<<< HEAD
 		if (quantum > 0 && quantum <= (1 << 20))
+=======
+		if (quantum > 0)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			q->quantum = quantum;
 		else
 			err = -EINVAL;
@@ -830,6 +837,7 @@ nla_put_failure:
 static int fq_dump_stats(struct Qdisc *sch, struct gnet_dump *d)
 {
 	struct fq_sched_data *q = qdisc_priv(sch);
+<<<<<<< HEAD
 	struct tc_fq_qd_stats st;
 
 	sch_tree_lock(sch);
@@ -848,6 +856,22 @@ static int fq_dump_stats(struct Qdisc *sch, struct gnet_dump *d)
 	st.pad			  = 0;
 
 	sch_tree_unlock(sch);
+=======
+	u64 now = ktime_get_ns();
+	struct tc_fq_qd_stats st = {
+		.gc_flows		= q->stat_gc_flows,
+		.highprio_packets	= q->stat_internal_packets,
+		.tcp_retrans		= q->stat_tcp_retrans,
+		.throttled		= q->stat_throttled,
+		.flows_plimit		= q->stat_flows_plimit,
+		.pkts_too_long		= q->stat_pkts_too_long,
+		.allocation_errors	= q->stat_allocation_errors,
+		.flows			= q->flows,
+		.inactive_flows		= q->inactive_flows,
+		.throttled_flows	= q->throttled_flows,
+		.time_next_delayed_flow	= q->time_next_delayed_flow - now,
+	};
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	return gnet_stats_copy_app(d, &st, sizeof(st));
 }

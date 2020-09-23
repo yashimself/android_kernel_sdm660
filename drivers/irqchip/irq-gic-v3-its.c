@@ -352,7 +352,11 @@ static struct its_collection *its_build_invall_cmd(struct its_cmd_block *cmd,
 						   struct its_cmd_desc *desc)
 {
 	its_encode_cmd(cmd, GITS_CMD_INVALL);
+<<<<<<< HEAD
 	its_encode_collection(cmd, desc->its_invall_cmd.col->col_id);
+=======
+	its_encode_collection(cmd, desc->its_mapc_cmd.col->col_id);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	its_fixup_cmd(cmd);
 

@@ -1014,8 +1014,11 @@ SYSCALL_DEFINE2(delete_module, const char __user *, name_user,
 	strlcpy(last_unloaded_module, mod->name, sizeof(last_unloaded_module));
 
 	free_module(mod);
+<<<<<<< HEAD
 	/* someone could wait for the module in add_unformed_module() */
 	wake_up_all(&module_wq);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return 0;
 out:
 	mutex_unlock(&module_mutex);

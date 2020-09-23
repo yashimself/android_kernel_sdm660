@@ -1454,7 +1454,11 @@ static int wl3501_get_freq(struct net_device *dev, struct iw_request_info *info,
 	struct wl3501_card *this = netdev_priv(dev);
 
 	wrqu->freq.m = 100000 *
+<<<<<<< HEAD
 		ieee80211_channel_to_frequency(this->chan, NL80211_BAND_2GHZ);
+=======
+		ieee80211_channel_to_frequency(this->chan, IEEE80211_BAND_2GHZ);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	wrqu->freq.e = 1;
 	return 0;
 }

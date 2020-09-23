@@ -599,15 +599,23 @@ struct kobject *kobject_get(struct kobject *kobj)
 }
 EXPORT_SYMBOL(kobject_get);
 
+<<<<<<< HEAD
 struct kobject * __must_check kobject_get_unless_zero(struct kobject *kobj)
 {
 	if (!kobj)
 		return NULL;
+=======
+static struct kobject * __must_check kobject_get_unless_zero(struct kobject *kobj)
+{
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!kref_get_unless_zero(&kobj->kref))
 		kobj = NULL;
 	return kobj;
 }
+<<<<<<< HEAD
 EXPORT_SYMBOL(kobject_get_unless_zero);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 /*
  * kobject_cleanup - free kobject resources.

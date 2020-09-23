@@ -278,12 +278,15 @@ retry:
 	case EXT4_ENCRYPTION_MODE_AES_256_HEH:
 		cipher_str = "heh(aes)";
 		break;
+<<<<<<< HEAD
 	case EXT4_ENCRYPTION_MODE_SPECK128_256_XTS:
 		cipher_str = "xts(speck128)";
 		break;
 	case EXT4_ENCRYPTION_MODE_SPECK128_256_CTS:
 		cipher_str = "cts(cbc(speck128))";
 		break;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	default:
 		printk_once(KERN_WARNING
 			    "ext4: unsupported key mode %d (ino %u)\n",

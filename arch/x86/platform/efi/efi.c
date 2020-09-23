@@ -465,6 +465,10 @@ void __init efi_init(void)
 	efi_char16_t *c16;
 	char vendor[100] = "unknown";
 	int i = 0;
+<<<<<<< HEAD
+=======
+	void *tmp;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #ifdef CONFIG_X86_32
 	if (boot_params.efi_info.efi_systab_hi ||
@@ -489,6 +493,7 @@ void __init efi_init(void)
 	/*
 	 * Show what we know for posterity
 	 */
+<<<<<<< HEAD
 	c16 = early_memremap_ro(efi.systab->fw_vendor,
 				sizeof(vendor) * sizeof(efi_char16_t));
 	if (c16) {
@@ -499,6 +504,16 @@ void __init efi_init(void)
 	} else {
 		pr_err("Could not map the firmware vendor!\n");
 	}
+=======
+	c16 = tmp = early_memremap(efi.systab->fw_vendor, 2);
+	if (c16) {
+		for (i = 0; i < sizeof(vendor) - 1 && *c16; ++i)
+			vendor[i] = *c16++;
+		vendor[i] = '\0';
+	} else
+		pr_err("Could not map the firmware vendor!\n");
+	early_memunmap(tmp, 2);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	pr_info("EFI v%u.%.02u by %s\n",
 		efi.systab->hdr.revision >> 16,

@@ -2378,7 +2378,10 @@ static int cma_resolve_iboe_route(struct rdma_id_private *id_priv)
 err2:
 	kfree(route->path_rec);
 	route->path_rec = NULL;
+<<<<<<< HEAD
 	route->num_paths = 0;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 err1:
 	kfree(work);
 	return ret;
@@ -4110,7 +4113,10 @@ err:
 	unregister_netdevice_notifier(&cma_nb);
 	rdma_addr_unregister_client(&addr_client);
 	ib_sa_unregister_client(&sa_client);
+<<<<<<< HEAD
 	unregister_pernet_subsys(&cma_pernet_operations);
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 err_wq:
 	destroy_workqueue(cma_wq);
 	return ret;

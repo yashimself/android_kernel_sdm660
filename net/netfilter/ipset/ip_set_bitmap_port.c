@@ -34,7 +34,11 @@ MODULE_ALIAS("ip_set_bitmap:port");
 
 /* Type structure */
 struct bitmap_port {
+<<<<<<< HEAD
 	unsigned long *members;	/* the set members */
+=======
+	void *members;		/* the set members */
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	u16 first_port;		/* host byte order, included in range */
 	u16 last_port;		/* host byte order, included in range */
 	u32 elements;		/* number of max elements in the set */
@@ -207,7 +211,11 @@ static bool
 init_map_port(struct ip_set *set, struct bitmap_port *map,
 	      u16 first_port, u16 last_port)
 {
+<<<<<<< HEAD
 	map->members = bitmap_zalloc(map->elements, GFP_KERNEL | __GFP_NOWARN);
+=======
+	map->members = ip_set_alloc(map->memsize);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	if (!map->members)
 		return false;
 	map->first_port = first_port;
@@ -250,7 +258,11 @@ bitmap_port_create(struct net *net, struct ip_set *set, struct nlattr *tb[],
 		return -ENOMEM;
 
 	map->elements = elements;
+<<<<<<< HEAD
 	map->memsize = BITS_TO_LONGS(elements) * sizeof(unsigned long);
+=======
+	map->memsize = bitmap_bytes(0, map->elements);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	set->variant = &bitmap_port;
 	if (!init_map_port(set, map, first_port, last_port)) {
 		kfree(map);

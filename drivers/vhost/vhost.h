@@ -15,13 +15,23 @@
 struct vhost_work;
 typedef void (*vhost_work_fn_t)(struct vhost_work *work);
 
+<<<<<<< HEAD
 struct vhost_work {
 	struct list_head	  node;
+=======
+#define VHOST_WORK_QUEUED 1
+struct vhost_work {
+	struct llist_node	  node;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	vhost_work_fn_t		  fn;
 	wait_queue_head_t	  done;
 	int			  flushing;
 	unsigned		  queue_seq;
 	unsigned		  done_seq;
+<<<<<<< HEAD
+=======
+	unsigned long		  flags;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 /* Poll a file (eventfd or socket) */
@@ -37,6 +47,10 @@ struct vhost_poll {
 
 void vhost_work_init(struct vhost_work *work, vhost_work_fn_t fn);
 void vhost_work_queue(struct vhost_dev *dev, struct vhost_work *work);
+<<<<<<< HEAD
+=======
+bool vhost_has_work(struct vhost_dev *dev);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 void vhost_poll_init(struct vhost_poll *poll, vhost_work_fn_t fn,
 		     unsigned long mask, struct vhost_dev *dev);
@@ -52,6 +66,30 @@ struct vhost_log {
 	u64 len;
 };
 
+<<<<<<< HEAD
+=======
+#define START(node) ((node)->start)
+#define LAST(node) ((node)->last)
+
+struct vhost_umem_node {
+	struct rb_node rb;
+	struct list_head link;
+	__u64 start;
+	__u64 last;
+	__u64 size;
+	__u64 userspace_addr;
+	__u32 perm;
+	__u32 flags_padding;
+	__u64 __subtree_last;
+};
+
+struct vhost_umem {
+	struct rb_root umem_tree;
+	struct list_head umem_list;
+	int numem;
+};
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /* The virtqueue structure describes a queue attached to a device. */
 struct vhost_virtqueue {
 	struct vhost_dev *dev;
@@ -97,10 +135,19 @@ struct vhost_virtqueue {
 	u64 log_addr;
 
 	struct iovec iov[UIO_MAXIOV];
+<<<<<<< HEAD
 	struct iovec *indirect;
 	struct vring_used_elem *heads;
 	/* Protected by virtqueue mutex. */
 	struct vhost_memory *memory;
+=======
+	struct iovec iotlb_iov[64];
+	struct iovec *indirect;
+	struct vring_used_elem *heads;
+	/* Protected by virtqueue mutex. */
+	struct vhost_umem *umem;
+	struct vhost_umem *iotlb;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	void *private_data;
 	u64 acked_features;
 	/* Log write descriptors */
@@ -114,21 +161,47 @@ struct vhost_virtqueue {
 	/* Ring endianness requested by userspace for cross-endian support. */
 	bool user_be;
 #endif
+<<<<<<< HEAD
 };
 
 struct vhost_dev {
 	struct vhost_memory *memory;
+=======
+	u32 busyloop_timeout;
+};
+
+struct vhost_msg_node {
+  struct vhost_msg msg;
+  struct vhost_virtqueue *vq;
+  struct list_head node;
+};
+
+struct vhost_dev {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct mm_struct *mm;
 	struct mutex mutex;
 	struct vhost_virtqueue **vqs;
 	int nvqs;
 	struct file *log_file;
 	struct eventfd_ctx *log_ctx;
+<<<<<<< HEAD
 	spinlock_t work_lock;
 	struct list_head work_list;
 	struct task_struct *worker;
 	int weight;
 	int byte_weight;
+=======
+	struct llist_head work_list;
+	struct task_struct *worker;
+	int weight;
+	int byte_weight;
+	struct vhost_umem *umem;
+	struct vhost_umem *iotlb;
+	spinlock_t iotlb_lock;
+	struct list_head read_list;
+	struct list_head pending_list;
+	wait_queue_head_t wait;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };
 
 bool vhost_exceeds_weight(struct vhost_virtqueue *vq, int pkts, int total_len);
@@ -137,8 +210,13 @@ void vhost_dev_init(struct vhost_dev *, struct vhost_virtqueue **vqs,
 long vhost_dev_set_owner(struct vhost_dev *dev);
 bool vhost_dev_has_owner(struct vhost_dev *dev);
 long vhost_dev_check_owner(struct vhost_dev *);
+<<<<<<< HEAD
 struct vhost_memory *vhost_dev_reset_owner_prepare(void);
 void vhost_dev_reset_owner(struct vhost_dev *, struct vhost_memory *);
+=======
+struct vhost_umem *vhost_dev_reset_owner_prepare(void);
+void vhost_dev_reset_owner(struct vhost_dev *, struct vhost_umem *);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 void vhost_dev_cleanup(struct vhost_dev *, bool locked);
 void vhost_dev_stop(struct vhost_dev *);
 long vhost_dev_ioctl(struct vhost_dev *, unsigned int ioctl, void __user *argp);
@@ -152,7 +230,11 @@ int vhost_get_vq_desc(struct vhost_virtqueue *,
 		      struct vhost_log *log, unsigned int *log_num);
 void vhost_discard_vq_desc(struct vhost_virtqueue *, int n);
 
+<<<<<<< HEAD
 int vhost_init_used(struct vhost_virtqueue *);
+=======
+int vhost_vq_init_access(struct vhost_virtqueue *);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 int vhost_add_used(struct vhost_virtqueue *, unsigned int head, int len);
 int vhost_add_used_n(struct vhost_virtqueue *, struct vring_used_elem *heads,
 		     unsigned count);
@@ -162,10 +244,32 @@ void vhost_add_used_and_signal_n(struct vhost_dev *, struct vhost_virtqueue *,
 			       struct vring_used_elem *heads, unsigned count);
 void vhost_signal(struct vhost_dev *, struct vhost_virtqueue *);
 void vhost_disable_notify(struct vhost_dev *, struct vhost_virtqueue *);
+<<<<<<< HEAD
+=======
+bool vhost_vq_avail_empty(struct vhost_dev *, struct vhost_virtqueue *);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 bool vhost_enable_notify(struct vhost_dev *, struct vhost_virtqueue *);
 
 int vhost_log_write(struct vhost_virtqueue *vq, struct vhost_log *log,
 		    unsigned int log_num, u64 len);
+<<<<<<< HEAD
+=======
+int vq_iotlb_prefetch(struct vhost_virtqueue *vq);
+
+struct vhost_msg_node *vhost_new_msg(struct vhost_virtqueue *vq, int type);
+void vhost_enqueue_msg(struct vhost_dev *dev,
+		       struct list_head *head,
+		       struct vhost_msg_node *node);
+struct vhost_msg_node *vhost_dequeue_msg(struct vhost_dev *dev,
+					 struct list_head *head);
+unsigned int vhost_chr_poll(struct file *file, struct vhost_dev *dev,
+			    poll_table *wait);
+ssize_t vhost_chr_read_iter(struct vhost_dev *dev, struct iov_iter *to,
+			    int noblock);
+ssize_t vhost_chr_write_iter(struct vhost_dev *dev,
+			     struct iov_iter *from);
+int vhost_init_device_iotlb(struct vhost_dev *d, bool enabled);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #define vq_err(vq, fmt, ...) do {                                  \
 		pr_debug(pr_fmt(fmt), ##__VA_ARGS__);       \

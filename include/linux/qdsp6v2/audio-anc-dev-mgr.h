@@ -39,6 +39,11 @@ int msm_anc_dev_stop(void);
 
 int msm_anc_dev_set_info(void *info_p, int32_t anc_cmd);
 
+<<<<<<< HEAD
+=======
+int msm_anc_dev_get_info(void *info_p, int32_t anc_cmd);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 int msm_anc_dev_create(struct platform_device *pdev);
 
 int msm_anc_dev_destroy(struct platform_device *pdev);

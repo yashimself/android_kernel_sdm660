@@ -108,7 +108,11 @@ static void b43_radio_2064_channel_setup(struct b43_wldev *dev)
 /* wlc_radio_2064_init */
 static void b43_radio_2064_init(struct b43_wldev *dev)
 {
+<<<<<<< HEAD
 	if (b43_current_band(dev->wl) == NL80211_BAND_2GHZ) {
+=======
+	if (b43_current_band(dev->wl) == IEEE80211_BAND_2GHZ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		b43_radio_write(dev, 0x09c, 0x0020);
 		b43_radio_write(dev, 0x105, 0x0008);
 	} else {
@@ -535,7 +539,11 @@ static void b43_phy_lcn_tx_pwr_ctl_init(struct b43_wldev *dev)
 	b43_mac_suspend(dev);
 
 	if (!dev->phy.lcn->hw_pwr_ctl_capable) {
+<<<<<<< HEAD
 		if (b43_current_band(dev->wl) == NL80211_BAND_2GHZ) {
+=======
+		if (b43_current_band(dev->wl) == IEEE80211_BAND_2GHZ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			tx_gains.gm_gain = 4;
 			tx_gains.pga_gain = 12;
 			tx_gains.pad_gain = 12;
@@ -720,7 +728,11 @@ static int b43_phy_lcn_op_init(struct b43_wldev *dev)
 	else
 		B43_WARN_ON(1);
 
+<<<<<<< HEAD
 	if (b43_current_band(dev->wl) == NL80211_BAND_2GHZ)
+=======
+	if (b43_current_band(dev->wl) == IEEE80211_BAND_2GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		b43_phy_lcn_tx_pwr_ctl_init(dev);
 
 	b43_switch_channel(dev, dev->phy.channel);
@@ -779,7 +791,11 @@ static int b43_phy_lcn_op_switch_channel(struct b43_wldev *dev,
 	enum nl80211_channel_type channel_type =
 		cfg80211_get_chandef_type(&dev->wl->hw->conf.chandef);
 
+<<<<<<< HEAD
 	if (b43_current_band(dev->wl) == NL80211_BAND_2GHZ) {
+=======
+	if (b43_current_band(dev->wl) == IEEE80211_BAND_2GHZ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if ((new_channel < 1) || (new_channel > 14))
 			return -EINVAL;
 	} else {
@@ -791,7 +807,11 @@ static int b43_phy_lcn_op_switch_channel(struct b43_wldev *dev,
 
 static unsigned int b43_phy_lcn_op_get_default_chan(struct b43_wldev *dev)
 {
+<<<<<<< HEAD
 	if (b43_current_band(dev->wl) == NL80211_BAND_2GHZ)
+=======
+	if (b43_current_band(dev->wl) == IEEE80211_BAND_2GHZ)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return 1;
 	return 36;
 }

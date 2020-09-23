@@ -404,7 +404,11 @@ void cw1200_probe_work(struct work_struct *work)
 	}
 	wsm = (struct wsm_tx *)frame.skb->data;
 	scan.max_tx_rate = wsm->max_tx_rate;
+<<<<<<< HEAD
 	scan.band = (priv->channel->band == NL80211_BAND_5GHZ) ?
+=======
+	scan.band = (priv->channel->band == IEEE80211_BAND_5GHZ) ?
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		WSM_PHY_BAND_5G : WSM_PHY_BAND_2_4G;
 	if (priv->join_status == CW1200_JOIN_STATUS_STA ||
 	    priv->join_status == CW1200_JOIN_STATUS_IBSS) {

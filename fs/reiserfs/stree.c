@@ -2249,8 +2249,12 @@ error_out:
 	/* also releases the path */
 	unfix_nodes(&s_ins_balance);
 #ifdef REISERQUOTA_DEBUG
+<<<<<<< HEAD
 	if (inode)
 		reiserfs_debug(th->t_super, REISERFS_DEBUG_CODE,
+=======
+	reiserfs_debug(th->t_super, REISERFS_DEBUG_CODE,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		       "reiserquota insert_item(): freeing %u id=%u type=%c",
 		       quota_bytes, inode->i_uid, head2type(ih));
 #endif

@@ -1272,7 +1272,11 @@ static void print_id(struct usb_device *udev)
 static int eject_installer(struct usb_interface *intf)
 {
 	struct usb_device *udev = interface_to_usbdev(intf);
+<<<<<<< HEAD
 	struct usb_host_interface *iface_desc = intf->cur_altsetting;
+=======
+	struct usb_host_interface *iface_desc = &intf->altsetting[0];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct usb_endpoint_descriptor *endpoint;
 	unsigned char *cmd;
 	u8 bulk_out_ep;

@@ -59,7 +59,11 @@ void ieee80211_tx_set_protected(struct ieee80211_tx_data *tx)
 	}
 }
 
+<<<<<<< HEAD
 int ieee80211_frame_duration(enum nl80211_band band, size_t len,
+=======
+int ieee80211_frame_duration(enum ieee80211_band band, size_t len,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			     int rate, int erp, int short_preamble,
 			     int shift)
 {
@@ -77,7 +81,11 @@ int ieee80211_frame_duration(enum nl80211_band band, size_t len,
 	 * is assumed to be 0 otherwise.
 	 */
 
+<<<<<<< HEAD
 	if (band == NL80211_BAND_5GHZ || erp) {
+=======
+	if (band == IEEE80211_BAND_5GHZ || erp) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		/*
 		 * OFDM:
 		 *
@@ -129,7 +137,11 @@ int ieee80211_frame_duration(enum nl80211_band band, size_t len,
 /* Exported duration function for driver use */
 __le16 ieee80211_generic_frame_duration(struct ieee80211_hw *hw,
 					struct ieee80211_vif *vif,
+<<<<<<< HEAD
 					enum nl80211_band band,
+=======
+					enum ieee80211_band band,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 					size_t frame_len,
 					struct ieee80211_rate *rate)
 {
@@ -939,6 +951,7 @@ u32 ieee802_11_parse_elems_crc(const u8 *start, size_t len, bool action,
 				elem_parse_failed = true;
 			break;
 		case WLAN_EID_VHT_OPERATION:
+<<<<<<< HEAD
 			if (elen >= sizeof(struct ieee80211_vht_operation)) {
 				elems->vht_operation = (void *)pos;
 				if (calc_crc)
@@ -955,6 +968,18 @@ u32 ieee802_11_parse_elems_crc(const u8 *start, size_t len, bool action,
 				break;
 			}
 			elem_parse_failed = true;
+=======
+			if (elen >= sizeof(struct ieee80211_vht_operation))
+				elems->vht_operation = (void *)pos;
+			else
+				elem_parse_failed = true;
+			break;
+		case WLAN_EID_OPMODE_NOTIF:
+			if (elen > 0)
+				elems->opmode_notif = pos;
+			else
+				elem_parse_failed = true;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			break;
 		case WLAN_EID_MESH_ID:
 			elems->mesh_id = pos;
@@ -1132,7 +1157,11 @@ void ieee80211_set_wmm_default(struct ieee80211_sub_if_data *sdata,
 	rcu_read_lock();
 	chanctx_conf = rcu_dereference(sdata->vif.chanctx_conf);
 	use_11b = (chanctx_conf &&
+<<<<<<< HEAD
 		   chanctx_conf->def.chan->band == NL80211_BAND_2GHZ) &&
+=======
+		   chanctx_conf->def.chan->band == IEEE80211_BAND_2GHZ) &&
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		 !(sdata->flags & IEEE80211_SDATA_OPERATING_GMODE);
 	rcu_read_unlock();
 
@@ -1304,7 +1333,11 @@ void ieee80211_send_deauth_disassoc(struct ieee80211_sub_if_data *sdata,
 static int ieee80211_build_preq_ies_band(struct ieee80211_local *local,
 					 u8 *buffer, size_t buffer_len,
 					 const u8 *ie, size_t ie_len,
+<<<<<<< HEAD
 					 enum nl80211_band band,
+=======
+					 enum ieee80211_band band,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 					 u32 rate_mask,
 					 struct cfg80211_chan_def *chandef,
 					 size_t *offset)
@@ -1378,7 +1411,11 @@ static int ieee80211_build_preq_ies_band(struct ieee80211_local *local,
 		pos += ext_rates_len;
 	}
 
+<<<<<<< HEAD
 	if (chandef->chan && sband->band == NL80211_BAND_2GHZ) {
+=======
+	if (chandef->chan && sband->band == IEEE80211_BAND_2GHZ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (end - pos < 3)
 			goto out_err;
 		*pos++ = WLAN_EID_DS_PARAMS;
@@ -1482,7 +1519,11 @@ int ieee80211_build_preq_ies(struct ieee80211_local *local, u8 *buffer,
 
 	memset(ie_desc, 0, sizeof(*ie_desc));
 
+<<<<<<< HEAD
 	for (i = 0; i < NUM_NL80211_BANDS; i++) {
+=======
+	for (i = 0; i < IEEE80211_NUM_BANDS; i++) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if (bands_used & BIT(i)) {
 			pos += ieee80211_build_preq_ies_band(local,
 							     buffer + pos,
@@ -1525,7 +1566,11 @@ struct sk_buff *ieee80211_build_probe_req(struct ieee80211_sub_if_data *sdata,
 	struct sk_buff *skb;
 	struct ieee80211_mgmt *mgmt;
 	int ies_len;
+<<<<<<< HEAD
 	u32 rate_masks[NUM_NL80211_BANDS] = {};
+=======
+	u32 rate_masks[IEEE80211_NUM_BANDS] = {};
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct ieee80211_scan_ies dummy_ie_desc;
 
 	/*
@@ -1585,7 +1630,11 @@ void ieee80211_send_probe_req(struct ieee80211_sub_if_data *sdata,
 
 u32 ieee80211_sta_get_rates(struct ieee80211_sub_if_data *sdata,
 			    struct ieee802_11_elems *elems,
+<<<<<<< HEAD
 			    enum nl80211_band band, u32 *basic_rates)
+=======
+			    enum ieee80211_band band, u32 *basic_rates)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	struct ieee80211_supported_band *sband;
 	size_t num_rates;
@@ -2478,7 +2527,11 @@ int ieee80211_parse_bitrates(struct cfg80211_chan_def *chandef,
 
 int ieee80211_add_srates_ie(struct ieee80211_sub_if_data *sdata,
 			    struct sk_buff *skb, bool need_basic,
+<<<<<<< HEAD
 			    enum nl80211_band band)
+=======
+			    enum ieee80211_band band)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	struct ieee80211_local *local = sdata->local;
 	struct ieee80211_supported_band *sband;
@@ -2523,7 +2576,11 @@ int ieee80211_add_srates_ie(struct ieee80211_sub_if_data *sdata,
 
 int ieee80211_add_ext_srates_ie(struct ieee80211_sub_if_data *sdata,
 				struct sk_buff *skb, bool need_basic,
+<<<<<<< HEAD
 				enum nl80211_band band)
+=======
+				enum ieee80211_band band)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	struct ieee80211_local *local = sdata->local;
 	struct ieee80211_supported_band *sband;

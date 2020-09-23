@@ -1,8 +1,12 @@
 /*
  * Device Tree file for Buffalo Linkstation LS-WXL/WSXL
  *
+<<<<<<< HEAD
  * Copyright (C) 2015, 2016
  * Roger Shimizu <rogershimizu@gmail.com>
+=======
+ * Copyright (C) 2015, rogershimizu@gmail.com
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -157,21 +161,33 @@
 		button@1 {
 			label = "Function Button";
 			linux,code = <KEY_OPTION>;
+<<<<<<< HEAD
 			gpios = <&gpio1 9 GPIO_ACTIVE_LOW>;
+=======
+			gpios = <&gpio1 41 GPIO_ACTIVE_LOW>;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		};
 
 		button@2 {
 			label = "Power-on Switch";
 			linux,code = <KEY_RESERVED>;
 			linux,input-type = <5>;
+<<<<<<< HEAD
 			gpios = <&gpio1 10 GPIO_ACTIVE_LOW>;
+=======
+			gpios = <&gpio1 42 GPIO_ACTIVE_LOW>;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		};
 
 		button@3 {
 			label = "Power-auto Switch";
 			linux,code = <KEY_ESC>;
 			linux,input-type = <5>;
+<<<<<<< HEAD
 			gpios = <&gpio1 11 GPIO_ACTIVE_LOW>;
+=======
+			gpios = <&gpio1 43 GPIO_ACTIVE_LOW>;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		};
 	};
 
@@ -186,12 +202,20 @@
 
 		led@1 {
 			label = "lswxl:blue:func";
+<<<<<<< HEAD
 			gpios = <&gpio1 4 GPIO_ACTIVE_LOW>;
+=======
+			gpios = <&gpio1 36 GPIO_ACTIVE_LOW>;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		};
 
 		led@2 {
 			label = "lswxl:red:alarm";
+<<<<<<< HEAD
 			gpios = <&gpio1 17 GPIO_ACTIVE_LOW>;
+=======
+			gpios = <&gpio1 49 GPIO_ACTIVE_LOW>;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		};
 
 		led@3 {
@@ -201,23 +225,40 @@
 
 		led@4 {
 			label = "lswxl:blue:power";
+<<<<<<< HEAD
 			gpios = <&gpio1 7 GPIO_ACTIVE_HIGH>;
 			default-state = "keep";
+=======
+			gpios = <&gpio1 8 GPIO_ACTIVE_LOW>;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		};
 
 		led@5 {
 			label = "lswxl:red:func";
+<<<<<<< HEAD
 			gpios = <&gpio1 2 GPIO_ACTIVE_HIGH>;
+=======
+			gpios = <&gpio1 5 GPIO_ACTIVE_LOW>;
+			default-state = "keep";
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		};
 
 		led@6 {
 			label = "lswxl:red:hdderr0";
+<<<<<<< HEAD
 			gpios = <&gpio0 8 GPIO_ACTIVE_HIGH>;
+=======
+			gpios = <&gpio1 2 GPIO_ACTIVE_LOW>;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		};
 
 		led@7 {
 			label = "lswxl:red:hdderr1";
+<<<<<<< HEAD
 			gpios = <&gpio1 14 GPIO_ACTIVE_HIGH>;
+=======
+			gpios = <&gpio1 3 GPIO_ACTIVE_LOW>;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		};
 	};
 
@@ -226,15 +267,24 @@
 		pinctrl-0 = <&pmx_fan_low &pmx_fan_high &pmx_fan_lock>;
 		pinctrl-names = "default";
 
+<<<<<<< HEAD
 		gpios = <&gpio1 16 GPIO_ACTIVE_LOW
 			 &gpio1 15 GPIO_ACTIVE_LOW>;
+=======
+		gpios = <&gpio0 47 GPIO_ACTIVE_LOW
+			 &gpio0 48 GPIO_ACTIVE_LOW>;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		gpio-fan,speed-map = <0 3
 				1500 2
 				3250 1
 				5000 0>;
 
+<<<<<<< HEAD
 		alarm-gpios = <&gpio1 8 GPIO_ACTIVE_HIGH>;
+=======
+		alarm-gpios = <&gpio1 49 GPIO_ACTIVE_HIGH>;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	};
 
 	restart_poweroff {
@@ -257,7 +307,11 @@
 			enable-active-high;
 			regulator-always-on;
 			regulator-boot-on;
+<<<<<<< HEAD
 			gpio = <&gpio1 5 GPIO_ACTIVE_HIGH>;
+=======
+			gpio = <&gpio0 37 GPIO_ACTIVE_HIGH>;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		};
 		hdd_power0: regulator@2 {
 			compatible = "regulator-fixed";

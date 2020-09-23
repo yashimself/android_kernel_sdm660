@@ -47,16 +47,22 @@
 #include <linux/string.h>
 #include <linux/pagemap.h>
 #include <linux/mutex.h>
+<<<<<<< HEAD
 #include <linux/mm_inline.h>
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 #include "squashfs_fs.h"
 #include "squashfs_fs_sb.h"
 #include "squashfs_fs_i.h"
 #include "squashfs.h"
 
+<<<<<<< HEAD
 // Backported from 4.5
 #define lru_to_page(head) (list_entry((head)->prev, struct page, lru))
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 /*
  * Locate cache slot in range [offset, index] for specified inode.  If
  * there's more than one return the slot closest to index.
@@ -446,6 +452,7 @@ static int squashfs_readpage_fragment(struct page *page)
 	return res;
 }
 
+<<<<<<< HEAD
 static int squashfs_readpages_fragment(struct page *page,
 	struct list_head *readahead_pages, struct address_space *mapping)
 {
@@ -461,6 +468,8 @@ static int squashfs_readpages_fragment(struct page *page,
 	return squashfs_readpage_fragment(page);
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static int squashfs_readpage_sparse(struct page *page, int index, int file_end)
 {
 	struct inode *inode = page->mapping->host;
@@ -473,6 +482,7 @@ static int squashfs_readpage_sparse(struct page *page, int index, int file_end)
 	return 0;
 }
 
+<<<<<<< HEAD
 static int squashfs_readpages_sparse(struct page *page,
 	struct list_head *readahead_pages, int index, int file_end,
 	struct address_space *mapping)
@@ -567,11 +577,61 @@ static int squashfs_readpages(struct file *file, struct address_space *mapping,
 	TRACE("Entered squashfs_readpages, %u pages, first page index %lx\n",
 		nr_pages, lru_to_page(pages)->index);
 	__squashfs_readpages(file, NULL, pages, nr_pages, mapping);
+=======
+static int squashfs_readpage(struct file *file, struct page *page)
+{
+	struct inode *inode = page->mapping->host;
+	struct squashfs_sb_info *msblk = inode->i_sb->s_fs_info;
+	int index = page->index >> (msblk->block_log - PAGE_CACHE_SHIFT);
+	int file_end = i_size_read(inode) >> msblk->block_log;
+	int res;
+	void *pageaddr;
+
+	TRACE("Entered squashfs_readpage, page index %lx, start block %llx\n",
+				page->index, squashfs_i(inode)->start);
+
+	if (page->index >= ((i_size_read(inode) + PAGE_CACHE_SIZE - 1) >>
+					PAGE_CACHE_SHIFT))
+		goto out;
+
+	if (index < file_end || squashfs_i(inode)->fragment_block ==
+					SQUASHFS_INVALID_BLK) {
+		u64 block = 0;
+		int bsize = read_blocklist(inode, index, &block);
+		if (bsize < 0)
+			goto error_out;
+
+		if (bsize == 0)
+			res = squashfs_readpage_sparse(page, index, file_end);
+		else
+			res = squashfs_readpage_block(page, block, bsize);
+	} else
+		res = squashfs_readpage_fragment(page);
+
+	if (!res)
+		return 0;
+
+error_out:
+	SetPageError(page);
+out:
+	pageaddr = kmap_atomic(page);
+	memset(pageaddr, 0, PAGE_CACHE_SIZE);
+	kunmap_atomic(pageaddr);
+	flush_dcache_page(page);
+	if (!PageError(page))
+		SetPageUptodate(page);
+	unlock_page(page);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return 0;
 }
 
 
 const struct address_space_operations squashfs_aops = {
+<<<<<<< HEAD
 	.readpage = squashfs_readpage,
 	.readpages = squashfs_readpages,
+=======
+	.readpage = squashfs_readpage
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 };

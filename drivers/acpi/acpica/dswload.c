@@ -440,6 +440,7 @@ acpi_status acpi_ds_load1_end_op(struct acpi_walk_state *walk_state)
 	ACPI_DEBUG_PRINT((ACPI_DB_DISPATCH, "Op=%p State=%p\n", op,
 			  walk_state));
 
+<<<<<<< HEAD
 	/*
 	 * Disassembler: handle create field operators here.
 	 *
@@ -461,6 +462,8 @@ acpi_status acpi_ds_load1_end_op(struct acpi_walk_state *walk_state)
 		return_ACPI_STATUS(status);
 	}
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* We are only interested in opcodes that have an associated name */
 
 	if (!(walk_state->op_info->flags & (AML_NAMED | AML_FIELD))) {

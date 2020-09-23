@@ -211,7 +211,11 @@ struct rsi_hw {
 	struct ieee80211_hw *hw;
 	struct ieee80211_vif *vifs[RSI_MAX_VIFS];
 	struct ieee80211_tx_queue_params edca_params[NUM_EDCA_QUEUES];
+<<<<<<< HEAD
 	struct ieee80211_supported_band sbands[NUM_NL80211_BANDS];
+=======
+	struct ieee80211_supported_band sbands[IEEE80211_NUM_BANDS];
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	struct device *device;
 	u8 sc_nvifs;

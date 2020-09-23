@@ -49,7 +49,11 @@
 	FIF_PSPOLL)
 
 #define CHAN2GHZ(channel, freqency, chflags)  { \
+<<<<<<< HEAD
 	.band = NL80211_BAND_2GHZ, \
+=======
+	.band = IEEE80211_BAND_2GHZ, \
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.center_freq = (freqency), \
 	.hw_value = (channel), \
 	.flags = chflags, \
@@ -58,7 +62,11 @@
 }
 
 #define CHAN5GHZ(channel, chflags)  { \
+<<<<<<< HEAD
 	.band = NL80211_BAND_5GHZ, \
+=======
+	.band = IEEE80211_BAND_5GHZ, \
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.center_freq = 5000 + 5*(channel), \
 	.hw_value = (channel), \
 	.flags = chflags, \
@@ -217,7 +225,11 @@ static struct ieee80211_rate legacy_ratetable[] = {
 };
 
 static const struct ieee80211_supported_band brcms_band_2GHz_nphy_template = {
+<<<<<<< HEAD
 	.band = NL80211_BAND_2GHZ,
+=======
+	.band = IEEE80211_BAND_2GHZ,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.channels = brcms_2ghz_chantable,
 	.n_channels = ARRAY_SIZE(brcms_2ghz_chantable),
 	.bitrates = legacy_ratetable,
@@ -238,7 +250,11 @@ static const struct ieee80211_supported_band brcms_band_2GHz_nphy_template = {
 };
 
 static const struct ieee80211_supported_band brcms_band_5GHz_nphy_template = {
+<<<<<<< HEAD
 	.band = NL80211_BAND_5GHZ,
+=======
+	.band = IEEE80211_BAND_5GHZ,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.channels = brcms_5ghz_nphy_chantable,
 	.n_channels = ARRAY_SIZE(brcms_5ghz_nphy_chantable),
 	.bitrates = legacy_ratetable + BRCMS_LEGACY_5G_RATE_OFFSET,
@@ -1052,8 +1068,13 @@ static int ieee_hw_rate_init(struct ieee80211_hw *hw)
 	int has_5g = 0;
 	u16 phy_type;
 
+<<<<<<< HEAD
 	hw->wiphy->bands[NL80211_BAND_2GHZ] = NULL;
 	hw->wiphy->bands[NL80211_BAND_5GHZ] = NULL;
+=======
+	hw->wiphy->bands[IEEE80211_BAND_2GHZ] = NULL;
+	hw->wiphy->bands[IEEE80211_BAND_5GHZ] = NULL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	phy_type = brcms_c_get_phy_type(wl->wlc, 0);
 	if (phy_type == PHY_TYPE_N || phy_type == PHY_TYPE_LCN) {
@@ -1064,7 +1085,11 @@ static int ieee_hw_rate_init(struct ieee80211_hw *hw)
 			band->ht_cap.mcs.rx_mask[1] = 0;
 			band->ht_cap.mcs.rx_highest = cpu_to_le16(72);
 		}
+<<<<<<< HEAD
 		hw->wiphy->bands[NL80211_BAND_2GHZ] = band;
+=======
+		hw->wiphy->bands[IEEE80211_BAND_2GHZ] = band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	} else {
 		return -EPERM;
 	}
@@ -1075,7 +1100,11 @@ static int ieee_hw_rate_init(struct ieee80211_hw *hw)
 		if (phy_type == PHY_TYPE_N || phy_type == PHY_TYPE_LCN) {
 			band = &wlc->bandstate[BAND_5G_INDEX]->band;
 			*band = brcms_band_5GHz_nphy_template;
+<<<<<<< HEAD
 			hw->wiphy->bands[NL80211_BAND_5GHZ] = band;
+=======
+			hw->wiphy->bands[IEEE80211_BAND_5GHZ] = band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		} else {
 			return -EPERM;
 		}

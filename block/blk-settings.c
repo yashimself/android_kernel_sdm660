@@ -249,6 +249,10 @@ void blk_queue_max_hw_sectors(struct request_queue *q, unsigned int max_hw_secto
 	max_sectors = min_not_zero(max_hw_sectors, limits->max_dev_sectors);
 	max_sectors = min_t(unsigned int, max_sectors, BLK_DEF_MAX_SECTORS);
 	limits->max_sectors = max_sectors;
+<<<<<<< HEAD
+=======
+	q->backing_dev_info->io_pages = max_sectors >> (PAGE_SHIFT - 9);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 EXPORT_SYMBOL(blk_queue_max_hw_sectors);
 
@@ -349,7 +353,11 @@ EXPORT_SYMBOL(blk_queue_max_segment_size);
  *   storage device can address.  The default of 512 covers most
  *   hardware.
  **/
+<<<<<<< HEAD
 void blk_queue_logical_block_size(struct request_queue *q, unsigned int size)
+=======
+void blk_queue_logical_block_size(struct request_queue *q, unsigned short size)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	q->limits.logical_block_size = size;
 

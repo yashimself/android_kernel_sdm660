@@ -9,7 +9,10 @@ obj-$(CONFIG_BATTERY_BCL) += battery_current_limit.o
 obj-$(CONFIG_QPNP_SMB2)		+= step-chg-jeita.o battery.o qpnp-smb2.o smb-lib.o pmic-voter.o storm-watch.o
 obj-$(CONFIG_SMB138X_CHARGER)	+= battery.o smb138x-charger.o smb-lib.o pmic-voter.o storm-watch.o
 obj-$(CONFIG_QPNP_QNOVO)	+= battery.o qpnp-qnovo.o
+<<<<<<< HEAD
 
 #TODO: remove me b/62058353
 subdir-ccflags-y += \
 	-Wno-duplicate-decl-specifier
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218

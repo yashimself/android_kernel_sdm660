@@ -14,8 +14,13 @@
 #define MAX_SRC_WIDTH           2048
 
 /* Reset & boot poll config */
+<<<<<<< HEAD
 #define POLL_RST_MAX            500
 #define POLL_RST_DELAY_MS       2
+=======
+#define POLL_RST_MAX            50
+#define POLL_RST_DELAY_MS       20
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 enum bdisp_target_plan {
 	BDISP_RGB,
@@ -77,7 +82,11 @@ int bdisp_hw_reset(struct bdisp_dev *bdisp)
 	for (i = 0; i < POLL_RST_MAX; i++) {
 		if (readl(bdisp->regs + BLT_STA1) & BLT_STA1_IDLE)
 			break;
+<<<<<<< HEAD
 		udelay(POLL_RST_DELAY_MS * 1000);
+=======
+		msleep(POLL_RST_DELAY_MS);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 	if (i == POLL_RST_MAX)
 		dev_err(bdisp->dev, "Reset timeout\n");

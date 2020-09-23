@@ -291,10 +291,13 @@ static int __hfsplus_delete_attr(struct inode *inode, u32 cnid,
 		return -ENOENT;
 	}
 
+<<<<<<< HEAD
 	/* Avoid btree corruption */
 	hfs_bnode_read(fd->bnode, fd->search_key,
 			fd->keyoffset, fd->keylength);
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	err = hfs_brec_remove(fd);
 	if (err)
 		return err;

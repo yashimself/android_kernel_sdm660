@@ -9,14 +9,22 @@
 #include <asm/types.h>
 
 #ifdef __i386__
+<<<<<<< HEAD
 #define __SYSCALL_I386(nr, sym, compat) [nr] = 1,
+=======
+#define __SYSCALL_I386(nr, sym, qual) [nr] = 1,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static char syscalls[] = {
 #include <asm/syscalls_32.h>
 };
 #else
+<<<<<<< HEAD
 #define __SYSCALL_64(nr, sym, compat) [nr] = 1,
 #define __SYSCALL_COMMON(nr, sym, compat) [nr] = 1,
 #define __SYSCALL_X32(nr, sym, compat) /* Not supported */
+=======
+#define __SYSCALL_64(nr, sym, qual) [nr] = 1,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static char syscalls[] = {
 #include <asm/syscalls_64.h>
 };

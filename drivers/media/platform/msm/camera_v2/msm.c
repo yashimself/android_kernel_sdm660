@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2017, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2018, 2020, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -37,6 +41,10 @@ static struct list_head    ordered_sd_list;
 static struct mutex        ordered_sd_mtx;
 static struct mutex        v4l2_event_mtx;
 
+<<<<<<< HEAD
+=======
+static atomic_t qos_add_request_done = ATOMIC_INIT(0);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static struct pm_qos_request msm_v4l2_pm_qos_request;
 
 static struct msm_queue_head *msm_session_q;
@@ -218,9 +226,17 @@ static inline int __msm_queue_find_command_ack_q(void *d1, void *d2)
 	return (ack->stream_id == *(unsigned int *)d2) ? 1 : 0;
 }
 
+<<<<<<< HEAD
 static void msm_pm_qos_add_request(void)
 {
 	pr_info("%s: add request", __func__);
+=======
+static inline void msm_pm_qos_add_request(void)
+{
+	pr_info("%s: add request", __func__);
+	if (atomic_cmpxchg(&qos_add_request_done, 0, 1))
+		return;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	pm_qos_add_request(&msm_v4l2_pm_qos_request, PM_QOS_CPU_DMA_LATENCY,
 	PM_QOS_DEFAULT_VALUE);
 }
@@ -228,12 +244,21 @@ static void msm_pm_qos_add_request(void)
 static void msm_pm_qos_remove_request(void)
 {
 	pr_info("%s: remove request", __func__);
+<<<<<<< HEAD
+=======
+	if (!atomic_cmpxchg(&qos_add_request_done, 1, 0))
+		return;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	pm_qos_remove_request(&msm_v4l2_pm_qos_request);
 }
 
 void msm_pm_qos_update_request(int val)
 {
 	pr_info("%s: update request %d", __func__, val);
+<<<<<<< HEAD
+=======
+	msm_pm_qos_add_request();
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	pm_qos_update_request(&msm_v4l2_pm_qos_request, val);
 }
 
@@ -618,7 +643,11 @@ static inline int __msm_remove_session_cmd_ack_q(void *d1, void *d2)
 {
 	struct msm_command_ack *cmd_ack = d1;
 
+<<<<<<< HEAD
 	if (!(&cmd_ack->command_q))
+=======
+	if (&cmd_ack->command_q == NULL)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return 0;
 
 	msm_queue_drain(&cmd_ack->command_q, struct msm_command, list);
@@ -628,7 +657,11 @@ static inline int __msm_remove_session_cmd_ack_q(void *d1, void *d2)
 
 static void msm_remove_session_cmd_ack_q(struct msm_session *session)
 {
+<<<<<<< HEAD
 	if ((!session) || !(&session->command_ack_q))
+=======
+	if ((!session) || (&session->command_ack_q == NULL))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return;
 
 	mutex_lock(&session->lock);

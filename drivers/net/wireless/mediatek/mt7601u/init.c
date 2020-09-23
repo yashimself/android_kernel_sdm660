@@ -469,7 +469,11 @@ struct mt7601u_dev *mt7601u_alloc_device(struct device *pdev)
 }
 
 #define CHAN2G(_idx, _freq) {			\
+<<<<<<< HEAD
 	.band = NL80211_BAND_2GHZ,		\
+=======
+	.band = IEEE80211_BAND_2GHZ,		\
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	.center_freq = (_freq),			\
 	.hw_value = (_idx),			\
 	.max_power = 30,			\
@@ -563,7 +567,11 @@ mt76_init_sband_2g(struct mt7601u_dev *dev)
 {
 	dev->sband_2g = devm_kzalloc(dev->dev, sizeof(*dev->sband_2g),
 				     GFP_KERNEL);
+<<<<<<< HEAD
 	dev->hw->wiphy->bands[NL80211_BAND_2GHZ] = dev->sband_2g;
+=======
+	dev->hw->wiphy->bands[IEEE80211_BAND_2GHZ] = dev->sband_2g;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	WARN_ON(dev->ee->reg.start - 1 + dev->ee->reg.num >
 		ARRAY_SIZE(mt76_channels_2ghz));

@@ -42,6 +42,15 @@ static void ext4_dir_crypt_complete(struct crypto_async_request *req, int res)
 	complete(&ecr->completion);
 }
 
+<<<<<<< HEAD
+=======
+bool ext4_valid_filenames_enc_mode(uint32_t mode)
+{
+	return (mode == EXT4_ENCRYPTION_MODE_AES_256_CTS ||
+		mode == EXT4_ENCRYPTION_MODE_AES_256_HEH);
+}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static unsigned max_name_len(struct inode *inode)
 {
 	return S_ISLNK(inode->i_mode) ? inode->i_sb->s_blocksize :

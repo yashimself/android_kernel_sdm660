@@ -115,6 +115,7 @@ int rds_tcp_accept_one(struct socket *sock)
 	 * rds_tcp_state_change() will do that cleanup
 	 */
 	rs_tcp = (struct rds_tcp_connection *)conn->c_transport_data;
+<<<<<<< HEAD
 	rds_conn_transition(conn, RDS_CONN_DOWN, RDS_CONN_CONNECTING);
 	if (rs_tcp->t_sock) {
 		/* Need to resolve a duelling SYN between peers.
@@ -141,6 +142,26 @@ int rds_tcp_accept_one(struct socket *sock)
 	}
 	rds_tcp_set_callbacks(new_sock, conn);
 	rds_connect_complete(conn); /* marks RDS_CONN_UP */
+=======
+	if (rs_tcp->t_sock &&
+	    ntohl(inet->inet_saddr) < ntohl(inet->inet_daddr)) {
+		struct sock *nsk = new_sock->sk;
+
+		nsk->sk_user_data = NULL;
+		nsk->sk_prot->disconnect(nsk, 0);
+		tcp_done(nsk);
+		new_sock = NULL;
+		ret = 0;
+		goto out;
+	} else if (rs_tcp->t_sock) {
+		rds_tcp_restore_callbacks(rs_tcp->t_sock, rs_tcp);
+		conn->c_outgoing = 0;
+	}
+
+	rds_conn_transition(conn, RDS_CONN_DOWN, RDS_CONN_CONNECTING);
+	rds_tcp_set_callbacks(new_sock, conn);
+	rds_connect_complete(conn);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	new_sock = NULL;
 	ret = 0;
 

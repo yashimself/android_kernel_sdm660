@@ -1303,17 +1303,26 @@ static int assign_firmware_buf(struct firmware *fw, struct device *device,
 /* called from request_firmware() and request_firmware_work_func() */
 static int _request_firmware(struct fw_desc *desc)
 {
+<<<<<<< HEAD
 	struct firmware *fw = NULL;
+=======
+	struct firmware *fw;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	long timeout;
 	int ret;
 
 	if (!desc->firmware_p)
 		return -EINVAL;
 
+<<<<<<< HEAD
 	if (!desc->name || desc->name[0] == '\0') {
 		ret = -EINVAL;
 		goto out;
 	}
+=======
+	if (!desc->name || desc->name[0] == '\0')
+		return -EINVAL;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	ret = _request_firmware_prepare(&fw, desc);
 	if (ret <= 0) /* error or already assigned */

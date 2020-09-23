@@ -355,7 +355,11 @@ struct iwl_lq_sta {
 	u8 action_counter;	/* # mode-switch actions tried */
 	u8 is_green;
 	u8 is_dup;
+<<<<<<< HEAD
 	enum nl80211_band band;
+=======
+	enum ieee80211_band band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	/* The following are bitmaps of rates; IWL_RATE_6M_MASK, etc. */
 	u32 supp_rates;

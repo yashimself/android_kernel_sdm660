@@ -628,7 +628,12 @@ static int bond_fill_info(struct sk_buff *skb,
 				goto nla_put_failure;
 
 			if (nla_put(skb, IFLA_BOND_AD_ACTOR_SYSTEM,
+<<<<<<< HEAD
 				    ETH_ALEN, &bond->params.ad_actor_system))
+=======
+				    sizeof(bond->params.ad_actor_system),
+				    &bond->params.ad_actor_system))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				goto nla_put_failure;
 		}
 		if (!bond_3ad_get_active_agg_info(bond, &info)) {

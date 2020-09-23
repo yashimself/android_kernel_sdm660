@@ -75,14 +75,22 @@ int mlx5_wq_cyc_create(struct mlx5_core_dev *mdev, struct mlx5_wq_param *param,
 
 	err = mlx5_db_alloc_node(mdev, &wq_ctrl->db, param->db_numa_node);
 	if (err) {
+<<<<<<< HEAD
 		mlx5_core_warn(mdev, "mlx5_db_alloc_node() failed, %d\n", err);
+=======
+		mlx5_core_warn(mdev, "mlx5_db_alloc() failed, %d\n", err);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return err;
 	}
 
 	err = mlx5_buf_alloc_node(mdev, mlx5_wq_cyc_get_byte_size(wq),
 				  &wq_ctrl->buf, param->buf_numa_node);
 	if (err) {
+<<<<<<< HEAD
 		mlx5_core_warn(mdev, "mlx5_buf_alloc_node() failed, %d\n", err);
+=======
+		mlx5_core_warn(mdev, "mlx5_buf_alloc() failed, %d\n", err);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		goto err_db_free;
 	}
 
@@ -111,14 +119,22 @@ int mlx5_cqwq_create(struct mlx5_core_dev *mdev, struct mlx5_wq_param *param,
 
 	err = mlx5_db_alloc_node(mdev, &wq_ctrl->db, param->db_numa_node);
 	if (err) {
+<<<<<<< HEAD
 		mlx5_core_warn(mdev, "mlx5_db_alloc_node() failed, %d\n", err);
+=======
+		mlx5_core_warn(mdev, "mlx5_db_alloc() failed, %d\n", err);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return err;
 	}
 
 	err = mlx5_buf_alloc_node(mdev, mlx5_cqwq_get_byte_size(wq),
 				  &wq_ctrl->buf, param->buf_numa_node);
 	if (err) {
+<<<<<<< HEAD
 		mlx5_core_warn(mdev, "mlx5_buf_alloc_node() failed, %d\n", err);
+=======
+		mlx5_core_warn(mdev, "mlx5_buf_alloc() failed, %d\n", err);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		goto err_db_free;
 	}
 
@@ -148,6 +164,7 @@ int mlx5_wq_ll_create(struct mlx5_core_dev *mdev, struct mlx5_wq_param *param,
 
 	err = mlx5_db_alloc_node(mdev, &wq_ctrl->db, param->db_numa_node);
 	if (err) {
+<<<<<<< HEAD
 		mlx5_core_warn(mdev, "mlx5_db_alloc_node() failed, %d\n", err);
 		return err;
 	}
@@ -156,6 +173,15 @@ int mlx5_wq_ll_create(struct mlx5_core_dev *mdev, struct mlx5_wq_param *param,
 				  &wq_ctrl->buf, param->buf_numa_node);
 	if (err) {
 		mlx5_core_warn(mdev, "mlx5_buf_alloc_node() failed, %d\n", err);
+=======
+		mlx5_core_warn(mdev, "mlx5_db_alloc() failed, %d\n", err);
+		return err;
+	}
+
+	err = mlx5_buf_alloc(mdev, mlx5_wq_ll_get_byte_size(wq), &wq_ctrl->buf);
+	if (err) {
+		mlx5_core_warn(mdev, "mlx5_buf_alloc() failed, %d\n", err);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		goto err_db_free;
 	}
 

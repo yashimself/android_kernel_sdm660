@@ -52,6 +52,7 @@ struct thread_info {
 #define init_thread_info	(init_thread_union.thread_info)
 #define init_stack		(init_thread_union.stack)
 
+<<<<<<< HEAD
 /*
  * A pointer to the struct thread_info for the currently executing thread is
  * held in register $28/$gp.
@@ -72,6 +73,10 @@ extern struct thread_info *__current_thread_info;
 #else
 register struct thread_info *__current_thread_info __asm__("$28");
 #endif
+=======
+/* How to get the thread information struct from C.  */
+register struct thread_info *__current_thread_info __asm__("$28");
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 static inline struct thread_info *current_thread_info(void)
 {

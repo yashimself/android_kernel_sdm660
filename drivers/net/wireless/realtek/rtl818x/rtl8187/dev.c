@@ -446,6 +446,7 @@ static int rtl8187_init_urbs(struct ieee80211_hw *dev)
 		skb_queue_tail(&priv->rx_queue, skb);
 		usb_anchor_urb(entry, &priv->anchored);
 		ret = usb_submit_urb(entry, GFP_KERNEL);
+<<<<<<< HEAD
 		if (ret) {
 			skb_unlink(skb, &priv->rx_queue);
 			usb_unanchor_urb(entry);
@@ -453,6 +454,14 @@ static int rtl8187_init_urbs(struct ieee80211_hw *dev)
 			goto err;
 		}
 		usb_put_urb(entry);
+=======
+		usb_put_urb(entry);
+		if (ret) {
+			skb_unlink(skb, &priv->rx_queue);
+			usb_unanchor_urb(entry);
+			goto err;
+		}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 	return ret;
 
@@ -1472,12 +1481,20 @@ static int rtl8187_probe(struct usb_interface *intf,
 	memcpy(priv->rates, rtl818x_rates, sizeof(rtl818x_rates));
 	priv->map = (struct rtl818x_csr *)0xFF00;
 
+<<<<<<< HEAD
 	priv->band.band = NL80211_BAND_2GHZ;
+=======
+	priv->band.band = IEEE80211_BAND_2GHZ;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	priv->band.channels = priv->channels;
 	priv->band.n_channels = ARRAY_SIZE(rtl818x_channels);
 	priv->band.bitrates = priv->rates;
 	priv->band.n_bitrates = ARRAY_SIZE(rtl818x_rates);
+<<<<<<< HEAD
 	dev->wiphy->bands[NL80211_BAND_2GHZ] = &priv->band;
+=======
+	dev->wiphy->bands[IEEE80211_BAND_2GHZ] = &priv->band;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 
 	ieee80211_hw_set(dev, RX_INCLUDES_FCS);

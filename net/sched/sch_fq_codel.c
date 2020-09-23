@@ -588,7 +588,11 @@ static int fq_codel_dump_class_stats(struct Qdisc *sch, unsigned long cl,
 		qs.backlog = q->backlogs[idx];
 		qs.drops = flow->dropped;
 	}
+<<<<<<< HEAD
 	if (gnet_stats_copy_queue(d, NULL, &qs, qs.qlen) < 0)
+=======
+	if (gnet_stats_copy_queue(d, NULL, &qs, 0) < 0)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return -1;
 	if (idx < q->flows_cnt)
 		return gnet_stats_copy_app(d, &xstats, sizeof(xstats));

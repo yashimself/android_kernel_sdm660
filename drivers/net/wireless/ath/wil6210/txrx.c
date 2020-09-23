@@ -636,8 +636,13 @@ static int wil_rx_refill(struct wil6210_priv *wil, int count)
 			v->swtail = next_tail) {
 		rc = wil_vring_alloc_skb(wil, v, v->swtail, headroom);
 		if (unlikely(rc)) {
+<<<<<<< HEAD
 			wil_err_ratelimited(wil, "Error %d in rx refill[%d]\n",
 					    rc, v->swtail);
+=======
+			wil_err(wil, "Error %d in wil_rx_refill[%d]\n",
+				rc, v->swtail);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			break;
 		}
 	}

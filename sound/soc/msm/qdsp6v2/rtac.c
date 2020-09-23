@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /* Copyright (c) 2012-2018, The Linux Foundation. All rights reserved.
+=======
+/* Copyright (c) 2012-2019, The Linux Foundation. All rights reserved.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -962,7 +966,12 @@ void rtac_set_asm_handle(u32 session_id, void *handle)
 	pr_debug("%s\n", __func__);
 
 	mutex_lock(&rtac_asm_apr_mutex);
+<<<<<<< HEAD
 	rtac_asm_apr_data[session_id].apr_handle = handle;
+=======
+	if (rtac_asm_apr_data[session_id].apr_handle)
+		rtac_asm_apr_data[session_id].apr_handle = handle;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	mutex_unlock(&rtac_asm_apr_mutex);
 }
 

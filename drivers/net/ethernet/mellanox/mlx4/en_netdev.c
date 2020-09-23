@@ -424,6 +424,7 @@ static int mlx4_en_vlan_rx_add_vid(struct net_device *dev,
 	mutex_lock(&mdev->state_lock);
 	if (mdev->device_up && priv->port_up) {
 		err = mlx4_SET_VLAN_FLTR(mdev->dev, priv);
+<<<<<<< HEAD
 		if (err) {
 			en_err(priv, "Failed configuring VLAN filter\n");
 			goto out;
@@ -436,6 +437,16 @@ static int mlx4_en_vlan_rx_add_vid(struct net_device *dev,
 out:
 	mutex_unlock(&mdev->state_lock);
 	return err;
+=======
+		if (err)
+			en_err(priv, "Failed configuring VLAN filter\n");
+	}
+	if (mlx4_register_vlan(mdev->dev, priv->port, vid, &idx))
+		en_dbg(HW, priv, "failed adding vlan %d\n", vid);
+	mutex_unlock(&mdev->state_lock);
+
+	return 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static int mlx4_en_vlan_rx_kill_vid(struct net_device *dev,
@@ -443,7 +454,11 @@ static int mlx4_en_vlan_rx_kill_vid(struct net_device *dev,
 {
 	struct mlx4_en_priv *priv = netdev_priv(dev);
 	struct mlx4_en_dev *mdev = priv->mdev;
+<<<<<<< HEAD
 	int err = 0;
+=======
+	int err;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	en_dbg(HW, priv, "Killing VID:%d\n", vid);
 
@@ -460,7 +475,11 @@ static int mlx4_en_vlan_rx_kill_vid(struct net_device *dev,
 	}
 	mutex_unlock(&mdev->state_lock);
 
+<<<<<<< HEAD
 	return err;
+=======
+	return 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static void mlx4_en_u64_to_mac(unsigned char dst_mac[ETH_ALEN + 2], u64 src_mac)
@@ -1720,6 +1739,7 @@ int mlx4_en_start_port(struct net_device *dev)
 		vxlan_get_rx_port(dev);
 #endif
 	priv->port_up = true;
+<<<<<<< HEAD
 
 	/* Process all completions if exist to prevent
 	 * the queues freezing if they are full
@@ -1730,6 +1750,8 @@ int mlx4_en_start_port(struct net_device *dev)
 		local_bh_enable();
 	}
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	netif_tx_start_all_queues(dev);
 	netif_device_attach(dev);
 

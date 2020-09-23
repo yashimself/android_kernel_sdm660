@@ -455,9 +455,15 @@ static int hip04_mac_start_xmit(struct sk_buff *skb, struct net_device *ndev)
 	skb_tx_timestamp(skb);
 
 	hip04_set_xmit_desc(priv, phys);
+<<<<<<< HEAD
 	count++;
 	netdev_sent_queue(ndev, skb->len);
 	priv->tx_head = TX_NEXT(tx_head);
+=======
+	priv->tx_head = TX_NEXT(tx_head);
+	count++;
+	netdev_sent_queue(ndev, skb->len);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	stats->tx_bytes += skb->len;
 	stats->tx_packets++;

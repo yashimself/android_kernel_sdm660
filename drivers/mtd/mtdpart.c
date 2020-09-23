@@ -610,6 +610,7 @@ int mtd_add_partition(struct mtd_info *master, const char *name,
 	list_add(&new->list, &mtd_partitions);
 	mutex_unlock(&mtd_partitions_mutex);
 
+<<<<<<< HEAD
 	ret = add_mtd_device(&new->mtd);
 	if (ret)
 		goto err_remove_part;
@@ -625,6 +626,12 @@ err_remove_part:
 
 	free_partition(new);
 
+=======
+	add_mtd_device(&new->mtd);
+
+	mtd_add_partition_attrs(new);
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return ret;
 }
 EXPORT_SYMBOL_GPL(mtd_add_partition);
@@ -669,21 +676,31 @@ int add_mtd_partitions(struct mtd_info *master,
 {
 	struct mtd_part *slave;
 	uint64_t cur_offset = 0;
+<<<<<<< HEAD
 	int i, ret;
+=======
+	int i;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	printk(KERN_NOTICE "Creating %d MTD partitions on \"%s\":\n", nbparts, master->name);
 
 	for (i = 0; i < nbparts; i++) {
 		slave = allocate_partition(master, parts + i, i, cur_offset);
 		if (IS_ERR(slave)) {
+<<<<<<< HEAD
 			ret = PTR_ERR(slave);
 			goto err_del_partitions;
+=======
+			del_mtd_partitions(master);
+			return PTR_ERR(slave);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 
 		mutex_lock(&mtd_partitions_mutex);
 		list_add(&slave->list, &mtd_partitions);
 		mutex_unlock(&mtd_partitions_mutex);
 
+<<<<<<< HEAD
 		ret = add_mtd_device(&slave->mtd);
 		if (ret) {
 			mutex_lock(&mtd_partitions_mutex);
@@ -694,17 +711,23 @@ int add_mtd_partitions(struct mtd_info *master,
 			goto err_del_partitions;
 		}
 
+=======
+		add_mtd_device(&slave->mtd);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		mtd_add_partition_attrs(slave);
 
 		cur_offset = slave->offset + slave->mtd.size;
 	}
 
 	return 0;
+<<<<<<< HEAD
 
 err_del_partitions:
 	del_mtd_partitions(master);
 
 	return ret;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static DEFINE_SPINLOCK(part_parser_lock);

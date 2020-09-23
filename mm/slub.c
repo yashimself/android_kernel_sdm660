@@ -333,11 +333,19 @@ static inline int oo_objects(struct kmem_cache_order_objects x)
  */
 static __always_inline void slab_lock(struct page *page)
 {
+<<<<<<< HEAD
+=======
+	VM_BUG_ON_PAGE(PageTail(page), page);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	bit_spin_lock(PG_locked, &page->flags);
 }
 
 static __always_inline void slab_unlock(struct page *page)
 {
+<<<<<<< HEAD
+=======
+	VM_BUG_ON_PAGE(PageTail(page), page);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	__bit_spin_unlock(PG_locked, &page->flags);
 }
 
@@ -1841,6 +1849,11 @@ static void *get_partial(struct kmem_cache *s, gfp_t flags, int node,
 
 	if (node == NUMA_NO_NODE)
 		searchnode = numa_mem_id();
+<<<<<<< HEAD
+=======
+	else if (!node_present_pages(node))
+		searchnode = node_to_mem_node(node);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	object = get_partial_node(s, get_node(s, searchnode), c, flags);
 	if (object || node != NUMA_NO_NODE)
@@ -2417,6 +2430,7 @@ static void *___slab_alloc(struct kmem_cache *s, gfp_t gfpflags, int node,
 	struct page *page;
 
 	page = c->page;
+<<<<<<< HEAD
 	if (!page) {
 		/*
 		 * if the node is not online or has no normal memory, just
@@ -2438,6 +2452,19 @@ redo:
 			node = NUMA_NO_NODE;
 			goto redo;
 		} else {
+=======
+	if (!page)
+		goto new_slab;
+redo:
+
+	if (unlikely(!node_match(page, node))) {
+		int searchnode = node;
+
+		if (node != NUMA_NO_NODE && !node_present_pages(node))
+			searchnode = node_to_mem_node(node);
+
+		if (unlikely(!node_match(page, searchnode))) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			stat(s, ALLOC_NODE_MISMATCH);
 			deactivate_slab(s, page, c->freelist);
 			c->page = NULL;
@@ -2857,6 +2884,7 @@ redo:
 	barrier();
 
 	if (likely(page == c->page)) {
+<<<<<<< HEAD
 		void **freelist = READ_ONCE(c->freelist);
 
 		set_freepointer(s, tail_obj, freelist);
@@ -2864,6 +2892,13 @@ redo:
 		if (unlikely(!this_cpu_cmpxchg_double(
 				s->cpu_slab->freelist, s->cpu_slab->tid,
 				freelist, tid,
+=======
+		set_freepointer(s, tail_obj, c->freelist);
+
+		if (unlikely(!this_cpu_cmpxchg_double(
+				s->cpu_slab->freelist, s->cpu_slab->tid,
+				c->freelist, tid,
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				head, next_tid(tid)))) {
 
 			note_cmpxchg_failure("slab_free", s, tid);
@@ -3024,6 +3059,7 @@ int kmem_cache_alloc_bulk(struct kmem_cache *s, gfp_t flags, size_t size,
 
 		if (unlikely(!object)) {
 			/*
+<<<<<<< HEAD
 			 * We may have removed an object from c->freelist using
 			 * the fastpath in the previous iteration; in that case,
 			 * c->tid has not been bumped yet.
@@ -3033,6 +3069,8 @@ int kmem_cache_alloc_bulk(struct kmem_cache *s, gfp_t flags, size_t size,
 			c->tid = next_tid(c->tid);
 
 			/*
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			 * Invoking slow path likely have side-effect
 			 * of re-populating per CPU c->freelist
 			 */

@@ -197,11 +197,16 @@ batadv_tt_global_hash_find(struct batadv_priv *bat_priv, const u8 *addr,
 static void
 batadv_tt_local_entry_free_ref(struct batadv_tt_local_entry *tt_local_entry)
 {
+<<<<<<< HEAD
 	if (atomic_dec_and_test(&tt_local_entry->common.refcount)) {
 		batadv_softif_vlan_free_ref(tt_local_entry->vlan);
 
 		kfree_rcu(tt_local_entry, common.rcu);
 	}
+=======
+	if (atomic_dec_and_test(&tt_local_entry->common.refcount))
+		kfree_rcu(tt_local_entry, common.rcu);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /**
@@ -306,11 +311,17 @@ static void batadv_tt_global_size_mod(struct batadv_orig_node *orig_node,
 
 	if (atomic_add_return(v, &vlan->tt.num_entries) == 0) {
 		spin_lock_bh(&orig_node->vlan_list_lock);
+<<<<<<< HEAD
 		if (!hlist_unhashed(&vlan->list)) {
 			hlist_del_init_rcu(&vlan->list);
 			batadv_orig_node_vlan_free_ref(vlan);
 		}
 		spin_unlock_bh(&orig_node->vlan_list_lock);
+=======
+		hlist_del_init_rcu(&vlan->list);
+		spin_unlock_bh(&orig_node->vlan_list_lock);
+		batadv_orig_node_vlan_free_ref(vlan);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	batadv_orig_node_vlan_free_ref(vlan);
@@ -508,14 +519,18 @@ static void batadv_tt_global_free(struct batadv_priv *bat_priv,
 				  struct batadv_tt_global_entry *tt_global,
 				  const char *message)
 {
+<<<<<<< HEAD
 	struct batadv_tt_global_entry *tt_removed_entry;
 	struct hlist_node *tt_removed_node;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	batadv_dbg(BATADV_DBG_TT, bat_priv,
 		   "Deleting global tt entry %pM (vid: %d): %s\n",
 		   tt_global->common.addr,
 		   BATADV_PRINT_VID(tt_global->common.vid), message);
 
+<<<<<<< HEAD
 	tt_removed_node = batadv_hash_remove(bat_priv->tt.global_hash,
 					     batadv_compare_tt,
 					     batadv_choose_tt,
@@ -528,6 +543,11 @@ static void batadv_tt_global_free(struct batadv_priv *bat_priv,
 				       struct batadv_tt_global_entry,
 				       common.hash_entry);
 	batadv_tt_global_entry_free_ref(tt_removed_entry);
+=======
+	batadv_hash_remove(bat_priv->tt.global_hash, batadv_compare_tt,
+			   batadv_choose_tt, &tt_global->common);
+	batadv_tt_global_entry_free_ref(tt_global);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /**
@@ -614,10 +634,15 @@ bool batadv_tt_local_add(struct net_device *soft_iface, const u8 *addr,
 
 	/* increase the refcounter of the related vlan */
 	vlan = batadv_softif_vlan_get(bat_priv, vid);
+<<<<<<< HEAD
 	if (!vlan) {
 		net_ratelimited_function(batadv_info, soft_iface,
 					 "adding TT local entry %pM to non-existent VLAN %d\n",
 					 addr, BATADV_PRINT_VID(vid));
+=======
+	if (WARN(!vlan, "adding TT local entry %pM to non-existent VLAN %d",
+		 addr, BATADV_PRINT_VID(vid))) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		kfree(tt_local);
 		tt_local = NULL;
 		goto out;
@@ -655,6 +680,10 @@ bool batadv_tt_local_add(struct net_device *soft_iface, const u8 *addr,
 	if (unlikely(hash_added != 0)) {
 		/* remove the reference for the hash */
 		batadv_tt_local_entry_free_ref(tt_local);
+<<<<<<< HEAD
+=======
+		batadv_softif_vlan_free_ref(vlan);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		goto out;
 	}
 
@@ -758,7 +787,11 @@ batadv_tt_prepare_tvlv_global_data(struct batadv_orig_node *orig_node,
 	struct batadv_orig_node_vlan *vlan;
 	u8 *tt_change_ptr;
 
+<<<<<<< HEAD
 	spin_lock_bh(&orig_node->vlan_list_lock);
+=======
+	rcu_read_lock();
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	hlist_for_each_entry_rcu(vlan, &orig_node->vlan_list, list) {
 		num_vlan++;
 		num_entries += atomic_read(&vlan->tt.num_entries);
@@ -796,7 +829,11 @@ batadv_tt_prepare_tvlv_global_data(struct batadv_orig_node *orig_node,
 	*tt_change = (struct batadv_tvlv_tt_change *)tt_change_ptr;
 
 out:
+<<<<<<< HEAD
 	spin_unlock_bh(&orig_node->vlan_list_lock);
+=======
+	rcu_read_unlock();
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return tvlv_len;
 }
 
@@ -827,12 +864,17 @@ batadv_tt_prepare_tvlv_local_data(struct batadv_priv *bat_priv,
 	struct batadv_tvlv_tt_vlan_data *tt_vlan;
 	struct batadv_softif_vlan *vlan;
 	u16 num_vlan = 0;
+<<<<<<< HEAD
 	u16 vlan_entries = 0;
 	u16 total_entries = 0;
+=======
+	u16 num_entries = 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	u16 tvlv_len;
 	u8 *tt_change_ptr;
 	int change_offset;
 
+<<<<<<< HEAD
 	spin_lock_bh(&bat_priv->softif_vlan_list_lock);
 	hlist_for_each_entry_rcu(vlan, &bat_priv->softif_vlan_list, list) {
 		vlan_entries = atomic_read(&vlan->tt.num_entries);
@@ -841,6 +883,12 @@ batadv_tt_prepare_tvlv_local_data(struct batadv_priv *bat_priv,
 
 		num_vlan++;
 		total_entries += vlan_entries;
+=======
+	rcu_read_lock();
+	hlist_for_each_entry_rcu(vlan, &bat_priv->softif_vlan_list, list) {
+		num_vlan++;
+		num_entries += atomic_read(&vlan->tt.num_entries);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	change_offset = sizeof(**tt_data);
@@ -848,7 +896,11 @@ batadv_tt_prepare_tvlv_local_data(struct batadv_priv *bat_priv,
 
 	/* if tt_len is negative, allocate the space needed by the full table */
 	if (*tt_len < 0)
+<<<<<<< HEAD
 		*tt_len = batadv_tt_len(total_entries);
+=======
+		*tt_len = batadv_tt_len(num_entries);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	tvlv_len = *tt_len;
 	tvlv_len += change_offset;
@@ -865,10 +917,13 @@ batadv_tt_prepare_tvlv_local_data(struct batadv_priv *bat_priv,
 
 	tt_vlan = (struct batadv_tvlv_tt_vlan_data *)(*tt_data + 1);
 	hlist_for_each_entry_rcu(vlan, &bat_priv->softif_vlan_list, list) {
+<<<<<<< HEAD
 		vlan_entries = atomic_read(&vlan->tt.num_entries);
 		if (vlan_entries < 1)
 			continue;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		tt_vlan->vid = htons(vlan->vid);
 		tt_vlan->crc = htonl(vlan->tt.crc);
 
@@ -879,7 +934,11 @@ batadv_tt_prepare_tvlv_local_data(struct batadv_priv *bat_priv,
 	*tt_change = (struct batadv_tvlv_tt_change *)tt_change_ptr;
 
 out:
+<<<<<<< HEAD
 	spin_unlock_bh(&bat_priv->softif_vlan_list_lock);
+=======
+	rcu_read_unlock();
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return tvlv_len;
 }
 
@@ -967,6 +1026,10 @@ int batadv_tt_local_seq_print_text(struct seq_file *seq, void *offset)
 	struct batadv_tt_common_entry *tt_common_entry;
 	struct batadv_tt_local_entry *tt_local;
 	struct batadv_hard_iface *primary_if;
+<<<<<<< HEAD
+=======
+	struct batadv_softif_vlan *vlan;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct hlist_head *head;
 	unsigned short vid;
 	u32 i;
@@ -1003,6 +1066,16 @@ int batadv_tt_local_seq_print_text(struct seq_file *seq, void *offset)
 
 			no_purge = tt_common_entry->flags & np_flag;
 
+<<<<<<< HEAD
+=======
+			vlan = batadv_softif_vlan_get(bat_priv, vid);
+			if (!vlan) {
+				seq_printf(seq, "Cannot retrieve VLAN %d\n",
+					   BATADV_PRINT_VID(vid));
+				continue;
+			}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			seq_printf(seq,
 				   " * %pM %4i [%c%c%c%c%c%c] %3u.%03u   (%#.8x)\n",
 				   tt_common_entry->addr,
@@ -1020,7 +1093,13 @@ int batadv_tt_local_seq_print_text(struct seq_file *seq, void *offset)
 				     BATADV_TT_CLIENT_ISOLA) ? 'I' : '.'),
 				   no_purge ? 0 : last_seen_secs,
 				   no_purge ? 0 : last_seen_msecs,
+<<<<<<< HEAD
 				   tt_local->vlan->tt.crc);
+=======
+				   vlan->tt.crc);
+
+			batadv_softif_vlan_free_ref(vlan);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 		rcu_read_unlock();
 	}
@@ -1063,10 +1142,17 @@ u16 batadv_tt_local_remove(struct batadv_priv *bat_priv, const u8 *addr,
 			   unsigned short vid, const char *message,
 			   bool roaming)
 {
+<<<<<<< HEAD
 	struct batadv_tt_local_entry *tt_removed_entry;
 	struct batadv_tt_local_entry *tt_local_entry;
 	u16 flags, curr_flags = BATADV_NO_FLAGS;
 	struct hlist_node *tt_removed_node;
+=======
+	struct batadv_tt_local_entry *tt_local_entry;
+	u16 flags, curr_flags = BATADV_NO_FLAGS;
+	struct batadv_softif_vlan *vlan;
+	void *tt_entry_exists;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	tt_local_entry = batadv_tt_local_hash_find(bat_priv, addr, vid);
 	if (!tt_local_entry)
@@ -1095,6 +1181,7 @@ u16 batadv_tt_local_remove(struct batadv_priv *bat_priv, const u8 *addr,
 	 */
 	batadv_tt_local_event(bat_priv, tt_local_entry, BATADV_TT_CLIENT_DEL);
 
+<<<<<<< HEAD
 	tt_removed_node = batadv_hash_remove(bat_priv->tt.local_hash,
 					     batadv_compare_tt,
 					     batadv_choose_tt,
@@ -1107,6 +1194,25 @@ u16 batadv_tt_local_remove(struct batadv_priv *bat_priv, const u8 *addr,
 				       struct batadv_tt_local_entry,
 				       common.hash_entry);
 	batadv_tt_local_entry_free_ref(tt_removed_entry);
+=======
+	tt_entry_exists = batadv_hash_remove(bat_priv->tt.local_hash,
+					     batadv_compare_tt,
+					     batadv_choose_tt,
+					     &tt_local_entry->common);
+	if (!tt_entry_exists)
+		goto out;
+
+	/* extra call to free the local tt entry */
+	batadv_tt_local_entry_free_ref(tt_local_entry);
+
+	/* decrease the reference held for this vlan */
+	vlan = batadv_softif_vlan_get(bat_priv, vid);
+	if (!vlan)
+		goto out;
+
+	batadv_softif_vlan_free_ref(vlan);
+	batadv_softif_vlan_free_ref(vlan);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 out:
 	if (tt_local_entry)
@@ -1180,6 +1286,10 @@ static void batadv_tt_local_table_free(struct batadv_priv *bat_priv)
 	spinlock_t *list_lock; /* protects write access to the hash lists */
 	struct batadv_tt_common_entry *tt_common_entry;
 	struct batadv_tt_local_entry *tt_local;
+<<<<<<< HEAD
+=======
+	struct batadv_softif_vlan *vlan;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct hlist_node *node_tmp;
 	struct hlist_head *head;
 	u32 i;
@@ -1201,6 +1311,17 @@ static void batadv_tt_local_table_free(struct batadv_priv *bat_priv)
 						struct batadv_tt_local_entry,
 						common);
 
+<<<<<<< HEAD
+=======
+			/* decrease the reference held for this vlan */
+			vlan = batadv_softif_vlan_get(bat_priv,
+						      tt_common_entry->vid);
+			if (vlan) {
+				batadv_softif_vlan_free_ref(vlan);
+				batadv_softif_vlan_free_ref(vlan);
+			}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			batadv_tt_local_entry_free_ref(tt_local);
 		}
 		spin_unlock_bh(list_lock);
@@ -1276,8 +1397,12 @@ batadv_tt_global_orig_entry_find(const struct batadv_tt_global_entry *entry,
  */
 static bool
 batadv_tt_global_entry_has_orig(const struct batadv_tt_global_entry *entry,
+<<<<<<< HEAD
 				const struct batadv_orig_node *orig_node,
 				u8 *flags)
+=======
+				const struct batadv_orig_node *orig_node)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	struct batadv_tt_orig_list_entry *orig_entry;
 	bool found = false;
@@ -1285,16 +1410,20 @@ batadv_tt_global_entry_has_orig(const struct batadv_tt_global_entry *entry,
 	orig_entry = batadv_tt_global_orig_entry_find(entry, orig_node);
 	if (orig_entry) {
 		found = true;
+<<<<<<< HEAD
 
 		if (flags)
 			*flags = orig_entry->flags;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		batadv_tt_orig_list_entry_free_ref(orig_entry);
 	}
 
 	return found;
 }
 
+<<<<<<< HEAD
 /**
  * batadv_tt_global_sync_flags - update TT sync flags
  * @tt_global: the TT global entry to update sync flags in
@@ -1335,14 +1464,26 @@ batadv_tt_global_orig_entry_add(struct batadv_tt_global_entry *tt_global,
 
 	spin_lock_bh(&tt_global->list_lock);
 
+=======
+static void
+batadv_tt_global_orig_entry_add(struct batadv_tt_global_entry *tt_global,
+				struct batadv_orig_node *orig_node, int ttvn)
+{
+	struct batadv_tt_orig_list_entry *orig_entry;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	orig_entry = batadv_tt_global_orig_entry_find(tt_global, orig_node);
 	if (orig_entry) {
 		/* refresh the ttvn: the current value could be a bogus one that
 		 * was added during a "temporary client detection"
 		 */
 		orig_entry->ttvn = ttvn;
+<<<<<<< HEAD
 		orig_entry->flags = flags;
 		goto sync_flags;
+=======
+		goto out;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	orig_entry = kzalloc(sizeof(*orig_entry), GFP_ATOMIC);
@@ -1354,6 +1495,7 @@ batadv_tt_global_orig_entry_add(struct batadv_tt_global_entry *tt_global,
 	batadv_tt_global_size_inc(orig_node, tt_global->common.vid);
 	orig_entry->orig_node = orig_node;
 	orig_entry->ttvn = ttvn;
+<<<<<<< HEAD
 	orig_entry->flags = flags;
 	atomic_set(&orig_entry->refcount, 2);
 
@@ -1368,6 +1510,19 @@ out:
 		batadv_tt_orig_list_entry_free_ref(orig_entry);
 
 	spin_unlock_bh(&tt_global->list_lock);
+=======
+	atomic_set(&orig_entry->refcount, 2);
+
+	spin_lock_bh(&tt_global->list_lock);
+	hlist_add_head_rcu(&orig_entry->list,
+			   &tt_global->orig_list);
+	spin_unlock_bh(&tt_global->list_lock);
+	atomic_inc(&tt_global->orig_list_count);
+
+out:
+	if (orig_entry)
+		batadv_tt_orig_list_entry_free_ref(orig_entry);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /**
@@ -1425,8 +1580,12 @@ static bool batadv_tt_global_add(struct batadv_priv *bat_priv,
 		ether_addr_copy(common->addr, tt_addr);
 		common->vid = vid;
 
+<<<<<<< HEAD
 		common->flags = flags & (~BATADV_TT_SYNC_MASK);
 
+=======
+		common->flags = flags;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		tt_global_entry->roam_at = 0;
 		/* node must store current time in case of roaming. This is
 		 * needed to purge this entry out on timeout (if nobody claims
@@ -1467,7 +1626,11 @@ static bool batadv_tt_global_add(struct batadv_priv *bat_priv,
 			if (!(common->flags & BATADV_TT_CLIENT_TEMP))
 				goto out;
 			if (batadv_tt_global_entry_has_orig(tt_global_entry,
+<<<<<<< HEAD
 							    orig_node, NULL))
+=======
+							    orig_node))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				goto out_remove;
 			batadv_tt_global_del_orig_list(tt_global_entry);
 			goto add_orig_entry;
@@ -1488,7 +1651,11 @@ static bool batadv_tt_global_add(struct batadv_priv *bat_priv,
 		 * TT_CLIENT_WIFI, therefore they have to be copied in the
 		 * client entry
 		 */
+<<<<<<< HEAD
 		tt_global_entry->common.flags |= flags & (~BATADV_TT_SYNC_MASK);
+=======
+		tt_global_entry->common.flags |= flags;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 		/* If there is the BATADV_TT_CLIENT_ROAM flag set, there is only
 		 * one originator left in the list and we previously received a
@@ -1505,8 +1672,12 @@ static bool batadv_tt_global_add(struct batadv_priv *bat_priv,
 	}
 add_orig_entry:
 	/* add the new orig_entry (if needed) or update it */
+<<<<<<< HEAD
 	batadv_tt_global_orig_entry_add(tt_global_entry, orig_node, ttvn,
 					flags & BATADV_TT_SYNC_MASK);
+=======
+	batadv_tt_global_orig_entry_add(tt_global_entry, orig_node, ttvn);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	batadv_dbg(BATADV_DBG_TT, bat_priv,
 		   "Creating new global tt entry: %pM (vid: %d, via %pM)\n",
@@ -2159,7 +2330,10 @@ static u32 batadv_tt_global_crc(struct batadv_priv *bat_priv,
 				unsigned short vid)
 {
 	struct batadv_hashtable *hash = bat_priv->tt.global_hash;
+<<<<<<< HEAD
 	struct batadv_tt_orig_list_entry *tt_orig;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct batadv_tt_common_entry *tt_common;
 	struct batadv_tt_global_entry *tt_global;
 	struct hlist_head *head;
@@ -2198,9 +2372,14 @@ static u32 batadv_tt_global_crc(struct batadv_priv *bat_priv,
 			/* find out if this global entry is announced by this
 			 * originator
 			 */
+<<<<<<< HEAD
 			tt_orig = batadv_tt_global_orig_entry_find(tt_global,
 								   orig_node);
 			if (!tt_orig)
+=======
+			if (!batadv_tt_global_entry_has_orig(tt_global,
+							     orig_node))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				continue;
 
 			/* use network order to read the VID: this ensures that
@@ -2212,12 +2391,19 @@ static u32 batadv_tt_global_crc(struct batadv_priv *bat_priv,
 			/* compute the CRC on flags that have to be kept in sync
 			 * among nodes
 			 */
+<<<<<<< HEAD
 			flags = tt_orig->flags;
 			crc_tmp = crc32c(crc_tmp, &flags, sizeof(flags));
 
 			crc ^= crc32c(crc_tmp, tt_common->addr, ETH_ALEN);
 
 			batadv_tt_orig_list_entry_free_ref(tt_orig);
+=======
+			flags = tt_common->flags & BATADV_TT_SYNC_MASK;
+			crc_tmp = crc32c(crc_tmp, &flags, sizeof(flags));
+
+			crc ^= crc32c(crc_tmp, tt_common->addr, ETH_ALEN);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 		rcu_read_unlock();
 	}
@@ -2282,6 +2468,7 @@ static u32 batadv_tt_local_crc(struct batadv_priv *bat_priv,
 	return crc;
 }
 
+<<<<<<< HEAD
 /**
  * batadv_tt_req_node_release - free tt_req node entry
  * @ref: kref pointer of the tt req_node entry
@@ -2305,6 +2492,8 @@ static void batadv_tt_req_node_put(struct batadv_tt_req_node *tt_req_node)
 	kref_put(&tt_req_node->refcount, batadv_tt_req_node_release);
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 static void batadv_tt_req_list_free(struct batadv_priv *bat_priv)
 {
 	struct batadv_tt_req_node *node;
@@ -2314,7 +2503,11 @@ static void batadv_tt_req_list_free(struct batadv_priv *bat_priv)
 
 	hlist_for_each_entry_safe(node, safe, &bat_priv->tt.req_list, list) {
 		hlist_del_init(&node->list);
+<<<<<<< HEAD
 		batadv_tt_req_node_put(node);
+=======
+		kfree(node);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	spin_unlock_bh(&bat_priv->tt.req_list_lock);
@@ -2351,7 +2544,11 @@ static void batadv_tt_req_purge(struct batadv_priv *bat_priv)
 		if (batadv_has_timed_out(node->issued_at,
 					 BATADV_TT_REQUEST_TIMEOUT)) {
 			hlist_del_init(&node->list);
+<<<<<<< HEAD
 			batadv_tt_req_node_put(node);
+=======
+			kfree(node);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		}
 	}
 	spin_unlock_bh(&bat_priv->tt.req_list_lock);
@@ -2383,11 +2580,17 @@ batadv_tt_req_node_new(struct batadv_priv *bat_priv,
 	if (!tt_req_node)
 		goto unlock;
 
+<<<<<<< HEAD
 	kref_init(&tt_req_node->refcount);
 	ether_addr_copy(tt_req_node->addr, orig_node->orig);
 	tt_req_node->issued_at = jiffies;
 
 	kref_get(&tt_req_node->refcount);
+=======
+	ether_addr_copy(tt_req_node->addr, orig_node->orig);
+	tt_req_node->issued_at = jiffies;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	hlist_add_head(&tt_req_node->list, &bat_priv->tt.req_list);
 unlock:
 	spin_unlock_bh(&bat_priv->tt.req_list_lock);
@@ -2401,24 +2604,35 @@ unlock:
  *
  * Returns 1 if the entry is a valid, 0 otherwise.
  */
+<<<<<<< HEAD
 static int batadv_tt_local_valid(const void *entry_ptr,
 				 const void *data_ptr,
 				 u8 *flags)
+=======
+static int batadv_tt_local_valid(const void *entry_ptr, const void *data_ptr)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	const struct batadv_tt_common_entry *tt_common_entry = entry_ptr;
 
 	if (tt_common_entry->flags & BATADV_TT_CLIENT_NEW)
 		return 0;
+<<<<<<< HEAD
 
 	if (flags)
 		*flags = tt_common_entry->flags;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return 1;
 }
 
 static int batadv_tt_global_valid(const void *entry_ptr,
+<<<<<<< HEAD
 				  const void *data_ptr,
 				  u8 *flags)
+=======
+				  const void *data_ptr)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	const struct batadv_tt_common_entry *tt_common_entry = entry_ptr;
 	const struct batadv_tt_global_entry *tt_global_entry;
@@ -2432,8 +2646,12 @@ static int batadv_tt_global_valid(const void *entry_ptr,
 				       struct batadv_tt_global_entry,
 				       common);
 
+<<<<<<< HEAD
 	return batadv_tt_global_entry_has_orig(tt_global_entry, orig_node,
 					       flags);
+=======
+	return batadv_tt_global_entry_has_orig(tt_global_entry, orig_node);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 /**
@@ -2449,25 +2667,35 @@ static int batadv_tt_global_valid(const void *entry_ptr,
 static void batadv_tt_tvlv_generate(struct batadv_priv *bat_priv,
 				    struct batadv_hashtable *hash,
 				    void *tvlv_buff, u16 tt_len,
+<<<<<<< HEAD
 				    int (*valid_cb)(const void *,
 						    const void *,
 						    u8 *flags),
+=======
+				    int (*valid_cb)(const void *, const void *),
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 				    void *cb_data)
 {
 	struct batadv_tt_common_entry *tt_common_entry;
 	struct batadv_tvlv_tt_change *tt_change;
 	struct hlist_head *head;
 	u16 tt_tot, tt_num_entries = 0;
+<<<<<<< HEAD
 	u8 flags;
 	bool ret;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	u32 i;
 
 	tt_tot = batadv_tt_entries(tt_len);
 	tt_change = (struct batadv_tvlv_tt_change *)tvlv_buff;
 
+<<<<<<< HEAD
 	if (!valid_cb)
 		return;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	rcu_read_lock();
 	for (i = 0; i < hash->size; i++) {
 		head = &hash->table[i];
@@ -2477,12 +2705,20 @@ static void batadv_tt_tvlv_generate(struct batadv_priv *bat_priv,
 			if (tt_tot == tt_num_entries)
 				break;
 
+<<<<<<< HEAD
 			ret = valid_cb(tt_common_entry, cb_data, &flags);
 			if (!ret)
 				continue;
 
 			ether_addr_copy(tt_change->addr, tt_common_entry->addr);
 			tt_change->flags = flags;
+=======
+			if ((valid_cb) && (!valid_cb(tt_common_entry, cb_data)))
+				continue;
+
+			ether_addr_copy(tt_change->addr, tt_common_entry->addr);
+			tt_change->flags = tt_common_entry->flags;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			tt_change->vid = htons(tt_common_entry->vid);
 			memset(tt_change->reserved, 0,
 			       sizeof(tt_change->reserved));
@@ -2653,6 +2889,7 @@ static int batadv_send_tt_request(struct batadv_priv *bat_priv,
 out:
 	if (primary_if)
 		batadv_hardif_free_ref(primary_if);
+<<<<<<< HEAD
 
 	if (ret && tt_req_node) {
 		spin_lock_bh(&bat_priv->tt.req_list_lock);
@@ -2666,6 +2903,15 @@ out:
 	if (tt_req_node)
 		batadv_tt_req_node_put(tt_req_node);
 
+=======
+	if (ret && tt_req_node) {
+		spin_lock_bh(&bat_priv->tt.req_list_lock);
+		/* hlist_del_init() verifies tt_req_node still is in the list */
+		hlist_del_init(&tt_req_node->list);
+		spin_unlock_bh(&bat_priv->tt.req_list_lock);
+		kfree(tt_req_node);
+	}
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	kfree(tvlv_tt_data);
 	return ret;
 }
@@ -3101,7 +3347,11 @@ static void batadv_handle_tt_response(struct batadv_priv *bat_priv,
 		if (!batadv_compare_eth(node->addr, resp_src))
 			continue;
 		hlist_del_init(&node->list);
+<<<<<<< HEAD
 		batadv_tt_req_node_put(node);
+=======
+		kfree(node);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	spin_unlock_bh(&bat_priv->tt.req_list_lock);
@@ -3326,6 +3576,10 @@ static void batadv_tt_local_purge_pending_clients(struct batadv_priv *bat_priv)
 	struct batadv_hashtable *hash = bat_priv->tt.local_hash;
 	struct batadv_tt_common_entry *tt_common;
 	struct batadv_tt_local_entry *tt_local;
+<<<<<<< HEAD
+=======
+	struct batadv_softif_vlan *vlan;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct hlist_node *node_tmp;
 	struct hlist_head *head;
 	spinlock_t *list_lock; /* protects write access to the hash lists */
@@ -3355,6 +3609,16 @@ static void batadv_tt_local_purge_pending_clients(struct batadv_priv *bat_priv)
 						struct batadv_tt_local_entry,
 						common);
 
+<<<<<<< HEAD
+=======
+			/* decrease the reference held for this vlan */
+			vlan = batadv_softif_vlan_get(bat_priv, tt_common->vid);
+			if (vlan) {
+				batadv_softif_vlan_free_ref(vlan);
+				batadv_softif_vlan_free_ref(vlan);
+			}
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			batadv_tt_local_entry_free_ref(tt_local);
 		}
 		spin_unlock_bh(list_lock);

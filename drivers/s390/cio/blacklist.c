@@ -303,10 +303,15 @@ static void *
 cio_ignore_proc_seq_next(struct seq_file *s, void *it, loff_t *offset)
 {
 	struct ccwdev_iter *iter;
+<<<<<<< HEAD
 	loff_t p = *offset;
 
 	(*offset)++;
 	if (p >= (__MAX_SUBCHANNEL + 1) * (__MAX_SSID + 1))
+=======
+
+	if (*offset >= (__MAX_SUBCHANNEL + 1) * (__MAX_SSID + 1))
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		return NULL;
 	iter = it;
 	if (iter->devno == __MAX_SUBCHANNEL) {
@@ -316,6 +321,10 @@ cio_ignore_proc_seq_next(struct seq_file *s, void *it, loff_t *offset)
 			return NULL;
 	} else
 		iter->devno++;
+<<<<<<< HEAD
+=======
+	(*offset)++;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return iter;
 }
 

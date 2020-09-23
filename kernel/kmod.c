@@ -119,7 +119,11 @@ out:
  * invoke it.
  *
  * If module auto-loading support is disabled then this function
+<<<<<<< HEAD
  * simply returns -ENOENT.
+=======
+ * becomes a no-operation.
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
  */
 int __request_module(bool wait, const char *fmt, ...)
 {
@@ -140,7 +144,11 @@ int __request_module(bool wait, const char *fmt, ...)
 	WARN_ON_ONCE(wait && current_is_async());
 
 	if (!modprobe_path[0])
+<<<<<<< HEAD
 		return -ENOENT;
+=======
+		return 0;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	va_start(args, fmt);
 	ret = vsnprintf(module_name, MODULE_NAME_LEN, fmt, args);

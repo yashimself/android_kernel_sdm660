@@ -823,7 +823,11 @@ void mwifiex_uap_set_channel(struct mwifiex_private *priv,
 						     chandef.chan->center_freq);
 
 	/* Set appropriate bands */
+<<<<<<< HEAD
 	if (chandef.chan->band == NL80211_BAND_2GHZ) {
+=======
+	if (chandef.chan->band == IEEE80211_BAND_2GHZ) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		bss_cfg->band_cfg = BAND_CONFIG_BG;
 		config_bands = BAND_B | BAND_G;
 

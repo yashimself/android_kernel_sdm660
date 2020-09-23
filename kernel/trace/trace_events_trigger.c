@@ -121,10 +121,16 @@ static void *trigger_next(struct seq_file *m, void *t, loff_t *pos)
 {
 	struct trace_event_file *event_file = event_file_data(m->private);
 
+<<<<<<< HEAD
 	if (t == SHOW_AVAILABLE_TRIGGERS) {
 		(*pos)++;
 		return NULL;
 	}
+=======
+	if (t == SHOW_AVAILABLE_TRIGGERS)
+		return NULL;
+
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	return seq_list_next(t, &event_file->triggers, pos);
 }
 
@@ -910,10 +916,21 @@ register_snapshot_trigger(char *glob, struct event_trigger_ops *ops,
 			  struct event_trigger_data *data,
 			  struct trace_event_file *file)
 {
+<<<<<<< HEAD
 	if (tracing_alloc_snapshot() != 0)
 		return 0;
 
 	return register_trigger(glob, ops, data, file);
+=======
+	int ret = register_trigger(glob, ops, data, file);
+
+	if (ret > 0 && tracing_alloc_snapshot() != 0) {
+		unregister_trigger(glob, ops, data, file);
+		ret = 0;
+	}
+
+	return ret;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 
 static int

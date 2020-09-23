@@ -1333,10 +1333,15 @@ static int sctp_cmd_interpreter(sctp_event_t event_type,
 			/* Generate an INIT ACK chunk.  */
 			new_obj = sctp_make_init_ack(asoc, chunk, GFP_ATOMIC,
 						     0);
+<<<<<<< HEAD
 			if (!new_obj) {
 				error = -ENOMEM;
 				break;
 			}
+=======
+			if (!new_obj)
+				goto nomem;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 			sctp_add_cmd_sf(commands, SCTP_CMD_REPLY,
 					SCTP_CHUNK(new_obj));
@@ -1358,8 +1363,12 @@ static int sctp_cmd_interpreter(sctp_event_t event_type,
 			if (!new_obj) {
 				if (cmd->obj.chunk)
 					sctp_chunk_free(cmd->obj.chunk);
+<<<<<<< HEAD
 				error = -ENOMEM;
 				break;
+=======
+				goto nomem;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			}
 			sctp_add_cmd_sf(commands, SCTP_CMD_REPLY,
 					SCTP_CHUNK(new_obj));
@@ -1406,10 +1415,15 @@ static int sctp_cmd_interpreter(sctp_event_t event_type,
 
 			/* Generate a SHUTDOWN chunk.  */
 			new_obj = sctp_make_shutdown(asoc, chunk);
+<<<<<<< HEAD
 			if (!new_obj) {
 				error = -ENOMEM;
 				break;
 			}
+=======
+			if (!new_obj)
+				goto nomem;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 			sctp_add_cmd_sf(commands, SCTP_CMD_REPLY,
 					SCTP_CHUNK(new_obj));
 			break;
@@ -1738,6 +1752,7 @@ static int sctp_cmd_interpreter(sctp_event_t event_type,
 			break;
 		}
 
+<<<<<<< HEAD
 		if (error) {
 			cmd = sctp_next_cmd(commands);
 			while (cmd) {
@@ -1749,6 +1764,13 @@ static int sctp_cmd_interpreter(sctp_event_t event_type,
 		}
 	}
 
+=======
+		if (error)
+			break;
+	}
+
+out:
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	/* If this is in response to a received chunk, wait until
 	 * we are done with the packet to open the queue so that we don't
 	 * send multiple packets in response to a single request.
@@ -1759,5 +1781,11 @@ static int sctp_cmd_interpreter(sctp_event_t event_type,
 	} else if (local_cork)
 		error = sctp_outq_uncork(&asoc->outqueue);
 	return error;
+<<<<<<< HEAD
+=======
+nomem:
+	error = -ENOMEM;
+	goto out;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 }
 

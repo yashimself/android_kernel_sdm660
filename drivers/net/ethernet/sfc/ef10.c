@@ -1304,6 +1304,7 @@ static void efx_ef10_get_stat_mask(struct efx_nic *efx, unsigned long *mask)
 	}
 
 #if BITS_PER_LONG == 64
+<<<<<<< HEAD
 	BUILD_BUG_ON(BITS_TO_LONGS(EF10_STAT_COUNT) != 2);
 	mask[0] = raw_mask[0];
 	mask[1] = raw_mask[1];
@@ -1312,6 +1313,15 @@ static void efx_ef10_get_stat_mask(struct efx_nic *efx, unsigned long *mask)
 	mask[0] = raw_mask[0] & 0xffffffff;
 	mask[1] = raw_mask[0] >> 32;
 	mask[2] = raw_mask[1] & 0xffffffff;
+=======
+	mask[0] = raw_mask[0];
+	mask[1] = raw_mask[1];
+#else
+	mask[0] = raw_mask[0] & 0xffffffff;
+	mask[1] = raw_mask[0] >> 32;
+	mask[2] = raw_mask[1] & 0xffffffff;
+	mask[3] = raw_mask[1] >> 32;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 #endif
 }
 
@@ -4434,17 +4444,25 @@ static const struct efx_ef10_nvram_type_info efx_ef10_nvram_types[] = {
 	{ NVRAM_PARTITION_TYPE_LICENSE,		   0,    0, "sfc_license" },
 	{ NVRAM_PARTITION_TYPE_PHY_MIN,		   0xff, 0, "sfc_phy_fw" },
 };
+<<<<<<< HEAD
 #define EF10_NVRAM_PARTITION_COUNT	ARRAY_SIZE(efx_ef10_nvram_types)
 
 static int efx_ef10_mtd_probe_partition(struct efx_nic *efx,
 					struct efx_mcdi_mtd_partition *part,
 					unsigned int type,
 					unsigned long *found)
+=======
+
+static int efx_ef10_mtd_probe_partition(struct efx_nic *efx,
+					struct efx_mcdi_mtd_partition *part,
+					unsigned int type)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 {
 	MCDI_DECLARE_BUF(inbuf, MC_CMD_NVRAM_METADATA_IN_LEN);
 	MCDI_DECLARE_BUF(outbuf, MC_CMD_NVRAM_METADATA_OUT_LENMAX);
 	const struct efx_ef10_nvram_type_info *info;
 	size_t size, erase_size, outlen;
+<<<<<<< HEAD
 	int type_idx = 0;
 	bool protected;
 	int rc;
@@ -4453,6 +4471,15 @@ static int efx_ef10_mtd_probe_partition(struct efx_nic *efx,
 		if (type_idx == EF10_NVRAM_PARTITION_COUNT)
 			return -ENODEV;
 		info = efx_ef10_nvram_types + type_idx;
+=======
+	bool protected;
+	int rc;
+
+	for (info = efx_ef10_nvram_types; ; info++) {
+		if (info ==
+		    efx_ef10_nvram_types + ARRAY_SIZE(efx_ef10_nvram_types))
+			return -ENODEV;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		if ((type & ~info->type_mask) == info->type)
 			break;
 	}
@@ -4465,6 +4492,7 @@ static int efx_ef10_mtd_probe_partition(struct efx_nic *efx,
 	if (protected)
 		return -ENODEV; /* hide it */
 
+<<<<<<< HEAD
 	/* If we've already exposed a partition of this type, hide this
 	 * duplicate.  All operations on MTDs are keyed by the type anyway,
 	 * so we can't act on the duplicate.
@@ -4472,6 +4500,8 @@ static int efx_ef10_mtd_probe_partition(struct efx_nic *efx,
 	if (__test_and_set_bit(type_idx, found))
 		return -EEXIST;
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	part->nvram_type = type;
 
 	MCDI_SET_DWORD(inbuf, NVRAM_METADATA_IN_TYPE, type);
@@ -4500,7 +4530,10 @@ static int efx_ef10_mtd_probe_partition(struct efx_nic *efx,
 static int efx_ef10_mtd_probe(struct efx_nic *efx)
 {
 	MCDI_DECLARE_BUF(outbuf, MC_CMD_NVRAM_PARTITIONS_OUT_LENMAX);
+<<<<<<< HEAD
 	DECLARE_BITMAP(found, EF10_NVRAM_PARTITION_COUNT) = { 0 };
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	struct efx_mcdi_mtd_partition *parts;
 	size_t outlen, n_parts_total, i, n_parts;
 	unsigned int type;
@@ -4529,6 +4562,7 @@ static int efx_ef10_mtd_probe(struct efx_nic *efx)
 	for (i = 0; i < n_parts_total; i++) {
 		type = MCDI_ARRAY_DWORD(outbuf, NVRAM_PARTITIONS_OUT_TYPE_ID,
 					i);
+<<<<<<< HEAD
 		rc = efx_ef10_mtd_probe_partition(efx, &parts[n_parts], type,
 						  found);
 		if (rc == -EEXIST || rc == -ENODEV)
@@ -4536,6 +4570,13 @@ static int efx_ef10_mtd_probe(struct efx_nic *efx)
 		if (rc)
 			goto fail;
 		n_parts++;
+=======
+		rc = efx_ef10_mtd_probe_partition(efx, &parts[n_parts], type);
+		if (rc == 0)
+			n_parts++;
+		else if (rc != -ENODEV)
+			goto fail;
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 	rc = efx_mtd_add(efx, &parts[0].common, n_parts, sizeof(*parts));

@@ -125,7 +125,10 @@ int __cpu_up(unsigned int cpu, struct task_struct *idle)
 		}
 	} else {
 		pr_err("CPU%u: failed to boot: %d\n", cpu, ret);
+<<<<<<< HEAD
 		return ret;
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	}
 
 #ifdef CONFIG_THREAD_INFO_IN_TASK
@@ -759,7 +762,11 @@ static void ipi_cpu_stop(unsigned int cpu, struct pt_regs *regs)
 		raw_spin_unlock(&stop_lock);
 	}
 
+<<<<<<< HEAD
 	set_cpu_online(cpu, false);
+=======
+	set_cpu_active(cpu, false);
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 
 	flush_cache_all();
 	local_irq_disable();
@@ -917,6 +924,7 @@ void tick_broadcast(const struct cpumask *mask)
 }
 #endif
 
+<<<<<<< HEAD
 /*
  * The number of CPUs online, not counting this CPU (which may not be
  * fully online and so not counted in num_online_cpus()).
@@ -928,11 +936,17 @@ static inline unsigned int num_other_online_cpus(void)
 	return num_online_cpus() - this_cpu_online;
 }
 
+=======
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 void smp_send_stop(void)
 {
 	unsigned long timeout;
 
+<<<<<<< HEAD
 	if (num_other_online_cpus()) {
+=======
+	if (num_online_cpus() > 1) {
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		cpumask_t mask;
 
 		cpumask_copy(&mask, cpu_online_mask);
@@ -943,10 +957,17 @@ void smp_send_stop(void)
 
 	/* Wait up to one second for other CPUs to stop */
 	timeout = USEC_PER_SEC;
+<<<<<<< HEAD
 	while (num_other_online_cpus() && timeout--)
 		udelay(1);
 
 	if (num_other_online_cpus())
+=======
+	while (num_active_cpus() > 1 && timeout--)
+		udelay(1);
+
+	if (num_active_cpus() > 1)
+>>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 		pr_warning("SMP: failed to stop secondary CPUs\n");
 }
 
