@@ -272,7 +272,11 @@ enum power_supply_property {
 	POWER_SUPPLY_PROP_ENABLE_JEITA_DETECTION,
 	POWER_SUPPLY_PROP_ALLOW_HVDCP3,
 	POWER_SUPPLY_PROP_MAX_PULSE_ALLOWED,
+<<<<<<< HEAD
 >>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
+=======
+	POWER_SUPPLY_PROP_FG_RESET_CLOCK,
+>>>>>>> c3bf41fa49e63b851cd3c21bd459d165d7fefc02
 	/* Local extensions of type int64_t */
 	POWER_SUPPLY_PROP_CHARGE_COUNTER_EXT,
 	/* Properties of type `const char *' */

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2017, The Linux Foundation. All rights reserved.
+ * Copyright (c) 2015-2017, 2020, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -252,9 +252,12 @@ static int service_locator_send_msg(struct pd_qmi_client_data *pd)
 	req->domain_offset = 0;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	pd->domain_list = NULL;
 >>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
+=======
+>>>>>>> c3bf41fa49e63b851cd3c21bd459d165d7fefc02
 	do {
 		req->domain_offset += domains_read;
 		rc = servreg_loc_send_msg(&req_desc, &resp_desc, req, resp,
@@ -285,9 +288,13 @@ static int service_locator_send_msg(struct pd_qmi_client_data *pd)
 				pd->client_name);
 			kfree(pd->domain_list);
 <<<<<<< HEAD
+<<<<<<< HEAD
 			pd->domain_list = NULL;
 =======
 >>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
+=======
+			pd->domain_list = NULL;
+>>>>>>> c3bf41fa49e63b851cd3c21bd459d165d7fefc02
 			rc = -EAGAIN;
 			goto out;
 		}
@@ -368,10 +375,14 @@ int get_service_location(char *client_name, char *service_name,
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	pqcd = kzalloc(sizeof(struct pd_qmi_client_data), GFP_KERNEL);
 =======
 	pqcd = kmalloc(sizeof(struct pd_qmi_client_data), GFP_KERNEL);
 >>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
+=======
+	pqcd = kzalloc(sizeof(struct pd_qmi_client_data), GFP_KERNEL);
+>>>>>>> c3bf41fa49e63b851cd3c21bd459d165d7fefc02
 	if (!pqcd) {
 		rc = -ENOMEM;
 		pr_err("Allocation failed\n");
@@ -413,10 +424,14 @@ static void pd_locator_work(struct work_struct *work)
 		pdqw->notifier->notifier_call(pdqw->notifier,
 			LOCATOR_DOWN, NULL);
 <<<<<<< HEAD
+<<<<<<< HEAD
 		goto err_init_servloc;
 =======
 		goto err;
 >>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
+=======
+		goto err_init_servloc;
+>>>>>>> c3bf41fa49e63b851cd3c21bd459d165d7fefc02
 	}
 	rc = service_locator_send_msg(data);
 	if (rc) {
@@ -424,6 +439,7 @@ static void pd_locator_work(struct work_struct *work)
 			data->service_name, data->client_name, rc);
 		pdqw->notifier->notifier_call(pdqw->notifier,
 			LOCATOR_DOWN, NULL);
+<<<<<<< HEAD
 <<<<<<< HEAD
 		goto err_servloc_send_msg;
 	}
@@ -439,6 +455,15 @@ err_init_servloc:
 
 err:
 >>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
+=======
+		goto err_servloc_send_msg;
+	}
+	pdqw->notifier->notifier_call(pdqw->notifier, LOCATOR_UP, data);
+
+err_servloc_send_msg:
+	kfree(data->domain_list);
+err_init_servloc:
+>>>>>>> c3bf41fa49e63b851cd3c21bd459d165d7fefc02
 	kfree(data);
 	kfree(pdqw);
 }

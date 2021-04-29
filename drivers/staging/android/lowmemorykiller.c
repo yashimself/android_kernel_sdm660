@@ -680,6 +680,7 @@ static unsigned long lowmem_scan(struct shrinker *s, struct shrink_control *sc)
 		}
 
 		task_lock(selected);
+		get_task_struct(selected);
 		send_sig(SIGKILL, selected, 0);
 		/*
 		 * FIXME: lowmemorykiller shouldn't abuse global OOM killer
@@ -729,9 +730,12 @@ static unsigned long lowmem_scan(struct shrinker *s, struct shrink_control *sc)
 		rem += selected_tasksize;
 		rcu_read_unlock();
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 		get_task_struct(selected);
 >>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
+=======
+>>>>>>> c3bf41fa49e63b851cd3c21bd459d165d7fefc02
 		/* give the system time to free up the memory */
 		msleep_interruptible(20);
 		trace_almk_shrink(selected_tasksize, ret,

@@ -1,8 +1,12 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 /* Copyright (c) 2013-2016, The Linux Foundation. All rights reserved.
 =======
 /* Copyright (c) 2013-2016, 2018, The Linux Foundation. All rights reserved.
 >>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
+=======
+/* Copyright (c) 2013-2016, 2018,2020, The Linux Foundation. All rights reserved.
+>>>>>>> c3bf41fa49e63b851cd3c21bd459d165d7fefc02
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -187,7 +191,7 @@ static int _build_pre_ib_cmds(struct adreno_device *adreno_dev,
 	ibcmds += _ib_cmd_mem_write(adreno_dev, ibcmds, gpuaddr + data_offset,
 			drawctxt->base.id, &data_offset);
 	ibcmds += _ib_cmd_mem_write(adreno_dev, ibcmds, gpuaddr + data_offset,
-			drawctxt->base.proc_priv->pid, &data_offset);
+			pid_nr(drawctxt->base.proc_priv->pid), &data_offset);
 	ibcmds += _ib_cmd_mem_write(adreno_dev, ibcmds, gpuaddr + data_offset,
 			drawctxt->base.tid, &data_offset);
 	ibcmds += _ib_cmd_mem_write(adreno_dev, ibcmds, gpuaddr + data_offset,

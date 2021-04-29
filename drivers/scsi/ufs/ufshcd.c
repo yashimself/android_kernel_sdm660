@@ -4,10 +4,14 @@
  * This code is based on drivers/scsi/ufs/ufshcd.c
  * Copyright (C) 2011-2013 Samsung India Software Operations
 <<<<<<< HEAD
+<<<<<<< HEAD
  * Copyright (c) 2013-2018, The Linux Foundation. All rights reserved.
 =======
  * Copyright (c) 2013-2019, The Linux Foundation. All rights reserved.
 >>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
+=======
+ * Copyright (c) 2013-2020, The Linux Foundation. All rights reserved.
+>>>>>>> c3bf41fa49e63b851cd3c21bd459d165d7fefc02
  *
  * Authors:
  *	Santosh Yaraganavi <santosh.sy@samsung.com>
@@ -5430,8 +5434,15 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
 			 * UFS device needs urgent BKOPs.
 			 */
 			if (!hba->pm_op_in_progress &&
-			    ufshcd_is_exception_event(lrbp->ucd_rsp_ptr))
-				schedule_work(&hba->eeh_work);
+			    ufshcd_is_exception_event(lrbp->ucd_rsp_ptr)) {
+				/*
+				 * Prevent suspend once eeh_work is scheduled
+				 * to avoid deadlock between ufshcd_suspend
+				 * and exception event handler.
+				 */
+				if (schedule_work(&hba->eeh_work))
+					pm_runtime_get_noresume(hba->dev);
+			}
 			break;
 		case UPIU_TRANSACTION_REJECT_UPIU:
 			/* TODO: handle Reject UPIU Response */
@@ -6012,6 +6023,13 @@ static void ufshcd_exception_event_handler(struct work_struct *work)
 
 out:
 	ufshcd_scsi_unblock_requests(hba);
+	/*
+	 * pm_runtime_get_noresume is called while scheduling
+	 * eeh_work to avoid suspend racing with exception work.
+	 * Hence decrement usage counter using pm_runtime_put_noidle
+	 * to allow suspend on completion of exception event handler.
+	 */
+	pm_runtime_put_noidle(hba->dev);
 	pm_runtime_put(hba->dev);
 	return;
 }
@@ -8827,6 +8845,7 @@ static int ufshcd_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
 			goto enable_gating;
 	}
 
+	flush_work(&hba->eeh_work);
 	ret = ufshcd_link_state_transition(hba, req_link_state, 1);
 	if (ret)
 		goto set_dev_active;

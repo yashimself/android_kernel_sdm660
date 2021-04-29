@@ -318,6 +318,7 @@ static struct device_attribute power_supply_attrs[] = {
 	POWER_SUPPLY_ATTR(enable_jeita_detection),
 	POWER_SUPPLY_ATTR(allow_hvdcp3),
 	POWER_SUPPLY_ATTR(max_pulse_allowed),
+	POWER_SUPPLY_ATTR(fg_reset_clock),
 	/* Local extensions of type int64_t */
 >>>>>>> f18bfabb5e9ca3c4033c0de4dd4fd4c94a97c218
 	POWER_SUPPLY_ATTR(charge_counter_ext),
