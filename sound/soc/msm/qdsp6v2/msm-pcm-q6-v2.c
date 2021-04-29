@@ -832,6 +832,7 @@ static int msm_pcm_playback_close(struct snd_pcm_substream *substream)
 	struct msm_audio *prtd = runtime->private_data;
 	struct msm_plat_data *pdata;
 	uint32_t timeout;
+	struct msm_plat_data *pdata = NULL;
 	int dir = 0;
 	int ret = 0;
 
@@ -1334,7 +1335,12 @@ static int msm_pcm_volume_ctl_get(struct snd_kcontrol *kcontrol,
 {
 	struct snd_pcm_volume *vol = snd_kcontrol_chip(kcontrol);
 	struct msm_plat_data *pdata = NULL;
+<<<<<<< HEAD
 	struct snd_pcm_substream *substream = NULL;
+=======
+	struct snd_pcm_substream *substream =
+		vol->pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream;
+>>>>>>> af0badf6f43b55d788d2ead83da1d14cbd290290
 	struct snd_soc_pcm_runtime *soc_prtd = NULL;
 	struct msm_audio *prtd;
 

@@ -2703,6 +2703,7 @@ static int qseecom_unmap_ion_allocated_memory(struct qseecom_dev_handle *data)
 		ion_free(qseecom.ion_clnt, data->client.ihandle);
 		memset((void *)&data->client,
 			0, sizeof(struct qseecom_client_handle));
+<<<<<<< HEAD
 	}
 	return ret;
 }
@@ -2747,6 +2748,8 @@ static int __qseecom_unload_app(struct qseecom_dev_handle *data,
 				app_id, resp.result);
 		ret = -EFAULT;
 		break;
+=======
+>>>>>>> af0badf6f43b55d788d2ead83da1d14cbd290290
 	}
 	return ret;
 }
